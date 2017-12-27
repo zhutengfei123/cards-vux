@@ -39,6 +39,7 @@ export default {
 <style lang="less" scoped>
 .header{
     background-image: linear-gradient(0deg, #FFFFFF 27%, #4386F4 100%);
+    padding-left: 0.16rem;
     .image{
       padding-top: 0.16rem;
       height:1.6rem;

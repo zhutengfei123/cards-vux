@@ -49,10 +49,9 @@ export default {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        width: 100%;
         height: 0.5rem;
         color: #fff;
-        padding: 0px 0.1rem;
+        padding: 0px 0.08rem;
         label{
             font-size: 14px;
             font-weight: bold;
