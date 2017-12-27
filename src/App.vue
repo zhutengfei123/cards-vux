@@ -1,8 +1,9 @@
 <template>
   <div id="app">
      <x-header slot="header"
-              style="width:100%;position:absolute;left:0;top:0;z-index:100;"
-              title="title">
+              title="title"
+              class="header"
+             >
      </x-header>
      <view-box ref="viewBox" body-padding-top="46px" body-padding-bottom="55px">
       <!-- remember to import BusPlugin in main.js if you use components: x-img and sticky -->
@@ -55,14 +56,15 @@
   }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 @import "~vux/src/styles/reset.less";
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  .header{
+    width:100%;position:fixed;left:0;top:0;z-index:100;
+  }
 }
 </style>
