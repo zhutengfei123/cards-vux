@@ -1,19 +1,13 @@
 <template>
   <div id="app">
-     <x-header slot="header"
-              title="title"
-              class="header">
-     </x-header>
      <view-box ref="viewBox" body-padding-top="46px" body-padding-bottom="55px">
-      <!-- remember to import BusPlugin in main.js if you use components: x-img and sticky -->
-      <transition
-          @after-enter="$vux.bus && $vux.bus.$emit('vux:after-view-enter')"
+       <x-header slot="header" title="title" class="header"></x-header>
+       <transition
           name="viewTransition" >
             <router-view class="router-view"></router-view>
-      </transition>       
-     </view-box>
-     <tabbar>
-        <tabbar-item selected>
+       </transition> 
+       <tabbar>
+        <tabbar-item selected  slot="bottom">
           <i slot="icon" class="iconfont iconcss icon-shouyeweijihuo"></i>
           <span slot="label" class="tabbar-item">首页</span>
         </tabbar-item>
@@ -29,7 +23,8 @@
           <i slot="icon" class="iconfont iconcss icon-huiyuanweijihuo"></i>
           <span slot="label" class="tabbar-item">会员</span>
         </tabbar-item>
-      </tabbar>
+      </tabbar>      
+     </view-box>
   </div>
 </template>
 
@@ -74,9 +69,4 @@
   }
 }
 </style>
-<style>
-.weui-tabbar__label{
-    line-height: unset;
-    margin:0;
-}
-</style>
+

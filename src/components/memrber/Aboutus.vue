@@ -1,7 +1,7 @@
 <template>
-    <div class="about-us">
-       <popup-header left-text="cancel" right-text="done" title="Please select your card"></popup-header>
-    </div>
+  <div>
+    <p v-for="(i,index) in 100" :key="index">{{i}}</p>
+  </div>
 </template>
 <script>
 import { PopupHeader } from 'vux'
