@@ -14,21 +14,21 @@
       </transition>       
      </view-box>
      <tabbar>
-        <tabbar-item>
+        <tabbar-item selected>
           <i slot="icon" class="iconfont iconcss icon-shouyeweijihuo"></i>
-          <span slot="label" class="iconText">首页</span>
+          <span slot="label" class="tabbar-item">首页</span>
         </tabbar-item>
         <tabbar-item >
           <i slot="icon" class="iconfont iconcss icon-fenleiweijihuo"></i>
-          <span slot="label" class="iconText">分类</span>
+          <span slot="label" class="tabbar-item">分类</span>
         </tabbar-item>
-        <tabbar-item selected badge="2"  link="">
+        <tabbar-item badge="2" link="">
           <i slot="icon" class="iconfont iconcss icon-gouwucheweijihuo"></i>
-          <span slot="label" class="iconText">购物车</span>
+          <span slot="label" class="tabbar-item">购物车</span>
         </tabbar-item>
-        <tabbar-item icon-class="iconfont">
+        <tabbar-item>
           <i slot="icon" class="iconfont iconcss icon-huiyuanweijihuo"></i>
-          <span slot="label" class="iconText">会员</span>
+          <span slot="label" class="tabbar-item">会员</span>
         </tabbar-item>
       </tabbar>
   </div>
@@ -63,8 +63,21 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+  height:100%;
   .header{
-    width:100%;position:fixed;left:0;top:0;z-index:100;
+    width:100%;position: absolute;left:0;top:0;z-index:100;
+  }
+  .iconcss{
+    font-size:0.24rem;
+  }
+  .tabbar-item{
+    font-size: 0.1rem;
   }
 }
+</style>
+<style>
+.weui-tabbar__label{
+    line-height: unset;
+    margin:0;
+  }
 </style>
