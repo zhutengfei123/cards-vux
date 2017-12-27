@@ -15,7 +15,8 @@ const createLintingRule = () => ({
   include: [resolve('src'), resolve('test')],
   options: {
     formatter: require('eslint-friendly-formatter'),
-    emitWarning: !config.dev.showEslintErrorsInOverlay
+    emitWarning: !config.dev.showEslintErrorsInOverlay,
+    fix:true
   }
 })
 
@@ -94,5 +95,11 @@ const webpackConfig = {
 
 
 module.exports = vuxLoader.merge(webpackConfig, {
-  plugins: ['vux-ui']
+  plugins: [
+    'vux-ui',
+    {
+      name: 'less-theme',
+      path: 'src/css/theme.less'
+    }
+  ]
 })

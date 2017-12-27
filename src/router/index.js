@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Index from '@/components/Index'
+import Aboutus from '@/components/memrber/Aboutus'
 Vue.use(Router)
 
 export default new Router({
@@ -9,6 +10,10 @@ export default new Router({
       path: '/',
       name: 'Index',
       component: Index
+    },
+    {
+      path: '/aboutus',
+      component: Aboutus
     }
   ]
 })
