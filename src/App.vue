@@ -2,8 +2,7 @@
   <div id="app">
      <x-header slot="header"
               title="title"
-              class="header"
-             >
+              class="header">
      </x-header>
      <view-box ref="viewBox" body-padding-top="46px" body-padding-bottom="55px">
       <!-- remember to import BusPlugin in main.js if you use components: x-img and sticky -->
@@ -79,5 +78,5 @@
 .weui-tabbar__label{
     line-height: unset;
     margin:0;
-  }
+}
 </style>

@@ -13,6 +13,7 @@
       <scroller color="red" title="欢喜节庆系列"></scroller>
       <div class="hot">
            <p>热门主推</p>
+           <ul><card v-for="recommend of recommends" :key="recommend.id" :item="recommend"></card></ul>  
       </div>
   </div>
 </template>
@@ -21,17 +22,19 @@
 import header from './header'
 import scroller from './scroller'
 import {XImg} from 'vux'
+import Card from './card'
 export default {
   name: 'Index',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      recommends: []
     }
   },
   components: {
     lHeader: header,
     scroller,
-    XImg
+    XImg,
+    Card
   }
 }
 </script>
