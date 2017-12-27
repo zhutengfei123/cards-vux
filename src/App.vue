@@ -1,15 +1,10 @@
 <template>
   <div id="app">
-      <x-header slot="header"
+     <x-header slot="header"
               style="width:100%;position:absolute;left:0;top:0;z-index:100;"
-            
-              title="title"
-             >
-    </x-header>
+              title="title">
+     </x-header>
      <view-box ref="viewBox" body-padding-top="46px" body-padding-bottom="55px">
-
-   
-
       <!-- remember to import BusPlugin in main.js if you use components: x-img and sticky -->
       <transition
           @after-enter="$vux.bus && $vux.bus.$emit('vux:after-view-enter')"
