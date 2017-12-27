@@ -3,11 +3,11 @@
       <lHeader :list="[]"></lHeader>
       <div class="hot">
           <p>热门主推</p>
-          <x-img src="http://a.hiphotos.baidu.com/image/pic/item/c75c10385343fbf29a4fa1e9b97eca8064388f9c.jpg"></x-img>
-          <x-img src="http://a.hiphotos.baidu.com/image/pic/item/c75c10385343fbf29a4fa1e9b97eca8064388f9c.jpg"></x-img>
+          <x-img src="http://lgjweb.oss-cn-hangzhou.aliyuncs.com/webs/wx-login/images/logo.png?x-oss-process=image/format,jpg" webp-src="http://lgjweb.oss-cn-hangzhou.aliyuncs.com/webs/wx-login/images/logo.png?x-oss-process=image/format,webp"></x-img>
+          <x-img src="http://lgjweb.oss-cn-hangzhou.aliyuncs.com/webs/wx-login/images/logo.png?x-oss-process=image/format,jpg" webp-src="http://lgjweb.oss-cn-hangzhou.aliyuncs.com/webs/wx-login/images/logo.png?x-oss-process=image/format,webp"></x-img>
       </div>
       <div class="hot-len">
-          <x-img src="http://a.hiphotos.baidu.com/image/pic/item/c75c10385343fbf29a4fa1e9b97eca8064388f9c.jpg"></x-img>
+          <x-img src="http://lgjweb.oss-cn-hangzhou.aliyuncs.com/webs/wx-login/images/logo.png?x-oss-process=image/format,jpg" webp-src="http://lgjweb.oss-cn-hangzhou.aliyuncs.com/webs/wx-login/images/logo.png?x-oss-process=image/format,webp"></x-img>
       </div>
       <scroller color="blue" title="经典商务系列"></scroller>
       <scroller color="red" title="欢喜节庆系列"></scroller>

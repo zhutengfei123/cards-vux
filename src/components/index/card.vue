@@ -1,15 +1,17 @@
 <template>
     <li class="card">
-        <img :src="item.image" />
+        <x-img :src="item.image" />
         <p>{{item.title}}</p>
         <p class="price">尊享价:{{item.price}}</p>
         <div class="btn" @click="addCart(item.id)">加入购物车</div>
     </li>
 </template>
 <script>
+import {XImg} from 'vux'
 export default {
   name: 'Card',
-  props: ['item']
+  props: ['item'],
+  components: {XImg}
 }
 </script>
 <style lang="less" scoped>
