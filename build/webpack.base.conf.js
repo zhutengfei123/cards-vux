@@ -96,7 +96,7 @@ const webpackConfig = {
 
 module.exports = vuxLoader.merge(webpackConfig, {
   plugins: [
-    'vux-ui','inline-manifest',
+    'vux-ui',
     {
       name: 'less-theme',
       path: 'src/css/theme.less'
