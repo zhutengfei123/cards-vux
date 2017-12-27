@@ -6,7 +6,7 @@
            </a>
            <div class="scroll-x">
                 <ul class="swiperlist">
-                    <card :item="item"></card>
+                    <card v-for="item of list" :key="item.id" :item="item"></card>
                 </ul>
            </div>
   </div>
