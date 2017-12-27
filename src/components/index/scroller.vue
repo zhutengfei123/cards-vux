@@ -1,21 +1,19 @@
 <template>
   <div class="scroller" :style="{'background-image':backgroundImage}">
-      <div>
-          <p class="title">{{ title }}</p>
-          <i></i>
-      </div>
-
-        <div>
-            <div v-for="item of list" :key="item.id">
-                <div class="card">
-                    <img class="header-image" :src="item.image"/>
-                    <p class="title">{{item.title}}</p>
-                    <p class="price">{{item.price}}</p>
-                    <button class="button" @click="addCart(item.id)"><p class="text">加入购物车</p></button>
-                </div>
-            </div>
-        </div>
- 
+           <a class="list-top">
+               <label>{{title}}</label>
+               <i class="iconfont icon-gengduo1"></i>
+           </a>
+           <div class="scroll-x">
+                <ul class="swiperlist">
+                    <li v-for="item in list" :key="item.id">
+                        <img :src="item.image" />
+                        <p>{{item.title}}</p>
+                        <p class="price">尊享价:{{item.price}}</p>
+                        <div class="btn" @click="addCart(item.id)">加入购物车</div>
+                    </li>
+                </ul>
+           </div>
   </div>
 </template>
 
@@ -43,42 +41,66 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less" scoped>
 .scroller{
-    .title{
-        font-family: PingFang-SC-Heavy;
-        font-size: 0.14rem;
-        color: #FFFFFF;
-        letter-spacing: -0.0034rem;
+    float: left;
+    width: 100%;
+    padding-bottom: 0.16rem;
+    margin-top: 0.15rem;
+    .scroll-x{
+        width:100%;overflow-x: scroll;
     }
-    .card{
-        background: #FFFFFF;
-        .header-image{
-            width:100%;
-            height:1.54rem;
+    .list-top{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        height: 0.5rem;
+        color: #fff;
+        padding: 0px 0.1rem;
+        label{
+            font-size: 14px;
+            font-weight: bold;
         }
-        .title{
-            font-family: PingFangSC-Regular;
-            font-size: 0.14rem;
-            color: #3C3C3C;
-            letter-spacing: -0.0034rem;
-            line-height: 0.2rem;
-        }
-        .price{
-            font-family: PingFangSC-Semibold;
-            font-size: 0.12rem;
-            color: #C61A2A;
-            letter-spacing: -0.0029rem;
-            line-height: 0.18rem;
-        }
-        .button{
-            background: #B79E74;
-            border-radius: 0.03rem;
-            height:0.24rem;
-            .text{
-                font-family: PingFangSC-Semibold;
-                font-size: 0.12rem;
-                color: #FFFFFF;
-                letter-spacing: -0.0029rem;
-                line-height: 0.24rem;
+    }
+    .swiperlist{
+        overflow-x: scroll;
+        width:100%;
+        li{
+            display: inline-block;
+            float: left;
+            width: 1.54rem;
+            height: 2rem;
+            background: #fff;
+            margin-left: 0.1rem;
+            padding:0px 0.1rem;
+            img{
+                width: 100%;
+                vertical-align: middle;
+                margin: 0.2rem 0px;
+            }
+            p{
+                font-size: 14px;
+                color: #3c3c3c;
+                overflow:hidden;
+                text-overflow:ellipsis;
+                white-space: nowrap;
+                margin: 0px 0px !important;
+            }
+            .price{
+                color: #C61A2A;
+                font-size: 12px;
+                width: 100%;
+                text-align: center;
+            }
+            .btn{
+                width: 80%;
+                height: 0.23rem;
+                text-align: center;
+                color: #B79E74;
+                margin-left: 10%;
+                float: left;
+                border-radius: 2px;
+                font-size: 12px;
+                margin-top: 0.05rem;
             }
         }
     }

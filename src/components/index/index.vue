@@ -9,7 +9,11 @@
       <div class="hot-len">
           <x-img src="http://a.hiphotos.baidu.com/image/pic/item/c75c10385343fbf29a4fa1e9b97eca8064388f9c.jpg"></x-img>
       </div>
-      <scroller></scroller>
+      <scroller color="blue" title="经典商务系列"></scroller>
+      <scroller color="red" title="欢喜节庆系列"></scroller>
+      <div class="hot">
+           <p>热门主推</p>
+      </div>
   </div>
 </template>
 
