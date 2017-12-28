@@ -55,7 +55,7 @@ export default {
       max-height: 1.3rem;
       p{
           position: absolute;
-          top:-0.17rem;
+          top:-0.27rem;
           left: 0px;
           width: 1rem;
           height: 0.3rem;

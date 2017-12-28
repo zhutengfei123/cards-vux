@@ -1,9 +1,8 @@
 <template>
   <div id="app">
-     <view-box ref="viewBox" body-padding-top="46px" body-padding-bottom="55px">
+     <view-box ref="viewBox" body-padding-top="0.46rem" body-padding-bottom="0.55rem">
        <x-header slot="header" title="title" class="header"></x-header>
-       <transition
-          name="viewTransition" >
+       <transition name="viewTransition">
             <router-view class="router-view"></router-view>
        </transition> 
        <tabbar slot="bottom">
