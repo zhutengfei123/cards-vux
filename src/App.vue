@@ -6,7 +6,7 @@
             <router-view class="router-view"></router-view>
        </transition> 
        <tabbar slot="bottom">
-        <tabbar-item v-for="(item,index) in tabs" :key="index" :selected="item.selected" :badge="item.badge">
+        <tabbar-item v-for="(item,index) in tabs" :key="index" :selected="item.selected" :badge="item.badge" :link="item.link">
           <i slot="icon" :class="`iconfont iconcss ${item.iconfont}`"></i>
           <span slot="label" class="tabbar-item">{{item.name}}</span>
         </tabbar-item>
@@ -21,7 +21,11 @@
     name: 'app',
     data () {
       return {
-        tabs: [{name: '首页', selected: true, iconfont: 'icon-shouyeweijihuo'}, {name: '分类', iconfont: 'icon-fenleiweijihuo'}, {name: '购物车', badge: 2, iconfont: 'icon-gouwucheweijihuo'}, {name: '会员', iconfont: 'icon-huiyuanweijihuo'}]
+        tabs: [
+          {name: '首页', selected: true, iconfont: 'icon-shouyeweijihuo', link: '/'},
+          {name: '分类', iconfont: 'icon-fenleiweijihuo', link: ''},
+          {name: '购物车', badge: '2', iconfont: 'icon-gouwucheweijihuo', link: ''},
+          {name: '会员', iconfont: 'icon-huiyuanweijihuo', link: '/memrber'}]
       }
     },
     components: {

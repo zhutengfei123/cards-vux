@@ -79,7 +79,6 @@ export default {
     overflow: hidden;
     img{
         width: 100%;
-        vertical-align: middle;
     }
   }
   .bottom-list{

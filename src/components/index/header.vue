@@ -1,10 +1,27 @@
 <template>
   <div class="header">
-     <swiper loop height="3rem" >
-       <swiper-item><img class="swiper-image" src="http://lgjweb.oss-cn-hangzhou.aliyuncs.com/webs/wx-login/images/logo.png?x-oss-process=image/format,jpg" webp-src="http://lgjweb.oss-cn-hangzhou.aliyuncs.com/webs/wx-login/images/logo.png?x-oss-process=image/format,webp"/><p class="title">飞象X苏宁联名卡发布</p><p class="text">强强合作，圣诞相伴</p></swiper-item>
-       <swiper-item><img class="swiper-image" src="http://lgjweb.oss-cn-hangzhou.aliyuncs.com/webs/wx-login/images/logo.png?x-oss-process=image/format,jpg" webp-src="http://lgjweb.oss-cn-hangzhou.aliyuncs.com/webs/wx-login/images/logo.png?x-oss-process=image/format,webp"/><p class="title">飞象X苏宁联名卡发布</p><p class="text">强强合作，圣诞相伴</p></swiper-item>
-       <swiper-item><img class="swiper-image" src="http://lgjweb.oss-cn-hangzhou.aliyuncs.com/webs/wx-login/images/logo.png?x-oss-process=image/format,jpg" webp-src="http://lgjweb.oss-cn-hangzhou.aliyuncs.com/webs/wx-login/images/logo.png?x-oss-process=image/format,webp"/><p class="title">飞象X苏宁联名卡发布</p><p class="text">强强合作，圣诞相伴</p></swiper-item>
-       <swiper-item><img class="swiper-image" src="http://lgjweb.oss-cn-hangzhou.aliyuncs.com/webs/wx-login/images/logo.png?x-oss-process=image/format,jpg" webp-src="http://lgjweb.oss-cn-hangzhou.aliyuncs.com/webs/wx-login/images/logo.png?x-oss-process=image/format,webp"/><p class="title">飞象X苏宁联名卡发布</p><p class="text">强强合作，圣诞相伴</p></swiper-item>
+     <swiper loop height="2.5rem" >
+       <swiper-item>
+         <div class="swiper-height">
+             <img class="swiper-image" src="http://lgjweb.oss-cn-hangzhou.aliyuncs.com/webs/wx-login/images/logo.png?x-oss-process=image/format,jpg" webp-src="http://lgjweb.oss-cn-hangzhou.aliyuncs.com/webs/wx-login/images/logo.png?x-oss-process=image/format,webp"/>
+         </div>
+         <p class="title">飞象X苏宁联名卡发布</p>
+         <p class="text">强强合作，圣诞相伴</p>
+       </swiper-item>
+       <swiper-item>
+        <div class="swiper-height">
+             <img class="swiper-image" src="http://lgjweb.oss-cn-hangzhou.aliyuncs.com/webs/wx-login/images/logo.png?x-oss-process=image/format,jpg" webp-src="http://lgjweb.oss-cn-hangzhou.aliyuncs.com/webs/wx-login/images/logo.png?x-oss-process=image/format,webp"/>
+         </div>
+         <p class="title">飞象X苏宁联名卡发布</p>
+         <p class="text">强强合作，圣诞相伴</p>
+       </swiper-item>
+       <swiper-item>
+          <div class="swiper-height">
+             <img class="swiper-image" src="http://lgjweb.oss-cn-hangzhou.aliyuncs.com/webs/wx-login/images/logo.png?x-oss-process=image/format,jpg" webp-src="http://lgjweb.oss-cn-hangzhou.aliyuncs.com/webs/wx-login/images/logo.png?x-oss-process=image/format,webp"/>
+         </div>
+         <p class="title">飞象X苏宁联名卡发布</p>
+         <p class="text">强强合作，圣诞相伴</p>
+       </swiper-item>
      </swiper>
      <div class="bar">
        <label class="focus">热点关注</label>
@@ -52,6 +69,7 @@ export default {
       letter-spacing: -0.0048rem;
       font-weight: bold;  
       line-height: 0.28rem;
+      padding-left: 0.2rem;
     }
     .text{
       font-family: PingFang-SC-Medium;
@@ -59,13 +77,14 @@ export default {
       color: #3C3C3C;
       letter-spacing: -0.0034rem;
       line-height: 0.2rem;
+      padding-left: 0.2rem;
     }
     .focus{
       color:red;
       font-size: 0.2rem;
       letter-spacing: -0.0048rem;
       font-weight: bold;
-      margin-right: 0.16rem;  
+      margin:0 0.16rem 0 0.2rem;  
     }
     .bar{
       display: flex;
@@ -73,7 +92,10 @@ export default {
       height:0.44rem;
     }
     .swiper-image{
-      height:1.6rem;
+      width: 100%;
+    }
+    .swiper-height{
+      height: 1.6rem;
     }
 }
 
