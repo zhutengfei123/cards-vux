@@ -13,7 +13,10 @@
       <scroller color="red" title="欢喜节庆系列"></scroller>
       <div class="hot">
            <p>热门主推</p>
-           <ul><card v-for="recommend of recommends" :key="recommend.id" :item="recommend"></card></ul>  
+           <div class="bottom-list">
+            <ul><card v-for="(recommend,index) of recommends" :key="recommend.id" :item="recommend" v-if="index%2===0"></card></ul>
+            <ul><card v-for="(recommend,index) of recommends" :key="recommend.id" :item="recommend" v-if="index%2===1"></card></ul>
+           </div>         
       </div>
   </div>
 </template>
@@ -77,6 +80,15 @@ export default {
     img{
         width: 100%;
         vertical-align: middle;
+    }
+  }
+  .bottom-list{
+    display:flex;
+    ul{
+      width:50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
   }
 }

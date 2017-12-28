@@ -6,22 +6,10 @@
           name="viewTransition" >
             <router-view class="router-view"></router-view>
        </transition> 
-       <tabbar>
-        <tabbar-item selected  slot="bottom">
-          <i slot="icon" class="iconfont iconcss icon-shouyeweijihuo"></i>
-          <span slot="label" class="tabbar-item">首页</span>
-        </tabbar-item>
-        <tabbar-item >
-          <i slot="icon" class="iconfont iconcss icon-fenleiweijihuo"></i>
-          <span slot="label" class="tabbar-item">分类</span>
-        </tabbar-item>
-        <tabbar-item badge="2" link="">
-          <i slot="icon" class="iconfont iconcss icon-gouwucheweijihuo"></i>
-          <span slot="label" class="tabbar-item">购物车</span>
-        </tabbar-item>
-        <tabbar-item>
-          <i slot="icon" class="iconfont iconcss icon-huiyuanweijihuo"></i>
-          <span slot="label" class="tabbar-item">会员</span>
+       <tabbar slot="bottom">
+        <tabbar-item v-for="(item,index) in tabs" :key="index" :selected="item.selected" :badge="item.badge">
+          <i slot="icon" :class="`iconfont iconcss ${item.iconfont}`"></i>
+          <span slot="label" class="tabbar-item">{{item.name}}</span>
         </tabbar-item>
       </tabbar>      
      </view-box>
@@ -29,23 +17,19 @@
 </template>
 
 <script>
-  import { Radio, Group, Cell, Badge, Drawer, Actionsheet, ButtonTab, ButtonTabItem, ViewBox, XHeader, Tabbar, TabbarItem, Loading } from 'vux'
+  import { ViewBox, XHeader, Tabbar, TabbarItem } from 'vux'
   export default {
     name: 'app',
+    data () {
+      return {
+        tabs: [{name: '首页', selected: true, iconfont: 'icon-shouyeweijihuo'}, {name: '分类', iconfont: 'icon-fenleiweijihuo'}, {name: '购物车', badge: 2, iconfont: 'icon-gouwucheweijihuo'}, {name: '会员', iconfont: 'icon-huiyuanweijihuo'}]
+      }
+    },
     components: {
-      Radio,
-      Group,
-      Cell,
-      Badge,
-      Drawer,
-      ButtonTab,
-      ButtonTabItem,
       ViewBox,
       XHeader,
       Tabbar,
-      TabbarItem,
-      Loading,
-      Actionsheet
+      TabbarItem
     }
   }
 </script>
@@ -67,6 +51,12 @@
   .tabbar-item{
     font-size: 0.1rem;
   }
+}
+</style>
+<style>
+.weui-tabbar__label{
+    line-height: unset;
+    margin:0;
 }
 </style>
 
