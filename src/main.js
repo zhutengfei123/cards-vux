@@ -3,21 +3,25 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import api from './api'
 import Vuex from 'vuex'
 import FastClick from 'fastclick'
 import store from './vuex/store'
 import { sync } from 'vuex-router-sync'
+import { WechatPlugin, BusPlugin } from 'vux'
+import * as api from './api/api'
 import './css/icons/iconfont.css'
 import './css/com.css'
 import './js/rem.js'
 FastClick.attach(document.body)
-Vue.config.productionTip = false
-
-Vue.use(Vuex)
-sync(store, router)
-
+if (process.env.NODE_ENV === 'development') {
+  Vue.config.productionTip = false
+  Vue.config.devtools = true
+}
 Vue.prototype.$api = api
+Vue.use(WechatPlugin)
+Vue.use(Vuex)
+Vue.use(BusPlugin)
+sync(store, router)
 
 /* eslint-disable no-new */
 new Vue({

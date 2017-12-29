@@ -45,6 +45,8 @@ export default {
       index: 0
     }
   },
+  mounted () {
+  },
   methods: {
     indexChange (index) {
       this.index = index
