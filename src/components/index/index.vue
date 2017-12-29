@@ -38,6 +38,14 @@ export default {
     scroller,
     XImg,
     Card
+  },
+  created () {
+    this.init()
+  },
+  methods: {
+    init () {
+
+    }
   }
 }
 </script>
