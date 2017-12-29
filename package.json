@@ -5,8 +5,7 @@
   "author": "蒯灵敏 <22376818@qq.com>",
   "private": true,
   "scripts": {
-    "hot:dev": "NODE_ENV=development webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --open",
-    "hot:prod": "NODE_ENV=prod webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --open",
+    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --open",
     "start": "npm run dev",
     "unit": "jest --config test/unit/jest.conf.js --coverage",
     "e2e": "node test/e2e/runner.js",
@@ -22,7 +21,6 @@
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",
     "vuex-router-sync": "^5.0.0",
-    "vux": "^2.7.5",
     "vux-loader": "^1.1.29"
   },
   "devDependencies": {

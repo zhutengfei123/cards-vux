@@ -23,7 +23,7 @@
       return {
         tabs: [
           {name: '首页', selected: true, iconfont: 'icon-shouyeweijihuo', link: '/'},
-          {name: '分类', iconfont: 'icon-fenleiweijihuo', link: ''},
+          {name: '分类', iconfont: 'icon-fenleiweijihuo', link: '/classification'},
           {name: '购物车', badge: '2', iconfont: 'icon-gouwucheweijihuo', link: ''},
           {name: '会员', iconfont: 'icon-huiyuanweijihuo', link: '/memrber'}]
       }

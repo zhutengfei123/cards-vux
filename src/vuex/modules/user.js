@@ -2,7 +2,7 @@
 const state = {
   user: null,
   logined: false,
-  token: '',
+  token: 'b54fbbd73628c051127db186ab744909',
   account: ''
 }
 

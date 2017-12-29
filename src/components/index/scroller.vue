@@ -60,6 +60,7 @@ export default {
     .swiperlist{
         overflow-x: scroll;
         width:100%;
+        display:flex;
     }
 }
 </style>
