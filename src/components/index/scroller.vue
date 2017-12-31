@@ -5,15 +5,17 @@
                <i class="iconfont icon-gengduo1"></i>
            </a>
            <div class="scroll-x">
-                <ul class="swiperlist">
-                    <card v-for="item of list" :key="item.id" :item="item"></card>
-                </ul>
+              <flexbox align="center" class="container">
+                <flexbox-item v-for="item of list" :key="item.id" span="154">
+                  <card :item="item"></card>
+                </flexbox-item>  
+              </flexbox>
            </div>
   </div>
 </template>
 
 <script>
-import { Scroller } from 'vux'
+import { Scroller, Flexbox, FlexboxItem } from 'vux'
 import Card from './card'
 export default {
   name: 'Scroller',
@@ -30,7 +32,9 @@ export default {
   },
   components: {
     Scroller,
-    Card
+    Card,
+    Flexbox,
+    FlexboxItem
   }
 }
 </script>
@@ -38,12 +42,14 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less" scoped>
 .scroller{
-    float: left;
-    width: 100%;
     padding-bottom: 0.16rem;
     margin-top: 0.15rem;
     .scroll-x{
-        width:100%;overflow-x: scroll;
+        width:100%;
+        overflow-x: scroll;
+        .container{
+          padding: 0 0.08rem;
+        }
     }
     .list-top{
         display: flex;
@@ -57,10 +63,6 @@ export default {
             font-weight: bold;
         }
     }
-    .swiperlist{
-        overflow-x: scroll;
-        width:100%;
-        display:flex;
-    }
+
 }
 </style>

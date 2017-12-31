@@ -45,6 +45,7 @@
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   height:100%;
+  background: #F6F6F6;
   .header{
     width:100%;position: absolute;left:0;top:0;z-index:100;
   }

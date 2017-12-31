@@ -1,57 +1,64 @@
 <template>
   <div class="index">
-      <lHeader :list="[]"></lHeader>
+      <l-header :list="[]"></l-header>
       <div class="hot">
           <p>热门主推</p>
-          <x-img src="http://lgjweb.oss-cn-hangzhou.aliyuncs.com/webs/wx-login/images/logo.png?x-oss-process=image/format,jpg" webp-src="http://lgjweb.oss-cn-hangzhou.aliyuncs.com/webs/wx-login/images/logo.png?x-oss-process=image/format,webp"></x-img>
-          <x-img src="http://lgjweb.oss-cn-hangzhou.aliyuncs.com/webs/wx-login/images/logo.png?x-oss-process=image/format,jpg" webp-src="http://lgjweb.oss-cn-hangzhou.aliyuncs.com/webs/wx-login/images/logo.png?x-oss-process=image/format,webp"></x-img>
+          <x-img src="http://lgjweb.oss-cn-hangzhou.aliyuncs.com/webs/wx-login/images/logo.png?x-oss-process=image/format,jpg" webp-src="http://lgjweb.oss-cn-hangzhou.aliyuncs.com/webs/wx-login/images/logo.png?x-oss-process=image/format,webp" container="#vux_view_box_body"></x-img>
+          <x-img src="http://lgjweb.oss-cn-hangzhou.aliyuncs.com/webs/wx-login/images/logo.png?x-oss-process=image/format,jpg" webp-src="http://lgjweb.oss-cn-hangzhou.aliyuncs.com/webs/wx-login/images/logo.png?x-oss-process=image/format,webp" container="#vux_view_box_body"></x-img>
       </div>
       <div class="hot-len">
-          <x-img src="http://lgjweb.oss-cn-hangzhou.aliyuncs.com/webs/wx-login/images/logo.png?x-oss-process=image/format,jpg" webp-src="http://lgjweb.oss-cn-hangzhou.aliyuncs.com/webs/wx-login/images/logo.png?x-oss-process=image/format,webp"></x-img>
+          <x-img src="http://lgjweb.oss-cn-hangzhou.aliyuncs.com/webs/wx-login/images/logo.png?x-oss-process=image/format,jpg" webp-src="http://lgjweb.oss-cn-hangzhou.aliyuncs.com/webs/wx-login/images/logo.png?x-oss-process=image/format,webp" container="#vux_view_box_body"></x-img>
       </div>
       <scroller v-for="block of blocks" :key="block.id" color="blue" :title="block.title" :list="block.card_list"></scroller>
       <!-- <scroller color="red" title="欢喜节庆系列"></scroller> -->
       <div class="hot">
-           <p>热门推荐</p>
-           <div class="bottom-list">
-              <ul><card v-for="(recommend,index) of recommends" :key="recommend.id" :item="recommend" v-if="index%2===0"></card></ul>
-              <ul><card v-for="(recommend,index) of recommends" :key="recommend.id" :item="recommend" v-if="index%2===1"></card></ul>
-           </div>         
+        <p>{{recommend.title}}</p>
+        <grid :cols="2">
+          <grid-item v-for="recommend of recommend.list" :key="recommend.id">
+            <card :item="recommend"></card>
+          </grid-item>
+        </grid>
       </div>
   </div>
 </template>
 
 <script>
-import header from './header'
-import scroller from './scroller'
-import { XImg } from 'vux'
+import Header from './header'
+import Scroller from './scroller'
+import { XImg, Flexbox, FlexboxItem, Grid, GridItem } from 'vux'
 import Card from './card'
 export default {
   name: 'Index',
   data () {
     return {
-      recommends: [],
+      recommend: {title: '', list: []},
       blocks: []
     }
   },
   mounted () {
-    this.$api.getblocks({ store_id: this.$store.state.global.storeId, source: 1 })
-      .then(({ result, status }) => {
-        this.blocks = result[3].block_content
-      })
+
   },
   components: {
-    lHeader: header,
-    scroller,
+    LHeader: Header,
+    Scroller,
     XImg,
-    Card
+    Card,
+    Flexbox,
+    FlexboxItem,
+    GridItem,
+    Grid
   },
   created () {
     this.init()
   },
   methods: {
     init () {
-
+      this.$api.getblocks({ store_id: this.$store.state.global.storeId, source: 1 })
+      .then(({ result, status }) => {
+        this.blocks = result[3].block_content
+        this.recommend.title = result[4].block_content.title
+        this.recommend.list = result[4].block_content.list
+      })
     }
   }
 }
@@ -60,18 +67,16 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less" scoped>
 .index {
-  background-color: #f6f6f6;
   height: 100vh;
   .hot {
     width: 100%;
-    float: left;
     position: relative;
     margin-top: 0.3rem;
     max-height: 1.3rem;
     p {
       position: absolute;
-      top: -0.17rem;
-      left: 0px;
+      top: -0.27rem;
+      left: 0;
       width: 1rem;
       height: 0.3rem;
       line-height: 0.3rem;
@@ -92,18 +97,6 @@ export default {
     width: 100%;
     height: 1.3rem;
     overflow: hidden;
-    img {
-      width: 100%;
-    }
-  }
-  .bottom-list {
-    display: flex;
-    ul {
-      width: 50%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
   }
 }
 </style>

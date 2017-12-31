@@ -1,18 +1,26 @@
 <template>
   <div class="classification">
     <div class="top-bar"></div>
-    <div class="bottom-list">
-        <ul><card v-for="(recommend,index) of recommends" :key="recommend.id" :item="recommend" v-if="index%2===0"></card></ul>
-        <ul><card v-for="(recommend,index) of recommends" :key="recommend.id" :item="recommend" v-if="index%2===1"></card></ul>
-    </div>
+    <grid :cols="2">
+      <grid-item v-for="recommend of recommend.list" :key="recommend.id">
+        <card :item="recommend"></card>
+      </grid-item>
+    </grid>    
   </div>    
 </template>
 <script>
+import {Flexbox, FlexboxItem, Grid, GridItem} from 'vux'
 export default {
   data () {
     return {
       recommends: []
     }
+  },
+  components: {
+    Flexbox,
+    FlexboxItem,
+    GridItem,
+    Grid
   }
 }
 </script>
@@ -21,17 +29,6 @@ export default {
     .top-bar{
         height:0.44rem;
         width:100%;
-    }
-    .bottom-list{
-        display:flex;
-        padding-top: 0.08rem;
-        ul{
-            padding:0.08rem;
-            width:50%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
     }
 }
 </style>

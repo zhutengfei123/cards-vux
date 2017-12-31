@@ -10,7 +10,6 @@ import { sync } from 'vuex-router-sync'
 import { WechatPlugin, BusPlugin } from 'vux'
 import * as api from './api/api'
 import './css/icons/iconfont.css'
-import './css/com.css'
 import './js/rem.js'
 FastClick.attach(document.body)
 if (process.env.NODE_ENV === 'development') {
@@ -21,6 +20,9 @@ Vue.prototype.$api = api
 Vue.use(WechatPlugin)
 Vue.use(Vuex)
 Vue.use(BusPlugin)
+if (!Vue.prototype.$vux) {
+  Vue.prototype.$vux = Vue.$vux
+}
 sync(store, router)
 
 /* eslint-disable no-new */

@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Memrber from '@/components/memrber/Index'
-import Index from '@/components/index/index'
-import Classification from '@/components/classification/index'
+const Memrber = () => import('@/components/memrber/Index')
+const Index = () => import('@/components/index/index')
+const Classification = () => import('@/components/classification/index')
 Vue.use(Router)
 
 export default new Router({
