@@ -54,7 +54,7 @@ export default {
   methods: {
     init () {
       this.$api.getblocks({ store_id: this.$store.state.global.storeId, source: 1 })
-      .then(({ result, status }) => {
+      .then(({ result, status: {code, msg} }) => {
         this.blocks = result[3].block_content
         this.recommend.title = result[4].block_content.title
         this.recommend.list = result[4].block_content.list
@@ -67,12 +67,10 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less" scoped>
 .index {
-  height: 100vh;
   .hot {
     width: 100%;
     position: relative;
     margin-top: 0.3rem;
-    max-height: 1.3rem;
     p {
       position: absolute;
       top: -0.27rem;
@@ -86,6 +84,7 @@ export default {
       color: #fff;
       font-weight: bold;
       font-size: 0.16rem;
+      z-index:50;
     }
     img {
       width: 50%;

@@ -25,6 +25,7 @@ export default {
     flex-direction: column;
     padding:0.08rem;
     background: #FFFFFF;
+    text-decoration: none;
     img{
         width: 100%;
         vertical-align: middle;

@@ -9,7 +9,6 @@ import store from './vuex/store'
 import { sync } from 'vuex-router-sync'
 import { WechatPlugin, BusPlugin } from 'vux'
 import * as api from './api/api'
-import './css/icons/iconfont.css'
 import './js/rem.js'
 FastClick.attach(document.body)
 if (process.env.NODE_ENV === 'development') {
