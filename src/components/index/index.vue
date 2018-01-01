@@ -1,6 +1,6 @@
 <template>
   <div class="index">
-      <l-header :list="[]"></l-header>
+      <l-header :header-images="headerImages" :focus="focus.list" :title="focus.title"></l-header>
       <div class="hot">
           <p>热门主推</p>
           <x-img src="http://lgjweb.oss-cn-hangzhou.aliyuncs.com/webs/wx-login/images/logo.png?x-oss-process=image/format,jpg" webp-src="http://lgjweb.oss-cn-hangzhou.aliyuncs.com/webs/wx-login/images/logo.png?x-oss-process=image/format,webp" container="#vux_view_box_body"></x-img>
@@ -9,7 +9,7 @@
       <div class="hot-len">
           <x-img src="http://lgjweb.oss-cn-hangzhou.aliyuncs.com/webs/wx-login/images/logo.png?x-oss-process=image/format,jpg" webp-src="http://lgjweb.oss-cn-hangzhou.aliyuncs.com/webs/wx-login/images/logo.png?x-oss-process=image/format,webp" container="#vux_view_box_body"></x-img>
       </div>
-      <scroller v-for="block of blocks" :key="block.id" color="blue" :title="block.title" :list="block.card_list"></scroller>
+      <scroller v-for="scroller of scrollers" :key="scroller.id" color="blue" :title="scroller.title" :list="scroller.card_list"></scroller>
       <!-- <scroller color="red" title="欢喜节庆系列"></scroller> -->
       <div class="hot">
         <p>{{recommend.title}}</p>
@@ -26,17 +26,20 @@
 import Header from './header'
 import Scroller from './scroller'
 import { XImg, Flexbox, FlexboxItem, Grid, GridItem } from 'vux'
+import { mapState, mapActions } from 'vuex'
 import Card from './card'
 export default {
   name: 'Index',
-  data () {
-    return {
-      recommend: {title: '', list: []},
-      blocks: []
-    }
-  },
-  mounted () {
 
+  computed: {
+    ...mapState('index', {
+      route: 'route',
+      recommend: ({recommend}) => recommend,
+      mainRecommend: ({mainRecommend}) => mainRecommend,
+      scrollers: ({scrollers}) => scrollers,
+      headerImages: ({headerImages}) => headerImages,
+      focus: ({focus}) => focus
+    })
   },
   components: {
     LHeader: Header,
@@ -48,18 +51,13 @@ export default {
     GridItem,
     Grid
   },
-  created () {
-    this.init()
-  },
+
   methods: {
-    init () {
-      this.$api.getblocks({ store_id: this.$store.state.global.storeId, source: 1 })
-      .then(({ result, status: {code, msg} }) => {
-        this.blocks = result[3].block_content
-        this.recommend.title = result[4].block_content.title
-        this.recommend.list = result[4].block_content.list
-      })
-    }
+    ...mapActions('index', {init: 'init'})
+  },
+
+  created () {
+    this.init().catch(error => console.log(error))
   }
 }
 </script>

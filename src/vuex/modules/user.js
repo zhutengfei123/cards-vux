@@ -7,13 +7,16 @@ const state = {
 }
 
 const actions = {
-
+  async login () {},
+  async register () {}
 }
 
 const mutations = {
+  setUser () {}
 }
 
 export default {
+  namespaced: true,
   state,
   actions,
   mutations

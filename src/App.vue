@@ -17,6 +17,7 @@
 
 <script>
   import { ViewBox, XHeader, Tabbar, TabbarItem } from 'vux'
+  import {mapState} from 'vuex'
   export default {
     name: 'app',
     data () {
@@ -29,7 +30,9 @@
       }
     },
     computed: {
-      title () { return this.$store.state.global.title }
+      ...mapState('global', {
+        title: ({title}) => title
+      })
     },
     components: {
       ViewBox,
