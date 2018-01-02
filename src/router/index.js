@@ -15,10 +15,12 @@ const router = new Router({
     },
     {
       path: '/memrber',
+      name: '会员',
       component: Memrber
     },
     {
       path: '/classification',
+      name: '分类',
       component: Classification
     },
     { path: '*' }
@@ -29,7 +31,7 @@ const router = new Router({
   }
 })
 router.beforeEach((to, from, next) => {
-  store.commit('setTitle', to.name)
+  store.commit('global/setTitle', to.name)
   next()
 })
 export default router

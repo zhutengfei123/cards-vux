@@ -5,7 +5,7 @@
       <grid-item v-for="recommend of recommend.list" :key="recommend.id">
         <card :item="recommend"></card>
       </grid-item>
-    </grid>    
+    </grid>   
   </div>    
 </template>
 <script>

@@ -1,18 +1,18 @@
 <template>
   <div class="header">
      <swiper loop height="2.5rem" ref="swiper">
-       <swiper-item v-for="i in 5" :key="i">
+       <swiper-item v-for="image of headerImages" :key="image.id">
          <div class="swiper-height">
-             <img class="swiper-image" src="http://lgjweb.oss-cn-hangzhou.aliyuncs.com/webs/wx-login/images/logo.png?x-oss-process=image/format,jpg"/>
+             <img class="swiper-image" :src="`${image.pic_url.split('?')[0]}?x-oss-process=image/format,jpg`"/>
          </div>
-         <p class="title">飞象X苏宁联名卡发布</p>
-         <p class="text">强强合作，圣诞相伴</p>
+         <p class="title">{{image.title}}</p>
+         <p class="text">{{image.describe}}</p>
        </swiper-item>
      </swiper>
     <marquee :item-height="56">
-      <marquee-item v-for="i in 5" :key="i" class="marquee-height">
-          <span class="focus">热点关注</span>
-          <span class="text">飞象企服新版本12月8日正式上线！</span>
+      <marquee-item v-for="item of focus" :key="item.id" class="marquee-height">
+          <span class="focus">{{title}}</span>
+          <span class="text">{{item.title}}</span>
       </marquee-item>
     </marquee>
   </div>
@@ -28,13 +28,11 @@ export default {
     Marquee,
     MarqueeItem
   },
-  props: {list: Array},
+  props: {headerImages: Array, focus: Array, title: String},
   data () {
     return {
       index: 0
     }
-  },
-  mounted () {
   },
   methods: {
     indexChange (index) {
@@ -78,6 +76,7 @@ export default {
     }
     .swiper-height{
       height: 1.6rem;
+      overflow: hidden;
     }
     .marquee-height{
       height:56px;

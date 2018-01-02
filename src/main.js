@@ -7,7 +7,7 @@ import Vuex from 'vuex'
 import FastClick from 'fastclick'
 import store from './vuex/store'
 import { sync } from 'vuex-router-sync'
-import { WechatPlugin, BusPlugin } from 'vux'
+import { WechatPlugin, BusPlugin, DevicePlugin } from 'vux'
 import * as api from './api/api'
 import './js/rem.js'
 FastClick.attach(document.body)
@@ -16,9 +16,13 @@ if (process.env.NODE_ENV === 'development') {
   Vue.config.devtools = true
 }
 Vue.prototype.$api = api
-Vue.use(WechatPlugin)
+
 Vue.use(Vuex)
+
+Vue.use(WechatPlugin)
 Vue.use(BusPlugin)
+Vue.use(DevicePlugin)
+
 if (!Vue.prototype.$vux) {
   Vue.prototype.$vux = Vue.$vux
 }
