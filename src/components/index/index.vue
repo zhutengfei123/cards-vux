@@ -1,36 +1,41 @@
 <template>
   <div class="index">
       <l-header :header-images="headerImages" :focus="focus.list" :title="focus.title"></l-header>
-      <div class="hot">
-          <p>热门主推</p>
-          <x-img src="http://lgjweb.oss-cn-hangzhou.aliyuncs.com/webs/wx-login/images/logo.png?x-oss-process=image/format,jpg" webp-src="http://lgjweb.oss-cn-hangzhou.aliyuncs.com/webs/wx-login/images/logo.png?x-oss-process=image/format,webp" container="#vux_view_box_body"></x-img>
-          <x-img src="http://lgjweb.oss-cn-hangzhou.aliyuncs.com/webs/wx-login/images/logo.png?x-oss-process=image/format,jpg" webp-src="http://lgjweb.oss-cn-hangzhou.aliyuncs.com/webs/wx-login/images/logo.png?x-oss-process=image/format,webp" container="#vux_view_box_body"></x-img>
-      </div>
-      <div class="hot-len">
-          <x-img src="http://lgjweb.oss-cn-hangzhou.aliyuncs.com/webs/wx-login/images/logo.png?x-oss-process=image/format,jpg" webp-src="http://lgjweb.oss-cn-hangzhou.aliyuncs.com/webs/wx-login/images/logo.png?x-oss-process=image/format,webp" container="#vux_view_box_body"></x-img>
+      <div class="block image-block">
+        <p class="recommend-title">{{mainRecommend.title}}</p>
+        <template v-for="(item,index) of mainRecommend.list">
+          <div :key="index" class="hot" v-if="item.show_type===1&&index%2===0">
+              <x-img :src="`${item.pic_url.split('?')[0]}?x-oss-process=image/format,jpg`" :webp-src="`${item.pic_url.split('?')[0]}?x-oss-process=image/format,webp`" container="#vux_view_box_body"></x-img>
+              <x-img :src="`${mainRecommend.list[index+1].pic_url.split('?')[0]}?x-oss-process=image/format,jpg`" :webp-src="`${mainRecommend.list[index+1].pic_url.split('?')[0]}?x-oss-process=image/format,webp`" container="#vux_view_box_body"></x-img>
+          </div>
+          <div :key="index" class="hot-len" v-else-if="item.show_type===2">
+              <x-img :src="`${item.pic_url.split('?')[0]}?x-oss-process=image/format,jpg`" :webp-src="`${item.pic_url.split('?')[0]}?x-oss-process=image/format,webp`" container="#vux_view_box_body"></x-img>
+          </div>
+        </template>
       </div>
       <scroller v-for="scroller of scrollers" :key="scroller.id" color="blue" :title="scroller.title" :list="scroller.card_list"></scroller>
       <!-- <scroller color="red" title="欢喜节庆系列"></scroller> -->
-      <div class="hot">
-        <p>{{recommend.title}}</p>
+      <div class="hot block">
+        <p class="recommend-title">{{recommend.title}}</p>
         <grid :cols="2">
-          <grid-item v-for="recommend of recommend.list" :key="recommend.id">
-            <card :item="recommend"></card>
+          <grid-item v-for="item of recommend.list" :key="item.id">
+            <card :item="item"></card>
           </grid-item>
         </grid>
       </div>
+      <load-more tip="正在加载" v-show="loading" ref="loadMore"></load-more>
   </div>
 </template>
 
 <script>
 import Header from './header'
 import Scroller from './scroller'
-import { XImg, Flexbox, FlexboxItem, Grid, GridItem } from 'vux'
+import { XImg, Flexbox, FlexboxItem, Grid, GridItem, LoadMore } from 'vux'
 import { mapState, mapActions } from 'vuex'
 import Card from './card'
 export default {
   name: 'Index',
-
+  data () { return {loading: false, page: 2, pageSize: 6} },
   computed: {
     ...mapState('index', {
       route: 'route',
@@ -49,15 +54,28 @@ export default {
     Flexbox,
     FlexboxItem,
     GridItem,
-    Grid
+    Grid,
+    LoadMore
   },
 
   methods: {
-    ...mapActions('index', {init: 'init'})
+    ...mapActions('index', {init: 'init', loadMore: 'loadMore'})
   },
 
   created () {
     this.init().catch(error => console.log(error))
+  },
+  mounted () {
+    const element = document.querySelector('#vux_view_box_body')
+    element.addEventListener('scroll', () => {
+      if (element.scrollTop + element.clientHeight >= element.scrollHeight && !this.loading) {
+        this.loading = true
+        this.loadMore({page: this.page, pageSize: this.pageSize}).then(() => {
+          this.loading = false
+          element.scrollTop -= (this.$refs.loadMore.$el.getBoundingClientRect().height + 10)
+        }).catch(error => console.log(error))
+      }
+    })
   }
 }
 </script>
@@ -65,11 +83,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less" scoped>
 .index {
-  .hot {
-    width: 100%;
-    position: relative;
-    margin-top: 0.3rem;
-    p {
+  .recommend-title{
       position: absolute;
       top: -0.27rem;
       left: 0;
@@ -83,11 +97,21 @@ export default {
       font-weight: bold;
       font-size: 0.16rem;
       z-index:50;
-    }
+  }
+  .hot {
+    width: 100%;
+    position: relative;
     img {
       width: 50%;
       vertical-align: middle;
       float: left;
+    }
+  }
+  .block{
+    margin:0.16rem 0;
+    &.image-block{      
+      width: 100%;
+      position: relative;
     }
   }
   .hot-len {
