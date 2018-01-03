@@ -2,8 +2,8 @@
   <div class="classification">
     <div class="top-bar"></div>
     <grid :cols="2">
-      <grid-item v-for="recommend of recommend.list" :key="recommend.id">
-        <card :item="recommend"></card>
+      <grid-item v-for="item of recommend.list" :key="item.id">
+        <card :item="item"></card>
       </grid-item>
     </grid>   
   </div>    
@@ -13,7 +13,10 @@ import {Flexbox, FlexboxItem, Grid, GridItem} from 'vux'
 export default {
   data () {
     return {
-      recommends: []
+      recommend: [],
+      showType: '',
+      order: '',
+      env: ''
     }
   },
   components: {

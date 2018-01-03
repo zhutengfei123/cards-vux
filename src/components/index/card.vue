@@ -3,7 +3,7 @@
         <x-img container="#vux_view_box_body" :src="`${item.pic_url.split('?')[0]}?x-oss-process=image/format,jpg`" :webp-src="`${item.pic_url.split('?')[0]}?x-oss-process=image/format,webp`"/>
         <p>{{item.name}}</p>
         <p class="price">尊享价:{{item.price}}</p>
-        <x-button mini class="btn-color" @click="addCart(item.id)">加入购物车</x-button>
+        <x-button mini class="btn-color" @click.native="addCart(item.id)">加入购物车</x-button>
     </div>
 </template>
 <script>

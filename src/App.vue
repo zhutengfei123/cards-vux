@@ -7,7 +7,7 @@
        </transition> 
        <tabbar slot="bottom">
         <tabbar-item v-for="(item,index) in tabs" :key="index" :selected="item.selected" :badge="item.badge" :link="item.link">
-          <span slot="icon" :class="`app-icon`" v-html="item.iconfont"></span>
+          <span slot="icon" class="app-icon" v-html="item.iconfont"></span>
           <span slot="label" class="tabbar-item">{{item.name}}</span>
         </tabbar-item>
        </tabbar>      
@@ -25,7 +25,7 @@
         tabs: [
           {name: '首页', selected: true, iconfont: '&#58972;', link: '/'},
           {name: '分类', iconfont: '&#58965;', link: '/classification'},
-          {name: '购物车', badge: '2', iconfont: '&#58971;', link: ''},
+          {name: '购物车', badge: '2', iconfont: '&#58971;', link: '/cart'},
           {name: '会员', iconfont: '&#58967;', link: '/memrber'}]
       }
     },
