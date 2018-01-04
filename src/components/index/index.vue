@@ -33,17 +33,20 @@ import Scroller from './scroller'
 import { XImg, Flexbox, FlexboxItem, Grid, GridItem, LoadMore } from 'vux'
 import { mapState, mapActions } from 'vuex'
 import Card from './card'
+import {isBottom} from '../../js'
 export default {
   name: 'Index',
   data () { return {loading: false, page: 2, pageSize: 6} },
   computed: {
     ...mapState('index', {
-      route: 'route',
       recommend: ({recommend}) => recommend,
       mainRecommend: ({mainRecommend}) => mainRecommend,
       scrollers: ({scrollers}) => scrollers,
       headerImages: ({headerImages}) => headerImages,
       focus: ({focus}) => focus
+    }),
+    ...mapState({
+      route: 'route'
     })
   },
   components: {
@@ -67,14 +70,13 @@ export default {
   },
   mounted () {
     const element = document.querySelector('#vux_view_box_body')
-    element.addEventListener('scroll', () => {
-      if (element.scrollTop + element.clientHeight >= element.scrollHeight && !this.loading) {
-        this.loading = true
-        this.loadMore({page: this.page, pageSize: this.pageSize}).then(() => {
-          this.loading = false
-          element.scrollTop -= (this.$refs.loadMore.$el.getBoundingClientRect().height + 10)
-        }).catch(error => console.log(error))
-      }
+    isBottom(element, () => {
+      this.loading = true
+      this.loadMore({page: this.page, pageSize: this.pageSize}).then(() => {
+        this.loading = false
+        this.page++
+        element.scrollTop -= (this.$refs.loadMore.$el.getBoundingClientRect().height + 10)
+      }).catch(error => console.log(error))
     })
   }
 }

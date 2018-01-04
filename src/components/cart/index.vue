@@ -1,11 +1,14 @@
 <template>
     <div class="cart">
         <flexbox align="center" justify="space-between" class="top-bar" ref="topBar">
-            <p class="text">共{{list.length}}件</p>
-            <p class="text button" @click.native="edit">编辑</p>
+            <p class="text padding">共{{staticCount()}}件</p>
+            <p class="text button padding" @click.native="edit">编辑</p>
         </flexbox>
-        <flexbox orient="vertical" align="center" justify="center" :style="{marginTop:this.marginTop+'px'}">
-            <flexbox-item v-for="item of list" :key="item.id">
+        <flexbox orient="vertical" class="block" v-for="(block,index) of blocks" :key="index" align="center" justify="center" :style="{marginTop:marginTop+'px'}">
+            <flexbox-item>
+                <check-icon class="text check-icon">{{block.title}}</check-icon>
+            </flexbox-item>
+            <flexbox-item v-for="item of block.list" :key="item.id" class="divider">
                 <item :item="item"></item>
             </flexbox-item>
         </flexbox>
@@ -29,11 +32,20 @@ export default {
   data () {
     return {
       marginTop: 0,
-      list: [{select: true, title: '飞象X苏宁联名圣诞卡 面值500元', price: 49000, count: 1, pic_url: ''}]}
+      blocks: [{title: '京东自营', list: [{select: true, title: '飞象X苏宁联名圣诞卡 面值500元', price: 49000, count: 1, pic_url: ''}]}]
+    }
   },
   mounted () {
     const rect = this.$refs.topBar.$el.getBoundingClientRect()
-    this.marginTop = rect.height
+    this.marginTop = rect.height + 16
+  },
+  methods: {
+    staticCount () {
+      let sum = 0
+      this.blocks.map(({list}) => { sum += list.length })
+      return sum
+    },
+    edit () {}
   },
   components: {Flexbox, FlexboxItem, Item, XButton, CheckIcon}
 }
@@ -41,17 +53,26 @@ export default {
 <style lang="less" scoped>
 .cart{
     .top-bar{
-        background: #ffffff;
-        padding: 0.08rem 0;
+        background: #ffffff;  
         position: fixed;
         top:46px;
     }
     .text{
         font-size: 0.14rem;
         letter-spacing: -0.0034rem;
-        padding: 0 0.08rem;
+        line-height:0.16rem;
         &.button{
             color: #B79E74;
+        }
+        &.padding{
+            padding: 0 0.08rem;
+        }
+    }
+    .block{
+        background: #ffffff;
+        margin:0.16rem 0; 
+        .divider{
+            border-top:1px solid #D9D9D9;
         }
     }
     .bottom-bar{
@@ -61,6 +82,11 @@ export default {
         .btn{
             border-radius: unset;
         }
+    }
+    .check-icon{
+        display:flex;
+        align-items: center;
+        padding:0.16rem 0;
     }
 }
 </style>
