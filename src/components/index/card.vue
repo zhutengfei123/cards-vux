@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <x-img container="#vux_view_box_body" :src="`${item.pic_url.split('?')[0]}?x-oss-process=image/format,jpg`" :webp-src="`${item.pic_url.split('?')[0]}?x-oss-process=image/format,webp`"/>
+        <x-img container="#vux_view_box_body" :src="`${item.pic_url.split('?')[0]}?x-oss-process=image/resize,w_${imgWidth}/format,jpg`" :webp-src="`${item.pic_url.split('?')[0]}?x-oss-process=image/resize,w_${imgWidth}/format,webp`"/>
         <p>{{item.name}}</p>
         <p class="price">尊享价:{{item.price}}</p>
         <x-button mini @click.native="addCart(item.id)">加入购物车</x-button>
@@ -12,6 +12,11 @@ export default {
   name: 'Card',
   props: {item: Object},
   components: {XImg, XButton},
+  data () {
+    return {
+      imgWidth: screen.width / 2
+    }
+  },
   methods: {
     addCart (id) {
       console.log(id)

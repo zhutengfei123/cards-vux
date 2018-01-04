@@ -5,11 +5,11 @@
         <p class="recommend-title">{{mainRecommend.title}}</p>
         <template v-for="(item,index) of mainRecommend.list">
           <div :key="index" class="hot" v-if="item.show_type===1&&index%2===0">
-              <x-img :src="`${item.pic_url.split('?')[0]}?x-oss-process=image/format,jpg`" :webp-src="`${item.pic_url.split('?')[0]}?x-oss-process=image/format,webp`" container="#vux_view_box_body"></x-img>
-              <x-img :src="`${mainRecommend.list[index+1].pic_url.split('?')[0]}?x-oss-process=image/format,jpg`" :webp-src="`${mainRecommend.list[index+1].pic_url.split('?')[0]}?x-oss-process=image/format,webp`" container="#vux_view_box_body"></x-img>
+              <x-img :src="`${item.pic_url.split('?')[0]}?x-oss-process=image/resize,w_${imgWidth/2}/format,jpg`" :webp-src="`${item.pic_url.split('?')[0]}?x-oss-process=image/resize,w_${imgWidth/2}/format,webp`" container="#vux_view_box_body"></x-img>
+              <x-img :src="`${mainRecommend.list[index+1].pic_url.split('?')[0]}?x-oss-process=image/resize,w_${imgWidth/2}/format,jpg`" :webp-src="`${mainRecommend.list[index+1].pic_url.split('?')[0]}?x-oss-process=image/resize,w_${imgWidth/2}/format,webp`" container="#vux_view_box_body"></x-img>
           </div>
           <div :key="index" class="hot-len" v-else-if="item.show_type===2">
-              <x-img :src="`${item.pic_url.split('?')[0]}?x-oss-process=image/format,jpg`" :webp-src="`${item.pic_url.split('?')[0]}?x-oss-process=image/format,webp`" container="#vux_view_box_body"></x-img>
+              <x-img :src="`${item.pic_url.split('?')[0]}?x-oss-process=image/resize,w_${imgWidth}/format,jpg`" :webp-src="`${item.pic_url.split('?')[0]}?x-oss-process=image/resize,w_${imgWidth}/format,webp`" container="#vux_view_box_body"></x-img>
           </div>
         </template>
       </div>
@@ -31,19 +31,20 @@
 import Header from './header'
 import Scroller from './scroller'
 import { XImg, Flexbox, FlexboxItem, Grid, GridItem, LoadMore } from 'vux'
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapMutations } from 'vuex'
 import Card from './card'
 import {isBottom} from '../../js'
 export default {
   name: 'Index',
-  data () { return {loading: false, page: 2, pageSize: 6} },
+  data () { return {loading: false, page: 2, pageSize: 6, imgWidth: screen.width} },
   computed: {
     ...mapState('index', {
       recommend: ({recommend}) => recommend,
       mainRecommend: ({mainRecommend}) => mainRecommend,
       scrollers: ({scrollers}) => scrollers,
       headerImages: ({headerImages}) => headerImages,
-      focus: ({focus}) => focus
+      focus: ({focus}) => focus,
+      inited: 'inited'
     }),
     ...mapState({
       route: 'route'
@@ -62,11 +63,14 @@ export default {
   },
 
   methods: {
-    ...mapActions('index', {init: 'init', loadMore: 'loadMore'})
+    ...mapActions('index', {init: 'init', loadMore: 'loadMore'}),
+    ...mapMutations('index', {setInit: ({init}) => init})
   },
 
   created () {
-    this.init().catch(error => console.log(error))
+    if (!this.inited) {
+      this.init().then(() => { this.setInit(true) }).catch(error => console.log(error))
+    }
   },
   mounted () {
     const element = document.querySelector('#vux_view_box_body')

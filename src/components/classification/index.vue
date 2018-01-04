@@ -1,34 +1,57 @@
 <template>
   <div class="classification">
-    <tab bar-active-color="transparent">
+    <tab bar-active-color="transparent" class="tab" ref="topBar">
       <tab-item @on-item-click="">主题</tab-item>
       <tab-item @on-item-click="">对象</tab-item>
       <tab-item @on-item-click="">场合</tab-item>
       <tab-item @on-item-click="">排序</tab-item>
     </tab>
-    <grid :cols="2">
+    <grid :cols="2" v-show="showType==='card'" :style="{paddingTop}">
       <grid-item v-for="item of list" :key="item.id">
         <card :item="item"></card>
       </grid-item>
     </grid>
-     <load-more tip="正在加载" v-show="loading" ref="loadMore"></load-more>   
+    <flexbox orient="vertical" v-show="showType==='list'" :style="{paddingTop}">
+      <flexbox-item v-for="item of list" :key="item.id" class="card">
+        <flexbox align="center">
+          <flexbox-item :span="0.4" class="image">
+            <x-img :src="`${item.pic_url.split('?')[0]}?x-oss-process=image/format,jpg`" :webp-src="`${item.pic_url.split('?')[0]}?x-oss-process=image/format,webp`" container="#vux_view_box_body"/>
+          </flexbox-item>
+          <flexbox-item :span="0.6">
+            <flexbox orient="vertical" >
+              <flexbox-item>
+                <p class="title">{{item.name}}</p>
+              </flexbox-item>
+              <flexbox-item>
+                <flexbox align="center">
+                  <p class="price">尊享价:￥{{item.price}}</p>
+                  <x-button mini>加入购物车</x-button>
+                </flexbox>
+              </flexbox-item>
+            </flexbox>
+          </flexbox-item>
+        </flexbox>
+      </flexbox-item>
+    </flexbox>
+    <load-more tip="正在加载" v-show="loading" ref="loadMore"></load-more>   
   </div>    
 </template>
 <script>
 import {mapState, mapMutations, mapActions} from 'vuex'
-import {Tab, TabItem, Flexbox, FlexboxItem, Grid, GridItem, LoadMore} from 'vux'
+import {Tab, TabItem, Flexbox, FlexboxItem, Grid, GridItem, LoadMore, XButton, XImg} from 'vux'
 import {isBottom} from '../../js'
 import Card from '../index/card'
 export default {
   data () {
     return {
-      showType: '',
+      showType: 'list',
       order: '',
       orderType: '',
       category: '',
       page: 1,
       pageSize: 10,
-      loading: false
+      loading: false,
+      paddingTop: 0
     }
   },
   components: {
@@ -39,7 +62,9 @@ export default {
     GridItem,
     Grid,
     LoadMore,
-    Card
+    Card,
+    XButton,
+    XImg
   },
   watch: {
     orderType () {
@@ -48,19 +73,25 @@ export default {
   },
   computed: {
     ...mapState('products', {
-      list: 'list'
+      list: 'list',
+      inited: 'inited'
     })
   },
   methods: {
-    ...mapActions('products', {getProducts: 'getProducts'}),
-    ...mapMutations('products', {resetList: 'resetList'})
+    ...mapActions('products', {getProducts: 'getProducts', loadMore: 'loadMore'}),
+    ...mapMutations('products', {resetList: 'resetList', setInit: 'setInit'})
   },
   created () {
-    this.getProducts({page: this.page, pageSize: this.pageSize}).then(() => {
-      this.page++
-    }).catch(error => console.log(error))
+    if (!this.inited) {
+      this.getProducts({page: this.page, pageSize: this.pageSize}).then(() => {
+        this.page++
+        this.setInit(true)
+      }).catch(error => console.log(error))
+    }
   },
   mounted () {
+    const rect = this.$refs.topBar.$el.getBoundingClientRect()
+    this.paddingTop = rect.height + 16 + 'px'
     const element = document.querySelector('#vux_view_box_body')
     isBottom(element, () => {
       this.loading = true
@@ -78,6 +109,27 @@ export default {
     .top-bar{
         height:0.44rem;
         width:100%;
+    }
+    .title{
+      font-size: 0.14rem;
+      color: #3C3C3C;
+      letter-spacing: -0.0034rem;
+    }
+    .image{
+      display: flex;
+      align-items: center;
+    }
+    .price{
+      font-size: 0.14rem;
+      color: #DF1C2E;
+      letter-spacing: -0.0034rem;
+    }
+    .card{
+      background: #ffffff;
+    }
+    .tab{
+      position: fixed;
+      width: 100%;
     }
 }
 </style>
