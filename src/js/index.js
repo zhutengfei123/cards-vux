@@ -1,3 +1,3 @@
-export {default as ajax} from './ajax'
+export {default as axios} from './ajax'
 export * from './load'
 export * from './rem'

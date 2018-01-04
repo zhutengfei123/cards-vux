@@ -5,6 +5,7 @@ const Memrber = () => import('@/components/memrber/Index')
 const Index = () => import('@/components/index/index')
 const Classification = () => import('@/components/classification/index')
 const Cart = () => import('@/components/cart/index')
+const Detail = () => import('@/components/detail/index')
 Vue.use(Router)
 
 const router = new Router({
@@ -25,6 +26,7 @@ const router = new Router({
       component: Classification
     },
     {path: '/cart', name: '购物车', component: Cart},
+    {path: '/detail', name: '商品详情', component: Detail},
     { path: '*' }
   ],
   mode: 'history',

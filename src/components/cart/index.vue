@@ -4,7 +4,7 @@
             <p class="text padding">共{{staticCount()}}件</p>
             <p class="text button padding" @click.native="edit">编辑</p>
         </flexbox>
-        <flexbox orient="vertical" class="block" v-for="(block,index) of blocks" :key="index" align="center" justify="center" :style="{marginTop:marginTop+'px'}">
+        <flexbox orient="vertical" class="block" v-for="(block,index) of blocks" :key="index" align="center" justify="center" :style="{paddingTop}">
             <flexbox-item>
                 <check-icon class="text check-icon">{{block.title}}</check-icon>
             </flexbox-item>
@@ -18,7 +18,7 @@
                     <check-icon class="text">全选</check-icon>
                 </flexbox>
             </flexbox-item>
-            <flexbox-item :spam="0.3">
+            <flexbox-item :span="0.3">
                 <x-button class="btn">删除</x-button>
             </flexbox-item>
         </flexbox>
@@ -31,13 +31,13 @@ export default {
   name: 'cart',
   data () {
     return {
-      marginTop: 0,
+      paddingTop: 0,
       blocks: [{title: '京东自营', list: [{select: true, title: '飞象X苏宁联名圣诞卡 面值500元', price: 49000, count: 1, pic_url: ''}]}]
     }
   },
   mounted () {
     const rect = this.$refs.topBar.$el.getBoundingClientRect()
-    this.marginTop = rect.height + 16
+    this.paddingTop = rect.height + 'px'
   },
   methods: {
     staticCount () {
@@ -69,10 +69,10 @@ export default {
         }
     }
     .block{
-        background: #ffffff;
         margin:0.16rem 0; 
         .divider{
             border-top:1px solid #D9D9D9;
+            margin-top:0!important;
         }
     }
     .bottom-bar{
@@ -87,6 +87,7 @@ export default {
         display:flex;
         align-items: center;
         padding:0.16rem 0;
+        background: #ffffff;
     }
 }
 </style>

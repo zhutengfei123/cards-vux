@@ -1,5 +1,6 @@
-import axios from '../../js/ajax'
+import {axios} from '../../js'
 const state = {
+  inited: false,
   list: []
 }
 
@@ -29,6 +30,9 @@ const actions = {
     } else {
       return new Error(msg)
     }
+  },
+  async loadMore ({commit, rootState}, {page, pageSize}) {
+
   }
 }
 
@@ -42,6 +46,9 @@ const mutations = {
   },
   resetList (state) {
     state.list = []
+  },
+  setInit (state, data) {
+    state.inited = data
   }
 }
 
