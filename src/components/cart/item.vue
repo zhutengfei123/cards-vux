@@ -2,7 +2,7 @@
   <flexbox class="item" align="center">
       <flexbox-item :span="0.4">
           <check-icon :value.sync="item.select" class="check-icon">
-               <x-img class="image" :src="`${item.pic_url.split('?')[0]}?x-oss-process=image/format,jpg`" :webp-src="`${item.pic_url.split('?')[0]}?x-oss-process=image/format,webp`" container="#vux_view_box_body"/>
+               <x-img class="image" :src="`${item.pic_url.split('?')[0]}?x-oss-process=image/resize,w_${imgWidth}/format,jpg`" :webp-src="`${item.pic_url.split('?')[0]}?x-oss-process=image/resize,w_${imgWidth}/format,webp`" container="#vux_view_box_body"/>
           </check-icon>
       </flexbox-item>
       <flexbox-item>
@@ -24,6 +24,11 @@ import { CheckIcon, Flexbox, FlexboxItem, XNumber, Group, XImg } from 'vux'
 export default {
   name: 'item',
   props: {item: Object},
+  data () {
+    return {
+      imgWidth: screen.width / 2
+    }
+  },
   components: {CheckIcon, Flexbox, FlexboxItem, XNumber, Group, XImg}
 }
 </script>

@@ -3,7 +3,9 @@
      <view-box ref="viewBox" body-padding-top="46px" body-padding-bottom="55px">
        <x-header slot="header" :title="title" class="header"></x-header>
        <transition name="vux-header-fade-in-right">
-          <router-view class="router-view"></router-view>
+          <keep-alive>
+            <router-view class="router-view"></router-view>
+          </keep-alive>
        </transition> 
        <tabbar slot="bottom">
         <tabbar-item v-for="(item,index) in tabs" :key="index" :selected="item.selected" :badge="item.badge" :link="item.link">

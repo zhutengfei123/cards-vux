@@ -10,7 +10,7 @@ const actions = {
     rootState
   }, {page, pageSize, category, orderType, order}) {
     const {
-      result,
+      result: {list},
       status: {
         code,
         msg
@@ -26,14 +26,15 @@ const actions = {
       }
     })
     if (code === '00000') {
-      commit('pushList', result.list)
+      commit('pushList', list)
+      return {isEnd: list ? list.length < pageSize : true}
     } else {
       return new Error(msg)
     }
-  },
-  async loadMore ({commit, rootState}, {page, pageSize}) {
-
   }
+  // async loadMore ({commit, rootState}, {page, pageSize}) {
+  //   return {isEnd: list ? list.length < pageSize : true}
+  // }
 }
 
 const mutations = {

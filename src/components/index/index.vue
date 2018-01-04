@@ -34,9 +34,11 @@ import { XImg, Flexbox, FlexboxItem, Grid, GridItem, LoadMore } from 'vux'
 import { mapState, mapActions, mapMutations } from 'vuex'
 import Card from './card'
 import {isBottom} from '../../js'
+import {page} from '../../mixin/page'
 export default {
   name: 'Index',
-  data () { return {loading: false, page: 2, pageSize: 6, imgWidth: screen.width} },
+  mixins: [page],
+  data () { return {imgWidth: screen.width} },
   computed: {
     ...mapState('index', {
       recommend: ({recommend}) => recommend,
@@ -69,19 +71,27 @@ export default {
 
   created () {
     if (!this.inited) {
-      this.init().then(() => { this.setInit(true) }).catch(error => console.log(error))
+      this.init().then(() => {
+        this.setInit(true)
+        this.page++
+      }).catch(error => console.log(error))
     }
   },
   mounted () {
     const element = document.querySelector('#vux_view_box_body')
-    isBottom(element, () => {
-      this.loading = true
-      this.loadMore({page: this.page, pageSize: this.pageSize}).then(() => {
-        this.loading = false
-        this.page++
-        element.scrollTop -= (this.$refs.loadMore.$el.getBoundingClientRect().height + 10)
-      }).catch(error => console.log(error))
-    })
+    isBottom(element,
+      () => {
+        !this.isEnd && !this.loading && (() => {
+          this.loading = true
+          this.loadMore({page: this.page, pageSize: this.pageSize}).then(({isEnd}) => {
+            this.loading = false
+            this.page++
+            this.isEnd = isEnd
+            element.scrollTop -= (this.$refs.loadMore.$el.getBoundingClientRect().height + 10)
+          }).catch(error => console.log(error))
+        })()
+      }
+    )
   }
 }
 </script>

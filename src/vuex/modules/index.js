@@ -27,9 +27,10 @@ const actions = {
     }
   },
   async loadMore ({commit, rootState}, {page, pageSize}) {
-    const {result, status: {code, msg}} = await axios.get('/index/gethotproduct', {params: {store_id: rootState.global.storeId, page, pageSize}})
+    const {result: {list}, status: {code, msg}} = await axios.get('/index/gethotproduct', {params: {store_id: rootState.global.storeId, page, pageSize}})
     if (code === '00000') {
-      commit('pushRecommend', result.list)
+      commit('pushRecommend', list)
+      return {isEnd: list ? list.length < pageSize : true}
     } else {
       return new Error(msg)
     }
