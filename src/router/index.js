@@ -21,7 +21,7 @@ const router = new Router({
           component: Index
         },
         {
-          path: 'memrber',
+          path: 'member',
           name: '会员',
           component: Memrber
         },

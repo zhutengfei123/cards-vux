@@ -1,11 +1,11 @@
 <template>
   <div class="index">
-      <l-header :header-images="headerImages" :focus="focus.list" :title="focus.title"></l-header>
+      <l-header></l-header>
       <div class="block">
         <p class="recommend-title">{{mainRecommend.title}}</p>
         <flexbox wrap="wrap" :gutter="0">
             <flexbox-item style="display:flex" :key="item.id" :span="item.show_type===1?0.5:1/1.0001" v-for="item of mainRecommend.list" >
-                <x-img v-if="item.show_type===1" :src="`${item.pic_url.split('?')[0]}?x-oss-process=image/resize,w_${imgWidth/2}/format,jpg`" :webp-src="`${item.pic_url.split('?')[0]}?x-oss-process=image/resize,w_${imgWidth/2}/format,webp`" container="#vux_view_box_body"></x-img>
+                <x-img v-if="item.show_type===1" :src="`${item.pic_url.split('?')[0]}?x-oss-process=image/resize,w_${parseInt(imgWidth/2)}/format,jpg`" :webp-src="`${item.pic_url.split('?')[0]}?x-oss-process=image/resize,w_${parseInt(imgWidth/2)}/format,webp`" container="#vux_view_box_body"></x-img>
                 <x-img v-else-if="item.show_type===2" :src="`${item.pic_url.split('?')[0]}?x-oss-process=image/resize,w_${imgWidth}/format,jpg`" :webp-src="`${item.pic_url.split('?')[0]}?x-oss-process=image/resize,w_${imgWidth}/format,webp`" container="#vux_view_box_body"></x-img>
             </flexbox-item>
         </flexbox>
@@ -40,8 +40,6 @@ export default {
       recommend: ({recommend}) => recommend,
       mainRecommend: ({mainRecommend}) => mainRecommend,
       scrollers: ({scrollers}) => scrollers,
-      headerImages: ({headerImages}) => headerImages,
-      focus: ({focus}) => focus,
       inited: 'inited'
     }),
     ...mapState({
