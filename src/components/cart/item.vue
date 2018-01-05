@@ -8,12 +8,12 @@
       <flexbox-item>
           <flexbox orient="vertical">
               <flexbox-item>
-                  <p class="title">{{item.title}}</p>
+                <p class="title">{{item.title}}</p>
               </flexbox-item>
               <flexbox-item>
-                    <group>
-                        <x-number class="price" :title="item.price+''" width="0.4rem" :min="1" :max="item.store" v-model="item.count" :fillable="true"></x-number>
-                    </group>
+                <group>
+                    <x-number class="price" :title="item.price+''" width="0.4rem" :min="1" :max="item.store" v-model="item.count" :fillable="true"></x-number>
+                </group>
               </flexbox-item>
           </flexbox>
       </flexbox-item>

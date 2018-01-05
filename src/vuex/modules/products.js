@@ -32,9 +32,6 @@ const actions = {
       return new Error(msg)
     }
   }
-  // async loadMore ({commit, rootState}, {page, pageSize}) {
-  //   return {isEnd: list ? list.length < pageSize : true}
-  // }
 }
 
 const mutations = {

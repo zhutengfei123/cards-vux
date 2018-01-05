@@ -10,7 +10,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-
+const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
 const env = process.env.NODE_ENV === 'testing'
   ? require('../config/test.env')
   : require('../config/prod.env')
@@ -119,7 +119,18 @@ const webpackConfig = merge(baseWebpackConfig, {
         to: config.build.assetsSubDirectory,
         ignore: ['.*']
       }
-    ])
+    ]),
+    new SWPrecacheWebpackPlugin({
+      cacheId: 'card',
+      filename: 'service-worker.js',
+      minify: true,
+      dontCacheBustUrlsMatching: false,
+      staticFileGlobs: ['dist/**/*.{js,html,css,png}'],
+      stripPrefix: 'dist/',
+      mergeStaticsConfig: true,
+      ignoreUrlParametersMatching: [/./],
+      navigateFallbackWhitelist: [/^\/vendor\//],
+    })
   ]
 })
 
