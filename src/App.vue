@@ -72,5 +72,9 @@
 .weui-tabbar__item{
     text-decoration: none;
 }
+body,ul,li,span,p{
+  margin: 0px;
+  padding: 0px;
+}
 </style>
 
