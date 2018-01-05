@@ -10,8 +10,8 @@
        </swiper-item>
      </swiper>
     <marquee :item-height="56">
-      <marquee-item v-for="item of focus" :key="item.id" class="marquee-height">
-          <span class="focus">{{title}}</span>
+      <marquee-item v-for="item of focus.list" :key="item.id" class="marquee-height">
+          <span class="focus">{{focus.title}}</span>
           <span class="text">{{item.title}}</span>
       </marquee-item>
     </marquee>
@@ -20,6 +20,7 @@
 
 <script>
 import {Swiper, SwiperItem, Marquee, MarqueeItem} from 'vux'
+import {mapState} from 'vuex'
 export default {
   name: 'Header',
   components: {
@@ -28,12 +29,17 @@ export default {
     Marquee,
     MarqueeItem
   },
-  props: {headerImages: Array, focus: Array, title: String},
   data () {
     return {
       imgWidth: screen.width,
       index: 0
     }
+  },
+  computed: {
+    ...mapState('index', {
+      headerImages: ({headerImages}) => headerImages,
+      focus: ({focus}) => focus
+    })
   },
   methods: {
     indexChange (index) {

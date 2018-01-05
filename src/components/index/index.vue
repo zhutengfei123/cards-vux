@@ -1,6 +1,6 @@
 <template>
   <div class="index">
-      <l-header :header-images="headerImages" :focus="focus.list" :title="focus.title"></l-header>
+      <l-header></l-header>
       <div class="block">
         <p class="recommend-title">{{mainRecommend.title}}</p>
         <flexbox wrap="wrap" :gutter="0">
@@ -40,8 +40,6 @@ export default {
       recommend: ({recommend}) => recommend,
       mainRecommend: ({mainRecommend}) => mainRecommend,
       scrollers: ({scrollers}) => scrollers,
-      headerImages: ({headerImages}) => headerImages,
-      focus: ({focus}) => focus,
       inited: 'inited'
     }),
     ...mapState({
