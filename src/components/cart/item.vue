@@ -26,7 +26,7 @@ export default {
   props: {item: Object},
   data () {
     return {
-      imgWidth: screen.width / 2
+      imgWidth: parseInt(screen.width / 2)
     }
   },
   components: {CheckIcon, Flexbox, FlexboxItem, XNumber, Group, XImg}

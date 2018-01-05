@@ -1,5 +1,5 @@
 'use strict'
-let screenWid = document.documentElement.offsetWidth || document.body.offsetWidth
-let nowFont = 100 * screenWid / 375
-let oHtml = document.getElementsByTagName('html')[0]
+const screenWid = document.documentElement.offsetWidth || document.body.offsetWidth
+const nowFont = 100 * screenWid / 375
+const oHtml = document.querySelector('html')
 oHtml.style.fontSize = nowFont + 'px'

@@ -31,7 +31,7 @@ export default {
   props: {headerImages: Array, focus: Array, title: String},
   data () {
     return {
-      imgWidth: screen.width / 2,
+      imgWidth: screen.width,
       index: 0
     }
   },

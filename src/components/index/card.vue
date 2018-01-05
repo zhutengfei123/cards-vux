@@ -14,7 +14,7 @@ export default {
   components: {XImg, XButton},
   data () {
     return {
-      imgWidth: screen.width / 2
+      imgWidth: parseInt(screen.width / 2)
     }
   },
   methods: {

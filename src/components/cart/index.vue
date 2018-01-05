@@ -23,17 +23,6 @@
                 <x-button class="btn">{{showType==='normal'?'结算':'删除'}}</x-button>
             </flexbox-item>
         </flexbox>
-        <!-- <flexbox align="center" class="bottom-bar" v-show="showType==='normal'">
-            <flexbox-item :span="0.7">
-                <flexbox align="center">
-                    <check-icon class="text">全选</check-icon>
-                    <p class="text" style="margin-left:0.2rem">合计：<span class="price">￥{{total}}</span></p>
-                </flexbox>
-            </flexbox-item>
-            <flexbox-item>
-                <x-button class="btn">结算</x-button>
-            </flexbox-item>
-        </flexbox> -->
     </div>
 </template>
 <script>
