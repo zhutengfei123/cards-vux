@@ -9,12 +9,14 @@
          <p class="text">{{image.describe}}</p>
        </swiper-item>
      </swiper>
-    <marquee :item-height="56">
-      <marquee-item v-for="item of focus.list" :key="item.id" class="marquee-height">
-          <span class="focus">{{focus.title}}</span>
-          <span class="text">{{item.title}}</span>
-      </marquee-item>
-    </marquee>
+     <div class="marqueediv" style="display:flex;">
+        <span class="focus">热点关注</span>
+       <marquee>
+          <marquee-item v-for="(item,index) in focus.list" :key="index" class="marquee-height">{{item.title}}</marquee-item>
+       </marquee>
+     </div>
+   
+   
   </div>
 </template>
 
@@ -75,6 +77,7 @@ export default {
       letter-spacing: -0.0048rem;
       font-weight: bold;
       margin:0 0.16rem 0 0.16rem;  
+      width: 50%;
     }
     .swiper-image{
       width: 100%;
@@ -84,7 +87,16 @@ export default {
       overflow: hidden;
     }
     .marquee-height{
-      height:56px;
+      height:0.17rem;
+      font-size: 0.14rem;
+      color:#3C3C3C;
+    }
+    .marqueediv{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.4rem;
+      padding-bottom: 0.15rem;
     }
 }
 
