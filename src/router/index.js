@@ -6,27 +6,35 @@ const Index = () => import('@/components/index/index')
 const Classification = () => import('@/components/classification/index')
 const Cart = () => import('@/components/cart/index')
 const Detail = () => import('@/components/detail/index')
+const Container = () => import('@/container')
 Vue.use(Router)
 
 const router = new Router({
   routes: [
     {
-      path: '/',
-      name: '首页',
-      component: Index
+      path: '/main',
+      component: Container,
+      children: [
+        {
+          path: '',
+          name: '首页',
+          component: Index
+        },
+        {
+          path: 'memrber',
+          name: '会员',
+          component: Memrber
+        },
+        {
+          path: 'classification',
+          name: '分类',
+          component: Classification
+        },
+        {path: 'cart', name: '购物车', component: Cart}
+      ]
     },
-    {
-      path: '/memrber',
-      name: '会员',
-      component: Memrber
-    },
-    {
-      path: '/classification',
-      name: '分类',
-      component: Classification
-    },
-    {path: '/cart', name: '购物车', component: Cart},
-    {path: '/detail', name: '商品详情', component: Detail},
+
+    {path: '/detail/:id', name: '商品详情', component: Detail},
     { path: '*' }
   ],
   mode: 'history',

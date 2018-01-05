@@ -2,18 +2,18 @@
   <flexbox class="item" align="center">
       <flexbox-item :span="0.4">
           <check-icon :value.sync="item.select" class="check-icon">
-               <x-img class="image" :src="`${item.pic_url.split('?')[0]}?x-oss-process=image/format,jpg`" :webp-src="`${item.pic_url.split('?')[0]}?x-oss-process=image/format,webp`" container="#vux_view_box_body"/>
+               <x-img class="image" :src="`${item.pic_url.split('?')[0]}?x-oss-process=image/resize,w_${imgWidth}/format,jpg`" :webp-src="`${item.pic_url.split('?')[0]}?x-oss-process=image/resize,w_${imgWidth}/format,webp`" container="#vux_view_box_body"/>
           </check-icon>
       </flexbox-item>
       <flexbox-item>
           <flexbox orient="vertical">
               <flexbox-item>
-                  <p class="title">{{item.title}}</p>
+                <p class="title">{{item.title}}</p>
               </flexbox-item>
               <flexbox-item>
-                    <group>
-                        <x-number class="price" :title="item.price+''" width="0.4rem" :min="1" :max="item.store" v-model="item.count" :fillable="true"></x-number>
-                    </group>
+                <group>
+                    <x-number class="price" :title="item.price+''" width="0.4rem" :min="1" :max="item.store" v-model="item.count" :fillable="true"></x-number>
+                </group>
               </flexbox-item>
           </flexbox>
       </flexbox-item>
@@ -24,6 +24,11 @@ import { CheckIcon, Flexbox, FlexboxItem, XNumber, Group, XImg } from 'vux'
 export default {
   name: 'item',
   props: {item: Object},
+  data () {
+    return {
+      imgWidth: screen.width / 2
+    }
+  },
   components: {CheckIcon, Flexbox, FlexboxItem, XNumber, Group, XImg}
 }
 </script>

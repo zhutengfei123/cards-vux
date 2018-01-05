@@ -15,9 +15,9 @@
       <flexbox-item v-for="item of list" :key="item.id" class="card">
         <flexbox align="center">
           <flexbox-item :span="0.4" class="image">
-            <x-img :src="`${item.pic_url.split('?')[0]}?x-oss-process=image/format,jpg`" :webp-src="`${item.pic_url.split('?')[0]}?x-oss-process=image/format,webp`" container="#vux_view_box_body"/>
+            <x-img :src="`${item.pic_url.split('?')[0]}?x-oss-process=image/resize,w_${imgWidth}/format,jpg`" :webp-src="`${item.pic_url.split('?')[0]}?x-oss-process=image/resize,w_${imgWidth}/format,webp`" container="#vux_view_box_body"/>
           </flexbox-item>
-          <flexbox-item :span="0.6">
+          <flexbox-item>
             <flexbox orient="vertical" >
               <flexbox-item>
                 <p class="title">{{item.name}}</p>
@@ -41,17 +41,18 @@ import {mapState, mapMutations, mapActions} from 'vuex'
 import {Tab, TabItem, Flexbox, FlexboxItem, Grid, GridItem, LoadMore, XButton, XImg} from 'vux'
 import {isBottom} from '../../js'
 import Card from '../index/card'
+import {page} from '../../mixin/page'
 export default {
+  name: 'Classification',
+  mixins: [page],
   data () {
     return {
       showType: 'list',
       order: '',
       orderType: '',
       category: '',
-      page: 1,
-      pageSize: 10,
-      loading: false,
-      paddingTop: 0
+      paddingTop: 0,
+      imgWidth: screen.width / 2
     }
   },
   components: {
@@ -78,7 +79,7 @@ export default {
     })
   },
   methods: {
-    ...mapActions('products', {getProducts: 'getProducts', loadMore: 'loadMore'}),
+    ...mapActions('products', {getProducts: 'getProducts'}),
     ...mapMutations('products', {resetList: 'resetList', setInit: 'setInit'})
   },
   created () {
@@ -93,14 +94,19 @@ export default {
     const rect = this.$refs.topBar.$el.getBoundingClientRect()
     this.paddingTop = rect.height + 16 + 'px'
     const element = document.querySelector('#vux_view_box_body')
-    isBottom(element, () => {
-      this.loading = true
-      this.loadMore({page: this.page, pageSize: this.pageSize}).then(() => {
-        this.loading = false
-        this.page++
-        element.scrollTop -= (this.$refs.loadMore.$el.getBoundingClientRect().height + 10)
-      }).catch(error => console.log(error))
-    })
+    isBottom(element,
+    () => {
+      !this.isEnd && !this.loading && (() => {
+        this.loading = true
+        this.getProducts({page: this.page, pageSize: this.pageSize}).then(({isEnd}) => {
+          this.loading = false
+          this.isEnd = isEnd
+          this.page++
+          element.scrollTop -= (this.$refs.loadMore.$el.getBoundingClientRect().height + 10)
+        }).catch(error => console.log(error))
+      })()
+    }
+    )
   }
 }
 </script>

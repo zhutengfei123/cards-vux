@@ -3,32 +3,19 @@
      <view-box ref="viewBox" body-padding-top="46px" body-padding-bottom="55px">
        <x-header slot="header" :title="title" class="header"></x-header>
        <transition name="vux-header-fade-in-right">
-          <router-view class="router-view"></router-view>
+          <keep-alive>
+            <router-view></router-view>
+          </keep-alive>
        </transition> 
-       <tabbar slot="bottom">
-        <tabbar-item v-for="(item,index) in tabs" :key="index" :selected="item.selected" :badge="item.badge" :link="item.link">
-          <span slot="icon" class="app-icon" v-html="item.iconfont"></span>
-          <span slot="label" class="tabbar-item">{{item.name}}</span>
-        </tabbar-item>
-       </tabbar>      
      </view-box>
   </div>
 </template>
 
 <script>
-  import { ViewBox, XHeader, Tabbar, TabbarItem } from 'vux'
+  import { ViewBox, XHeader } from 'vux'
   import {mapState} from 'vuex'
   export default {
     name: 'app',
-    data () {
-      return {
-        tabs: [
-          {name: '首页', selected: true, iconfont: '&#58972;', link: '/'},
-          {name: '分类', iconfont: '&#58965;', link: '/classification'},
-          {name: '购物车', badge: '2', iconfont: '&#58971;', link: '/cart'},
-          {name: '会员', iconfont: '&#58967;', link: '/memrber'}]
-      }
-    },
     computed: {
       ...mapState('global', {
         title: ({title}) => title
@@ -36,9 +23,7 @@
     },
     components: {
       ViewBox,
-      XHeader,
-      Tabbar,
-      TabbarItem
+      XHeader
     }
   }
 </script>
@@ -59,17 +44,6 @@
     top:0;
     z-index:100;
   }
-  .iconcss{
-    font-size:0.24rem;
-  }
-  .tabbar-item{
-    font-size: 0.1rem;
-  }
-  .router-view {
-    width: 100%;
-    top: 46px;
-  }
-  
 }
 
 </style>
@@ -94,6 +68,9 @@
 .weui-grid{
     text-decoration: none;
     padding:0.04rem!important;
+}
+.weui-tabbar__item{
+    text-decoration: none;
 }
 </style>
 

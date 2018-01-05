@@ -9,6 +9,9 @@ import store from './vuex/store'
 import { sync } from 'vuex-router-sync'
 import { WechatPlugin, BusPlugin, DevicePlugin } from 'vux'
 import './js/rem.js'
+if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/service-worker.js')
+}
 FastClick.attach(document.body)
 if (process.env.NODE_ENV === 'development') {
   Vue.config.productionTip = false

@@ -3,7 +3,7 @@
      <swiper loop height="2.5rem" ref="swiper">
        <swiper-item v-for="image of headerImages" :key="image.id">
          <div class="swiper-height">
-             <img class="swiper-image" :src="`${image.pic_url.split('?')[0]}?x-oss-process=image/format,jpg`"/>
+             <img class="swiper-image" :src="`${image.pic_url.split('?')[0]}?x-oss-process=image/resize,w_${imgWidth}/format,jpg`"/>
          </div>
          <p class="title">{{image.title}}</p>
          <p class="text">{{image.describe}}</p>
@@ -31,6 +31,7 @@ export default {
   props: {headerImages: Array, focus: Array, title: String},
   data () {
     return {
+      imgWidth: screen.width / 2,
       index: 0
     }
   },
@@ -48,7 +49,6 @@ export default {
     background-image: linear-gradient(0deg, #FFFFFF 27%, #4386F4 100%);
     width: 100%;
     .title{
-      font-family: PingFang-SC-Heavy;
       font-size: 0.2rem;
       color: #3C3C3C;
       letter-spacing: -0.0048rem;
@@ -57,7 +57,6 @@ export default {
       padding-left: 0.2rem;
     }
     .text{
-      font-family: PingFang-SC-Medium;
       font-size: 0.14rem;
       color: #3C3C3C;
       letter-spacing: -0.0034rem;

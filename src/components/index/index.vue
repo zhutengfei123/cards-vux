@@ -1,21 +1,17 @@
 <template>
   <div class="index">
       <l-header :header-images="headerImages" :focus="focus.list" :title="focus.title"></l-header>
-      <div class="block image-block">
+      <div class="block">
         <p class="recommend-title">{{mainRecommend.title}}</p>
-        <template v-for="(item,index) of mainRecommend.list">
-          <div :key="index" class="hot" v-if="item.show_type===1&&index%2===0">
-              <x-img :src="`${item.pic_url.split('?')[0]}?x-oss-process=image/resize,w_${imgWidth/2}/format,jpg`" :webp-src="`${item.pic_url.split('?')[0]}?x-oss-process=image/resize,w_${imgWidth/2}/format,webp`" container="#vux_view_box_body"></x-img>
-              <x-img :src="`${mainRecommend.list[index+1].pic_url.split('?')[0]}?x-oss-process=image/resize,w_${imgWidth/2}/format,jpg`" :webp-src="`${mainRecommend.list[index+1].pic_url.split('?')[0]}?x-oss-process=image/resize,w_${imgWidth/2}/format,webp`" container="#vux_view_box_body"></x-img>
-          </div>
-          <div :key="index" class="hot-len" v-else-if="item.show_type===2">
-              <x-img :src="`${item.pic_url.split('?')[0]}?x-oss-process=image/resize,w_${imgWidth}/format,jpg`" :webp-src="`${item.pic_url.split('?')[0]}?x-oss-process=image/resize,w_${imgWidth}/format,webp`" container="#vux_view_box_body"></x-img>
-          </div>
-        </template>
+        <flexbox wrap="wrap" :gutter="0">
+            <flexbox-item style="display:flex" :key="item.id" :span="item.show_type===1?0.5:1/1.0001" v-for="item of mainRecommend.list" >
+                <x-img v-if="item.show_type===1" :src="`${item.pic_url.split('?')[0]}?x-oss-process=image/resize,w_${imgWidth/2}/format,jpg`" :webp-src="`${item.pic_url.split('?')[0]}?x-oss-process=image/resize,w_${imgWidth/2}/format,webp`" container="#vux_view_box_body"></x-img>
+                <x-img v-else-if="item.show_type===2" :src="`${item.pic_url.split('?')[0]}?x-oss-process=image/resize,w_${imgWidth}/format,jpg`" :webp-src="`${item.pic_url.split('?')[0]}?x-oss-process=image/resize,w_${imgWidth}/format,webp`" container="#vux_view_box_body"></x-img>
+            </flexbox-item>
+        </flexbox>
       </div>
       <scroller v-for="scroller of scrollers" :key="scroller.id" color="blue" :title="scroller.title" :list="scroller.card_list"></scroller>
-      <!-- <scroller color="red" title="欢喜节庆系列"></scroller> -->
-      <div class="hot block">
+      <div class="block">
         <p class="recommend-title">{{recommend.title}}</p>
         <grid :cols="2">
           <grid-item v-for="item of recommend.list" :key="item.id">
@@ -34,9 +30,11 @@ import { XImg, Flexbox, FlexboxItem, Grid, GridItem, LoadMore } from 'vux'
 import { mapState, mapActions, mapMutations } from 'vuex'
 import Card from './card'
 import {isBottom} from '../../js'
+import {page} from '../../mixin/page'
 export default {
   name: 'Index',
-  data () { return {loading: false, page: 2, pageSize: 6, imgWidth: screen.width} },
+  mixins: [page],
+  data () { return {imgWidth: screen.width} },
   computed: {
     ...mapState('index', {
       recommend: ({recommend}) => recommend,
@@ -64,24 +62,32 @@ export default {
 
   methods: {
     ...mapActions('index', {init: 'init', loadMore: 'loadMore'}),
-    ...mapMutations('index', {setInit: ({init}) => init})
+    ...mapMutations('index', {setInit: 'setInit'})
   },
 
   created () {
     if (!this.inited) {
-      this.init().then(() => { this.setInit(true) }).catch(error => console.log(error))
+      this.init().then(() => {
+        this.setInit(true)
+        this.page++
+      }).catch(error => console.log(error))
     }
   },
   mounted () {
     const element = document.querySelector('#vux_view_box_body')
-    isBottom(element, () => {
-      this.loading = true
-      this.loadMore({page: this.page, pageSize: this.pageSize}).then(() => {
-        this.loading = false
-        this.page++
-        element.scrollTop -= (this.$refs.loadMore.$el.getBoundingClientRect().height + 10)
-      }).catch(error => console.log(error))
-    })
+    isBottom(element,
+      () => {
+        !this.isEnd && !this.loading && (() => {
+          this.loading = true
+          this.loadMore({page: this.page, pageSize: this.pageSize}).then(({isEnd}) => {
+            this.loading = false
+            this.page++
+            this.isEnd = isEnd
+            element.scrollTop -= (this.$refs.loadMore.$el.getBoundingClientRect().height + 10)
+          }).catch(error => console.log(error))
+        })()
+      }
+    )
   }
 }
 </script>
@@ -104,26 +110,10 @@ export default {
       font-size: 0.16rem;
       z-index:50;
   }
-  .hot {
-    width: 100%;
-    position: relative;
-    img {
-      width: 50%;
-      vertical-align: middle;
-      float: left;
-    }
-  }
   .block{
     margin:0.16rem 0;
-    &.image-block{      
-      width: 100%;
-      position: relative;
-    }
-  }
-  .hot-len {
     width: 100%;
-    height: 1.3rem;
-    overflow: hidden;
+    position: relative;
   }
 }
 </style>
