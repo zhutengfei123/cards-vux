@@ -28,3 +28,33 @@ npm test
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+## Contribute Guide
+
+### Fork Project
+``` bash
+1.fork https://github.com/kuailingmin/cards-vux.git
+
+2.git clone https://github.com/<username>/cards-vux.git
+
+3.git remote add origin upstream https://github.com/kuailingmin/cards-vux
+
+4.git checkout -b <name>
+```
+### Pull Code
+``` bash
+1.git fetch upstream master
+
+2.git rebase upstream/master
+```
+### Push Code
+``` bash
+1.git status
+
+2.git add <path>
+
+3.git commit -m <string>
+
+4.git push origin master
+```
+
