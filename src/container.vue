@@ -16,7 +16,6 @@
 <script>
 import { Tabbar, TabbarItem } from 'vux'
 export default {
-  name: 'container',
   data () {
     return {
       tabs: [

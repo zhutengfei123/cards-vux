@@ -7,6 +7,7 @@ const Classification = () => import('@/components/classification/index')
 const Cart = () => import('@/components/cart/index')
 const Detail = () => import('@/components/detail/index')
 const Container = () => import('@/container')
+const ConfirmOrder = () => import('@/components/confirmOrder/index')
 Vue.use(Router)
 
 const router = new Router({
@@ -30,7 +31,8 @@ const router = new Router({
           name: '分类',
           component: Classification
         },
-        {path: 'cart', name: '购物车', component: Cart}
+        {path: 'cart', name: '购物车', component: Cart},
+        {path: 'confirmOrder', name: '确认订单', component: ConfirmOrder}
       ]
     },
 
