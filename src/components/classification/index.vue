@@ -1,10 +1,7 @@
 <template>
   <div class="classification">
     <tab bar-active-color="transparent" class="tab" ref="topBar">
-      <tab-item @on-item-click="handleItemClick(0)">主题</tab-item>
-      <tab-item @on-item-click="handleItemClick(1)">对象</tab-item>
-      <tab-item @on-item-click="handleItemClick(2)">场合</tab-item>
-      <tab-item @on-item-click="handleItemClick(3)">排序</tab-item>
+      <tab-item :key="index" v-for="(item, index) in tabItemList" @on-item-click="handleItemClick(index)">{{item.value}}</tab-item>
     </tab>
     <grid :cols="2" v-show="showType==='card'" :style="{paddingTop}">
       <grid-item v-for="item of list" :key="item.id">
