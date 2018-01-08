@@ -9,44 +9,33 @@
          <p class="text">{{image.describe}}</p>
        </swiper-item>
      </swiper>
-     <div class="marqueediv" style="display:flex;">
+     <flexbox class="marqueediv">
         <span class="focus">热点关注</span>
-       <marquee>
-          <marquee-item v-for="(item,index) in focus.list" :key="index" class="marquee-height">{{item.title}}</marquee-item>
-       </marquee>
-     </div>
-   
-   
+        <marquee>
+            <marquee-item v-for="(item,index) in focus.list" :key="index" class="marquee-height">{{item.title}}</marquee-item>
+        </marquee>
+     </flexbox>
   </div>
 </template>
 
 <script>
-import {Swiper, SwiperItem, Marquee, MarqueeItem} from 'vux'
-import {mapState} from 'vuex'
-export default {
-  name: 'Header',
-  components: {
-    Swiper,
-    SwiperItem,
-    Marquee,
-    MarqueeItem
-  },
-  data () {
-    return {
-      imgWidth: screen.width,
-      index: 0
-    }
-  },
-  computed: {
-    ...mapState('index', {
-      headerImages: ({headerImages}) => headerImages,
-      focus: ({focus}) => focus
-    })
-  },
-  methods: {
-    indexChange (index) {
-      this.index = index
-    }
+import {Swiper, SwiperItem, Marquee, MarqueeItem, Flexbox} from 'vux'
+import { Component, Vue } from 'vue-property-decorator'
+import {State, namespace} from 'vuex-class'
+const IndexState = namespace('index', State)
+
+@Component({
+  components: {Swiper, SwiperItem, Marquee, MarqueeItem, Flexbox}
+})
+export default class LHeader extends Vue {
+  imgWidth=screen.width
+  index=0
+
+  @IndexState headerImages
+  @IndexState focus
+
+  indexChange (index) {
+    this.index = index
   }
 }
 </script>

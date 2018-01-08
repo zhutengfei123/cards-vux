@@ -8,19 +8,17 @@
 </template>
 <script>
 import {XImg, XButton} from 'vux'
-export default {
-  name: 'Card',
-  props: {item: Object},
-  components: {XImg, XButton},
-  data () {
-    return {
-      imgWidth: parseInt(screen.width / 2)
-    }
-  },
-  methods: {
-    addCart (id) {
-      console.log(id)
-    }
+import { Component, Vue, Prop } from 'vue-property-decorator'
+@Component({
+  components: {XImg, XButton}
+})
+export default class Card extends Vue {
+  @Prop([Object]) item
+
+  imgWidth= parseInt(screen.width / 2)
+
+  addCart (id) {
+    console.log(id)
   }
 }
 </script>

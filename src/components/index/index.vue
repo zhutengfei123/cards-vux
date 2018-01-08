@@ -10,7 +10,7 @@
             </flexbox-item>
         </flexbox>
       </div>
-      <scroller v-for="scroller of scrollers" :key="scroller.id" color="blue" :title="scroller.title" :list="scroller.card_list"></scroller>
+      <l-scroller v-for="scroller of scrollers" :key="scroller.id" color="blue" :title="scroller.title" :list="scroller.card_list"></l-scroller>
       <div class="block">
         <p class="recommend-title">{{recommend.title}}</p>
         <grid :cols="2">
@@ -24,31 +24,23 @@
 </template>
 
 <script>
-import Header from './header'
-import Scroller from './scroller'
+import LHeader from './header'
+import LScroller from './scroller'
 import { XImg, Flexbox, FlexboxItem, Grid, GridItem, LoadMore } from 'vux'
-import { mapState, mapActions, mapMutations } from 'vuex'
+import { Component, Vue } from 'vue-property-decorator'
+import {State, Action, Mutation, namespace} from 'vuex-class'
 import Card from './card'
 import {isBottom} from '../../js'
 import {page} from '../../mixin/page'
-export default {
-  name: 'Index',
+
+const IndexState = namespace('index', State)
+const IndexAction = namespace('index', Action)
+const IndexMutation = namespace('index', Mutation)
+@Component({
   mixins: [page],
-  data () { return {imgWidth: screen.width} },
-  computed: {
-    ...mapState('index', {
-      recommend: ({recommend}) => recommend,
-      mainRecommend: ({mainRecommend}) => mainRecommend,
-      scrollers: ({scrollers}) => scrollers,
-      inited: 'inited'
-    }),
-    ...mapState({
-      route: 'route'
-    })
-  },
   components: {
-    LHeader: Header,
-    Scroller,
+    LHeader,
+    LScroller,
     XImg,
     Card,
     Flexbox,
@@ -56,12 +48,19 @@ export default {
     GridItem,
     Grid,
     LoadMore
-  },
+  }
+})
+export default class Index extends Vue {
+  imgWidth= screen.width
 
-  methods: {
-    ...mapActions('index', {init: 'init', loadMore: 'loadMore'}),
-    ...mapMutations('index', {setInit: 'setInit'})
-  },
+  @IndexState recommend
+  @IndexState mainRecommend
+  @IndexState scrollers
+  @IndexState inited
+
+  @IndexAction init
+  @IndexAction loadMore
+  @IndexMutation setInit
 
   created () {
     if (!this.inited) {
@@ -70,7 +69,7 @@ export default {
         this.page++
       }).catch(error => console.log(error))
     }
-  },
+  }
   mounted () {
     const element = document.querySelector('#vux_view_box_body')
     isBottom(element,
@@ -95,7 +94,7 @@ export default {
 .index {
   .recommend-title{
       position: absolute;
-      top: -0.27rem;
+      top: -0.17rem;
       left: 0;
       width: 1rem;
       height: 0.3rem;

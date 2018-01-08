@@ -27,37 +27,31 @@
 </template>
 <script>
 import {Flexbox, FlexboxItem, XButton, CheckIcon} from 'vux'
+import { Component, Vue } from 'vue-property-decorator'
 import Item from './item'
-export default {
-  name: 'cart',
-  data () {
-    return {
-      paddingTop: 0,
-      showType: 'normal',
-      blocks: [{title: '京东自营', list: [{select: true, title: '飞象X苏宁联名圣诞卡 面值500元', price: 49000, count: 1, pic_url: ''}]}]
+@Component({
+  components: {Flexbox, FlexboxItem, Item, XButton, CheckIcon}
+})
+export default class Cart extends Vue {
+  paddingTop=0
+  showType='normal'
+  blocks=[{title: '京东自营', list: [{select: true, title: '飞象X苏宁联名圣诞卡 面值500元', price: 49000, count: 1, pic_url: 'http://img.packeding.cn/bf090166ef9a9135c5a7502ab84cf213'}]}]
+  get total () {
+    let sum = 0
+    this.blocks.map(({list}) => { list.map(item => { sum += item.price }) })
+    return sum
+  }
+  get totalCount () {
+    let sum = 0
+    this.blocks.map(({list}) => { sum += list.length })
+    return sum
+  }
+  edit () {
+    switch (this.showType) {
+      case 'edit':this.showType = 'normal'; break
+      case 'normal':this.showType = 'edit'; break
     }
-  },
-  computed: {
-    total () {
-      let sum = 0
-      this.blocks.map(({list}) => { list.map(item => { sum += item.price }) })
-      return sum
-    },
-    totalCount () {
-      let sum = 0
-      this.blocks.map(({list}) => { sum += list.length })
-      return sum
-    }
-  },
-  methods: {
-    edit () {
-      switch (this.showType) {
-        case 'edit':this.showType = 'normal'; break
-        case 'normal':this.showType = 'edit'; break
-      }
-    }
-  },
-  components: {Flexbox, FlexboxItem, Item, XButton, CheckIcon},
+  }
   mounted () {
     const rect = this.$refs.topBar.$el.getBoundingClientRect()
     this.paddingTop = rect.height + 'px'
@@ -66,10 +60,12 @@ export default {
 </script>
 <style lang="less" scoped>
 .cart{
+    height:100vh;
     .top-bar{
         background: #ffffff;  
         position: fixed;
         top:46px;
+        padding: 0.16rem 0;
     }
     .text{
         font-size: 0.14rem;

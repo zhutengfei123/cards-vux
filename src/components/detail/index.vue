@@ -42,31 +42,10 @@ import {
   XButton
 } from 'vux'
 import { axios } from '../../js'
-import {mapState} from 'vuex'
-export default {
-  name: 'detail',
-  data () {
-    return { count: 1, stock: 1, pic_url: '', name: '', price: 0 }
-  },
-  methods: {
-    getInfo () {
-      axios
-        .get('/card-shop/info', {
-          params: { store_id: this.storeId, id: this.$route.params.id }
-        })
-        .then(({ result, status: { code, msg } }) => {
-          this.stock = result.stock
-          this.pic_url = result.pic_url
-          this.name = result.name
-          this.price = result.price
-        })
-    }
-  },
-  computed: {
-    ...mapState('global', {
-      storeId: 'storeId'
-    })
-  },
+import {State, namespace} from 'vuex-class'
+import { Component, Vue } from 'vue-property-decorator'
+const GlobalState = namespace('global', State)
+@Component({
   components: {
     Swiper,
     SwiperItem,
@@ -76,7 +55,30 @@ export default {
     Group,
     InlineXNumber,
     XButton
-  },
+  }
+})
+export default class Detail extends Vue {
+  count=0
+  stock=0
+  price=0
+  picUrl=''
+  name=''
+
+  @GlobalState storeId
+
+  getInfo () {
+    axios
+        .get('/card-shop/info', {
+          params: { store_id: this.storeId, id: this.$route.params.id }
+        })
+        .then(({ result, status: { code, msg } }) => {
+          this.stock = result.stock
+          this.picUrl = result.pic_url
+          this.name = result.name
+          this.price = result.price
+        })
+  }
+
   created () {
     this.getInfo()
   }

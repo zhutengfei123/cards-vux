@@ -11,6 +11,8 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
+//const PrepackWebpackPlugin=require('prepack-webpack-plugin').default
+//const ClosureCompiler = require('google-closure-compiler-js').webpack;
 const env = process.env.NODE_ENV === 'testing'
   ? require('../config/test.env')
   : require('../config/prod.env')
@@ -34,15 +36,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     new webpack.DefinePlugin({
       'process.env': env
     }),
-    new UglifyJsPlugin({
-      uglifyOptions: {
-        compress: {
-          warnings: false
-        }
-      },
-      sourceMap: config.build.productionSourceMap,
-      parallel: true
-    }),
+
     // extract css into its own file
     new ExtractTextPlugin({
       filename: utils.assetsPath('css/[name].[contenthash].css'),
@@ -96,6 +90,7 @@ const webpackConfig = merge(baseWebpackConfig, {
         )
       }
     }),
+  
     // extract webpack runtime and module manifest to its own file in order to
     // prevent vendor hash from being updated whenever app bundle is updated
     new webpack.optimize.CommonsChunkPlugin({
@@ -130,7 +125,27 @@ const webpackConfig = merge(baseWebpackConfig, {
       mergeStaticsConfig: true,
       ignoreUrlParametersMatching: [/./],
       navigateFallbackWhitelist: [/^\/vendor\//],
+    }),
+    // new PrepackWebpackPlugin({
+    //   mathRandomSeed:'0'
+    // }),
+    new UglifyJsPlugin({
+      uglifyOptions: {
+        compress: {
+          warnings: false
+        }
+      },
+      sourceMap: config.build.productionSourceMap,
+      parallel: true
     })
+    // new ClosureCompiler({
+    //   options: {
+    //     languageIn: 'ECMASCRIPT_2017',
+    //     languageOut: 'ECMASCRIPT5',
+    //     compilationLevel: 'ADVANCED',
+    //     warningLevel: 'VERBOSE',
+    //   },
+    // })
   ]
 })
 

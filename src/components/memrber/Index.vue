@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="mer">
-       <img :src="merberImg" width="60" height="60">
+       <x-img :src="merberImg" width="60" height="60" container="#vux_view_box_body"/>
        <p v-show="status == 0" class="logintxt" @click="loginEvent">请登录</p>
        <ul class="merinfo" v-show="status == 1">
          <li>
@@ -29,7 +29,7 @@
   </div>
 </template>
 <script>
-   import {Cell, Group} from 'vux'
+   import {Cell, Group, XImg} from 'vux'
    export default {
      data () {
        return {
@@ -44,7 +44,8 @@
      },
      components: {
        Cell,
-       Group
+       Group,
+       XImg
      },
      methods: {
        init () {
