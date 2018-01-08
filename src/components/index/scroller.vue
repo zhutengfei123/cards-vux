@@ -17,24 +17,19 @@
 <script>
 import { Scroller, Flexbox, FlexboxItem } from 'vux'
 import Card from './card'
-export default {
-  name: 'Scroller',
-  props: ['color', 'title', 'list'],
-  data () {
-    return {
-      backgroundImage: `linear-gradient(-29deg, ${this.color === 'blue' ? '#0F4AB0' : '#D51717'} 0%, ${this.color === 'blue' ? '#34D4F1' : '#F1D134'} 100%)`
-    }
-  },
-  methods: {
-    addCart (id) {
-      console.log(id)
-    }
-  },
-  components: {
-    Scroller,
-    Card,
-    Flexbox,
-    FlexboxItem
+import { Component, Vue, Prop } from 'vue-property-decorator'
+@Component({
+  components: {Scroller, Card, Flexbox, FlexboxItem}
+})
+export default class LScroller extends Vue {
+  @Prop([String]) color
+  @Prop([String]) title
+  @Prop([Array]) list
+
+  backgroundImage= `linear-gradient(-29deg, ${this.color === 'blue' ? '#0F4AB0' : '#D51717'} 0%, ${this.color === 'blue' ? '#34D4F1' : '#F1D134'} 100%)`
+
+  addCart (id) {
+    console.log(id)
   }
 }
 </script>

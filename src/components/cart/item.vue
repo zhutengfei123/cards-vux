@@ -10,26 +10,25 @@
               <flexbox-item>
                 <p class="title">{{item.title}}</p>
               </flexbox-item>
-              <flexbox-item>
-                <group>
-                    <x-number class="price" :title="item.price+''" width="0.4rem" :min="1" :max="item.store" v-model="item.count" :fillable="true"></x-number>
-                </group>
+              <flexbox-item style="margin-top:0.5rem">
+                <flexbox justify="space-between">
+                    <label class="price">{{item.price}}</label>
+                    <inline-x-number width="0.4rem" :min="1" :max="item.store" v-model="item.count" :fillable="true"></inline-x-number>
+                </flexbox>
               </flexbox-item>
           </flexbox>
       </flexbox-item>
   </flexbox>
 </template>
 <script>
-import { CheckIcon, Flexbox, FlexboxItem, XNumber, Group, XImg } from 'vux'
-export default {
-  name: 'item',
-  props: {item: Object},
-  data () {
-    return {
-      imgWidth: parseInt(screen.width / 2)
-    }
-  },
-  components: {CheckIcon, Flexbox, FlexboxItem, XNumber, Group, XImg}
+import { CheckIcon, Flexbox, FlexboxItem, InlineXNumber, Group, XImg } from 'vux'
+import { Component, Prop, Vue } from 'vue-property-decorator'
+@Component({
+  components: {CheckIcon, Flexbox, FlexboxItem, InlineXNumber, Group, XImg}
+})
+export default class Item extends Vue {
+  @Prop([Object]) item
+  imgWidth=parseInt(screen.width / 2)
 }
 </script>
 <style lang="less" scoped>
@@ -37,7 +36,6 @@ export default {
     background: #ffffff;
     .image{
         width:1rem;
-        height:1rem;
     }
     .price{
         font-size: 0.14rem;

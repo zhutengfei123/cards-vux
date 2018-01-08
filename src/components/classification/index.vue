@@ -37,24 +37,17 @@
   </div>    
 </template>
 <script>
-import {mapState, mapMutations, mapActions} from 'vuex'
+import {State, Action, Mutation, namespace} from 'vuex-class'
 import {Tab, TabItem, Flexbox, FlexboxItem, Grid, GridItem, LoadMore, XButton, XImg} from 'vux'
 import {isBottom} from '../../js'
 import Card from '../index/card'
 import {page} from '../../mixin/page'
-export default {
-  name: 'Classification',
+import {Component, Vue, Watch} from 'vue-property-decorator'
+const ProductsState = namespace('products', State)
+const ProductsAction = namespace('products', Action)
+const ProductsMutation = namespace('products', Mutation)
+@Component({
   mixins: [page],
-  data () {
-    return {
-      showType: 'list',
-      order: '',
-      orderType: '',
-      category: '',
-      paddingTop: 0,
-      imgWidth: screen.width / 2
-    }
-  },
   components: {
     Tab,
     TabItem,
@@ -66,22 +59,28 @@ export default {
     Card,
     XButton,
     XImg
-  },
-  watch: {
-    orderType () {
-      this.resetList()
-    }
-  },
-  computed: {
-    ...mapState('products', {
-      list: 'list',
-      inited: 'inited'
-    })
-  },
-  methods: {
-    ...mapActions('products', {getProducts: 'getProducts'}),
-    ...mapMutations('products', {resetList: 'resetList', setInit: 'setInit'})
-  },
+  }
+})
+export default class Classification extends Vue {
+  showType='list'
+  order=''
+  orderType=''
+  category=''
+  paddingTop=0
+  imgWidth= screen.width / 2
+
+  @Watch('orderType')
+  onOrderTypeChanged () {
+    this.resetList()
+  }
+
+  @ProductsState list
+  @ProductsState inited
+
+  @ProductsAction getProducts
+  @ProductsMutation resetList
+  @ProductsMutation setInit
+
   created () {
     if (!this.inited) {
       this.getProducts({page: this.page, pageSize: this.pageSize}).then(() => {
@@ -89,7 +88,7 @@ export default {
         this.setInit(true)
       }).catch(error => console.log(error))
     }
-  },
+  }
   mounted () {
     const rect = this.$refs.topBar.$el.getBoundingClientRect()
     this.paddingTop = rect.height + 16 + 'px'
