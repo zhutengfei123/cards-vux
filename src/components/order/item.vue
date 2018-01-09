@@ -5,7 +5,7 @@
         <flexbox-item>
             <flexbox orient="vertical">
                 <flexbox-item class="red">￥{{item.price}}</flexbox-item>
-                <flexbox-item class="count">x{{item.count}}</flexbox-item>
+                <flexbox-item class="count">x {{item.count}}</flexbox-item>
             </flexbox>
         </flexbox-item>
     </flexbox>  
@@ -27,7 +27,7 @@ export default class Item extends Vue {
         justify-content: center;
         padding: 0.08rem;
         .image{
-            height:0.6rem
+            height:0.6rem;
         }
     }
     .content{
