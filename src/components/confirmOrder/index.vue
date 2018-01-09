@@ -26,48 +26,46 @@
 </template>
 <script>
 import { Cell, Group } from 'vux'
-export default {
+import Vue from 'vue'
+import Component from 'vue-class-component'
+@Component({
   components: {
     Cell,
     Group
-  },
-  data () {
-    return {
-      orderList: [
-        {
-          title: '京东自营',
-          total: '1000.00',
-          freight: '6.00',
-          list: [
-              {pic: '/static/img/card1.dd4d063.png', desc: '科海客户回馈卡(黑金) 适用于科海商城 官方卡 100元面值卡', price: '100.00', num: '2'},
-              {pic: '/static/img/card1.dd4d063.png', desc: '科海客户回馈卡(黑金) 适用于科海商城 官方卡 100元面值卡', price: '100.00', num: '2'},
-              {pic: '/static/img/card1.dd4d063.png', desc: '科海客户回馈卡(黑金) 适用于科海商城 官方卡 100元面值卡', price: '100.00', num: '2'}
-          ]
-        },
-        {
-          title: '苏宁易购',
-          total: '1000.00',
-          freight: '6.00',
-          list: [
-              {pic: '/static/img/card1.dd4d063.png', desc: '科海客户回馈卡(黑金) 适用于科海商城 官方卡 100元面值卡', price: '100.00', num: '2'}
-          ]
-        },
-        {
-          title: '淘宝商城',
-          total: '1000.00',
-          freight: '6.00',
-          list: [
-              {pic: '/static/img/card1.dd4d063.png', desc: '科海客户回馈卡(黑金) 适用于科海商城 官方卡 100元面值卡', price: '100.00', num: '2'},
-              {pic: '/static/img/card1.dd4d063.png', desc: '科海客户回馈卡(黑金) 适用于科海商城 官方卡 100元面值卡', price: '100.00', num: '2'}
-          ]
-        }
+  }
+})
+export default class ConfirmOrder extends Vue {
+  orderList = [
+    {
+      title: '京东自营',
+      total: '1000.00',
+      freight: '6.00',
+      list: [
+          {pic: '/static/img/card1.dd4d063.png', desc: '科海客户回馈卡(黑金) 适用于科海商城 官方卡 100元面值卡', price: '100.00', num: '2'},
+          {pic: '/static/img/card1.dd4d063.png', desc: '科海客户回馈卡(黑金) 适用于科海商城 官方卡 100元面值卡', price: '100.00', num: '2'},
+          {pic: '/static/img/card1.dd4d063.png', desc: '科海客户回馈卡(黑金) 适用于科海商城 官方卡 100元面值卡', price: '100.00', num: '2'}
+      ]
+    },
+    {
+      title: '苏宁易购',
+      total: '1000.00',
+      freight: '6.00',
+      list: [
+          {pic: '/static/img/card1.dd4d063.png', desc: '科海客户回馈卡(黑金) 适用于科海商城 官方卡 100元面值卡', price: '100.00', num: '2'}
+      ]
+    },
+    {
+      title: '淘宝商城',
+      total: '1000.00',
+      freight: '6.00',
+      list: [
+          {pic: '/static/img/card1.dd4d063.png', desc: '科海客户回馈卡(黑金) 适用于科海商城 官方卡 100元面值卡', price: '100.00', num: '2'},
+          {pic: '/static/img/card1.dd4d063.png', desc: '科海客户回馈卡(黑金) 适用于科海商城 官方卡 100元面值卡', price: '100.00', num: '2'}
       ]
     }
-  },
-  methods: {
-    handleSelectAddress () {
-      console.log('sdf')
-    }
+  ]
+  handleSelectAddress () {
+    console.log('sdf')
   }
 }
 </script>

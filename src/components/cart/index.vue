@@ -28,63 +28,61 @@
     </div>
 </template>
 <script>
-    import { CheckIcon, InlineXNumber } from 'vux'
-    export default {
-      components: {
-        CheckIcon,
-        InlineXNumber
-      },
-      data () {
-        return {
-          isEdit: false,
-          orderList: [
-            {
-              title: '京东自营',
-              checked: false,
-              list: [
-                {desc: '飞象X苏宁联名圣诞卡 面值500元', pic: '/static/img/card1.dd4d063.png', price: '49000.00', checked: true},
-                {desc: '飞象X苏宁联名圣诞卡 面值500元', pic: '/static/img/card1.dd4d063.png', price: '49000.00', checked: false},
-                {desc: '飞象X苏宁联名圣诞卡 面值500元', pic: '/static/img/card1.dd4d063.png', price: '49000.00', checked: true}
-              ]
-            },
-            {
-              title: '京东自营',
-              checked: true,
-              list: [
-                {desc: '飞象X苏宁联名圣诞卡 面值500元', pic: '/static/img/card1.dd4d063.png', price: '49000.00', checked: false},
-                {desc: '飞象X苏宁联名圣诞卡 面值500元', pic: '/static/img/card1.dd4d063.png', price: '49000.00', checked: true}
-              ]
-            },
-            {
-              title: '京东自营',
-              checked: false,
-              list: [
-                {desc: '飞象X苏宁联名圣诞卡 面值500元', pic: '/static/img/card1.dd4d063.png', price: '49000.00', checked: true}
-              ]
-            }
-          ]
-        }
-      },
-      methods: {
-        handleCartEdit (isEdit) {
-          if (isEdit) {
-            this.isEdit = false
-          } else {
-            this.isEdit = true
-          }
-        },
-        handleChange (val) {
-          console.log('sss', val)
-        },
-        handleClick (isEdit) {
-          if (!isEdit) {
-            this.$router.push({
-              path: 'confirmOrder'
-            })
-          }
-        }
-      }
+import { CheckIcon, InlineXNumber } from 'vux'
+import Vue from 'vue'
+import Component from 'vue-class-component'
+@Component({
+  components: {
+    CheckIcon,
+    InlineXNumber
+  }
+})
+export default class Cart extends Vue {
+  isEdit = false
+  orderList = [
+    {
+      title: '京东自营',
+      checked: false,
+      list: [
+            {desc: '飞象X苏宁联名圣诞卡 面值500元', pic: '/static/img/card1.dd4d063.png', price: '49000.00', checked: true},
+            {desc: '飞象X苏宁联名圣诞卡 面值500元', pic: '/static/img/card1.dd4d063.png', price: '49000.00', checked: false},
+            {desc: '飞象X苏宁联名圣诞卡 面值500元', pic: '/static/img/card1.dd4d063.png', price: '49000.00', checked: true}
+      ]
+    },
+    {
+      title: '京东自营',
+      checked: true,
+      list: [
+            {desc: '飞象X苏宁联名圣诞卡 面值500元', pic: '/static/img/card1.dd4d063.png', price: '49000.00', checked: false},
+            {desc: '飞象X苏宁联名圣诞卡 面值500元', pic: '/static/img/card1.dd4d063.png', price: '49000.00', checked: true}
+      ]
+    },
+    {
+      title: '京东自营',
+      checked: false,
+      list: [
+            {desc: '飞象X苏宁联名圣诞卡 面值500元', pic: '/static/img/card1.dd4d063.png', price: '49000.00', checked: true}
+      ]
     }
+  ]
+  handleCartEdit (isEdit) {
+    if (isEdit) {
+      this.isEdit = false
+    } else {
+      this.isEdit = true
+    }
+  }
+  handleChange (val) {
+    console.log('sss', val)
+  }
+  handleClick (isEdit) {
+    if (!isEdit) {
+      this.$router.push({
+        path: 'confirmOrder'
+      })
+    }
+  }
+}
 </script>
 <style lang="less">
     .cart {
