@@ -7,7 +7,7 @@ import Vuex from 'vuex'
 import FastClick from 'fastclick'
 import store from './vuex/store'
 import { sync } from 'vuex-router-sync'
-import { WechatPlugin, BusPlugin, DevicePlugin } from 'vux'
+import { WechatPlugin, BusPlugin, DevicePlugin, ToastPlugin } from 'vux'
 import './js/rem.js'
 if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
   navigator.serviceWorker.register('/service-worker.js')
@@ -17,11 +17,13 @@ if (process.env.NODE_ENV === 'development') {
   Vue.config.productionTip = false
   Vue.config.devtools = true
 }
+
 Vue.use(Vuex)
 
 Vue.use(WechatPlugin)
 Vue.use(BusPlugin)
 Vue.use(DevicePlugin)
+Vue.use(ToastPlugin)
 
 Vue.mixin({
   created () {

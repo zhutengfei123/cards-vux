@@ -2,7 +2,7 @@
     <div class="container">
        <transition name="vux-header-fade-in-right">
           <keep-alive>
-            <router-view class="router-view"></router-view>
+            <router-view></router-view>
           </keep-alive>
        </transition> 
        <tabbar slot="bottom">
