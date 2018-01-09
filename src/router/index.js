@@ -8,6 +8,11 @@ const Cart = () => import('@/components/cart/index')
 const Detail = () => import('@/components/detail/index')
 const Container = () => import('@/container')
 const ConfirmOrder = () => import('@/components/confirmOrder/index')
+const Help = () => import('@/components/help/index')
+const Order = () => import('@/components/order/index')
+const OrderDetail = () => import('@/components/order/detail')
+const Delivery = () => import('@/components/order/delivery')
+const Money = () => import('@/components/member/money')
 Vue.use(Router)
 
 const router = new Router({
@@ -37,6 +42,11 @@ const router = new Router({
 
     {path: '/detail/:id', name: '商品详情', component: Detail},
     {path: '/confirmOrder', name: '确认订单', component: ConfirmOrder},
+    {path: '/help', name: '帮助中心', component: Help},
+    {path: '/order', name: '我的订单', component: Order},
+    {path: '/member/money', name: '现金账户', component: Money},
+    {path: '/order/detail', name: '订单详情', component: OrderDetail},
+    {path: '/order/delivery', name: '物流信息', component: Delivery},
     { path: '*' }
   ],
   mode: 'history',
