@@ -29,7 +29,7 @@
 </script>
 
 <style lang="less" scoped>
-@import "~vux/src/styles/reset.less";
+
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -47,7 +47,8 @@
 }
 
 </style>
-<style>
+<style lang="less">
+@import "~vux/src/styles/reset.less";
 @font-face {
   font-family: "iconfont";
   src: url('css/icons/iconfont.eot?t=1514276920946'); /* IE9*/
@@ -62,19 +63,22 @@
   color: #999999;
 }
 .weui-tabbar__label{
-    line-height: unset;
-    margin:0;
+  line-height: unset;
+  margin:0;
 }
 .weui-grid{
-    text-decoration: none;
-    padding:0.04rem!important;
+  text-decoration: none;
+  padding:0.04rem!important;
 }
 .weui-tabbar__item{
-    text-decoration: none;
+  text-decoration: none;
+}
+.vux-cell-form-preview{
+  font-size:0.14rem
 }
 body,ul,li,span,p{
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
 }
 </style>
 
