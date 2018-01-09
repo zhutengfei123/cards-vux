@@ -22,6 +22,10 @@
         <span class="my-color-t">￥{{item.freight}}</span>
       </div>
     </div>
+    <div class="con-foot foot-money">
+      <span class="con-total">账户余额</span>
+      <span class="my-color-t">￥{{money}}</span>
+    </div>
   </div>
 </template>
 <script>
@@ -35,6 +39,7 @@ import Component from 'vue-class-component'
   }
 })
 export default class ConfirmOrder extends Vue {
+  money = '9999.00'
   orderList = [
     {
       title: '京东自营',
@@ -73,6 +78,11 @@ export default class ConfirmOrder extends Vue {
   .confirm-order {
     font-size: 0.14rem;
     overflow: hidden;
+    .foot-money {
+      margin-top: 0.2rem;
+      height: 0.44rem;
+      background: #ffffff;
+    }
     .weui-cell {
       height: 1rem;
       padding: 0 0.15rem !important;
@@ -118,7 +128,7 @@ export default class ConfirmOrder extends Vue {
       border: none;
     }
     .con-mid {
-      height: 0.9rem;
+      height: 0.6rem;
       border-bottom: 1px solid #D9D9D9;
       padding: 0.15rem;
       display: flex;

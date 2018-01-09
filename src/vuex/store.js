@@ -4,6 +4,8 @@ import user from './modules/user'
 import global from './modules/global'
 import index from './modules/index'
 import products from './modules/products'
+import help from './modules/help'
+import order from './modules/order'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -11,6 +13,8 @@ export default new Vuex.Store({
     user,
     global,
     index,
-    products
+    products,
+    help,
+    order
   }
 })
