@@ -1,8 +1,8 @@
 <template>
     <div class="card">
         <x-img container="#vux_view_box_body" :src="`${item.pic_url.split('?')[0]}?x-oss-process=image/resize,w_${imgWidth}/format,jpg`" :webp-src="`${item.pic_url.split('?')[0]}?x-oss-process=image/resize,w_${imgWidth}/format,webp`"/>
-        <p>{{item.name}}</p>
-        <p class="price">尊享价:{{item.price}}</p>
+        <p class="text">{{item.name}}</p>
+        <p class="text red">尊享价:{{item.price}}</p>
         <x-button mini @click.native="addCart(item.id)">加入购物车</x-button>
     </div>
 </template>
@@ -35,16 +35,13 @@ export default class Card extends Vue {
         margin: 0.08rem 0;
     }
     p{
-        font-size: 0.14rem;
-        color: #3c3c3c;
         overflow:hidden;
         text-overflow:ellipsis;
         white-space: nowrap;
         margin: 0 !important;
         text-align: center;
     }
-    .price{
-        color: #C61A2A;
+    .red{
         font-size: 0.12rem;
     }
 }

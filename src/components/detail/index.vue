@@ -9,18 +9,18 @@
             </swiper>
          </flexbox-item>
          <flexbox-item>
-             <p class="banner">{{name}}</p>
-             <p class="price">￥{{price}}</p>
+             <p class="text lg padding">{{name}}</p>
+             <p class="text lg red padding">￥{{price}}</p>
              <group>
-                 <cell-box :border-intent="false"><flexbox justify="space-between"><p class="cell-title">库存</p><p class="cell-title">{{stock}}</p></flexbox></cell-box>
-                 <cell-box is-link :border-intent="false"><flexbox justify="space-between"><p class="cell-title">查看可兑换商品</p></flexbox></cell-box>
+                 <cell-box :border-intent="false"><flexbox justify="space-between"><p class="text gray">库存</p><p class="text gray">{{stock}}</p></flexbox></cell-box>
+                 <cell-box is-link :border-intent="false"><flexbox justify="space-between"><p class="text gray">查看可兑换商品</p></flexbox></cell-box>
              </group>
          </flexbox-item>
       </flexbox>
       <flexbox align="center" class="bottom-bar">
         <flexbox-item :span="0.6">
             <flexbox>
-                <label class="cell-title">数量</label>
+                <label class="text gray">数量</label>
                 <inline-x-number class="price" width="0.4rem" :min="1" :max="Number(stock)" v-model="count" :fillable="true"></inline-x-number>
             </flexbox>
         </flexbox-item>
@@ -110,23 +110,21 @@ export default class Detail extends Vue {
       height: 0.35rem;
     }
   }
-  .banner {
-    font-size: 0.16rem;
-    color: #3c3c3c;
-    letter-spacing: -0.0039rem;
+  .padding{
     padding: 0 0.16rem;
   }
-  .price {
-    font-size: 0.16rem;
-    color: #c61a2a;
-    letter-spacing: -0.0039rem;
-    padding: 0 0.16rem;
-  }
-  .cell-title {
-    font-size: 0.14rem;
-    color: #a6a6a6;
-    letter-spacing: -0.0034rem;
-  }
+  // .banner {
+  //   font-size: 0.16rem;
+  //   color: #3c3c3c;
+  //   letter-spacing: -0.0039rem;
+  //   padding: 0 0.16rem;
+  // }
+  // .price {
+  //   font-size: 0.16rem;
+  //   color: #c61a2a;
+  //   letter-spacing: -0.0039rem;
+  //   padding: 0 0.16rem;
+  // }
   .bottom-bar {
     position: fixed;
     bottom: 0;

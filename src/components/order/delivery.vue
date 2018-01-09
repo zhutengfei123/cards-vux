@@ -31,17 +31,8 @@ export default class Delivery extends Vue {
 .delivery{
     padding:0 0.16rem;
     .text{
-        font-size: 0.14rem;
-        color: #3C3C3C;
-        letter-spacing: -0.0034rem;
         background: #ffffff;
         height:0.48rem;
-        &.lg{
-            font-size: 0.16rem;
-        }
-        &.gray{
-            color: #A6A6A6;
-        }
     }
 }
 </style>

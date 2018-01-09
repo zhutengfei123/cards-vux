@@ -45,19 +45,5 @@ export default class Order extends Vue {
       position: fixed;
       width: 100%;
     }
-    .text{
-        font-size: 14px;
-        color: #3C3C3C;
-        letter-spacing: -0.34px;
-        &.bold{
-            font-weight: bold;
-        }
-        &.brown{
-            color: #B79E74;
-        }
-        &.gray{
-            color: #A6A6A6;;
-        }
-    }
 }
 </style>

@@ -20,11 +20,11 @@
           <flexbox-item>
             <flexbox orient="vertical" >
               <flexbox-item>
-                <p class="title">{{item.name}}</p>
+                <p class="text">{{item.name}}</p>
               </flexbox-item>
               <flexbox-item>
                 <flexbox align="center">
-                  <p class="price">尊享价:￥{{item.price}}</p>
+                  <p class="text red">尊享价:￥{{item.price}}</p>
                   <x-button mini>加入购物车</x-button>
                 </flexbox>
               </flexbox-item>
@@ -116,19 +116,9 @@ export default {
         height:0.44rem;
         width:100%;
     }
-    .title{
-      font-size: 0.14rem;
-      color: #3C3C3C;
-      letter-spacing: -0.0034rem;
-    }
     .image{
       display: flex;
       align-items: center;
-    }
-    .price{
-      font-size: 0.14rem;
-      color: #DF1C2E;
-      letter-spacing: -0.0034rem;
     }
     .card{
       background: #ffffff;
