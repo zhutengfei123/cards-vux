@@ -3,68 +3,110 @@
         <group>
             <cell>
                 <flexbox slot="title" class="title">
-                    <span class="bold">张民洋</span>
-                    <span>&nbsp;15868171185</span>
+                    <span class="bold">{{name}}</span>
+                    <span>&nbsp;{{phone}}</span>
                 </flexbox>
-                <span slot="inline-desc" class="desc">浙江省 杭州市 西湖区 古荡社区西斗门路天堂软件园d幢5d礼管家</span>
-            </cell>
-        </group>
-        <group label-width="0.5rem">
-            <flexbox><span class="label">订单状态</span><span class="value highlight">123</span></flexbox>
-            <flexbox><span class="label">订单号</span><span class="value">432</span></flexbox>
-            <flexbox><span class="label">快递单号</span><span class="value">132</span></flexbox>
-            <cell is-link class="link">
-                <p slot="inline-desc" class="content">123</p>
-                <p slot="inline-desc" class="content">123</p>
+                <span slot="inline-desc" class="desc">{{address}}</span>
             </cell>
         </group>
         <group>
-            <cell><p slot="title">共{{count}}件商品<span class="pray">&nbsp;({{type}})</span></p></cell>
-            <item v-for="item of [{pic_url:'http://g.hiphotos.baidu.com/image/pic/item/b3119313b07eca800b6ae3f49b2397dda14483b2.jpg',content:'123',price:123,}]" :key="item.id" :item="item">
-                <!-- <flexbox-item><x-img :src="item.pic_url"/></flexbox-item>
-                <flexbox-item>{{item.content}}</flexbox-item>
-                <flexbox-item>
-                    <flexbox orient="vertical">
-                        <flexbox-item class="red">￥{{item.price}}</flexbox-item>
-                        <flexbox-item>x{{item.count}}</flexbox-item>
-                    </flexbox>
-                </flexbox-item> -->
+            <flexbox><span class="label">订单状态</span><span class="value highlight">{{type}}</span></flexbox>
+            <flexbox><span class="label">订单号</span><span class="value">{{orderId}}</span></flexbox>
+            <flexbox><span class="label">快递单号</span><span class="value">{{deliveryId}}</span></flexbox>
+            <cell is-link class="link">
+                <p slot="inline-desc" class="content">{{time}}</p>
+                <p slot="inline-desc" class="content">{{status}}</p>
+            </cell>
+        </group>
+        <group>
+            <cell><p slot="title">共{{count}}件商品<span class="pray">&nbsp;({{productsType}})</span></p></cell>
+            <item v-for="item of list" :key="item.id" :item="item">
             </item>
         </group>
         <group>
             <cell-form-preview :list="[{
-                label: 'Apple',
+                label: '下单时间',
                 value: '3.29'
             }, {
-                label: 'Banana',
+                label: '运费',
                 value: '1.04'
             }, {
-                label: 'Fish',
+                label: '合计',
+                value: '8.00'
+            }, {
+                label: '余额',
+                value: '8.00'
+            }, {
+                label: '信用额度',
                 value: '8.00'
             }]"></cell-form-preview>
             <cell>
                 <span slot="title" class="cell">实际付款</span>
-                <span class="red">￥{{123}}</span>
+                <span class="red">￥{{cost}}</span>
             </cell>
         </group>
     </div>
 </template>
 <script>
 import { Component, Vue } from 'vue-property-decorator'
-import {Cell, Group, CellFormPreview} from 'vux'
+import {Cell, Group, CellFormPreview, Flexbox, FlexboxItem} from 'vux'
+import { axios } from '../../js'
 import Item from './item'
 @Component({
   components: {
     Cell,
     Group,
     CellFormPreview,
-    Item
+    Item,
+    Flexbox,
+    FlexboxItem
   }
 })
 export default class OrderDetail extends Vue {
+  name=''
+  phone=''
+  address=''
   list=[]
   count=0
   type=1
+  orderId=''
+  deliveryId=''
+  time=''
+  status=0
+  productsType=''
+  preview=[{
+    label: '下单时间',
+    value: ''
+  }, {
+    label: '运费',
+    value: ''
+  }, {
+    label: '合计',
+    value: ''
+  }, {
+    label: '余额',
+    value: ''
+  }, {
+    label: '信用额度',
+    value: ''
+  }]
+
+  created () {
+    this.getInfo()
+  }
+
+  getInfo () {
+    axios
+        .get('', {
+          params: { store_id: this.storeId, id: this.$route.params.id }
+        })
+        // .then(({ result, status: { code, msg } }) => {
+        //   this.stock = result.stock
+        //   this.picUrl = result.pic_url
+        //   this.name = result.name
+        //   this.price = result.price
+        // })
+  }
 }
 </script>
 <style lang="less" scoped>
@@ -130,6 +172,5 @@ export default class OrderDetail extends Vue {
         color: #3C3C3C;
         letter-spacing: -0.0034rem;
     }
-
 }
 </style>

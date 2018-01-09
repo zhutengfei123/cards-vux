@@ -10,6 +10,11 @@ const Container = () => import('@/container')
 const ConfirmOrder = () => import('@/components/confirmOrder/index')
 const OrderPaySuccess = () => import('@/components/pay/orderPaySuccess')
 const Recharge = () => import('@/components/pay/recharge')
+const Help = () => import('@/components/help/index')
+const Order = () => import('@/components/order/index')
+const OrderDetail = () => import('@/components/order/detail')
+const Delivery = () => import('@/components/order/delivery')
+const Money = () => import('@/components/member/money')
 Vue.use(Router)
 
 const router = new Router({
@@ -41,6 +46,11 @@ const router = new Router({
     {path: '/confirmOrder', name: '确认订单', component: ConfirmOrder},
     {path: '/orderPaySuccess', name: '订单支付成功', component: OrderPaySuccess},
     {path: '/recharge', name: '充值', component: Recharge},
+    {path: '/help', name: '帮助中心', component: Help},
+    {path: '/order', name: '我的订单', component: Order},
+    {path: '/member/money', name: '现金账户', component: Money},
+    {path: '/order/detail', name: '订单详情', component: OrderDetail},
+    {path: '/order/delivery', name: '物流信息', component: Delivery},
     { path: '*' }
   ],
   mode: 'history',

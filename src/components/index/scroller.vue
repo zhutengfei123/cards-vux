@@ -1,16 +1,16 @@
 <template>
-  <div class="scroller" :style="{'background-image':backgroundImage}">
-           <a class="list-top">
-               <label>{{title}}</label>
-               <i class="iconfont icon-gengduo1"></i>
-           </a>
-           <div class="scroll-x">
-              <flexbox align="center" class="container">
-                <flexbox-item v-for="item of list" :key="item.id" span="154">
-                  <card :item="item"></card>
-                </flexbox-item>  
-              </flexbox>
-           </div>
+  <div class="scroller" :style="{backgroundImage}">
+    <a class="list-top">
+        <label>{{title}}</label>
+        <i class="iconfont icon-gengduo1"></i>
+    </a>
+    <div class="scroll-x">
+      <flexbox align="center" class="container">
+        <flexbox-item v-for="item of list" :key="item.id" span="154">
+          <card :item="item"></card>
+        </flexbox-item>  
+      </flexbox>
+    </div>
   </div>
 </template>
 
@@ -34,16 +34,14 @@ export default class LScroller extends Vue {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less" scoped>
 .scroller{
-    padding-bottom: 0.16rem;
-    margin-top: 0.15rem;
+    margin: 0.16rem 0;
     .scroll-x{
         width:100%;
         overflow-x: scroll;
         .container{
-          padding: 0 0.08rem;
+            padding: 0 0.08rem;
         }
     }
     .list-top{
@@ -52,9 +50,9 @@ export default class LScroller extends Vue {
         align-items: center;
         height: 0.5rem;
         color: #fff;
-        padding: 0px 0.08rem;
+        padding: 0 0.08rem;
         label{
-            font-size: 14px;
+            font-size: 0.14rem;
             font-weight: bold;
         }
     }
