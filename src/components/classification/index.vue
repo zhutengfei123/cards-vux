@@ -95,17 +95,17 @@ export default {
     this.paddingTop = rect.height + 16 + 'px'
     const element = document.querySelector('#vux_view_box_body')
     isBottom(element,
-    () => {
-      !this.isEnd && !this.loading && (() => {
-        this.loading = true
-        this.getProducts({page: this.page, pageSize: this.pageSize}).then(({isEnd}) => {
-          this.loading = false
-          this.isEnd = isEnd
-          this.page++
-          element.scrollTop -= (this.$refs.loadMore.$el.getBoundingClientRect().height + 10)
-        }).catch(error => console.log(error))
-      })()
-    }
+      () => {
+        !this.isEnd && !this.loading && (() => {
+          this.loading = true
+          this.getProducts({page: this.page, pageSize: this.pageSize}).then(({isEnd}) => {
+            this.loading = false
+            this.isEnd = isEnd
+            this.page++
+            element.scrollTop -= (this.$refs.loadMore.$el.getBoundingClientRect().height + 10)
+          }).catch(error => console.log(error))
+        })()
+      }
     )
   }
 }

@@ -68,15 +68,15 @@ export default class Detail extends Vue {
 
   getInfo () {
     axios
-        .get('/card-shop/info', {
-          params: { store_id: this.storeId, id: this.$route.params.id }
-        })
-        .then(({ result, status: { code, msg } }) => {
-          this.stock = result.stock
-          this.picUrl = result.pic_url
-          this.name = result.name
-          this.price = result.price
-        })
+      .get('/card-shop/info', {
+        params: { store_id: this.storeId, id: this.$route.params.id }
+      })
+      .then(({ result, status: { code, msg } }) => {
+        this.stock = result.stock
+        this.picUrl = result.pic_url
+        this.name = result.name
+        this.price = result.price
+      })
   }
 
   created () {

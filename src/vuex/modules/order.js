@@ -4,21 +4,24 @@ const state = {
 }
 
 const getters = {
-  getOrdersByType ({ orders }) {
-    return (type) => { orders.filter(todo => todo.type === type) }
+  getOrdersByType ({orders}) {
+    return (type) => {
+      orders.filter(order => order.type === type)
+    }
   }
 }
 
 const actions = {
-  async getOrders ({ commit }) {
-    await axios.get('', { params: {} }).then(() => {
-      commit('')
-    })
+  async getOrders ({commit}) {
+    const result = await axios
+      .get('', {params: {}})
+      .then(() => {})
+    return result
   }
 }
 
 const mutations = {
-
+  setOrders () {}
 }
 
 export default {

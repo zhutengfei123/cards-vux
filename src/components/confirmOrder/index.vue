@@ -59,9 +59,9 @@ export default class ConfirmOrder extends Vue {
       total: '1000.00',
       freight: '6.00',
       list: [
-          {pic: '/static/img/card1.dd4d063.png', desc: '科海客户回馈卡(黑金) 适用于科海商城 官方卡 100元面值卡', price: '100.00', num: '2'},
-          {pic: '/static/img/card1.dd4d063.png', desc: '科海客户回馈卡(黑金) 适用于科海商城 官方卡 100元面值卡', price: '100.00', num: '2'},
-          {pic: '/static/img/card1.dd4d063.png', desc: '科海客户回馈卡(黑金) 适用于科海商城 官方卡 100元面值卡', price: '100.00', num: '2'}
+        {pic: '/static/img/card1.dd4d063.png', desc: '科海客户回馈卡(黑金) 适用于科海商城 官方卡 100元面值卡', price: '100.00', num: '2'},
+        {pic: '/static/img/card1.dd4d063.png', desc: '科海客户回馈卡(黑金) 适用于科海商城 官方卡 100元面值卡', price: '100.00', num: '2'},
+        {pic: '/static/img/card1.dd4d063.png', desc: '科海客户回馈卡(黑金) 适用于科海商城 官方卡 100元面值卡', price: '100.00', num: '2'}
       ]
     },
     {
@@ -69,7 +69,7 @@ export default class ConfirmOrder extends Vue {
       total: '1000.00',
       freight: '6.00',
       list: [
-          {pic: '/static/img/card1.dd4d063.png', desc: '科海客户回馈卡(黑金) 适用于科海商城 官方卡 100元面值卡', price: '100.00', num: '2'}
+        {pic: '/static/img/card1.dd4d063.png', desc: '科海客户回馈卡(黑金) 适用于科海商城 官方卡 100元面值卡', price: '100.00', num: '2'}
       ]
     },
     {
@@ -77,8 +77,8 @@ export default class ConfirmOrder extends Vue {
       total: '1000.00',
       freight: '6.00',
       list: [
-          {pic: '/static/img/card1.dd4d063.png', desc: '科海客户回馈卡(黑金) 适用于科海商城 官方卡 100元面值卡', price: '100.00', num: '2'},
-          {pic: '/static/img/card1.dd4d063.png', desc: '科海客户回馈卡(黑金) 适用于科海商城 官方卡 100元面值卡', price: '100.00', num: '2'}
+        {pic: '/static/img/card1.dd4d063.png', desc: '科海客户回馈卡(黑金) 适用于科海商城 官方卡 100元面值卡', price: '100.00', num: '2'},
+        {pic: '/static/img/card1.dd4d063.png', desc: '科海客户回馈卡(黑金) 适用于科海商城 官方卡 100元面值卡', price: '100.00', num: '2'}
       ]
     }
   ]
