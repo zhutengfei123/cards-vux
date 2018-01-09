@@ -1,31 +1,30 @@
-import {axios} from '../../js'
+import { axios } from '../../js'
 const state = {
-    orders: []
+  orders: []
 }
 
-const getters={
-    getOrdersByType({orders}){
-        return (type)=>{orders.filter(todo => todo.type===type)}
-    }
+const getters = {
+  getOrdersByType ({ orders }) {
+    return (type) => { orders.filter(todo => todo.type === type) }
+  }
 }
 
 const actions = {
-    async getOrders({commit}){
-        await axios.get('',{params:{}}).then(()=>{
-            commit('')
-        })
-    }
+  async getOrders ({ commit }) {
+    await axios.get('', { params: {} }).then(() => {
+      commit('')
+    })
+  }
 }
 
-const mutations={
+const mutations = {
 
 }
 
 export default {
-    namespaced: true,
-    state,
-    actions,
-    mutations,
-    getters
+  namespaced: true,
+  state,
+  actions,
+  mutations,
+  getters
 }
-  

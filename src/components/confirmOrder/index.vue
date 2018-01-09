@@ -24,22 +24,35 @@
     </div>
     <div class="con-foot foot-money">
       <span class="con-total">账户余额</span>
-      <span class="my-color-t">￥{{money}}</span>
+      <span v-show="isCreditEnough" class="my-color-t">￥{{credit}}</span>
+      <span v-show="!isCreditEnough" class="my-color-t">￥{{credit}}<span class="con-total">（余额不足）</span></span>
+    </div>
+    <div class="confirm-foot">
+      <span class="pay-price">合计：￥{{206.00}}</span>
+      <span class="pay-btn" @click="handlePayBtn(isCreditEnough)">{{isCreditEnough?'去付款':'去充值'}}</span>
+    </div>
+    <div>
+      <confirm v-model="show" title="确认支付" @on-cancel="show===false" @on-confirm="onConfirm">
+        <p style="text-align:center;">本次消费将从账户余额中扣除</p>
+      </confirm>
     </div>
   </div>
 </template>
 <script>
-import { Cell, Group } from 'vux'
+import { Cell, Group, Confirm } from 'vux'
 import Vue from 'vue'
 import Component from 'vue-class-component'
 @Component({
   components: {
     Cell,
-    Group
+    Group,
+    Confirm
   }
 })
 export default class ConfirmOrder extends Vue {
-  money = '9999.00'
+  show = false
+  isCreditEnough = false
+  credit = '9999.00'
   orderList = [
     {
       title: '京东自营',
@@ -72,12 +85,52 @@ export default class ConfirmOrder extends Vue {
   handleSelectAddress () {
     console.log('sdf')
   }
+  onConfirm () {
+    this.$router.push({
+      path: 'orderPaySuccess'
+    })
+  }
+  handlePayBtn (isCreditEnough) {
+    if (isCreditEnough) {
+      this.show = true
+    } else {
+      this.$router.push({
+        path: 'recharge'
+      })
+    }
+  }
 }
 </script>
 <style lang="less">
   .confirm-order {
+    padding-bottom: 0.15rem;
     font-size: 0.14rem;
     overflow: hidden;
+    .pay-price {
+      color: #C61A2A;
+    }
+    .pay-btn {
+      margin-right: 15px;
+      height: 100%;
+      background: #B79E74;
+      width: 147px;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .confirm-foot {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      height: 0.5rem;
+      width: 100%;
+      background: #ffffff;
+      padding-left: 0.15rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
     .foot-money {
       margin-top: 0.2rem;
       height: 0.44rem;

@@ -17,7 +17,7 @@
 <script>
 import { Component, Vue } from 'vue-property-decorator'
 import {Flexbox, FlexboxItem} from 'vux'
-import { axios } from '../../js'
+// import { axios } from '../../js'
 @Component({
   components: {Flexbox, FlexboxItem}
 })
