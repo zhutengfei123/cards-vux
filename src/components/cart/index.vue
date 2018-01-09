@@ -78,7 +78,7 @@ export default class Cart extends Vue {
   handleClick (isEdit) {
     if (!isEdit) {
       this.$router.push({
-        path: 'confirmOrder'
+        path: '/confirmOrder'
       })
     }
   }
