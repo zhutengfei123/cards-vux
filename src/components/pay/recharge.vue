@@ -45,11 +45,10 @@
       </div>
       <div class="upload-img">
         <uploader
-          :showHeader="false"
           :max="varmax"
           :images="images"
           :handle-click="true"
-          :show-header="true"
+          :show-header="false"
           :readonly="false"
           :upload-url="uploadUrl"
           :params="params"
@@ -86,7 +85,7 @@
     active = 0
     varmax = 1
     images = []
-    uploadUrl = ''
+    uploadUrl = 'http://cardshopapi.koudaiqifu.cn/site/upload'
     params = {}
     tabList = [
       {title: '在线支付'},
@@ -188,6 +187,9 @@
       color: #A6A6A6;
     }
     .desc-r {
+      color: #B79E74;
+    }
+    .r-2-t-r {
       color: #B79E74;
     }
     .r-desc {
