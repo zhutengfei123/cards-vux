@@ -1,5 +1,16 @@
 <template>
   <div class="header">
+    <flexbox align="center">
+      <flexbox-item :span="0.25" class="avatar-container">
+        <img class="avatar" src="../../assets/init.png" container="#vux_view_box_body"/>
+      </flexbox-item>
+      <flexbox-item :span="0.5">
+        <p class="head-title">某某某某的小店</p>
+      </flexbox-item>
+      <flexbox-item :span="0.25">
+        <p class="text lg white">编辑<span class="app-icon"></span></p>
+      </flexbox-item>
+    </flexbox>
      <swiper loop height="2.5rem" ref="swiper">
        <swiper-item v-for="image of headerImages" :key="image.id">
          <div class="swiper-height">
@@ -12,20 +23,20 @@
      <flexbox class="marqueediv">
         <span class="focus">热点关注</span>
         <marquee>
-            <marquee-item v-for="(item,index) in focus.list" :key="index" class="marquee-height">{{item.title}}</marquee-item>
+            <marquee-item v-for="(item,index) in focus.list" :key="index" class="marquee-height text">{{item.title}}</marquee-item>
         </marquee>
      </flexbox>
   </div>
 </template>
 
 <script>
-import {Swiper, SwiperItem, Marquee, MarqueeItem, Flexbox} from 'vux'
+import {Swiper, SwiperItem, Marquee, MarqueeItem, Flexbox, FlexboxItem, XImg} from 'vux'
 import { Component, Vue } from 'vue-property-decorator'
 import {State, namespace} from 'vuex-class'
 const IndexState = namespace('index', State)
 
 @Component({
-  components: {Swiper, SwiperItem, Marquee, MarqueeItem, Flexbox}
+  components: {Swiper, SwiperItem, Marquee, MarqueeItem, Flexbox, FlexboxItem, XImg}
 })
 export default class LHeader extends Vue {
   imgWidth=screen.width
@@ -45,6 +56,21 @@ export default class LHeader extends Vue {
 .header{
     background-image: linear-gradient(0deg, #FFFFFF 27%, #4386F4 100%);
     width: 100%;
+    .avatar-container{
+      display:flex;
+      justify-content:center;
+      padding:0.08rem 0;
+      .avatar{
+        width: 0.4rem;
+        height: 0.4rem;
+        border-radius:50%;
+      }
+    }
+    .head-title{
+      font-size: 0.18rem;
+      color: #FFFFFF;
+      letter-spacing: -0.0043rem;
+    }
     .title{
       font-size: 0.2rem;
       color: #3C3C3C;
@@ -74,8 +100,6 @@ export default class LHeader extends Vue {
     }
     .marquee-height{
       height:0.17rem;
-      font-size: 0.14rem;
-      color:#3C3C3C;
     }
     .marqueediv{
       display: flex;

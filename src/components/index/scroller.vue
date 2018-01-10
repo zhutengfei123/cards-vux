@@ -1,7 +1,7 @@
 <template>
   <div class="scroller" :style="{backgroundImage}">
     <a class="list-top">
-        <label>{{title}}</label>
+        <label class="text bold">{{title}}</label>
         <i class="iconfont icon-gengduo1"></i>
     </a>
     <div class="scroll-x">
@@ -51,11 +51,6 @@ export default class LScroller extends Vue {
         height: 0.5rem;
         color: #fff;
         padding: 0 0.08rem;
-        label{
-            font-size: 0.14rem;
-            font-weight: bold;
-        }
     }
-
 }
 </style>

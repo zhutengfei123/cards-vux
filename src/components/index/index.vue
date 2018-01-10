@@ -1,5 +1,13 @@
 <template>
   <div class="index">
+      <flexbox class="top" align="center">
+        <flexbox-item class="container">
+            <x-button link="/main/intention">意向单</x-button>
+        </flexbox-item>
+        <flexbox-item class="container">
+            <x-button @click.native="toggleTip">立即推广</x-button>
+        </flexbox-item>
+      </flexbox>
       <l-header></l-header>
       <div class="block">
         <p class="recommend-title">{{mainRecommend.title}}</p>
@@ -20,13 +28,18 @@
         </grid>
       </div>
       <load-more tip="正在加载" v-show="loading" ref="loadMore"></load-more>
+      <div v-transfer-dom>
+        <x-dialog :dialog-style="{background:'transparent'}" v-model="showTip" hide-on-blur>
+          <img src="../../assets/share.png" style="width:100%"/>
+        </x-dialog>
+      </div>
   </div>
 </template>
 
 <script>
 import LHeader from './header'
 import LScroller from './scroller'
-import { XImg, Flexbox, FlexboxItem, Grid, GridItem, LoadMore } from 'vux'
+import { XImg, Flexbox, FlexboxItem, Grid, GridItem, LoadMore, XButton, XDialog, TransferDomDirective as TransferDom } from 'vux'
 import { Component, Vue } from 'vue-property-decorator'
 import {State, Action, Mutation, namespace} from 'vuex-class'
 import Card from './card'
@@ -38,6 +51,9 @@ const IndexAction = namespace('index', Action)
 const IndexMutation = namespace('index', Mutation)
 @Component({
   mixins: [page],
+  directives: {
+    TransferDom
+  },
   components: {
     LHeader,
     LScroller,
@@ -47,11 +63,14 @@ const IndexMutation = namespace('index', Mutation)
     FlexboxItem,
     GridItem,
     Grid,
-    LoadMore
+    LoadMore,
+    XButton,
+    XDialog
   }
 })
 export default class Index extends Vue {
   imgWidth= screen.width
+  showTip=false
 
   @IndexState recommend
   @IndexState mainRecommend
@@ -61,6 +80,10 @@ export default class Index extends Vue {
   @IndexAction init
   @IndexAction loadMore
   @IndexMutation setInit
+
+  toggleTip () {
+    this.showTip = !this.showTip
+  }
 
   created () {
     if (!this.inited) {
@@ -89,9 +112,15 @@ export default class Index extends Vue {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less" scoped>
 .index {
+  .top{
+      background: #ffffff;
+      margin-bottom: 0.16rem;
+      .container{
+        padding:0.08rem 0.16rem;
+      }
+  }
   .recommend-title{
       position: absolute;
       top: -0.17rem;
