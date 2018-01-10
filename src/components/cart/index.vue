@@ -10,7 +10,7 @@
             </div>
             <div class="con-mid" v-for="(subItem, i) in item.list" :key="i">
                 <check-icon :value.sync="subItem.checked"></check-icon>
-                <span><img class="img" :src="subItem.pic" alt=""></span>
+                <span class="my-img"><img class="img" :src="subItem.pic" alt=""></span>
                 <div class="con-r">
                     <div class="con-mid-t">{{subItem.desc}}</div>
                     <div class="con-mid-b">
@@ -172,9 +172,10 @@ export default class Cart extends Vue {
             justify-content: space-between;
             align-items: center;
         }
-        .img {
+        .img, .my-img {
             width: 1rem;
             border: none;
+            height: 100%;
         }
         .con-r {
             padding: 0 0.1rem;

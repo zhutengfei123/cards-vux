@@ -10,7 +10,7 @@
       </group>
       <div class="r-desc">
         <span class="desc-l">注意：大额支付建议使用转账汇款</span>
-        <span class="desc-r">充值记录</span>
+        <span class="desc-r" @click="handleRechargeDetail">充值记录</span>
       </div>
       <div class="r-foot">
         <x-button class="r-foot-btn" link="/orderPayFail">微信支付</x-button>
@@ -19,7 +19,7 @@
     <div class="recharge-2" v-show="active===1">
       <div class="r-2-top">
         <span class="r-2-t-l">汇款信息</span>
-        <span class="r-2-t-r">充值记录</span>
+        <span class="r-2-t-r" @click="handleRechargeDetail">充值记录</span>
       </div>
       <div class="r-2-con">
         <div class="r-2-c-item">
@@ -44,7 +44,7 @@
         <span class="r-2-t-r"><img class="foot-img" src="../../assets/logo.png" alt=""></span>
       </div>
       <div class="r-foot">
-        <x-button class="r-foot-btn">提交</x-button>
+        <x-button class="r-foot-btn" link="/submitSuccess">提交</x-button>
       </div>
     </div>
   </div>
@@ -70,6 +70,11 @@
       {title: '在线支付'},
       {title: '转账汇款'}
     ]
+    handleRechargeDetail () {
+      this.$router.push({
+        path: '/rechargeDetailed'
+      })
+    }
     onItemClick (index) {
       this.active = index
     }

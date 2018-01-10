@@ -6,7 +6,7 @@
     <div class="order-con" v-for="(item, index) in orderList" :key="index">
       <div class="con-top">共{{item.list.length}}件商品<span>（{{item.title}}）</span></div>
       <div class="con-mid" v-for="(subItem, i) in item.list" :key="i">
-        <div><img class="img" :src="subItem.pic" alt=""></div>
+        <div class="my-img"><img class="img" :src="subItem.pic" alt=""></div>
         <div class="con-mid-m">{{subItem.desc}}</div>
         <div class="con-mid-r">
           <span class="my-color-t">￥{{subItem.price}}</span>
@@ -176,9 +176,10 @@ export default class ConfirmOrder extends Vue {
       justify-content: space-between;
       flex-direction: column;
     }
-    .img {
+    .img, .my-img {
       width: 1rem;
       border: none;
+      height: 100%;
     }
     .con-mid {
       height: 0.6rem;
