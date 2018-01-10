@@ -1,34 +1,33 @@
 <template>
   <div class="order-pay-success">
     <div class="con-top">
-      <span><img class="con-top-img" src="../../assets/pay-fail.png" alt=""></span>
-      <span class="con-top-title">支付失败</span>
+      <span class="app-icon">{{status?'&#xe605;':'&#xe658;'}}</span>
+      <span class="con-top-title">{{status?'支付成功':'支付失败'}}</span>
     </div>
     <div class="con-bot">
-      <x-button class="btn-l">查看明细</x-button>
+      <x-button class="btn-l" link="/rechargeDetailed">查看明细</x-button>
     </div>
   </div>
 </template>
 <script>
   import { XButton } from 'vux'
-  import Vue from 'vue'
-  import Component from 'vue-class-component'
+  import { Component, Vue } from 'vue-property-decorator'
   @Component({
     components: {
       XButton
     }
   })
   export default class OrderPayFail extends Vue {
-
+    status = true // true 充值成功；false 充值失败
   }
 </script>
 <style lang="less">
   .order-pay-success {
     font-size: 0.14rem;
     overflow: hidden;
-    .con-top-img {
-      width: 0.45rem;
-      border: none;
+    .app-icon {
+      font-size: 0.45rem;
+      color: #B79E74;
     }
     .con-top-title {
       font-size: 18px;
