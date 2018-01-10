@@ -9,6 +9,7 @@ import store from './vuex/store'
 import { sync } from 'vuex-router-sync'
 import { WechatPlugin, BusPlugin, DevicePlugin, ToastPlugin } from 'vux'
 import './js/rem.js'
+
 if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
   navigator.serviceWorker.register('/service-worker.js')
 }

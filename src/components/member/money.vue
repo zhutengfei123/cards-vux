@@ -13,15 +13,15 @@
         </flexbox>
         <group class="list">
             <cell is-link>
-                <span slot="title" class="title">交易记录</span>
-                <span class="content">更多</span>
+                <span slot="title" class="text lg">交易记录</span>
+                <span class="text">更多</span>
             </cell>
             <cell v-for="item of list" :key="item.id" class="card">
                 <flexbox slot="title" justify="space-between">
-                    <span class="text">{{item.type}}</span>
-                    <span class="text">{{item.money}}</span>
+                    <span class="text lg">{{item.type}}</span>
+                    <span class="text lg">{{item.money}}</span>
                 </flexbox>
-                <span slot="inline-desc" class="content">{{item.time}}</span>
+                <span slot="inline-desc" class="text lg gray">{{item.time}}</span>
             </cell>
         </group>
     </div>
@@ -64,28 +64,8 @@ export default class Money extends Vue {
         }
     }
     .list{
-        .title{
-            font-size: 0.16rem;
-            color: #3C3C3C;
-            letter-spacing: -0.0039rem;
-        }
-        .content{
-            font-size: 0.14rem;
-            color: #3C3C3C;
-            letter-spacing: -0.0034rem;
-        }
         .card{
             background: #FFFFFF;
-            .text{
-                font-size: 0.16rem;
-                color: #3C3C3C;
-                letter-spacing: -0.0039rem;
-            }
-            .content{
-                font-size: 0.16rem;
-                color: #A6A6A6;
-                letter-spacing: -0.0039rem;
-            }
         }
     }
 }
