@@ -105,6 +105,14 @@ export default class ConfirmOrder extends Vue {
     padding-bottom: 0.15rem;
     font-size: 0.14rem;
     overflow: hidden;
+    .weui-dialog__btn_primary {
+      color: #ffffff;
+      background: #B79E74;
+    }
+    .weui-dialog__btn_default {
+      color: #ffffff;
+      background: #A6A6A6;
+    }
     .pay-price {
       color: #C61A2A;
     }

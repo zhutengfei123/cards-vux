@@ -1,18 +1,17 @@
 <template>
   <div class="submit-success">
     <div class="con-top">
-      <span><img class="con-top-img" src="../../assets/pay-success.png" alt=""></span>
+      <span class="app-icon">&#xe605;</span>
       <span class="con-top-title">提交成功</span>
     </div>
     <div class="con-bot">
-      <x-button class="btn-l">返回</x-button>
+      <x-button class="btn-l" link="/recharge">返回</x-button>
     </div>
   </div>
 </template>
 <script>
   import { XButton } from 'vux'
-  import Vue from 'vue'
-  import Component from 'vue-class-component'
+  import { Component, Vue } from 'vue-property-decorator'
   @Component({
     components: {
       XButton
@@ -26,9 +25,9 @@
   .submit-success {
     font-size: 0.14rem;
     overflow: hidden;
-    .con-top-img {
-      width: 0.45rem;
-      border: none;
+    .app-icon {
+      font-size: 0.45rem;
+      color: #B79E74;
     }
     .con-top-title {
       font-size: 18px;

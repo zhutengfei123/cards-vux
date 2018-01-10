@@ -10,7 +10,7 @@ const Container = () => import('@/container')
 const ConfirmOrder = () => import('@/components/confirmOrder/index')
 const OrderPaySuccess = () => import('@/components/pay/orderPaySuccess')
 const SubmitSuccess = () => import('@/components/pay/submitSuccess')
-const OrderPayFail = () => import('@/components/pay/orderPayFail')
+const RechargeResults = () => import('@/components/pay/rechargeResults')
 const Recharge = () => import('@/components/pay/recharge')
 const RechargeDetailed = () => import('@/components/pay/rechargeDetailed')
 const RechargeDetails = () => import('@/components/pay/rechargeDetails')
@@ -53,7 +53,7 @@ const router = new Router({
     {path: '/confirmOrder', name: '确认订单', component: ConfirmOrder},
     {path: '/orderPaySuccess', name: '订单支付成功', component: OrderPaySuccess},
     {path: '/submitSuccess', name: '提交成功', component: SubmitSuccess},
-    {path: '/orderPayFail', name: '订单支付失败', component: OrderPayFail},
+    {path: '/rechargeResults', name: '充值结果', component: RechargeResults},
     {path: '/recharge', name: '充值', component: Recharge},
     {path: '/rechargeDetailed', name: '充值明细', component: RechargeDetailed},
     {path: '/rechargeDetails', name: '充值详情', component: RechargeDetails},

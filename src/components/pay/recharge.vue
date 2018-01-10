@@ -13,7 +13,7 @@
         <span class="desc-r" @click="handleRechargeDetail">充值记录</span>
       </div>
       <div class="r-foot">
-        <x-button class="r-foot-btn" link="/orderPayFail">微信支付</x-button>
+        <x-button class="r-foot-btn" link="/rechargeResults">微信支付</x-button>
       </div>
     </div>
     <div class="recharge-2" v-show="active===1">
