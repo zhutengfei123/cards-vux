@@ -51,8 +51,7 @@
 </template>
 <script>
   import { XButton, Tab, TabItem, XInput, Group } from 'vux'
-  import Vue from 'vue'
-  import Component from 'vue-class-component'
+  import { Component, Vue } from 'vue-property-decorator'
   @Component({
     components: {
       XButton,
