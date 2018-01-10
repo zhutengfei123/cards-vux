@@ -2,24 +2,24 @@
     <div class="order-detail">
         <group>
             <cell>
-                <flexbox slot="title" class="title">
+                <flexbox slot="title" class="text lg">
                     <span class="bold">{{name}}</span>
                     <span>&nbsp;{{phone}}</span>
                 </flexbox>
-                <span slot="inline-desc" class="desc">{{address}}</span>
+                <span slot="inline-desc" class="text">{{address}}</span>
             </cell>
         </group>
         <group>
-            <flexbox><span class="label">订单状态</span><span class="value highlight">{{type}}</span></flexbox>
-            <flexbox><span class="label">订单号</span><span class="value">{{orderId}}</span></flexbox>
-            <flexbox><span class="label">快递单号</span><span class="value">{{deliveryId}}</span></flexbox>
+            <flexbox><span class="text label">订单状态</span><span class="text brown">{{type}}</span></flexbox>
+            <flexbox><span class="text label">订单号</span><span class="text">{{orderId}}</span></flexbox>
+            <flexbox><span class="text label">快递单号</span><span class="text">{{deliveryId}}</span></flexbox>
             <cell is-link class="link">
-                <p slot="inline-desc" class="content">{{time}}</p>
-                <p slot="inline-desc" class="content">{{status}}</p>
+                <p slot="inline-desc" class="text gray">{{time}}</p>
+                <p slot="inline-desc" class="text gray">{{status}}</p>
             </cell>
         </group>
         <group>
-            <cell><p slot="title">共{{count}}件商品<span class="pray">&nbsp;({{productsType}})</span></p></cell>
+            <cell><p slot="title" class="text">共{{count}}件商品<span class="gray">&nbsp;({{productsType}})</span></p></cell>
             <item v-for="item of list" :key="item.id" :item="item">
             </item>
         </group>
@@ -41,8 +41,8 @@
                 value: '8.00'
             }]"></cell-form-preview>
             <cell>
-                <span slot="title" class="cell">实际付款</span>
-                <span class="red">￥{{cost}}</span>
+                <span slot="title" class="text gray">实际付款</span>
+                <span class="text red">￥{{cost}}</span>
             </cell>
         </group>
     </div>
@@ -63,7 +63,7 @@ import Item from './item'
   }
 })
 export default class OrderDetail extends Vue {
-  name=''
+  name='sadsad'
   phone=''
   address=''
   list=[]
@@ -74,6 +74,7 @@ export default class OrderDetail extends Vue {
   time=''
   status=0
   productsType=''
+  cost=0
   preview=[{
     label: '下单时间',
     value: ''
@@ -97,66 +98,27 @@ export default class OrderDetail extends Vue {
 
   getInfo () {
     axios
-        .get('', {
-          params: { store_id: this.storeId, id: this.$route.params.id }
-        })
-        // .then(({ result, status: { code, msg } }) => {
-        //   this.stock = result.stock
-        //   this.picUrl = result.pic_url
-        //   this.name = result.name
-        //   this.price = result.price
-        // })
+      .get('', {
+        params: { store_id: this.storeId, id: this.$route.params.id }
+      })
+    // .then(({ result, status: { code, msg } }) => {
+    //   this.stock = result.stock
+    //   this.picUrl = result.pic_url
+    //   this.name = result.name
+    //   this.price = result.price
+    // })
   }
 }
 </script>
 <style lang="less" scoped>
 .order-detail{
-    .title{
-        font-size: 0.16rem;
-        color: #3C3C3C;
-        letter-spacing: -0.0039rem;
-        .bold{
-            font-weight: bold;
-        }
-    }
-    .desc{
-        font-size: 0.14rem;
-        color: #3C3C3C;
-        letter-spacing: -0.0034rem;
-    }
     .link{
         width: calc( ~"70% - 0.32rem" );
         float: right;
-        .content{
-            font-size: 0.14rem;
-            color: #A6A6A6;
-            letter-spacing: -0.0034rem;
-        }
-    }
-    .red{
-        font-size: 0.14rem;
-        color: #C61A2A;
-        letter-spacing: -0.0034rem;
-    }
-    .cell{
-        font-size: 0.14rem;
-        color: #A6A6A6;
-        letter-spacing: -0.0034rem;
     }
     .label{
         width: 30%;
         padding-left:0.16rem;
-        font-size: 0.14rem;
-        color: #3C3C3C;
-        letter-spacing: -0.0034rem;
-    }
-    .value{
-        font-size: 0.14rem;
-        color: #3C3C3C;
-        letter-spacing: -0.0034rem;
-        &.highlight{
-            color: #B79E74;
-        }
     }
 }
 </style>

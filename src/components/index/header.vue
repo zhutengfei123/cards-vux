@@ -54,9 +54,6 @@ export default class LHeader extends Vue {
       padding-left: 0.2rem;
     }
     .text{
-      font-size: 0.14rem;
-      color: #3C3C3C;
-      letter-spacing: -0.0034rem;
       line-height: 0.2rem;
       padding-left: 0.2rem;
     }
@@ -65,7 +62,7 @@ export default class LHeader extends Vue {
       font-size: 0.2rem;
       letter-spacing: -0.0048rem;
       font-weight: bold;
-      margin:0 0.16rem 0 0.16rem;  
+      margin:0 0.16rem;  
       width: 50%;
     }
     .swiper-image{

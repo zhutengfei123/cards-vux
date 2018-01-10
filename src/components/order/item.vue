@@ -1,10 +1,10 @@
 <template>
     <flexbox class="item" align="center">
         <flexbox-item :span="0.25" class="image-container"><x-img class="image" :src="item.pic_url"/></flexbox-item>
-        <flexbox-item :span="0.5" class="content">{{item.content}}</flexbox-item>
+        <flexbox-item :span="0.5" class="text">{{item.content}}</flexbox-item>
         <flexbox-item>
             <flexbox orient="vertical">
-                <flexbox-item class="red">￥{{item.price}}</flexbox-item>
+                <flexbox-item class="text red">￥{{item.price}}</flexbox-item>
                 <flexbox-item class="count">x {{item.count}}</flexbox-item>
             </flexbox>
         </flexbox-item>
@@ -29,16 +29,6 @@ export default class Item extends Vue {
         .image{
             height:0.6rem;
         }
-    }
-    .content{
-        font-size: 0.14rem;
-        color: #3C3C3C;
-        letter-spacing: -0.0034rem;
-    }
-    .red{
-        font-size: 0.14rem;
-        color: #C61A2A;
-        letter-spacing: -0.0034rem;
     }
     .count{
         font-size: 0.1rem;

@@ -8,11 +8,11 @@
       <flexbox-item>
           <flexbox orient="vertical">
               <flexbox-item>
-                <p class="title">{{item.title}}</p>
+                <p class="text">{{item.title}}</p>
               </flexbox-item>
               <flexbox-item style="margin-top:0.5rem">
                 <flexbox justify="space-between">
-                    <label class="price">{{item.price}}</label>
+                    <label class="text red">{{item.price}}</label>
                     <inline-x-number width="0.4rem" :min="1" :max="item.store" v-model="item.count" :fillable="true"></inline-x-number>
                 </flexbox>
               </flexbox-item>
@@ -36,17 +36,6 @@ export default class Item extends Vue {
     background: #ffffff;
     .image{
         width:1rem;
-    }
-    .price{
-        font-size: 0.14rem;
-        color: #C61A2A;
-        letter-spacing: -0.0034rem;
-    }
-    .title{
-        font-size: 0.14rem;
-        color: #3C3C3C;
-        letter-spacing: -0.0034rem;
-        line-height: 0.16rem;
     }
     .check-icon{
         display:flex;

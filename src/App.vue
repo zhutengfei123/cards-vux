@@ -49,6 +49,7 @@
 </style>
 <style lang="less">
 @import "~vux/src/styles/reset.less";
+@import 'css/common.less';
 @font-face {
   font-family: "iconfont";
   src: url('css/icons/iconfont.eot?t=1514276920946'); /* IE9*/

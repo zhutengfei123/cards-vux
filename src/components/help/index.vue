@@ -2,11 +2,11 @@
     <div class="help">
         <group>
             <cell is-link :link="help.url" v-for="help of list" :key="help.id">
-                <span class="title" slot="title">{{help.title}}</span>
-                <span class="content" slot="inline-desc">{{help.content}}</span>
+                <span class="text" slot="title">{{help.title}}</span>
+                <span class="text gray" slot="inline-desc">{{help.content}}</span>
             </cell>
         </group>
-        <p class="bottom-txt">飞象企服提供技术支持</p>
+        <p class="text gray bottom-txt">飞象企服提供技术支持</p>
     </div>
 </template>
 <script>
@@ -23,21 +23,11 @@ export default class Help extends Vue {
 </script>
 <style lang="less" scoped>
 .help{
-    .title{
-        font-size: 0.14rem;
-        color: #3C3C3C;
-        letter-spacing: -0.0034rem;
-    }
-    .content{
-        font-size: 0.14rem;
-        color: #A6A6A6;
-        letter-spacing: -0.0034rem;
-    }
     .bottom-txt{
-        font-size: 0.14rem;
+        position:fixed;
+        bottom:0.6rem;
         text-align: center;
-        color: #a6a6a6;
-        margin-top: 0.6rem;
+        width:100%;
     }
 }
 </style>

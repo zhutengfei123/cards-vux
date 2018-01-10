@@ -44,24 +44,24 @@ export default class Cart extends Vue {
       title: '京东自营',
       checked: false,
       list: [
-            {desc: '飞象X苏宁联名圣诞卡 面值500元', pic: '/static/img/card1.dd4d063.png', price: '49000.00', checked: true},
-            {desc: '飞象X苏宁联名圣诞卡 面值500元', pic: '/static/img/card1.dd4d063.png', price: '49000.00', checked: false},
-            {desc: '飞象X苏宁联名圣诞卡 面值500元', pic: '/static/img/card1.dd4d063.png', price: '49000.00', checked: true}
+        {desc: '飞象X苏宁联名圣诞卡 面值500元', pic: '/static/img/card1.dd4d063.png', price: '49000.00', checked: true},
+        {desc: '飞象X苏宁联名圣诞卡 面值500元', pic: '/static/img/card1.dd4d063.png', price: '49000.00', checked: false},
+        {desc: '飞象X苏宁联名圣诞卡 面值500元', pic: '/static/img/card1.dd4d063.png', price: '49000.00', checked: true}
       ]
     },
     {
       title: '京东自营',
       checked: true,
       list: [
-            {desc: '飞象X苏宁联名圣诞卡 面值500元', pic: '/static/img/card1.dd4d063.png', price: '49000.00', checked: false},
-            {desc: '飞象X苏宁联名圣诞卡 面值500元', pic: '/static/img/card1.dd4d063.png', price: '49000.00', checked: true}
+        {desc: '飞象X苏宁联名圣诞卡 面值500元', pic: '/static/img/card1.dd4d063.png', price: '49000.00', checked: false},
+        {desc: '飞象X苏宁联名圣诞卡 面值500元', pic: '/static/img/card1.dd4d063.png', price: '49000.00', checked: true}
       ]
     },
     {
       title: '京东自营',
       checked: false,
       list: [
-            {desc: '飞象X苏宁联名圣诞卡 面值500元', pic: '/static/img/card1.dd4d063.png', price: '49000.00', checked: true}
+        {desc: '飞象X苏宁联名圣诞卡 面值500元', pic: '/static/img/card1.dd4d063.png', price: '49000.00', checked: true}
       ]
     }
   ]
