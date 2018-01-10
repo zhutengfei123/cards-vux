@@ -7,7 +7,7 @@ import Vuex from 'vuex'
 import FastClick from 'fastclick'
 import store from './vuex/store'
 import { sync } from 'vuex-router-sync'
-import { WechatPlugin, BusPlugin, DevicePlugin, ToastPlugin } from 'vux'
+import { WechatPlugin, BusPlugin, DevicePlugin, ToastPlugin, ConfigPlugin } from 'vux'
 import './js/rem.js'
 
 if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
@@ -25,6 +25,9 @@ Vue.use(WechatPlugin)
 Vue.use(BusPlugin)
 Vue.use(DevicePlugin)
 Vue.use(ToastPlugin)
+Vue.use(ConfigPlugin, {
+  $layout: 'VIEW_BOX'
+})
 
 Vue.mixin({
   created () {
