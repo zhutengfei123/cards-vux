@@ -25,13 +25,12 @@
       <cell title="帮助中心" is-link link="/"></cell>
     </group>
     <div class="exit" @click="exitEvent" v-show="status == 1">退出登录</div>  
-    <p class="bottom-txt">飞象企服提供技术支持</p>
+    <p class="text gray bottom-txt">飞象企服提供技术支持</p>
   </div>
 </template>
 <script>
 import { Cell, Group, XImg } from 'vux'
-import Vue from 'vue'
-import Component from 'vue-class-component'
+import { Component, Vue } from 'vue-property-decorator'
 @Component({
   components: {
     Cell,

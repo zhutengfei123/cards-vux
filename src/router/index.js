@@ -19,6 +19,9 @@ const Order = () => import('@/components/order/index')
 const OrderDetail = () => import('@/components/order/detail')
 const Delivery = () => import('@/components/order/delivery')
 const Money = () => import('@/components/member/money')
+const Intention = () => import('@/components/intention/index')
+const IntentionDetail = () => import('@/components/intention/detail')
+const IntentionSubmit = () => import('@/components/intention/submit')
 Vue.use(Router)
 
 const router = new Router({
@@ -57,8 +60,12 @@ const router = new Router({
     {path: '/help', name: '帮助中心', component: Help},
     {path: '/order', name: '我的订单', component: Order},
     {path: '/member/money', name: '现金账户', component: Money},
-    {path: '/order/detail', name: '订单详情', component: OrderDetail},
+    {path: '/order/:id', name: '订单详情', component: OrderDetail},
     {path: '/order/delivery', name: '物流信息', component: Delivery},
+    {path: '/intention', name: '意向单', component: Intention},
+    {path: '/intention/detail/:id', name: '意向单详情', component: IntentionDetail},
+    {path: '/intention/submit', name: '提交意向单', component: IntentionSubmit},
+    {path: '/intention/edit', name: '意向单编辑', component: Cart},
     { path: '*' }
   ],
   mode: 'history',

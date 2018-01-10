@@ -37,7 +37,7 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 
 2.git clone https://github.com/<username>/cards-vux.git
 
-3.git remote add origin upstream https://github.com/kuailingmin/cards-vux
+3.git remote add upstream https://github.com/kuailingmin/cards-vux
 
 4.git checkout -b <name>
 ```
@@ -55,6 +55,6 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 
 3.git commit -m <string>
 
-4.git push origin master
+4.git push origin <branch>
 ```
 
