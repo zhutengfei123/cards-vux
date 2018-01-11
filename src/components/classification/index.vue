@@ -112,6 +112,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .classification{
+  font-size: 0.14rem;
     .top-bar{
         height:0.44rem;
         width:100%;

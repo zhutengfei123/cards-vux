@@ -13,16 +13,16 @@
     </div>
 
     <group>
-      <cell title="我的订单" is-link link="/"></cell>
+      <cell title="我的订单" is-link link="/order"></cell>
     </group>
     <group>
-      <cell title="现金账户" :value="price"  is-link link="/"></cell>
-      <cell title="收货地址" is-link link="/"></cell>
+      <cell title="现金账户" :value="price"  is-link link="/member/money"></cell>
+      <cell title="收货地址" is-link link="/address"></cell>
       <cell title="我的卡券商城" :value="sta"  is-link link="/"></cell>
     </group>
     <group>
       <cell title="客户服务" value="0571-12345678"  is-link link="/"></cell>
-      <cell title="帮助中心" is-link link="/"></cell>
+      <cell title="帮助中心" is-link link="/help"></cell>
     </group>
     <div class="exit" @click="exitEvent" v-show="status == 1">退出登录</div>  
     <p class="text gray bottom-txt">飞象企服提供技术支持</p>
@@ -110,11 +110,12 @@ export default class Member extends Vue {
   background: #fff;
   margin-top: 0.15rem;
 }
-    .bottom-txt{
-        position:fixed;
-        bottom:0.6rem;
-        text-align: center;
-        width:100%;
-    }
+.bottom-txt{
+    position:fixed;
+    bottom:0.6rem;
+    text-align: center;
+    width:100%;
+    font-size: 0.14rem;
+}
 </style>
 
