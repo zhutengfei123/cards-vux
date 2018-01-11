@@ -41,7 +41,23 @@
       </group>
       <div class="r-2-top r-2-foot">
         <span class="r-2-t-l">汇款底单</span>
-        <span class="r-2-t-r"><img class="foot-img" src="../../assets/logo.png" alt=""></span>
+        <span class="app-icon">&#xe6e9;</span>
+      </div>
+      <div class="upload-img">
+        <uploader
+          :max="varmax"
+          :images="images"
+          :handle-click="true"
+          :show-header="false"
+          :readonly="false"
+          :upload-url="uploadUrl"
+          :params="params"
+          size="small"
+          :handleClick="false"
+          @preview="previewMethod"
+          @add-image="addImageMethod"
+          @remove-image="removeImageMethod">
+        </uploader>
       </div>
       <div class="r-foot">
         <x-button class="r-foot-btn" link="/submitSuccess">提交</x-button>
@@ -52,19 +68,25 @@
 <script>
   import { XButton, Tab, TabItem, XInput, Group } from 'vux'
   import { Component, Vue } from 'vue-property-decorator'
+  import Uploader from 'vux-uploader'
   @Component({
     components: {
       XButton,
       Tab,
       TabItem,
       XInput,
-      Group
+      Group,
+      Uploader
     }
   })
   export default class OrderPaySuccess extends Vue {
     rechargeVal = ''
     remitVal = ''
     active = 0
+    varmax = 1
+    images = []
+    uploadUrl = 'http://cardshopapi.koudaiqifu.cn/site/upload'
+    params = {}
     tabList = [
       {title: '在线支付'},
       {title: '转账汇款'}
@@ -82,6 +104,15 @@
     }
     remitValOnBlur () {
   
+    }
+    previewMethod () {
+
+    }
+    addImageMethod () {
+
+    }
+    removeImageMethod () {
+
     }
   }
 </script>
@@ -128,10 +159,6 @@
       font-size: 0.14rem;
       color: #3C3C3C;
     }
-    .r-2-t-r {
-      font-size: 0.14rem;
-      color: #B79E74;
-    }
     .r-2-top {
       height: 0.44rem;
       background: #ffffff;
@@ -160,6 +187,9 @@
       color: #A6A6A6;
     }
     .desc-r {
+      color: #B79E74;
+    }
+    .r-2-t-r {
       color: #B79E74;
     }
     .r-desc {
