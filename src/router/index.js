@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import store from '../vuex/store'
-const Member = () => import('@/components/member/Index')
+const Member = () => import('@/components/member/index')
 const Index = () => import('@/components/index/index')
 const Classification = () => import('@/components/classification/index')
 const Cart = () => import('@/components/cart/index')
@@ -22,6 +22,8 @@ const Money = () => import('@/components/member/money')
 const Intention = () => import('@/components/intention/index')
 const IntentionDetail = () => import('@/components/intention/detail')
 const IntentionSubmit = () => import('@/components/intention/submit')
+const Address = () => import('@/components/address/index')
+const AddAddress = () => import('@/components/address/add')
 Vue.use(Router)
 
 const router = new Router({
@@ -66,6 +68,9 @@ const router = new Router({
     {path: '/intention/detail/:id', name: '意向单详情', component: IntentionDetail},
     {path: '/intention/submit', name: '提交意向单', component: IntentionSubmit},
     {path: '/intention/edit', name: '意向单编辑', component: Cart},
+    {path: '/address', name: '地址管理', component: Address},
+    {path: '/address/add', name: '添加新地址', component: AddAddress},
+    {path: '/address/edit/:id', name: '编辑地址', component: AddAddress},
     { path: '*' }
   ],
   mode: 'history',
