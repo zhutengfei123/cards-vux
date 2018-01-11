@@ -28,6 +28,7 @@ export default class Help extends Vue {
         bottom:0.6rem;
         text-align: center;
         width:100%;
+        font-size: 0.14rem;
     }
 }
 </style>

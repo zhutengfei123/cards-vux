@@ -11,7 +11,7 @@ const axiosObejct = axios.create({
 axiosObejct.interceptors.request.use(
   config => {
     config.headers = Object.assign(config.headers ? config.headers : {}, {
-      Authorization: 'Bearer ' + store.state.token
+      token: store.state.user.token
     })
     // config.withCredentials = true
     return config

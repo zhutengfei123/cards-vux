@@ -114,6 +114,7 @@ export default class Index extends Vue {
 
 <style lang="less" scoped>
 .index {
+  font-size: 0.14rem;
   .top{
       background: #ffffff;
       margin-bottom: 0.16rem;

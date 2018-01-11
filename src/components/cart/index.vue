@@ -1,28 +1,28 @@
 <template>
     <div class="cart">
         <div class="cart-top">
-            <span>共{{4}}件</span>
+            <span>共{{initData.num}}件</span>
             <span class="cart-edit" @click="handleCartEdit(isEdit)">{{isEdit?'完成':'编辑'}}</span>
         </div>
-        <div class="cart-con" v-for="(item, index) in orderList" :key="index">
+        <div class="cart-con" v-for="(item, index) in initData.list" :key="index">
             <div class="con-top">
-                <check-icon :value.sync="item.checked">{{item.title}}</check-icon>
+                <check-icon :value.sync="item.is_checked===0" @click.native="handleSelect(item)">{{item.title}}</check-icon><span class="my-num">（{{item.num}}）</span>
             </div>
-            <div class="con-mid" v-for="(subItem, i) in item.list" :key="i">
-                <check-icon :value.sync="subItem.checked"></check-icon>
+            <div class="con-mid" v-for="(subItem, i) in item.goods" :key="i">
+                <check-icon :value.sync="subItem.is_checked"></check-icon>
                 <span class="my-img"><img class="img" :src="subItem.pic" alt=""></span>
                 <div class="con-r">
-                    <div class="con-mid-t">{{subItem.desc}}</div>
+                    <div class="con-mid-t">{{subItem.name}}</div>
                     <div class="con-mid-b">
-                        <span class="bottom-l">￥{{subItem.price}}</span>
-                        <inline-x-number :min="0" @on-change="handleChange"></inline-x-number>
+                        <span class="bottom-l">￥{{subItem.member_price}}</span>
+                        <inline-x-number :value="parseInt(subItem.num)" :min="0" @on-change="handleChange($event, subItem)"></inline-x-number>
                     </div>
                 </div>
             </div>
         </div>
         <div class="cart-foot">
-            <check-icon value.sync="false">全选</check-icon>
-            <span>合计：<span class="bottom-l">￥{{49000.00}}</span></span>
+            <check-icon value.sync="true">全选</check-icon>
+            <span>合计：<span class="bottom-l">￥{{initData.goods_total_price}}</span></span>
             <span class="settlement" @click="handleClick(isEdit)">{{isEdit?'删除':'结算'}}</span>
         </div>
     </div>
@@ -30,6 +30,10 @@
 <script>
 import { CheckIcon, InlineXNumber } from 'vux'
 import { Component, Vue } from 'vue-property-decorator'
+import {State, Action, Mutation, namespace} from 'vuex-class'
+const CartState = namespace('cart', State)
+const CartAction = namespace('cart', Action)
+const CartMutation = namespace('cart', Mutation)
 @Component({
   components: {
     CheckIcon,
@@ -37,50 +41,71 @@ import { Component, Vue } from 'vue-property-decorator'
   }
 })
 export default class Cart extends Vue {
-  isEdit = false
-  orderList = [
-    {
-      title: '京东自营',
-      checked: false,
-      list: [
-        {desc: '飞象X苏宁联名圣诞卡 面值500元', pic: '/static/img/card1.dd4d063.png', price: '49000.00', checked: true},
-        {desc: '飞象X苏宁联名圣诞卡 面值500元', pic: '/static/img/card1.dd4d063.png', price: '49000.00', checked: false},
-        {desc: '飞象X苏宁联名圣诞卡 面值500元', pic: '/static/img/card1.dd4d063.png', price: '49000.00', checked: true}
-      ]
-    },
-    {
-      title: '京东自营',
-      checked: true,
-      list: [
-        {desc: '飞象X苏宁联名圣诞卡 面值500元', pic: '/static/img/card1.dd4d063.png', price: '49000.00', checked: false},
-        {desc: '飞象X苏宁联名圣诞卡 面值500元', pic: '/static/img/card1.dd4d063.png', price: '49000.00', checked: true}
-      ]
-    },
-    {
-      title: '京东自营',
-      checked: false,
-      list: [
-        {desc: '飞象X苏宁联名圣诞卡 面值500元', pic: '/static/img/card1.dd4d063.png', price: '49000.00', checked: true}
-      ]
+    @CartAction init
+    @CartMutation getInitData
+    @CartState initData
+    isEdit = false
+    orderList = [
+      {
+        title: '京东自营',
+        checked: false,
+        list: [
+          {desc: '飞象X苏宁联名圣诞卡 面值500元', pic: '/static/img/card1.dd4d063.png', price: '49000.00', checked: true},
+          {desc: '飞象X苏宁联名圣诞卡 面值500元', pic: '/static/img/card1.dd4d063.png', price: '49000.00', checked: false},
+          {desc: '飞象X苏宁联名圣诞卡 面值500元', pic: '/static/img/card1.dd4d063.png', price: '49000.00', checked: true}
+        ]
+      },
+      {
+        title: '京东自营',
+        checked: true,
+        list: [
+          {desc: '飞象X苏宁联名圣诞卡 面值500元', pic: '/static/img/card1.dd4d063.png', price: '49000.00', checked: false},
+          {desc: '飞象X苏宁联名圣诞卡 面值500元', pic: '/static/img/card1.dd4d063.png', price: '49000.00', checked: true}
+        ]
+      },
+      {
+        title: '京东自营',
+        checked: false,
+        list: [
+          {desc: '飞象X苏宁联名圣诞卡 面值500元', pic: '/static/img/card1.dd4d063.png', price: '49000.00', checked: true}
+        ]
+      }
+    ]
+    handleSelect (item) {
+      console.log('item', item)
+      const {checked, goods} = item
+      if (checked) {
+        goods.forEach((subItem, i) => {
+          subItem[i].checked = true
+        })
+      } else {
+        goods.forEach((subItem, i) => {
+          subItem[i].checked = false
+        })
+      }
     }
-  ]
-  handleCartEdit (isEdit) {
-    if (isEdit) {
-      this.isEdit = false
-    } else {
-      this.isEdit = true
+    handleCartEdit (isEdit) {
+      if (isEdit) {
+        this.isEdit = false
+      } else {
+        this.isEdit = true
+      }
     }
-  }
-  handleChange (val) {
-    console.log('sss', val)
-  }
-  handleClick (isEdit) {
-    if (!isEdit) {
-      this.$router.push({
-        path: '/confirmOrder'
-      })
+    handleChange (val, item) {
+      console.log('sss', val, item)
     }
-  }
+    handleClick (isEdit) {
+      if (!isEdit) {
+        this.$router.push({
+          path: '/confirmOrder'
+        })
+      }
+    }
+    created () {
+      this.init().then(() => {
+        console.log('sss', this.initData)
+      }).catch(error => console.log(error))
+    }
 }
 </script>
 <style lang="less">
@@ -102,6 +127,9 @@ export default class Cart extends Vue {
         padding-bottom: 1rem;
         overflow: hidden;
         font-size: 0.14rem;
+        .my-num {
+            color: #a6a6a6;
+        }
         .cart-foot {
             display: flex;
             justify-content: space-between;
@@ -177,11 +205,12 @@ export default class Cart extends Vue {
             height: 100%;
         }
         .con-r {
+            width: 100%;
             padding: 0 0.1rem;
             height: 100%;
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
             flex-direction: column;
         }
     }
