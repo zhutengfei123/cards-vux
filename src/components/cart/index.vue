@@ -6,29 +6,33 @@
         </div>
         <div class="cart-con" v-for="(item, index) in initData.list" :key="index">
             <div class="con-top">
-                <check-icon :value.sync="item.is_checked===0" @click.native="handleSelect(item)">{{item.title}}</check-icon><span class="my-num">（{{item.num}}）</span>
+                <check-icon :value.sync="item.is_selected===1?true:false" @click.native="handleSelectList(item)">{{item.title}}</check-icon><span class="my-num">（{{item.num}}）</span>
             </div>
             <div class="con-mid" v-for="(subItem, i) in item.goods" :key="i">
-                <check-icon :value.sync="subItem.is_checked"></check-icon>
+                <check-icon :value.sync="subItem.is_selected===1?true:false" @click.native="handleSelect(subItem)"></check-icon>
                 <span class="my-img"><img class="img" :src="subItem.pic" alt=""></span>
                 <div class="con-r">
                     <div class="con-mid-t">{{subItem.name}}</div>
                     <div class="con-mid-b">
                         <span class="bottom-l">￥{{subItem.member_price}}</span>
-                        <inline-x-number :value="parseInt(subItem.num)" :min="0" @on-change="handleChange($event, subItem)"></inline-x-number>
+                        <div class="add-or-reduce">
+                            <span class="reduce" @click="handleChange(-1, subItem)">－</span>
+                            <span class="num-value"><input type="number" :value="subItem.num>0?subItem.num:'0'"></span>
+                            <span class="add" @click="handleChange(1, subItem)">＋</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="cart-foot">
-            <check-icon value.sync="true">全选</check-icon>
+            <check-icon :value.sync="initData.is_all_selected===1?true:false" @click.native="handleSelectAll">全选</check-icon>
             <span>合计：<span class="bottom-l">￥{{initData.goods_total_price}}</span></span>
             <span class="settlement" @click="handleClick(isEdit)">{{isEdit?'删除':'结算'}}</span>
         </div>
     </div>
 </template>
 <script>
-import { CheckIcon, InlineXNumber } from 'vux'
+import { CheckIcon } from 'vux'
 import { Component, Vue } from 'vue-property-decorator'
 import {State, Action, Mutation, namespace} from 'vuex-class'
 const CartState = namespace('cart', State)
@@ -36,53 +40,96 @@ const CartAction = namespace('cart', Action)
 const CartMutation = namespace('cart', Mutation)
 @Component({
   components: {
-    CheckIcon,
-    InlineXNumber
+    CheckIcon
   }
 })
 export default class Cart extends Vue {
     @CartAction init
+    @CartAction addReduce
+    @CartAction isSelected
     @CartMutation getInitData
+    @CartMutation getIsSelected
     @CartState initData
+    @CartState isSelectedData
     isEdit = false
-    orderList = [
-      {
-        title: '京东自营',
-        checked: false,
-        list: [
-          {desc: '飞象X苏宁联名圣诞卡 面值500元', pic: '/static/img/card1.dd4d063.png', price: '49000.00', checked: true},
-          {desc: '飞象X苏宁联名圣诞卡 面值500元', pic: '/static/img/card1.dd4d063.png', price: '49000.00', checked: false},
-          {desc: '飞象X苏宁联名圣诞卡 面值500元', pic: '/static/img/card1.dd4d063.png', price: '49000.00', checked: true}
-        ]
-      },
-      {
-        title: '京东自营',
-        checked: true,
-        list: [
-          {desc: '飞象X苏宁联名圣诞卡 面值500元', pic: '/static/img/card1.dd4d063.png', price: '49000.00', checked: false},
-          {desc: '飞象X苏宁联名圣诞卡 面值500元', pic: '/static/img/card1.dd4d063.png', price: '49000.00', checked: true}
-        ]
-      },
-      {
-        title: '京东自营',
-        checked: false,
-        list: [
-          {desc: '飞象X苏宁联名圣诞卡 面值500元', pic: '/static/img/card1.dd4d063.png', price: '49000.00', checked: true}
-        ]
-      }
-    ]
-    handleSelect (item) {
-      console.log('item', item)
-      const {checked, goods} = item
-      if (checked) {
-        goods.forEach((subItem, i) => {
-          subItem[i].checked = true
+    handleSelectAll () {
+      if (this.initData.is_all_selected === 1) {
+        this.initData.is_all_selected = 0
+        this.initData.list.forEach(item => {
+          item.is_selected = 0
+          item.goods.forEach(subItem => {
+            subItem.is_selected = 0
+          })
         })
       } else {
-        goods.forEach((subItem, i) => {
-          subItem[i].checked = false
+        this.initData.is_all_selected = 1
+        this.initData.list.forEach(item => {
+          item.is_selected = 1
+          item.goods.forEach(subItem => {
+            subItem.is_selected = 1
+          })
         })
       }
+    }
+    handleSelect (item) {
+      if (item.is_selected === 1) {
+        item.is_selected = 0
+        this.initData.is_all_selected = 0
+      } else {
+        item.is_selected = 1
+      }
+      const params = {
+        'ids': item.shop_id,
+        'is_selected': item.is_selected
+      }
+      this.isSelected(params).then(() => {
+        // this.init()
+      }).catch(error => console.log(error))
+      this.initData.list.forEach(item => {
+        if (item.is_selected === 1) {
+          item.goods.forEach(subItem => {
+            if (subItem.is_selected === 0) {
+              item.is_selected = 0
+            }
+          })
+        } else {
+          item.goods.forEach(subItem => {
+            if (subItem.is_selected === 0) {
+              item.is_selected = 0
+            } else {
+              item.is_selected = 1
+            }
+          })
+        }
+      })
+      this.initData.list.forEach(item => {
+        if (item.is_selected === 0) {
+          this.initData.is_all_selected = 0
+        } else {
+          this.initData.is_all_selected = 1
+        }
+      })
+    }
+    handleSelectList (item) {
+      if (item.is_selected === 1) {
+        item.is_selected = 0
+        this.initData.is_all_selected = 0
+        item.goods.forEach(subItem => {
+          subItem.is_selected = 0
+        })
+      } else {
+        item.is_selected = 1
+        item.goods.forEach(subItem => {
+          subItem.is_selected = 1
+        })
+      }
+      this.initData.list.forEach(item => {
+        if (item.is_selected === 0) {
+          this.initData.is_all_selected = 0
+        } else {
+          this.initData.is_all_selected = 1
+        }
+      })
     }
     handleCartEdit (isEdit) {
       if (isEdit) {
@@ -91,8 +138,17 @@ export default class Cart extends Vue {
         this.isEdit = true
       }
     }
-    handleChange (val, item) {
-      console.log('sss', val, item)
+    handleChange (n, item) {
+      if (n === -1) {
+        item.num--
+      } else {
+        item.num++
+      }
+      const shopId = item.shop_id
+      const num = item.num
+      this.addReduce({num, shopId}).then(() => {
+        this.init()
+      }).catch(error => console.log(error))
     }
     handleClick (isEdit) {
       if (!isEdit) {
@@ -103,30 +159,43 @@ export default class Cart extends Vue {
     }
     created () {
       this.init().then(() => {
-        console.log('sss', this.initData)
       }).catch(error => console.log(error))
     }
 }
 </script>
-<style lang="less">
-    .cart {
-        .vux-number-selector-sub, .vux-number-selector-plus {
-            padding: 3px !important;
-            margin-right: 0 !important;
-        }
-        .vux-number-input {
-            font-size: 14px;
-            width: 30px !important;
-        }
-    }
-</style>
-
 <style lang="less" scoped>
     .cart {
         padding-top: 0.44rem;
         padding-bottom: 1rem;
         overflow: hidden;
         font-size: 0.14rem;
+        .reduce, .add {
+            width: 0.2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .num-value {
+            overflow: hidden;
+            width: 0.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .num-value input {
+            text-align: center;
+            width: 100%;
+            height: 100%;
+            border: none;
+            outline: none;
+        }
+        .add-or-reduce {
+            border: 1px solid #a6a6a6;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
         .my-num {
             color: #a6a6a6;
         }

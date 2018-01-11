@@ -20,7 +20,6 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 Vue.use(Vuex)
-
 Vue.use(WechatPlugin)
 Vue.use(BusPlugin)
 Vue.use(DevicePlugin)
