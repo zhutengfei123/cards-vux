@@ -1,14 +1,14 @@
 <template>
-  <div>
+  <div class="member">
     <div class="mer">
-       <x-img :src="merberImg" width="60" height="60" container="#vux_view_box_body"/>
-       <p v-show="status == 0" class="logintxt" @click="loginEvent">请登录</p>
+       <x-img class="avatar" default-src="../../assets/init.png" :src="`${avatar.split('?')[0]}?x-oss-process=image/resize,w_60/format,jpg`" :webp-src="`${avatar.split('?')[0]}?x-oss-process=image/resize,w_60/format,webp`" container="#vux_view_box_body"/>
+       <p v-show="status == 0" class="logintxt" @click="toLogin">请登录</p>
        <ul class="merinfo" v-show="status == 1">
          <li>
-           <label class="lableft labcom">李松鹏</label>
-           <label class="labright labcom">三级会员</label>
+           <label class="lableft labcom">{{name}}</label>
+           <label class="labright labcom">{{level}}</label>
          </li>
-         <li class="company">杭州礼管家网络科技有限公司</li>
+         <li class="text gray">杭州礼管家网络科技有限公司</li>
        </ul>
     </div>
 
@@ -16,7 +16,7 @@
       <cell title="我的订单" is-link link="/order"></cell>
     </group>
     <group>
-      <cell title="现金账户" :value="price"  is-link link="/member/money"></cell>
+      <cell title="现金账户" :value="`￥${balance}`" is-link link="/member/money"></cell>
       <cell title="收货地址" is-link link="/address"></cell>
       <cell title="我的卡券商城" :value="sta"  is-link link="/"></cell>
     </group>
@@ -24,13 +24,18 @@
       <cell title="客户服务" value="0571-12345678"></cell>
       <cell title="帮助中心" is-link link="/help"></cell>
     </group>
-    <div class="exit" @click="exitEvent" v-show="status == 1">退出登录</div>  
+    <div class="exit text" @click="exit" v-show="status == 1">退出登录</div>  
     <p v-once class="text gray bottom-txt">飞象企服提供技术支持</p>
   </div>
 </template>
 <script>
 import { Cell, Group, XImg } from 'vux';
 import { Component, Vue } from 'vue-property-decorator';
+import { State, Action, namespace } from 'vuex-class';
+
+const UserState = namespace('user', State);
+const UserAction = namespace('user', Action);
+
 @Component({
   components: {
     Cell,
@@ -39,83 +44,85 @@ import { Component, Vue } from 'vue-property-decorator';
   }
 })
 export default class Member extends Vue {
-  merberImg = require('../../img/online.png');
   status = 0;
-  price = '￥1000000.00';
   sta = '有新的订单';
-  created () {
-    this.init();
+
+  @UserState avatar
+  @UserState balance
+  @UserState name
+  @UserState level
+
+  @UserAction getInfo
+
+  activated () {
+    this.getInfo();
   }
-  init () {}
-  back () {
-    this.$router.go(-1);
+
+  toLogin () {
+    this.$router.push('/login');
   }
-  exitEvent () {}
-  loginEvent () {}
+  exit () {}
 }
 </script>
 <style lang="less" scoped>
-.disflex {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}
-.mer {
-  width: 100%;
-  height: 1rem;
-  .disflex();
-  background: #fff;
-  .cellFont {
-    font-size: 14px;
+.member{
+  .avatar{
+    width:0.6rem;
+    height:0.6rem;
   }
+  .disflex {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  .mer {
+    width: 100%;
+    height: 1rem;
+    .disflex();
+    background: #fff;
 
-  img {
-    border-radius: 70%;
-    margin: 0 0.15rem;
-  }
-  .merinfo {
-    width: 50%;
-    .lableft {
+    img {
+      border-radius: 50%;
+      margin: 0 0.15rem;
+    }
+    .merinfo {
+      width: 50%;
+      .lableft {
+        font-size: 0.18rem;
+        color: #3c3c3c;
+      }
+      li {
+        .disflex();
+      }
+      .labright {
+        font-size: 0.14rem;
+        color: #4386f4;
+        margin-left: 0.1rem;
+      }
+      .labcom {
+        float: left;
+      }
+    }
+    .logintxt {
+      color: #b79e74;
       font-size: 0.18rem;
-      color: #3c3c3c;
-    }
-    li {
-      .disflex();
-    }
-    .labright {
-      font-size: 0.14rem;
-      color: #4386f4;
-      margin-left: 0.1rem;
-    }
-    .labcom {
-      float: left;
     }
   }
-  .company {
-    font-size: 0.14rem;
-    color: #a6a6a6;
-  }
-  .logintxt {
-    color: #b79e74;
-    font-size: 0.18rem;
-  }
-}
-.exit {
-  width: 100%;
-  height: 0.44rem;
-  text-align: center;
-  line-height: 0.44rem;
-  font-size: 0.14rem;
-  color: #3c3c3c;
-  background: #fff;
-  margin-top: 0.15rem;
-}
-.bottom-txt{
-    position:fixed;
-    bottom:0.6rem;
+  .exit {
+    width: 100%;
+    height: 0.44rem;
     text-align: center;
-    width:100%;
-    font-size: 0.14rem;
+    line-height: 0.44rem;
+    background: #fff;
+    margin-top: 0.15rem;
+  }
+  .bottom-txt{
+      position:fixed;
+      bottom:0.6rem;
+      text-align: center;
+      width:100%;
+      font-size: 0.14rem;
+  }
 }
 </style>
 
