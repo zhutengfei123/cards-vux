@@ -21,12 +21,12 @@
 import { Group, Cell } from 'vux';
 import { Component, Vue } from 'vue-property-decorator';
 @Component({
-    components: {
-      Group,
-      Cell
-    }
-  })
-  export default class rechargeDetailed extends Vue {
+  components: {
+    Group,
+    Cell
+  }
+})
+export default class rechargeDetailed extends Vue {
     detailList = [
       {
         month: '本月',
@@ -60,7 +60,7 @@ import { Component, Vue } from 'vue-property-decorator';
         path: '/rechargeDetails'
       });
     }
-  }
+}
 </script>
 <style lang="less">
   .recharge-detailed {

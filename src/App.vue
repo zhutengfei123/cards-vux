@@ -13,18 +13,16 @@
 
 <script>
   import { ViewBox, XHeader } from 'vux';
-import {mapState} from 'vuex';
-export default {
-    name: 'app',
-    computed: {
-      ...mapState('global', {
-        title: ({title}) => title
-      })
-    },
-    components: {
-      ViewBox,
-      XHeader
-    }
+  import { Component, Vue } from 'vue-property-decorator';
+  import {State, namespace} from 'vuex-class';
+
+  const GlobalState = namespace('global', State);
+
+  @Component({
+    components: {ViewBox, XHeader}
+  })
+  export default class App extends Vue {
+    @GlobalState title
   };
 </script>
 
