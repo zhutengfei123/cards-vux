@@ -15,9 +15,9 @@
                     <div class="con-mid-t">{{subItem.name}}</div>
                     <div class="con-mid-b">
                         <span class="bottom-l">￥{{subItem.member_price}}</span>
-                        <div class="add-or-reduce">
+                        <div class="add-or-reduce" v-show="isEdit">
                             <span class="reduce" @click="handleChange(-1, subItem)">－</span>
-                            <span class="num-value"><input type="number" :value="subItem.num>0?subItem.num:'0'"></span>
+                            <span class="num-value"><input onkeypress="return event.keyCode>=48&&event.keyCode<=57" ng-pattern="/[^a-zA-Z]/" type="text" :value="subItem.num>0?subItem.num:'0'" @blur="handleInputChange($event.target.value, subItem.shop_id)"></span>
                             <span class="add" @click="handleChange(1, subItem)">＋</span>
                         </div>
                     </div>
@@ -26,7 +26,7 @@
         </div>
         <div class="cart-foot">
             <check-icon :value.sync="initData.is_all_selected===1?true:false" @click.native="handleSelectAll">全选</check-icon>
-            <span>合计：<span class="bottom-l">￥{{initData.goods_total_price}}</span></span>
+            <span>合计：<span class="bottom-l">￥{{totalPrice}}</span></span>
             <span class="settlement" @click="handleClick(isEdit)">{{isEdit?'删除':'结算'}}</span>
         </div>
     </div>
@@ -46,12 +46,25 @@ const CartMutation = namespace('cart', Mutation)
 export default class Cart extends Vue {
     @CartAction init
     @CartAction addReduce
-    @CartAction isSelected
+    // @CartAction isSelected
     @CartMutation getInitData
-    @CartMutation getIsSelected
     @CartState initData
-    @CartState isSelectedData
     isEdit = false
+    totalPrice = '0'
+    // watch: {
+    //   'handleSelect': function(newVal, oldVal) {
+    //     console.log('val', newVal, oldVal)
+    //   }
+    // }
+    handleInputChange (num, id) {
+      const params = {
+        'shopId': id,
+        'num': num
+      }
+      this.addReduce(params).then(() => {
+        this.init()
+      }).catch(error => console.log(error))
+    }
     handleSelectAll () {
       if (this.initData.is_all_selected === 1) {
         this.initData.is_all_selected = 0
@@ -78,13 +91,13 @@ export default class Cart extends Vue {
       } else {
         item.is_selected = 1
       }
-      const params = {
-        'ids': item.shop_id,
-        'is_selected': item.is_selected
-      }
-      this.isSelected(params).then(() => {
-        // this.init()
-      }).catch(error => console.log(error))
+      // const params = {
+      //   'ids': item.id,
+      //   'is_selected': item.is_selected
+      // }
+      // this.isSelected(params).then(() => {
+      //   this.init()
+      // }).catch(error => console.log(error))
       this.initData.list.forEach(item => {
         if (item.is_selected === 1) {
           item.goods.forEach(subItem => {
@@ -144,9 +157,11 @@ export default class Cart extends Vue {
       } else {
         item.num++
       }
-      const shopId = item.shop_id
-      const num = item.num
-      this.addReduce({num, shopId}).then(() => {
+      const params = {
+        'shopId': item.shop_id,
+        'num': item.num
+      }
+      this.addReduce(params).then(() => {
         this.init()
       }).catch(error => console.log(error))
     }
@@ -159,6 +174,7 @@ export default class Cart extends Vue {
     }
     created () {
       this.init().then(() => {
+        this.totalPrice = this.initData.goods_total_price
       }).catch(error => console.log(error))
     }
 }
@@ -169,15 +185,30 @@ export default class Cart extends Vue {
         padding-bottom: 1rem;
         overflow: hidden;
         font-size: 0.14rem;
+        .con-mid-t {
+          line-height: 0.24rem;
+          height: 0.75rem;
+          width: 100%;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 3;
+          overflow: hidden;
+        }
         .reduce, .add {
-            width: 0.2rem;
+            width: 0.23rem;
             display: flex;
             justify-content: center;
             align-items: center;
         }
+        .reduce {
+          border-right: 1px solid #a6a6a6;
+        }
+        .add {
+          border-left: 1px solid #a6a6a6;
+        }
         .num-value {
             overflow: hidden;
-            width: 0.5rem;
+            width: 0.57rem;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -227,6 +258,7 @@ export default class Cart extends Vue {
         }
         .con-mid-b {
             width: 100%;
+            height: 0.25rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
