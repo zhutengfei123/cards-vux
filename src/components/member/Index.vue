@@ -21,7 +21,7 @@
       <cell title="我的卡券商城" :value="sta"  is-link link="/"></cell>
     </group>
     <group v-once>
-      <cell title="客户服务" value="0571-12345678"  is-link link="/"></cell>
+      <cell title="客户服务" value="0571-12345678"></cell>
       <cell title="帮助中心" is-link link="/help"></cell>
     </group>
     <div class="exit" @click="exitEvent" v-show="status == 1">退出登录</div>  
