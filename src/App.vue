@@ -12,9 +12,9 @@
 </template>
 
 <script>
-  import { ViewBox, XHeader } from 'vux'
-  import {mapState} from 'vuex'
-  export default {
+  import { ViewBox, XHeader } from 'vux';
+import {mapState} from 'vuex';
+export default {
     name: 'app',
     computed: {
       ...mapState('global', {
@@ -25,7 +25,7 @@
       ViewBox,
       XHeader
     }
-  }
+  };
 </script>
 
 <style lang="less" scoped>
@@ -49,36 +49,15 @@
 </style>
 <style lang="less">
 @import "~vux/src/styles/reset.less";
-@font-face {font-family: "iconfont";
-  src: url('css/icons/iconfont.eot?t=1513320107151'); /* IE9*/
-  src: url('css/icons/iconfont.eot?t=1513320107151#iefix') format('embedded-opentype'), /* IE6-IE8 */
-  url('data:application/x-font-woff;charset=utf-8;base64,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') format('woff'),
-  url('css/icons/iconfont.ttf?t=1513320107151') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
-  url('css/icons/iconfont.svg?t=1513320107151#iconfont') format('svg'); /* iOS 4.1- */
-}
+@import "./css/common.less";
 
-.app-icon {
-  font-family: 'iconfont';
-  font-size: 0.24rem;
-  color: #999999;
-}
-.weui-tabbar__label{
-  line-height: unset;
-  margin:0;
-}
 .weui-grid{
   text-decoration: none;
   padding:0.04rem!important;
 }
-.weui-tabbar__item{
-  text-decoration: none;
-}
+
 .vux-cell-form-preview{
   font-size:0.14rem
-}
-body,ul,li,span,p{
-  margin: 0;
-  padding: 0;
 }
 </style>
 

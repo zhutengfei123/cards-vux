@@ -4,8 +4,8 @@
     </div>
 </template>
 <script>
-import { Component, Vue } from 'vue-property-decorator'
-import LInput from '../common/input'
+import { Component, Vue } from 'vue-property-decorator';
+import LInput from '../common/input';
 @Component({
   components: {LInput}
 })

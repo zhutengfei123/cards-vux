@@ -4,20 +4,20 @@ const state = {
   logined: false,
   token: localStorage.getItem('token'),
   account: ''
-}
+};
 
 const actions = {
   async login () {},
   async register () {}
-}
+};
 
 const mutations = {
   setUser () {}
-}
+};
 
 export default {
   namespaced: true,
   state,
   actions,
   mutations
-}
+};

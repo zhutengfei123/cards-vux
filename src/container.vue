@@ -14,9 +14,9 @@
     </div>     
 </template>
 <script>
-import { Tabbar, TabbarItem } from 'vux'
-import Vue from 'vue'
-import Component from 'vue-class-component'
+import { Tabbar, TabbarItem } from 'vux';
+import Vue from 'vue';
+import Component from 'vue-class-component';
 @Component({
   components: {
     Tabbar,
@@ -32,8 +32,14 @@ export default class Container extends Vue {
   ]
 }
 </script>
-<style lang="less" scoped>
+<style lang="less">
 .container {
-
+  .weui-tabbar__label{
+    line-height: unset;
+    margin:0;
+  }
+  .weui-tabbar__item{
+    text-decoration: none;
+  }
 }
 </style>

@@ -1,18 +1,18 @@
 <template>
     <div class="money">
         <flexbox class="top" orient="vertical" justify="space-around">
-            <flexbox-item class="title">余额</flexbox-item>
+            <flexbox-item v-once class="title">余额</flexbox-item>
             <flexbox-item>
                 <flexbox align="center" style="height:100%">
                     <flexbox-item class="price">￥{{money}}</flexbox-item>
-                    <flexbox-item>
+                    <flexbox-item v-once>
                         <x-button class="button">充值</x-button>
                     </flexbox-item>
                 </flexbox>
             </flexbox-item>
         </flexbox>
         <group class="list">
-            <cell is-link>
+            <cell is-link v-once>
                 <span slot="title" class="text lg">交易记录</span>
                 <span class="text">更多</span>
             </cell>
@@ -27,8 +27,8 @@
     </div>
 </template>
 <script>
-import { Component, Vue } from 'vue-property-decorator'
-import { Flexbox, FlexboxItem, XButton, Cell, Group } from 'vux'
+import { Component, Vue } from 'vue-property-decorator';
+import { Flexbox, FlexboxItem, XButton, Cell, Group } from 'vux';
 @Component({
   components: {Flexbox, FlexboxItem, XButton, Cell, Group}
 })

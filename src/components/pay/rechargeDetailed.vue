@@ -18,9 +18,9 @@
   </div>
 </template>
 <script>
-  import { Group, Cell } from 'vux'
-  import { Component, Vue } from 'vue-property-decorator'
-  @Component({
+import { Group, Cell } from 'vux';
+import { Component, Vue } from 'vue-property-decorator';
+@Component({
     components: {
       Group,
       Cell
@@ -55,10 +55,10 @@
       }
     ]
     handleRechargeDetail (item) {
-      console.log('item', item)
+      console.log('item', item);
       this.$router.push({
         path: '/rechargeDetails'
-      })
+      });
     }
   }
 </script>

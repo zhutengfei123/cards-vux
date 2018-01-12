@@ -32,12 +32,12 @@
     </div>
 </template>
 <script>
-import { CheckIcon } from 'vux'
-import { Component, Vue } from 'vue-property-decorator'
-import {State, Action, Mutation, namespace} from 'vuex-class'
-const CartState = namespace('cart', State)
-const CartAction = namespace('cart', Action)
-const CartMutation = namespace('cart', Mutation)
+import { CheckIcon } from 'vux';
+import { Component, Vue } from 'vue-property-decorator';
+import {State, Action, Mutation, namespace} from 'vuex-class';
+const CartState = namespace('cart', State);
+const CartAction = namespace('cart', Action);
+const CartMutation = namespace('cart', Mutation);
 @Component({
   components: {
     CheckIcon
@@ -54,112 +54,112 @@ export default class Cart extends Vue {
     isEdit = false
     handleSelectAll () {
       if (this.initData.is_all_selected === 1) {
-        this.initData.is_all_selected = 0
+        this.initData.is_all_selected = 0;
         this.initData.list.forEach(item => {
-          item.is_selected = 0
+          item.is_selected = 0;
           item.goods.forEach(subItem => {
-            subItem.is_selected = 0
-          })
-        })
+            subItem.is_selected = 0;
+          });
+        });
       } else {
-        this.initData.is_all_selected = 1
+        this.initData.is_all_selected = 1;
         this.initData.list.forEach(item => {
-          item.is_selected = 1
+          item.is_selected = 1;
           item.goods.forEach(subItem => {
-            subItem.is_selected = 1
-          })
-        })
+            subItem.is_selected = 1;
+          });
+        });
       }
     }
     handleSelect (item) {
       if (item.is_selected === 1) {
-        item.is_selected = 0
-        this.initData.is_all_selected = 0
+        item.is_selected = 0;
+        this.initData.is_all_selected = 0;
       } else {
-        item.is_selected = 1
+        item.is_selected = 1;
       }
       const params = {
         'ids': item.shop_id,
         'is_selected': item.is_selected
-      }
+      };
       this.isSelected(params).then(() => {
         // this.init()
-      }).catch(error => console.log(error))
+      }).catch(error => console.log(error));
       this.initData.list.forEach(item => {
         if (item.is_selected === 1) {
           item.goods.forEach(subItem => {
             if (subItem.is_selected === 0) {
-              item.is_selected = 0
+              item.is_selected = 0;
             }
-          })
+          });
         } else {
           item.goods.forEach(subItem => {
             if (subItem.is_selected === 0) {
-              item.is_selected = 0
+              item.is_selected = 0;
             } else {
-              item.is_selected = 1
+              item.is_selected = 1;
             }
-          })
+          });
         }
-      })
+      });
       this.initData.list.forEach(item => {
         if (item.is_selected === 0) {
-          this.initData.is_all_selected = 0
+          this.initData.is_all_selected = 0;
         } else {
-          this.initData.is_all_selected = 1
+          this.initData.is_all_selected = 1;
         }
-      })
+      });
     }
     handleSelectList (item) {
       if (item.is_selected === 1) {
-        item.is_selected = 0
-        this.initData.is_all_selected = 0
+        item.is_selected = 0;
+        this.initData.is_all_selected = 0;
         item.goods.forEach(subItem => {
-          subItem.is_selected = 0
-        })
+          subItem.is_selected = 0;
+        });
       } else {
-        item.is_selected = 1
+        item.is_selected = 1;
         item.goods.forEach(subItem => {
-          subItem.is_selected = 1
-        })
+          subItem.is_selected = 1;
+        });
       }
       this.initData.list.forEach(item => {
         if (item.is_selected === 0) {
-          this.initData.is_all_selected = 0
+          this.initData.is_all_selected = 0;
         } else {
-          this.initData.is_all_selected = 1
+          this.initData.is_all_selected = 1;
         }
-      })
+      });
     }
     handleCartEdit (isEdit) {
       if (isEdit) {
-        this.isEdit = false
+        this.isEdit = false;
       } else {
-        this.isEdit = true
+        this.isEdit = true;
       }
     }
     handleChange (n, item) {
       if (n === -1) {
-        item.num--
+        item.num--;
       } else {
-        item.num++
+        item.num++;
       }
-      const shopId = item.shop_id
-      const num = item.num
+      const shopId = item.shop_id;
+      const num = item.num;
       this.addReduce({num, shopId}).then(() => {
-        this.init()
-      }).catch(error => console.log(error))
+        this.init();
+      }).catch(error => console.log(error));
     }
     handleClick (isEdit) {
       if (!isEdit) {
         this.$router.push({
           path: '/confirmOrder'
-        })
+        });
       }
     }
     created () {
       this.init().then(() => {
-      }).catch(error => console.log(error))
+      }).catch(error => console.log(error));
     }
 }
 </script>
