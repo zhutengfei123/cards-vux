@@ -26,7 +26,7 @@
         </div>
         <div class="cart-foot">
             <check-icon :value.sync="initData.is_all_selected===1?true:false" @click.native="handleSelectAll">全选</check-icon>
-            <span>合计：<span class="bottom-l">￥{{totalPrice}}</span></span>
+            <span>合计：<span class="bottom-l">￥{{initData.goods_total_price}}</span></span>
             <span class="settlement" @click="handleClick(isEdit)">{{isEdit?'删除':'结算'}}</span>
         </div>
     </div>
@@ -46,16 +46,12 @@ const CartMutation = namespace('cart', Mutation)
 export default class Cart extends Vue {
     @CartAction init
     @CartAction addReduce
-    // @CartAction isSelected
+    @CartAction isSelected
+    @CartAction deleteList
     @CartMutation getInitData
     @CartState initData
     isEdit = false
-    totalPrice = '0'
-    // watch: {
-    //   'handleSelect': function(newVal, oldVal) {
-    //     console.log('val', newVal, oldVal)
-    //   }
-    // }
+    ids = []
     handleInputChange (num, id) {
       const params = {
         'shopId': id,
@@ -66,38 +62,45 @@ export default class Cart extends Vue {
       }).catch(error => console.log(error))
     }
     handleSelectAll () {
+      this.ids = []
+      let isSelect = 0
       if (this.initData.is_all_selected === 1) {
+        isSelect = 0
         this.initData.is_all_selected = 0
         this.initData.list.forEach(item => {
           item.is_selected = 0
           item.goods.forEach(subItem => {
             subItem.is_selected = 0
+            this.ids.push(subItem.id)
           })
         })
       } else {
+        isSelect = 1
         this.initData.is_all_selected = 1
         this.initData.list.forEach(item => {
           item.is_selected = 1
           item.goods.forEach(subItem => {
             subItem.is_selected = 1
+            this.ids.push(subItem.id)
           })
         })
       }
+      this.getIsSelected(this.ids, isSelect)
     }
     handleSelect (item) {
+      this.ids = []
+      let isSelect = 0
       if (item.is_selected === 1) {
+        isSelect = 0
+        this.ids.push(item.id)
         item.is_selected = 0
         this.initData.is_all_selected = 0
       } else {
+        this.ids.push(item.id)
+        isSelect = 1
         item.is_selected = 1
       }
-      // const params = {
-      //   'ids': item.id,
-      //   'is_selected': item.is_selected
-      // }
-      // this.isSelected(params).then(() => {
-      //   this.init()
-      // }).catch(error => console.log(error))
+      this.getIsSelected(this.ids, isSelect)
       this.initData.list.forEach(item => {
         if (item.is_selected === 1) {
           item.goods.forEach(subItem => {
@@ -123,17 +126,40 @@ export default class Cart extends Vue {
         }
       })
     }
+    getIsSelected (a, b) {
+      const params = {
+        'ids': a.join(','),
+        'is_selected': b
+      }
+      this.isSelected(params).then(() => {
+        let totalPrice = 0
+        this.initData.list.forEach(item => {
+          item.goods.forEach(subItem => {
+            if (subItem.is_selected === 1) {
+              totalPrice = totalPrice + subItem.member_price * subItem.num
+            }
+          })
+        })
+        this.initData.goods_total_price = totalPrice.toFixed(2)
+      }).catch(error => console.log(error))
+    }
     handleSelectList (item) {
+      this.ids = []
+      let isSelect = 0
       if (item.is_selected === 1) {
+        isSelect = 0
         item.is_selected = 0
         this.initData.is_all_selected = 0
         item.goods.forEach(subItem => {
           subItem.is_selected = 0
+          this.ids.push(subItem.id)
         })
       } else {
+        isSelect = 1
         item.is_selected = 1
         item.goods.forEach(subItem => {
           subItem.is_selected = 1
+          this.ids.push(subItem.id)
         })
       }
       this.initData.list.forEach(item => {
@@ -143,6 +169,7 @@ export default class Cart extends Vue {
           this.initData.is_all_selected = 1
         }
       })
+      this.getIsSelected(this.ids, isSelect)
     }
     handleCartEdit (isEdit) {
       if (isEdit) {
@@ -166,7 +193,14 @@ export default class Cart extends Vue {
       }).catch(error => console.log(error))
     }
     handleClick (isEdit) {
-      if (!isEdit) {
+      if (isEdit) {
+        const params = {
+          'ids': this.ids.join(',')
+        }
+        this.deleteList(params).then(() => {
+          this.init()
+        }).catch(error => console.log(error))
+      } else {
         this.$router.push({
           path: '/confirmOrder'
         })
@@ -174,7 +208,13 @@ export default class Cart extends Vue {
     }
     created () {
       this.init().then(() => {
-        this.totalPrice = this.initData.goods_total_price
+        this.initData.list.forEach(item => {
+          item.goods.forEach(subItem => {
+            if (subItem.is_selected === 1) {
+              this.ids.push(subItem.id)
+            }
+          })
+        })
       }).catch(error => console.log(error))
     }
 }
