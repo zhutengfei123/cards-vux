@@ -5,7 +5,7 @@
             <span class="app-icon left"></span>
             <span class="app-icon right"></span>
             <swiper class="image-display">
-                <swiper-item></swiper-item>
+                <swiper-item><img :src="`${picUrl.split('?')[0]}x-oss-process=image/resize,w_${imgWidth}/format,jpg`"></swiper-item>
             </swiper>
          </flexbox-item>
          <flexbox-item>
@@ -63,6 +63,7 @@ export default class Detail extends Vue {
   price=0
   picUrl=''
   name=''
+  imgWidth= parseInt(screen.width)
 
   @GlobalState storeId
 

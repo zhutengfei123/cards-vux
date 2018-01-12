@@ -27,6 +27,7 @@ Vue.use(ToastPlugin)
 Vue.use(ConfigPlugin, {
   $layout: 'VIEW_BOX'
 })
+Vue.use(ToastPlugin)
 
 Vue.mixin({
   created () {

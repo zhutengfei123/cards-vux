@@ -66,153 +66,140 @@
   </div>
 </template>
 <script>
-  import { XButton, Tab, TabItem, XInput, Group } from 'vux'
-  import { Component, Vue } from 'vue-property-decorator'
-  import Uploader from 'vux-uploader'
-  @Component({
-    components: {
-      XButton,
-      Tab,
-      TabItem,
-      XInput,
-      Group,
-      Uploader
-    }
-  })
-  export default class OrderPaySuccess extends Vue {
-    rechargeVal = ''
-    remitVal = ''
-    active = 0
-    varmax = 1
-    images = []
-    uploadUrl = 'http://cardshopapi.koudaiqifu.cn/site/upload'
-    params = {}
-    tabList = [
-      {title: '在线支付'},
-      {title: '转账汇款'}
-    ]
-    handleRechargeDetail () {
-      this.$router.push({
-        path: '/rechargeDetailed'
-      })
-    }
-    onItemClick (index) {
-      this.active = index
-    }
-    rechargeValOnBlur () {
-  
-    }
-    remitValOnBlur () {
-  
-    }
-    previewMethod () {
-
-    }
-    addImageMethod () {
-
-    }
-    removeImageMethod () {
-
-    }
+import { XButton, Tab, TabItem, XInput, Group } from 'vux'
+import { Component, Vue } from 'vue-property-decorator'
+import Uploader from 'vux-uploader'
+@Component({
+  components: {
+    XButton,
+    Tab,
+    TabItem,
+    XInput,
+    Group,
+    Uploader
   }
+})
+export default class OrderPaySuccess extends Vue {
+  rechargeVal = '';
+  remitVal = '';
+  active = 0;
+  varmax = 1;
+  images = [];
+  uploadUrl = 'http://cardshopapi.koudaiqifu.cn/site/upload';
+  params = {};
+  tabList = [{ title: '在线支付' }, { title: '转账汇款' }];
+  handleRechargeDetail () {
+    this.$router.push({
+      path: '/rechargeDetailed'
+    })
+  }
+  onItemClick (index) {
+    this.active = index
+  }
+  rechargeValOnBlur () {}
+  remitValOnBlur () {}
+  previewMethod () {}
+  addImageMethod () {}
+  removeImageMethod () {}
+}
 </script>
 <style lang="less">
-  .recharge {
-    font-size: 0.14rem;
-    overflow: hidden;
-    .foot-img {
-      width: 0.2rem;
-      height: 0.17rem;
-    }
-    .r-2-foot {
-      border: none !important;
-    }
-    .r-2-remit {
-      margin-bottom: 0.15rem;
-    }
-    .r-2-remit .weui-cell {
-      height: 0.5rem;
-    }
-    .r-2-remit .weui-input {
-      font-size: 0.2rem;
-      color: #3C3C3C;
-    }
-    .r-2-remit .weui-label {
-      font-size: 0.2rem;
-      color: #3C3C3C;
-    }
-    .r-2-con-l {
-      font-size: 0.14rem;
-      color: #A6A6A6;
-    }
-    .r-2-c-item {
-      height: 0.33rem;
-      padding: 0 0.15rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .r-2-con {
-      background: #ffffff;
-    }
-    .r-2-t-l {
-      font-size: 0.14rem;
-      color: #3C3C3C;
-    }
-    .r-2-top {
-      height: 0.44rem;
-      background: #ffffff;
-      padding: 0 0.15rem;
-      margin-top: 0.15rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #D9D9D9;
-    }
-    .weui-cells {
-      margin-top: 0 !important;
-    }
-    .r-foot {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding-top: 0.3rem;
-    }
-    .r-foot-btn {
-      width: 3.45rem;
-      background: #B79E74;
-      font-size: 0.16rem;
-    }
-    .desc-l {
-      color: #A6A6A6;
-    }
-    .desc-r {
-      color: #B79E74;
-    }
-    .r-2-t-r {
-      color: #B79E74;
-    }
-    .r-desc {
-      height: 0.44rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 0.15rem;
-    }
-    .r-inp {
-      height: 0.44rem;
-      background: #ffffff;
-    }
-    .r-top {
-      height: 0.44rem;
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      padding-left: 0.15rem;
-    }
-    .vux-tab-ink-bar {
-      background-color: #B79E74;
-      height: 1px !important;
-    }
+.recharge {
+  font-size: 0.14rem;
+  overflow: hidden;
+  .foot-img {
+    width: 0.2rem;
+    height: 0.17rem;
   }
+  .r-2-foot {
+    border: none !important;
+  }
+  .r-2-remit {
+    margin-bottom: 0.15rem;
+  }
+  .r-2-remit .weui-cell {
+    height: 0.5rem;
+  }
+  .r-2-remit .weui-input {
+    font-size: 0.2rem;
+    color: #3c3c3c;
+  }
+  .r-2-remit .weui-label {
+    font-size: 0.2rem;
+    color: #3c3c3c;
+  }
+  .r-2-con-l {
+    font-size: 0.14rem;
+    color: #a6a6a6;
+  }
+  .r-2-c-item {
+    height: 0.33rem;
+    padding: 0 0.15rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .r-2-con {
+    background: #ffffff;
+  }
+  .r-2-t-l {
+    font-size: 0.14rem;
+    color: #3c3c3c;
+  }
+  .r-2-top {
+    height: 0.44rem;
+    background: #ffffff;
+    padding: 0 0.15rem;
+    margin-top: 0.15rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #d9d9d9;
+  }
+  .weui-cells {
+    margin-top: 0 !important;
+  }
+  .r-foot {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 0.3rem;
+  }
+  .r-foot-btn {
+    width: 3.45rem;
+    background: #b79e74;
+    font-size: 0.16rem;
+  }
+  .desc-l {
+    color: #a6a6a6;
+  }
+  .desc-r {
+    color: #b79e74;
+  }
+  .r-2-t-r {
+    color: #b79e74;
+  }
+  .r-desc {
+    height: 0.44rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 0.15rem;
+  }
+  .r-inp {
+    height: 0.44rem;
+    background: #ffffff;
+  }
+  .r-top {
+    height: 0.44rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 0.15rem;
+  }
+  .vux-tab-ink-bar {
+    background-color: #b79e74;
+    height: 1px !important;
+  }
+}
 </style>

@@ -6,6 +6,7 @@ import index from './modules/index'
 import products from './modules/products'
 import help from './modules/help'
 import order from './modules/order'
+import address from './modules/address'
 import cart from './modules/cart'
 Vue.use(Vuex)
 
@@ -17,6 +18,7 @@ export default new Vuex.Store({
     products,
     help,
     order,
-    cart
+    cart,
+    address
   }
 })

@@ -50,7 +50,7 @@ const router = new Router({
         {path: 'cart', name: '购物车', component: Cart}
       ]
     },
-
+    {path: '/cardlist', name: '卡券列表', component: Classification},
     {path: '/detail/:id', name: '商品详情', component: Detail},
     {path: '/confirmOrder', name: '确认订单', component: ConfirmOrder},
     {path: '/orderPaySuccess', name: '订单支付成功', component: OrderPaySuccess},
