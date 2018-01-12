@@ -13,9 +13,9 @@
     </div>
 </template>
 <script>
-import { Component, Vue } from 'vue-property-decorator'
-import {Flexbox, FlexboxItem, Group, CellFormPreview, Cell} from 'vux'
-import Item from '../order/item'
+import { Component, Vue } from 'vue-property-decorator';
+import {Flexbox, FlexboxItem, Group, CellFormPreview, Cell} from 'vux';
+import Item from '../order/item';
 @Component({
   components: {Flexbox, FlexboxItem, Group, CellFormPreview, Cell, Item}
 })

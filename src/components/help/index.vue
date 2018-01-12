@@ -10,10 +10,10 @@
     </div>
 </template>
 <script>
-import { Cell, Group } from 'vux'
-import { Component, Vue } from 'vue-property-decorator'
-import {State, namespace} from 'vuex-class'
-const HelpState = namespace('help', State)
+import { Cell, Group } from 'vux';
+import { Component, Vue } from 'vue-property-decorator';
+import {State, namespace} from 'vuex-class';
+const HelpState = namespace('help', State);
 @Component({
   components: {Cell, Group}
 })

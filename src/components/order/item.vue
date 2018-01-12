@@ -11,8 +11,8 @@
     </flexbox>  
 </template>
 <script>
-import { Component, Vue, Prop } from 'vue-property-decorator'
-import { Flexbox, XImg, FlexboxItem } from 'vux'
+import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Flexbox, XImg, FlexboxItem } from 'vux';
 @Component({
   components: { Flexbox, XImg, FlexboxItem }
 })

@@ -1,8 +1,8 @@
-import {axios} from '../../js'
+import {axios} from '../../js';
 const state = {
   inited: false,
   list: []
-}
+};
 
 const actions = {
   async getProducts ({
@@ -24,35 +24,35 @@ const actions = {
         order_by_type: orderType,
         order_by: order
       }
-    })
+    });
     if (code === '00000') {
-      commit('pushList', list)
-      return {isEnd: list ? list.length < pageSize : true}
+      commit('pushList', list);
+      return {isEnd: list ? list.length < pageSize : true};
     } else {
-      return new Error(msg)
+      return new Error(msg);
     }
   }
-}
+};
 
 const mutations = {
   pushList (state, data) {
     if (data.length > 0) {
       state
         .list
-        .push(...data)
+        .push(...data);
     }
   },
   resetList (state) {
-    state.list = []
+    state.list = [];
   },
   setInit (state, data) {
-    state.inited = data
+    state.inited = data;
   }
-}
+};
 
 export default {
   namespaced: true,
   state,
   actions,
   mutations
-}
+};

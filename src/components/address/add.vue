@@ -6,11 +6,11 @@
             <x-address title="所在地区" v-model="address" :list="addressData" placeholder="请选择"></x-address>
             <x-textarea title="详细地址" v-model="addressDetail" placeholder="请填写详细地址"></x-textarea>
         </group>
-        <x-button class="bottom-button" @click="">保存</x-button>
+        <x-button class="bottom-button" @click="save">保存</x-button>
     </div>
 </template>
 <script>
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue } from 'vue-property-decorator';
 import {
   Group,
   XInput,
@@ -19,11 +19,11 @@ import {
   XAddress,
   ChinaAddressV4Data,
   XButton
-} from 'vux'
-import { Getter, Action, namespace } from 'vuex-class'
+} from 'vux';
+import { Getter, Action, namespace } from 'vuex-class';
 
-const AddressGetter = namespace('address', Getter)
-const AddressAction = namespace('address', Action)
+const AddressGetter = namespace('address', Getter);
+const AddressAction = namespace('address', Action);
 
 @Component({
   components: {
@@ -49,27 +49,27 @@ export default class AddAddress extends Vue {
   @AddressAction update;
 
   get isAdd () {
-    return this.$route.path === 'add'
+    return this.$route.path === 'add';
   }
 
   get id () {
-    return this.$route.params.id
+    return this.$route.params.id;
   }
 
   actived () {
     if (!this.isAdd) {
       const { name, phone, province, city, district, address } = this.findById(
         this.id
-      )
-      this.name = name
-      this.phone = phone
-      this.address = [province, city, district]
-      this.addressDetail = address
+      );
+      this.name = name;
+      this.phone = phone;
+      this.address = [province, city, district];
+      this.addressDetail = address;
     }
   }
 
   save () {
-    const func = this.isAdd ? this.add : this.update
+    const func = this.isAdd ? this.add : this.update;
     func({
       name: this.name,
       phone: this.phone,
@@ -78,7 +78,7 @@ export default class AddAddress extends Vue {
       district: this.address[2],
       address: this.addressDetail,
       id: this.id
-    }).then(msg => msg && this.$vux.toast.text(msg))
+    }).then(msg => msg && this.$vux.toast.text(msg));
   }
 }
 </script>

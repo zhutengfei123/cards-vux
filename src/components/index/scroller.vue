@@ -15,9 +15,9 @@
 </template>
 
 <script>
-import { Scroller, Flexbox, FlexboxItem } from 'vux'
-import Card from './card'
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Scroller, Flexbox, FlexboxItem } from 'vux';
+import Card from './card';
+import { Component, Vue, Prop } from 'vue-property-decorator';
 @Component({
   components: {Scroller, Card, Flexbox, FlexboxItem}
 })
@@ -29,7 +29,7 @@ export default class LScroller extends Vue {
   backgroundImage= `linear-gradient(-29deg, ${this.color === 'blue' ? '#0F4AB0' : '#D51717'} 0%, ${this.color === 'blue' ? '#34D4F1' : '#F1D134'} 100%)`
 
   addCart (id) {
-    console.log(id)
+    console.log(id);
   }
 }
 </script>

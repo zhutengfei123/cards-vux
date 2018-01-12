@@ -1,30 +1,30 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import store from '../vuex/store'
-const Member = () => import('@/components/member/index')
-const Index = () => import('@/components/index/index')
-const Classification = () => import('@/components/classification/index')
-const Cart = () => import('@/components/cart/index')
-const Detail = () => import('@/components/detail/index')
-const Container = () => import('@/container')
-const ConfirmOrder = () => import('@/components/confirmOrder/index')
-const OrderPaySuccess = () => import('@/components/pay/orderPaySuccess')
-const SubmitSuccess = () => import('@/components/pay/submitSuccess')
-const RechargeResults = () => import('@/components/pay/rechargeResults')
-const Recharge = () => import('@/components/pay/recharge')
-const RechargeDetailed = () => import('@/components/pay/rechargeDetailed')
-const RechargeDetails = () => import('@/components/pay/rechargeDetails')
-const Help = () => import('@/components/help/index')
-const Order = () => import('@/components/order/index')
-const OrderDetail = () => import('@/components/order/detail')
-const Delivery = () => import('@/components/order/delivery')
-const Money = () => import('@/components/member/money')
-const Intention = () => import('@/components/intention/index')
-const IntentionDetail = () => import('@/components/intention/detail')
-const IntentionSubmit = () => import('@/components/intention/submit')
-const Address = () => import('@/components/address/index')
-const AddAddress = () => import('@/components/address/add')
-Vue.use(Router)
+import Vue from 'vue';
+import Router from 'vue-router';
+import store from '../vuex/store';
+const Member = () => import('@/components/member/index');
+const Index = () => import('@/components/index/index');
+const Classification = () => import('@/components/classification/index');
+const Cart = () => import('@/components/cart/index');
+const Detail = () => import('@/components/detail/index');
+const Container = () => import('@/container');
+const ConfirmOrder = () => import('@/components/confirmOrder/index');
+const OrderPaySuccess = () => import('@/components/pay/orderPaySuccess');
+const SubmitSuccess = () => import('@/components/pay/submitSuccess');
+const RechargeResults = () => import('@/components/pay/rechargeResults');
+const Recharge = () => import('@/components/pay/recharge');
+const RechargeDetailed = () => import('@/components/pay/rechargeDetailed');
+const RechargeDetails = () => import('@/components/pay/rechargeDetails');
+const Help = () => import('@/components/help/index');
+const Order = () => import('@/components/order/index');
+const OrderDetail = () => import('@/components/order/detail');
+const Delivery = () => import('@/components/order/delivery');
+const Money = () => import('@/components/member/money');
+const Intention = () => import('@/components/intention/index');
+const IntentionDetail = () => import('@/components/intention/detail');
+const IntentionSubmit = () => import('@/components/intention/submit');
+const Address = () => import('@/components/address/index');
+const AddAddress = () => import('@/components/address/add');
+Vue.use(Router);
 
 const router = new Router({
   routes: [
@@ -50,7 +50,7 @@ const router = new Router({
         {path: 'cart', name: '购物车', component: Cart}
       ]
     },
-
+    {path: '/cardlist', name: '卡券列表', component: Classification},
     {path: '/detail/:id', name: '商品详情', component: Detail},
     {path: '/confirmOrder', name: '确认订单', component: ConfirmOrder},
     {path: '/orderPaySuccess', name: '订单支付成功', component: OrderPaySuccess},
@@ -75,11 +75,11 @@ const router = new Router({
   ],
   mode: 'history',
   scrollBehavior (to, from, savedPosition) {
-    return savedPosition || { x: 0, y: 0 }
+    return savedPosition || { x: 0, y: 0 };
   }
-})
+});
 router.beforeEach((to, from, next) => {
-  store.commit('global/setTitle', to.name)
-  next()
-})
-export default router
+  store.commit('global/setTitle', to.name);
+  next();
+});
+export default router;

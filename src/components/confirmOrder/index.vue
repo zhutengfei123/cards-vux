@@ -39,8 +39,8 @@
   </div>
 </template>
 <script>
-import { Cell, Group, Confirm } from 'vux'
-import { Component, Vue } from 'vue-property-decorator'
+import { Cell, Group, Confirm } from 'vux';
+import { Component, Vue } from 'vue-property-decorator';
 @Component({
   components: {
     Cell,
@@ -82,20 +82,20 @@ export default class ConfirmOrder extends Vue {
     }
   ]
   handleSelectAddress () {
-    console.log('sdf')
+    console.log('sdf');
   }
   onConfirm () {
     this.$router.push({
       path: 'orderPaySuccess'
-    })
+    });
   }
   handlePayBtn (isCreditEnough) {
     if (isCreditEnough) {
-      this.show = true
+      this.show = true;
     } else {
       this.$router.push({
         path: 'recharge'
-      })
+      });
     }
   }
 }

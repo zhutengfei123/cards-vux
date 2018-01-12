@@ -20,17 +20,17 @@
       <cell title="收货地址" is-link link="/address"></cell>
       <cell title="我的卡券商城" :value="sta"  is-link link="/"></cell>
     </group>
-    <group>
+    <group v-once>
       <cell title="客户服务" value="0571-12345678"  is-link link="/"></cell>
       <cell title="帮助中心" is-link link="/help"></cell>
     </group>
     <div class="exit" @click="exitEvent" v-show="status == 1">退出登录</div>  
-    <p class="text gray bottom-txt">飞象企服提供技术支持</p>
+    <p v-once class="text gray bottom-txt">飞象企服提供技术支持</p>
   </div>
 </template>
 <script>
-import { Cell, Group, XImg } from 'vux'
-import { Component, Vue } from 'vue-property-decorator'
+import { Cell, Group, XImg } from 'vux';
+import { Component, Vue } from 'vue-property-decorator';
 @Component({
   components: {
     Cell,
@@ -44,11 +44,11 @@ export default class Member extends Vue {
   price = '￥1000000.00';
   sta = '有新的订单';
   created () {
-    this.init()
+    this.init();
   }
   init () {}
   back () {
-    this.$router.go(-1)
+    this.$router.go(-1);
   }
   exitEvent () {}
   loginEvent () {}

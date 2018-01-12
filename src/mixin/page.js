@@ -6,6 +6,6 @@ export const page = {
       loading: false,
       isEnd: false,
       isLoaded: false
-    }
+    };
   }
-}
+};
