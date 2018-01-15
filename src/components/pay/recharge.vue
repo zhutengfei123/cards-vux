@@ -66,9 +66,9 @@
   </div>
 </template>
 <script>
-import { XButton, Tab, TabItem, XInput, Group } from 'vux'
-import { Component, Vue } from 'vue-property-decorator'
-import Uploader from 'vux-uploader'
+import { XButton, Tab, TabItem, XInput, Group } from 'vux';
+import { Component, Vue } from 'vue-property-decorator';
+import Uploader from 'vux-uploader';
 @Component({
   components: {
     XButton,
@@ -91,10 +91,10 @@ export default class OrderPaySuccess extends Vue {
   handleRechargeDetail () {
     this.$router.push({
       path: '/rechargeDetailed'
-    })
+    });
   }
   onItemClick (index) {
-    this.active = index
+    this.active = index;
   }
   rechargeValOnBlur () {}
   remitValOnBlur () {}

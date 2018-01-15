@@ -23,12 +23,12 @@
     </div>
 </template>
 <script>
-import { Group, Cell, CheckIcon, Confirm, TransferDomDirective as TransferDom, XButton } from 'vux'
-import { Component, Vue } from 'vue-property-decorator'
-import { State, Action, namespace } from 'vuex-class'
+import { Group, Cell, CheckIcon, Confirm, TransferDomDirective as TransferDom, XButton } from 'vux';
+import { Component, Vue } from 'vue-property-decorator';
+import { State, Action, namespace } from 'vuex-class';
 
-const AddressState = namespace('address', State)
-const AddressAction = namespace('address', Action)
+const AddressState = namespace('address', State);
+const AddressAction = namespace('address', Action);
 
 @Component({
   directives: {
@@ -45,15 +45,15 @@ export default class Address extends Vue {
     @AddressAction getData
 
     onCancel () {
-      this.show = false
+      this.show = false;
     }
 
     onConfirm () {
-      this.show = false
+      this.show = false;
     }
 
     actived () {
-      this.getData()
+      this.getData();
     }
 }
 </script>

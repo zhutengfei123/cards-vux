@@ -1,4 +1,4 @@
-import { axios } from '../../js'
+import { axios } from '../../js';
 // 用户 Store
 const state = {
   user: null,
@@ -9,7 +9,7 @@ const state = {
   avatar: '',
   level: '',
   balance: ''
-}
+};
 
 const actions = {
   async login ({commit, rootState}, {mobile, password}) {
@@ -18,11 +18,11 @@ const actions = {
       mobile,
       type: 1,
       pwd: password
-    })
+    });
     if (code === '00000') {
-      commit('setToken', result.token)
+      commit('setToken', result.token);
     } else {
-      return msg
+      return msg;
     }
   },
   async register ({commit, rootState}, {mobile, password, company, code}) {
@@ -32,15 +32,15 @@ const actions = {
       password,
       company,
       code
-    })
+    });
     if (status.code === '00000') {
-      commit('setToken', result.token)
+      commit('setToken', result.token);
     } else {
-      return status.msg
+      return status.msg;
     }
   },
   async getInfo ({commit}) {
-    const {result, status: {code, msg}} = await axios.get('/site/user-info')
+    const {result, status: {code, msg}} = await axios.get('/site/user-info');
     if (code === '00000') {
       commit('setInfo', {
         company: result.company,
@@ -48,21 +48,21 @@ const actions = {
         avatar: result.head_pic,
         level: result.level_name,
         balance: result.balance
-      })
+      });
     } else {
-      return msg
+      return msg;
     }
   },
   async updateInfo ({commit, state}, {realname, avatar}) {
-    const {status: {code, msg}} = await axios.post('/site/update-info', {realname, head_pic: avatar})
+    const {status: {code, msg}} = await axios.post('/site/update-info', {realname, head_pic: avatar});
     if (code === '00000') {
       commit('setInfo', {
         ...state,
         realname,
         avatar
-      })
+      });
     } else {
-      return msg
+      return msg;
     }
   },
   async resetPwd ({commit, rootState}, {mobile, password, code}) {
@@ -71,23 +71,23 @@ const actions = {
       mobile,
       password,
       code
-    })
-    return msg
+    });
+    return msg;
   }
-}
+};
 
 const mutations = {
   setInfo (state, data) {
-    state = data
+    state = data;
   },
   setToken (state, token) {
-    state.token = token
+    state.token = token;
   }
-}
+};
 
 export default {
   namespaced: true,
   state,
   actions,
   mutations
-}
+};

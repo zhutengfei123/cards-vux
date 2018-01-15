@@ -22,19 +22,19 @@
     </div>
 </template>
 <script>
-import { Component, Vue } from 'vue-property-decorator'
-import {Tab, TabItem, Cell, Group} from 'vux'
-import Item from './item'
+import { Component, Vue } from 'vue-property-decorator';
+import {Tab, TabItem, Cell, Group} from 'vux';
+import Item from './item';
 @Component({
   components: {Tab, TabItem, Cell, Group, Item}
 })
 export default class Order extends Vue {
   filter (type) {
     switch (type) {
-      case 'all':break
-      case 'delivery':break
-      case 'pay':break
-      case 'deliveried':break
+      case 'all':break;
+      case 'delivery':break;
+      case 'pay':break;
+      case 'deliveried':break;
     }
   }
 }

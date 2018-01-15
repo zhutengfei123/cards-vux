@@ -40,11 +40,11 @@ import {
   Group,
   InlineXNumber,
   XButton
-} from 'vux'
-import { axios } from '../../js'
-import {State, namespace} from 'vuex-class'
-import { Component, Vue } from 'vue-property-decorator'
-const GlobalState = namespace('global', State)
+} from 'vux';
+import { axios } from '../../js';
+import {State, namespace} from 'vuex-class';
+import { Component, Vue } from 'vue-property-decorator';
+const GlobalState = namespace('global', State);
 @Component({
   components: {
     Swiper,
@@ -73,15 +73,15 @@ export default class Detail extends Vue {
         params: { store_id: this.storeId, id: this.$route.params.id }
       })
       .then(({ result, status: { code, msg } }) => {
-        this.stock = result.stock
-        this.picUrl = result.pic_url
-        this.name = result.name
-        this.price = result.price
-      })
+        this.stock = result.stock;
+        this.picUrl = result.pic_url;
+        this.name = result.name;
+        this.price = result.price;
+      });
   }
 
   created () {
-    this.getInfo()
+    this.getInfo();
   }
 }
 </script>

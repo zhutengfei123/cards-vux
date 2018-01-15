@@ -10,8 +10,8 @@
   </div>
 </template>
 <script>
-  import { XButton } from 'vux'
-import { Component, Vue } from 'vue-property-decorator'
+  import { XButton } from 'vux';
+import { Component, Vue } from 'vue-property-decorator';
 @Component({
     components: {
       XButton

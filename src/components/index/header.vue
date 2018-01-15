@@ -30,10 +30,10 @@
 </template>
 
 <script>
-import {Swiper, SwiperItem, Marquee, MarqueeItem, Flexbox, FlexboxItem, XImg} from 'vux'
-import { Component, Vue } from 'vue-property-decorator'
-import {State, namespace} from 'vuex-class'
-const IndexState = namespace('index', State)
+import {Swiper, SwiperItem, Marquee, MarqueeItem, Flexbox, FlexboxItem, XImg} from 'vux';
+import { Component, Vue } from 'vue-property-decorator';
+import {State, namespace} from 'vuex-class';
+const IndexState = namespace('index', State);
 
 @Component({
   components: {Swiper, SwiperItem, Marquee, MarqueeItem, Flexbox, FlexboxItem, XImg}
@@ -46,7 +46,7 @@ export default class LHeader extends Vue {
   @IndexState focus
 
   indexChange (index) {
-    this.index = index
+    this.index = index;
   }
 }
 </script>

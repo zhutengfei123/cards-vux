@@ -10,7 +10,7 @@
     </div>
 </template>
 <script>
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue } from 'vue-property-decorator';
 import {
   Group,
   XInput,
@@ -19,11 +19,11 @@ import {
   XAddress,
   ChinaAddressV4Data,
   XButton
-} from 'vux'
-import { Getter, Action, namespace } from 'vuex-class'
+} from 'vux';
+import { Getter, Action, namespace } from 'vuex-class';
 
-const AddressGetter = namespace('address', Getter)
-const AddressAction = namespace('address', Action)
+const AddressGetter = namespace('address', Getter);
+const AddressAction = namespace('address', Action);
 
 @Component({
   components: {
@@ -49,27 +49,27 @@ export default class AddAddress extends Vue {
   @AddressAction update;
 
   get isAdd () {
-    return this.$route.path === 'add'
+    return this.$route.path === 'add';
   }
 
   get id () {
-    return this.$route.params.id
+    return this.$route.params.id;
   }
 
   actived () {
     if (!this.isAdd) {
       const { name, phone, province, city, district, address } = this.findById(
         this.id
-      )
-      this.name = name
-      this.phone = phone
-      this.address = [province, city, district]
-      this.addressDetail = address
+      );
+      this.name = name;
+      this.phone = phone;
+      this.address = [province, city, district];
+      this.addressDetail = address;
     }
   }
 
   save () {
-    const func = this.isAdd ? this.add : this.update
+    const func = this.isAdd ? this.add : this.update;
     func({
       name: this.name,
       phone: this.phone,
@@ -78,7 +78,7 @@ export default class AddAddress extends Vue {
       district: this.address[2],
       address: this.addressDetail,
       id: this.id
-    }).then(msg => msg && this.$vux.toast.text(msg))
+    }).then(msg => msg && this.$vux.toast.text(msg));
   }
 }
 </script>

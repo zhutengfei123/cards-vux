@@ -12,11 +12,11 @@
 </template>
 
 <script>
-  import { ViewBox, XHeader } from 'vux'
-import { Component, Vue } from 'vue-property-decorator'
-import {State, namespace} from 'vuex-class'
+  import { ViewBox, XHeader } from 'vux';
+import { Component, Vue } from 'vue-property-decorator';
+import {State, namespace} from 'vuex-class';
 
-const GlobalState = namespace('global', State)
+const GlobalState = namespace('global', State);
 
 @Component({
     components: {ViewBox, XHeader}

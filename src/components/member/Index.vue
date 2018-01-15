@@ -29,12 +29,12 @@
   </div>
 </template>
 <script>
-import { Cell, Group, XImg } from 'vux'
-import { Component, Vue } from 'vue-property-decorator'
-import { State, Action, namespace } from 'vuex-class'
+import { Cell, Group, XImg } from 'vux';
+import { Component, Vue } from 'vue-property-decorator';
+import { State, Action, namespace } from 'vuex-class';
 
-const UserState = namespace('user', State)
-const UserAction = namespace('user', Action)
+const UserState = namespace('user', State);
+const UserAction = namespace('user', Action);
 
 @Component({
   components: {
@@ -55,11 +55,11 @@ export default class Member extends Vue {
   @UserAction getInfo
 
   activated () {
-    this.getInfo()
+    this.getInfo();
   }
 
   toLogin () {
-    this.$router.push('/login')
+    this.$router.push('/login');
   }
   exit () {}
 }

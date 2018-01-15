@@ -13,8 +13,8 @@
     </div>
 </template>
 <script>
-import { Component, Vue, Prop, Model } from 'vue-property-decorator'
-import { Flexbox } from 'vux'
+import { Component, Vue, Prop, Model } from 'vue-property-decorator';
+import { Flexbox } from 'vux';
 @Component({
   components: {Flexbox}
 })
@@ -27,7 +27,7 @@ export default class LInput extends Vue {
     @Model('input') value
 
     updateValue () {
-      this.$emit('input', event.currentTarget.value)
+      this.$emit('input', event.currentTarget.value);
     }
 }
 </script>

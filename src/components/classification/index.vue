@@ -45,15 +45,15 @@
   </div>    
 </template>
 <script>
-import {State, Action, Mutation, namespace} from 'vuex-class'
-import {Tab, TabItem, Flexbox, FlexboxItem, Grid, GridItem, LoadMore, XButton, XImg, Cell} from 'vux'
-import {isBottom} from '../../js'
-import Card from '../index/card'
-import {page} from '../../mixin/page'
-import {Component, Vue, Watch} from 'vue-property-decorator'
-const ProductsState = namespace('products', State)
-const ProductsAction = namespace('products', Action)
-const ProductsMutation = namespace('products', Mutation)
+import {State, Action, Mutation, namespace} from 'vuex-class';
+import {Tab, TabItem, Flexbox, FlexboxItem, Grid, GridItem, LoadMore, XButton, XImg, Cell} from 'vux';
+import {isBottom} from '../../js';
+import Card from '../index/card';
+import {page} from '../../mixin/page';
+import {Component, Vue, Watch} from 'vue-property-decorator';
+const ProductsState = namespace('products', State);
+const ProductsAction = namespace('products', Action);
+const ProductsMutation = namespace('products', Mutation);
 @Component({
   mixins: [page],
   components: {
@@ -80,7 +80,7 @@ export default class Classification extends Vue {
 
   @Watch('orderType')
   onOrderTypeChanged () {
-    this.resetList()
+    this.resetList();
   }
 
   @ProductsState list
@@ -93,28 +93,28 @@ export default class Classification extends Vue {
   created () {
     if (!this.inited) {
       this.getProducts({page: this.page, pageSize: this.pageSize}).then(() => {
-        this.page++
-        this.setInit(true)
-      }).catch(error => console.log(error))
+        this.page++;
+        this.setInit(true);
+      }).catch(error => console.log(error));
     }
   }
   mounted () {
-    const rect = this.$refs.topBar.$el.getBoundingClientRect()
-    this.paddingTop = rect.height + 16 + 'px'
-    const element = document.querySelector('#vux_view_box_body')
+    const rect = this.$refs.topBar.$el.getBoundingClientRect();
+    this.paddingTop = rect.height + 16 + 'px';
+    const element = document.querySelector('#vux_view_box_body');
     isBottom(element,
       () => {
         !this.isEnd && !this.loading && (() => {
-          this.loading = true
+          this.loading = true;
           this.getProducts({page: this.page, pageSize: this.pageSize}).then(({isEnd}) => {
-            this.loading = false
-            this.isEnd = isEnd
-            this.page++
-            element.scrollTop -= (this.$refs.loadMore.$el.getBoundingClientRect().height + 10)
-          }).catch(error => console.log(error))
-        })()
+            this.loading = false;
+            this.isEnd = isEnd;
+            this.page++;
+            element.scrollTop -= (this.$refs.loadMore.$el.getBoundingClientRect().height + 10);
+          }).catch(error => console.log(error));
+        })();
       }
-    )
+    );
   }
 }
 </script>

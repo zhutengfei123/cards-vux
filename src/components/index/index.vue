@@ -37,18 +37,18 @@
 </template>
 
 <script>
-import LHeader from './header'
-import LScroller from './scroller'
-import { XImg, Flexbox, FlexboxItem, Grid, GridItem, LoadMore, XButton, XDialog, TransferDomDirective as TransferDom } from 'vux'
-import { Component, Vue } from 'vue-property-decorator'
-import {State, Action, Mutation, namespace} from 'vuex-class'
-import Card from './card'
-import {isBottom} from '../../js'
-import {page} from '../../mixin/page'
+import LHeader from './header';
+import LScroller from './scroller';
+import { XImg, Flexbox, FlexboxItem, Grid, GridItem, LoadMore, XButton, XDialog, TransferDomDirective as TransferDom } from 'vux';
+import { Component, Vue } from 'vue-property-decorator';
+import {State, Action, Mutation, namespace} from 'vuex-class';
+import Card from './card';
+import {isBottom} from '../../js';
+import {page} from '../../mixin/page';
 
-const IndexState = namespace('index', State)
-const IndexAction = namespace('index', Action)
-const IndexMutation = namespace('index', Mutation)
+const IndexState = namespace('index', State);
+const IndexAction = namespace('index', Action);
+const IndexMutation = namespace('index', Mutation);
 @Component({
   mixins: [page],
   directives: {
@@ -82,32 +82,32 @@ export default class Index extends Vue {
   @IndexMutation setInit
 
   toggleTip () {
-    this.showTip = !this.showTip
+    this.showTip = !this.showTip;
   }
 
   created () {
     if (!this.inited) {
       this.init().then(() => {
-        this.setInit(true)
-        this.page++
-      }).catch(error => console.log(error))
+        this.setInit(true);
+        this.page++;
+      }).catch(error => console.log(error));
     }
   }
   mounted () {
-    const element = document.querySelector('#vux_view_box_body')
+    const element = document.querySelector('#vux_view_box_body');
     isBottom(element,
       () => {
         !this.isEnd && !this.loading && (() => {
-          this.loading = true
+          this.loading = true;
           this.loadMore({page: this.page, pageSize: this.pageSize}).then(({isEnd}) => {
-            this.loading = false
-            this.page++
-            this.isEnd = isEnd
-            element.scrollTop -= (this.$refs.loadMore.$el.getBoundingClientRect().height + 10)
-          }).catch(error => console.log(error))
-        })()
+            this.loading = false;
+            this.page++;
+            this.isEnd = isEnd;
+            element.scrollTop -= (this.$refs.loadMore.$el.getBoundingClientRect().height + 10);
+          }).catch(error => console.log(error));
+        })();
       }
-    )
+    );
   }
 }
 </script>

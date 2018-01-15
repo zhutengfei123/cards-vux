@@ -48,10 +48,10 @@
     </div>
 </template>
 <script>
-import { Component, Vue } from 'vue-property-decorator'
-import {Cell, Group, CellFormPreview, Flexbox, FlexboxItem} from 'vux'
-import { axios } from '../../js'
-import Item from './item'
+import { Component, Vue } from 'vue-property-decorator';
+import {Cell, Group, CellFormPreview, Flexbox, FlexboxItem} from 'vux';
+import { axios } from '../../js';
+import Item from './item';
 @Component({
   components: {
     Cell,
@@ -93,14 +93,14 @@ export default class OrderDetail extends Vue {
   }]
 
   created () {
-    this.getInfo()
+    this.getInfo();
   }
 
   getInfo () {
     axios
       .get('', {
         params: { store_id: this.storeId, id: this.$route.params.id }
-      })
+      });
     // .then(({ result, status: { code, msg } }) => {
     //   this.stock = result.stock
     //   this.picUrl = result.pic_url

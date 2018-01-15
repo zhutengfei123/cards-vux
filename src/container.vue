@@ -14,9 +14,9 @@
     </div>     
 </template>
 <script>
-import { Tabbar, TabbarItem } from 'vux'
-import Vue from 'vue'
-import Component from 'vue-class-component'
+import { Tabbar, TabbarItem } from 'vux';
+import Vue from 'vue';
+import Component from 'vue-class-component';
 @Component({
   components: {
     Tabbar,
