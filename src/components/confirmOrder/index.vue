@@ -33,7 +33,7 @@
     </div>
     <div class="confirm-foot">
       <span class="pay-price">合计：￥{{initData.total_price}}</span>
-      <span class="pay-btn" @click="handlePayBtn(isCreditEnough)">{{isCreditEnough?'去付款':'去充值'}}</span>
+      <span class="pay-btn" @click="handlePayBtn">{{isCreditEnough?'去付款':'去充值'}}</span>
     </div>
     <div>
       <confirm v-model="isConfirmPay" title="确认支付" @on-cancel="isConfirmPay===false" @on-confirm="onConfirm">
@@ -64,7 +64,7 @@ const ConfirmOderMutation = namespace('confirmOrder', Mutation);
       };
       this.init(params).then(msg => {
         if (!msg) {
-          if (this.initData.balance >= this.initData.total_price) {
+          if (parseFloat(this.initData.balance) >= parseFloat(this.initData.total_price)) {
             this.isCreditEnough = true;
           } else {
             this.isCreditEnough = false;
@@ -91,7 +91,7 @@ export default class ConfirmOrder extends Vue {
     };
     this.init(params).then(msg => {
       if (!msg) {
-        if (this.initData.balance >= this.initData.total_price) {
+        if (parseFloat(this.initData.balance) >= parseFloat(this.initData.total_price)) {
           this.isCreditEnough = true;
         } else {
           this.isCreditEnough = false;
@@ -117,8 +117,8 @@ export default class ConfirmOrder extends Vue {
       }
     }).catch(error => console.log(error));
   }
-  handlePayBtn (isCreditEnough) {
-    if (isCreditEnough) {
+  handlePayBtn () {
+    if (this.isCreditEnough) {
       this.isConfirmPay = true;
     } else {
       this.$router.push({

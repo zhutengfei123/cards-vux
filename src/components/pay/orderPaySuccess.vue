@@ -11,17 +11,21 @@
   </div>
 </template>
 <script>
-  import { XButton, Toast } from 'vux';
+  import { XButton } from 'vux';
 import { Component, Vue } from 'vue-property-decorator';
+import {State, namespace} from 'vuex-class';
+const ConfirmOderState = namespace('confirmOrder', State);
 @Component({
     components: {
-      XButton,
-      Toast
+      XButton
     }
   })
   export default class OrderPaySuccess extends Vue {
+    @ConfirmOderState orderId
     handleCheckOrder () {
-  
+      this.$router.push({
+        path: `/order/${this.orderId}`
+      });
     }
   }
 </script>
