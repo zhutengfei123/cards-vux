@@ -5,21 +5,24 @@
       <span class="con-top-title">支付成功</span>
     </div>
     <div class="con-bot">
-      <x-button class="btn-l">查看订单</x-button>
+      <x-button class="btn-l" @click.native="handleCheckOrder">查看订单</x-button>
       <x-button class="btn-r" link="/main">返回首页</x-button>
     </div>
   </div>
 </template>
 <script>
-  import { XButton } from 'vux';
+  import { XButton, Toast } from 'vux';
 import { Component, Vue } from 'vue-property-decorator';
 @Component({
     components: {
-      XButton
+      XButton,
+      Toast
     }
   })
   export default class OrderPaySuccess extends Vue {
-
+    handleCheckOrder () {
+  
+    }
   }
 </script>
 <style lang="less">
