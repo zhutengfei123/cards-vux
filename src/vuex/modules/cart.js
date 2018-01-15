@@ -20,9 +20,15 @@ const actions = {
     }
   },
   async isSelected ({commit, rootState}, params) {
-    const { result, status: {code, msg} } = await axios.post('/cart/selected', qs.stringify({'ids': params.ids, 'is_selected': params.is_selected}));
+    const { status: {code, msg} } = await axios.post('/cart/selected', qs.stringify({'ids': params.ids, 'is_selected': params.is_selected}));
     if (code === '00000') {
-      commit('getIsSelected', result);
+    } else {
+      return new Error(msg);
+    }
+  },
+  async deleteList ({commit, rootState}, params) {
+    const { status: {code, msg} } = await axios.post('/cart/delete', qs.stringify({'ids': params.ids}));
+    if (code === '00000') {
     } else {
       return new Error(msg);
     }
@@ -30,9 +36,6 @@ const actions = {
 };
 const mutations = {
   getInitData (state, data) {
-    state.initData = data;
-  },
-  getIsSelected (state, data) {
     state.initData = data;
   }
 };

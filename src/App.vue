@@ -13,12 +13,12 @@
 
 <script>
   import { ViewBox, XHeader } from 'vux';
-  import { Component, Vue } from 'vue-property-decorator';
-  import {State, namespace} from 'vuex-class';
+import { Component, Vue } from 'vue-property-decorator';
+import {State, namespace} from 'vuex-class';
 
-  const GlobalState = namespace('global', State);
+const GlobalState = namespace('global', State);
 
-  @Component({
+@Component({
     components: {ViewBox, XHeader}
   })
   export default class App extends Vue {
