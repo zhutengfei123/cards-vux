@@ -11,38 +11,22 @@
         </group>
         <group>
             <flexbox><span class="text label">订单状态</span><span class="text brown">{{type}}</span></flexbox>
-            <flexbox><span class="text label">订单号</span><span class="text">{{orderId}}</span></flexbox>
-            <flexbox><span class="text label">快递单号</span><span class="text">{{deliveryId}}</span></flexbox>
-            <cell is-link class="link">
+            <flexbox><span class="text label">订单号</span><span class="text">{{orderSn}}</span></flexbox>
+            <flexbox><span class="text label">快递单号</span><span class="text">{{expressNo}}&nbsp;&nbsp;&nbsp;({{expressName}})</span></flexbox>
+            <cell is-link class="link" :link="`/order/delivery/${orderSn}`">
                 <p slot="inline-desc" class="text gray">{{time}}</p>
                 <p slot="inline-desc" class="text gray">{{status}}</p>
             </cell>
         </group>
         <group>
-            <cell><p slot="title" class="text">共{{count}}件商品<span class="gray">&nbsp;({{productsType}})</span></p></cell>
-            <item v-for="item of list" :key="item.id" :item="item">
-            </item>
+            <cell><p slot="title" class="text">共{{list.length}}件商品</p></cell>
+            <item v-for="item of list" :key="item.id" :item="item"></item>
         </group>
         <group>
-            <cell-form-preview :list="[{
-                label: '下单时间',
-                value: '3.29'
-            }, {
-                label: '运费',
-                value: '1.04'
-            }, {
-                label: '合计',
-                value: '8.00'
-            }, {
-                label: '余额',
-                value: '8.00'
-            }, {
-                label: '信用额度',
-                value: '8.00'
-            }]"></cell-form-preview>
+            <cell-form-preview :list="preview"></cell-form-preview>
             <cell>
                 <span slot="title" class="text gray">实际付款</span>
-                <span class="text red">￥{{cost}}</span>
+                <span class="text red">￥{{totalPrice}}</span>
             </cell>
         </group>
     </div>
@@ -63,18 +47,18 @@ import Item from './item';
   }
 })
 export default class OrderDetail extends Vue {
-  name='sadsad'
+  name=''
   phone=''
   address=''
   list=[]
   count=0
-  type=1
-  orderId=''
-  deliveryId=''
+  orderStatus=0
+  orderSn=''
+  expressNo=''
+  expressName=''
   time=''
   status=0
-  productsType=''
-  cost=0
+  totalPrice=0
   preview=[{
     label: '下单时间',
     value: ''
@@ -84,29 +68,35 @@ export default class OrderDetail extends Vue {
   }, {
     label: '合计',
     value: ''
-  }, {
-    label: '余额',
-    value: ''
-  }, {
-    label: '信用额度',
-    value: ''
   }]
 
-  created () {
-    this.getInfo();
+  get type () {
+    switch (this.orderStatus) {
+      case 1:return '待发货';
+      case 2:return '待收货';
+      case 3:return '已完成';
+    }
   }
 
-  getInfo () {
-    axios
-      .get('', {
-        params: { store_id: this.storeId, id: this.$route.params.id }
-      });
-    // .then(({ result, status: { code, msg } }) => {
-    //   this.stock = result.stock
-    //   this.picUrl = result.pic_url
-    //   this.name = result.name
-    //   this.price = result.price
-    // })
+  async getInfo () {
+    const {result, status: { code, msg }} = await axios.post('/order/details', { order_sn: this.$route.params.id });
+    if (code === '00000') {
+      this.name = result.address_info.name;
+      this.phone = result.address_info.phone;
+      this.address = result.address_info.address;
+      this.list = result.goods_list.list;
+      this.orderStatus = result.order_status;
+      this.orderSn = result.order_sn;
+      this.expressNo = result.express_no;
+      this.expressName = result.express_name;
+      this.time = result.send_time;
+      this.totalPrice = result.total_price;
+    } else {
+      this.$vux.toast.text(msg);
+    }
+  }
+  activated () {
+    this.getInfo();
   }
 }
 </script>
