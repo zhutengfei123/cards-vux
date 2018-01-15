@@ -12,10 +12,10 @@
         <group>
             <flexbox><span class="text label">订单状态</span><span class="text brown">{{type}}</span></flexbox>
             <flexbox><span class="text label">订单号</span><span class="text">{{orderSn}}</span></flexbox>
-            <flexbox><span class="text label">快递单号</span><span class="text">{{expressNo}}&nbsp;&nbsp;&nbsp;({{expressName}})</span></flexbox>
-            <cell is-link class="link" :link="`/order/delivery/${orderSn}`">
+            <flexbox><span class="text label" v-if="orderStatus!==1">快递单号</span><span class="text">{{expressNo}}&nbsp;&nbsp;&nbsp;({{expressName}})</span></flexbox>
+            <cell is-link class="link" :link="`/order/delivery/${orderSn}`" v-if="orderStatus!==1">
                 <p slot="inline-desc" class="text gray">{{time}}</p>
-                <p slot="inline-desc" class="text gray">{{status}}</p>
+                <p slot="inline-desc" class="text gray">{{context}}</p>
             </cell>
         </group>
         <group>
@@ -57,7 +57,7 @@ export default class OrderDetail extends Vue {
   expressNo=''
   expressName=''
   time=''
-  status=0
+  context=''
   totalPrice=0
   preview=[{
     label: '下单时间',
@@ -87,9 +87,10 @@ export default class OrderDetail extends Vue {
       this.list = result.goods_list.list;
       this.orderStatus = result.order_status;
       this.orderSn = result.order_sn;
-      this.expressNo = result.express_no;
-      this.expressName = result.express_name;
-      this.time = result.send_time;
+      this.expressNo = result.express.express_no;
+      this.expressName = result.express.express_name;
+      this.time = result.express.data[0].time;
+      this.context = result.express.data[0].context;
       this.totalPrice = result.total_price;
     } else {
       this.$vux.toast.text(msg);
