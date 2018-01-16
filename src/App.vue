@@ -3,27 +3,25 @@
      <view-box ref="viewBox" body-padding-top="46px" body-padding-bottom="55px">
        <x-header slot="header" :title="title" class="header"></x-header>
        <transition name="vux-header-fade-in-right">
-          <keep-alive>
             <router-view></router-view>
-          </keep-alive>
        </transition> 
      </view-box>
   </div>
 </template>
 
 <script>
-  import { ViewBox, XHeader } from 'vux';
+import { ViewBox, XHeader } from 'vux';
 import { Component, Vue } from 'vue-property-decorator';
 import {State, namespace} from 'vuex-class';
 
 const GlobalState = namespace('global', State);
 
 @Component({
-    components: {ViewBox, XHeader}
-  })
-  export default class App extends Vue {
+  components: {ViewBox, XHeader}
+})
+export default class App extends Vue {
     @GlobalState title
-  };
+};
 </script>
 
 <style lang="less" scoped>

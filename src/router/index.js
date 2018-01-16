@@ -73,7 +73,7 @@ const router = new Router({
     {path: '/address/edit/:id', name: '编辑地址', component: AddAddress},
     { path: '*' }
   ],
-  mode: 'history',
+  mode: 'hash',
   scrollBehavior (to, from, savedPosition) {
     return savedPosition || { x: 0, y: 0 };
   }
