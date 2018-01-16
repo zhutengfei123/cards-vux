@@ -36,6 +36,8 @@ import { Component, Vue } from 'vue-property-decorator';
 import {Cell, Group, CellFormPreview, Flexbox, FlexboxItem} from 'vux';
 import { axios } from '../../js';
 import Item from './item';
+import qs from 'qs';
+
 @Component({
   components: {
     Cell,
@@ -72,19 +74,19 @@ export default class OrderDetail extends Vue {
 
   get type () {
     switch (this.orderStatus) {
-      case 1:return '待发货';
-      case 2:return '待收货';
-      case 3:return '已完成';
+      case '1':return '待发货';
+      case '2':return '待收货';
+      case '3':return '已完成';
     }
   }
 
   async getInfo () {
-    const {result, status: { code, msg }} = await axios.post('/order/details', { order_sn: this.$route.params.id });
+    const {result, status: { code, msg }} = await axios.post('/order/details', qs.stringify({ order_sn: this.$route.params.id }));
     if (code === '00000') {
       this.name = result.address_info.name;
       this.phone = result.address_info.phone;
       this.address = result.address_info.address;
-      this.list = result.goods_list.list;
+      this.list = result.goods_list[0].list;
       this.orderStatus = result.order_status;
       this.orderSn = result.order_sn;
       this.expressNo = result.express.express_no;
@@ -92,6 +94,9 @@ export default class OrderDetail extends Vue {
       this.time = result.express.data[0].time;
       this.context = result.express.data[0].context;
       this.totalPrice = result.total_price;
+      this.preview[0].value = result.create_time;
+      this.preview[1].value = result.freight;
+      this.preview[2].value = result.price;
     } else {
       this.$vux.toast.text(msg);
     }
