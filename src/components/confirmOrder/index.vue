@@ -92,12 +92,12 @@ export default class ConfirmOrder extends Vue {
     padding-bottom: 0.15rem;
     font-size: 0.14rem;
     overflow: hidden;
-    .weui-cells {
-      margin: 0;
-    }
     .no-address .vux-cell-primary {
       flex: initial;
       width: 100%;
+    }
+    .weui-cells {
+      margin: 0;
     }
     .weui-cell_access .weui-cell__ft {
       width: 100%;
