@@ -38,6 +38,9 @@ import {State, Action, Mutation, namespace} from 'vuex-class';
 const CartState = namespace('cart', State);
 const CartAction = namespace('cart', Action);
 const CartMutation = namespace('cart', Mutation);
+const ConfirmOderState = namespace('confirmOrder', State);
+const ConfirmOderAction = namespace('confirmOrder', Action);
+const ConfirmOderMutation = namespace('confirmOrder', Mutation);
 @Component({
   components: {
     CheckIcon,
@@ -51,6 +54,10 @@ export default class Cart extends Vue {
     @CartAction deleteList
     @CartMutation getInitData
     @CartState initData
+    @ConfirmOderAction confirmOrderInit
+    @ConfirmOderAction isConfirmOrder
+    @ConfirmOderMutation confirmOrderGetInitData
+    @ConfirmOderState confirmOrderInitData
     isEdit = false
     handleInputChange (num, id) {
       const params = {
@@ -225,25 +232,29 @@ export default class Cart extends Vue {
           }
         }).catch(error => console.log(error));
       } else {
-        this.$router.push({
-          path: '/confirmOrder',
-          query: {
-            'ids': ids.join(',')
+        this.$store.commit('confirmOrder/getIds', ids.join(','));
+        const params = {
+          'ids': ids.join(',')
+        };
+        this.confirmOrderInit(params).then(msg => {
+          if (!msg) {
+            if (parseFloat(this.confirmOrderInitData.balance) >= parseFloat(this.confirmOrderInitData.total_price)) {
+              this.$store.commit('confirmOrder/getIsCreditEnough', true);
+            } else {
+              this.$store.commit('confirmOrder/getIsCreditEnough', false);
+            }
+            this.$router.push({
+              path: '/confirmOrder'
+            });
+          } else {
+            this.$vux.toast.text(msg, 'middle');
           }
-        });
+        }).catch(error => console.log(error));
       }
     }
     created () {
       this.init().then(msg => {
-        if (!msg) {
-          this.initData.list.forEach(item => {
-            item.goods.forEach(subItem => {
-              if (subItem.is_selected === 1) {
-                this.ids.push(subItem.id);
-              }
-            });
-          });
-        } else {
+        if (msg) {
           this.$vux.toast.text(msg, 'middle');
         }
       }).catch(error => console.log(error));

@@ -1,13 +1,13 @@
 <template>
   <div class="confirm-order">
     <group>
-      <cell v-if="JSON.stringify(initData.address) !== '{}'" is-link link="/address">
-        <div class="address-t"><span class="address-name">{{initData.address.name}}</span>&nbsp;<span>{{initData.address.phone}}</span></div>
-        <div class="address-b">{{initData.address.province+' '+initData.address.city+' '+initData.address.district+' '+initData.address.town+initData.address.address}}</div>
+      <cell v-if="JSON.stringify(confirmOrderInitData.address) !== '{}'" is-link link="/address">
+        <div class="address-t"><span class="address-name">{{confirmOrderInitData.address.name}}</span>&nbsp;<span>{{confirmOrderInitData.address.phone}}</span></div>
+        <div class="address-b">{{confirmOrderInitData.address.province+' '+confirmOrderInitData.address.city+' '+confirmOrderInitData.address.district+' '+confirmOrderInitData.address.town+confirmOrderInitData.address.address}}</div>
       </cell>
       <cell class="no-address" v-else title="请选择收货地址" is-link link="/address"></cell>
     </group>
-    <div class="order-con" v-for="(item, index) in initData.list" :key="index">
+    <div class="order-con" v-for="(item, index) in confirmOrderInitData.list" :key="index">
       <div class="con-top">共{{item.goods.length}}件商品<span>（{{item.title}}）</span></div>
       <div class="con-mid" v-for="(subItem, i) in item.goods" :key="i">
         <div class="my-img"><img class="img" :src="subItem.pic" alt=""></div>
@@ -23,16 +23,16 @@
       </div>
       <div class="con-foot">
         <span class="con-total">运费</span>
-        <span class="my-color-t">￥{{initData.freight}}</span>
+        <span class="my-color-t">￥{{confirmOrderInitData.freight}}</span>
       </div>
     </div>
     <div class="con-foot foot-money">
       <span class="con-total">账户余额</span>
-      <span v-if="isCreditEnough" class="my-color-t">￥{{initData.balance}}</span>
-      <span v-else class="my-color-t">￥{{initData.balance}}<span class="con-total">（余额不足）</span></span>
+      <span v-if="isCreditEnough" class="my-color-t">￥{{confirmOrderInitData.balance}}</span>
+      <span v-else class="my-color-t">￥{{confirmOrderInitData.balance}}<span class="con-total">（余额不足）</span></span>
     </div>
     <div class="confirm-foot">
-      <span class="pay-price">合计：￥{{initData.total_price}}</span>
+      <span class="pay-price">合计：￥{{confirmOrderInitData.total_price}}</span>
       <span class="pay-btn" @click="handlePayBtn">{{isCreditEnough?'去付款':'去充值'}}</span>
     </div>
     <div>
@@ -45,66 +45,25 @@
 <script>
 import { Cell, Group, Confirm, Toast } from 'vux';
 import { Component, Vue } from 'vue-property-decorator';
-import {State, Action, Mutation, namespace} from 'vuex-class';
+import {State, namespace} from 'vuex-class';
 const ConfirmOderState = namespace('confirmOrder', State);
-const ConfirmOderAction = namespace('confirmOrder', Action);
-const ConfirmOderMutation = namespace('confirmOrder', Mutation);
 @Component({
   components: {
     Cell,
     Group,
     Confirm,
     Toast
-  },
-  watch: {
-    '$route': function (to, from) {
-      this.ids = this.$route.query.ids;
-      const params = {
-        'ids': this.ids
-      };
-      this.init(params).then(msg => {
-        if (!msg) {
-          if (parseFloat(this.initData.balance) >= parseFloat(this.initData.total_price)) {
-            this.isCreditEnough = true;
-          } else {
-            this.isCreditEnough = false;
-          }
-        } else {
-          this.$vux.toast.text(msg, 'middle');
-        }
-      }).catch(error => console.log(error));
-    }
   }
 })
 export default class ConfirmOrder extends Vue {
-  @ConfirmOderAction init
-  @ConfirmOderAction isConfirmOrder
-  @ConfirmOderMutation getInitData
-  @ConfirmOderState initData
+  @ConfirmOderState confirmOrderInitData
+  @ConfirmOderState isCreditEnough
+  @ConfirmOderState ids
   isConfirmPay = false
-  isCreditEnough = true
-  ids = ''
-  mounted () {
-    this.ids = this.$route.query.ids;
-    const params = {
-      'ids': this.ids
-    };
-    this.init(params).then(msg => {
-      if (!msg) {
-        if (parseFloat(this.initData.balance) >= parseFloat(this.initData.total_price)) {
-          this.isCreditEnough = true;
-        } else {
-          this.isCreditEnough = false;
-        }
-      } else {
-        this.$vux.toast.text(msg, 'middle');
-      }
-    }).catch(error => console.log(error));
-  }
   onConfirm () {
     const params = {
       'ids': this.ids,
-      'address_id': this.initData.address.id
+      'address_id': this.confirmOrderInitData.address.id
     };
     this.isConfirmOrder(params).then(msg => {
       if (!msg) {

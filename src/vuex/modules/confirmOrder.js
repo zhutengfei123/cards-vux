@@ -1,14 +1,16 @@
 import {axios} from '../../js';
 import qs from 'qs';
 const state = {
-  initData: [],
-  orderId: ''
+  confirmOrderInitData: [],
+  orderId: '',
+  isCreditEnough: true,
+  ids: ''
 };
 const actions = {
-  async init ({commit, rootState}, params) {
+  async confirmOrderInit ({commit, rootState}, params) {
     const { result, status: {code, msg} } = await axios.post('/order/preorder', qs.stringify({'ids': params.ids}));
     if (code === '00000') {
-      commit('getInitData', result);
+      commit('confirmOrderGetInitData', result);
     } else {
       return msg;
     }
@@ -23,11 +25,17 @@ const actions = {
   }
 };
 const mutations = {
-  getInitData (state, data) {
-    state.initData = data;
+  confirmOrderGetInitData (state, data) {
+    state.confirmOrderInitData = data;
   },
   getOrderId (state, data) {
     state.orderId = data;
+  },
+  getIsCreditEnough (state, data) {
+    state.isCreditEnough = data;
+  },
+  getIds (state, data) {
+    state.ids = data;
   }
 };
 export default {
