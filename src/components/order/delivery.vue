@@ -1,6 +1,6 @@
 <template>
   <div class="delivery">
-    <flexbox class="text lg">
+    <flexbox class="text lg first">
         <flexbox-item :span="0.3">物流状态</flexbox-item>
         <flexbox-item>{{status}}</flexbox-item>
     </flexbox>
@@ -18,6 +18,8 @@
 import { Component, Vue } from 'vue-property-decorator';
 import {Flexbox, FlexboxItem} from 'vux';
 import { axios } from '../../js';
+import qs from 'qs';
+
 @Component({
   components: {Flexbox, FlexboxItem}
 })
@@ -40,7 +42,7 @@ export default class Delivery extends Vue {
   }
 
   async getInfo () {
-    const {result, status: { code, msg }} = await axios.post('/order/get-express', { order_sn: this.$route.params.id });
+    const {result, status: { code, msg }} = await axios.post('/order/get-express', qs.stringify({ order_sn: this.$route.params.id }));
     if (code === '00000') {
       this.list = result.data;
       this.state = result.state;
@@ -58,10 +60,14 @@ export default class Delivery extends Vue {
 </script>
 <style lang="less" scoped>
 .delivery{
-    > *{padding:0 0.16rem;}
+    > * {
+        padding:0.08rem 0.16rem;
+        width: calc(~"100% - 0.32rem");
+        background: #ffffff;
+    }
     .text{
         background: #ffffff;
-        height:0.48rem;
+
     }
 }
 </style>
