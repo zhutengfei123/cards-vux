@@ -57,12 +57,12 @@ export default class AddAddress extends Vue {
 
   created () {
     if (!this.isAdd) {
-      const { name, phone, province, city, district, address } = this.findById(
+      const { name, phone, province_id: provinceId, city_id: cityId, district_id: districtId, address } = this.findById(
         this.id
       );
       this.name = name;
       this.phone = phone;
-      this.address = [province, city, district];
+      this.address = [provinceId, cityId, districtId];
       this.addressDetail = address;
     }
   }
