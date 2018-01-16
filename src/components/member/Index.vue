@@ -2,10 +2,10 @@
   <div class="member">
     <div class="mer">
        <x-img class="avatar" :default-src="initImg" :src="`${avatar.split('?')[0]}?x-oss-process=image/resize,w_60/format,jpg`" :webp-src="`${avatar.split('?')[0]}?x-oss-process=image/resize,w_60/format,webp`" container="#vux_view_box_body"/>
-       <p v-show="status == 0" class="logintxt" @click="toLogin">请登录</p>
-       <ul class="merinfo" v-show="status == 1">
+       <p v-if="!token" class="logintxt" @click="toLogin">请登录</p>
+       <ul class="merinfo" v-else>
          <li>
-           <label class="lableft labcom">{{name}}</label>
+           <label class="lableft labcom">{{realname}}</label>
            <label class="labright labcom">{{level}}</label>
          </li>
          <li class="text gray">杭州礼管家网络科技有限公司</li>
@@ -51,13 +51,14 @@ export default class Member extends Vue {
 
   @UserState avatar
   @UserState balance
-  @UserState name
+  @UserState realname
   @UserState level
+  @UserState token
 
   @UserAction getInfo
 
   created () {
-    this.getInfo();
+    this.getInfo().then(msg => msg && this.$vux.toast.text(msg));
   }
 
   toLogin () {
