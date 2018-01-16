@@ -19,11 +19,14 @@ const Order = () => import('@/components/order/index');
 const OrderDetail = () => import('@/components/order/detail');
 const Delivery = () => import('@/components/order/delivery');
 const Money = () => import('@/components/member/money');
+const Login = () => import('@/components/member/login');
+const Register = () => import('@/components/member/register');
 const Intention = () => import('@/components/intention/index');
 const IntentionDetail = () => import('@/components/intention/detail');
 const IntentionSubmit = () => import('@/components/intention/submit');
 const Address = () => import('@/components/address/index');
 const AddAddress = () => import('@/components/address/add');
+
 Vue.use(Router);
 
 const router = new Router({
@@ -32,22 +35,19 @@ const router = new Router({
       path: '/main',
       component: Container,
       children: [
-        {
-          path: '',
-          name: '首页',
-          component: Index
-        },
-        {
-          path: 'member',
-          name: '会员',
-          component: Member
-        },
-        {
-          path: 'classification',
-          name: '分类',
-          component: Classification
-        },
+        {path: '', name: '首页', component: Index},
+        {path: 'member', name: '会员', component: Member},
+        {path: 'classification', name: '分类', component: Classification},
         {path: 'cart', name: '购物车', component: Cart}
+      ]
+    },
+    {
+      path: '/mine',
+      component: Container,
+      children: [
+        {path: '', name: '我的卡券商城', component: Index},
+        {path: 'classification', name: '分类', component: Classification},
+        {path: 'cart', name: '意向单', component: Cart}
       ]
     },
     {path: '/cardlist', name: '卡券列表', component: Classification},
@@ -67,11 +67,11 @@ const router = new Router({
     {path: '/intention', name: '意向单', component: Intention},
     {path: '/intention/detail/:id', name: '意向单详情', component: IntentionDetail},
     {path: '/intention/submit', name: '提交意向单', component: IntentionSubmit},
-    {path: '/intention/edit', name: '意向单编辑', component: Cart},
     {path: '/address', name: '地址管理', component: Address},
     {path: '/address/add', name: '添加新地址', component: AddAddress},
     {path: '/address/edit/:id', name: '编辑地址', component: AddAddress},
-    { path: '*' }
+    {path: '/login', name: '登录', component: Login},
+    {path: '/register', name: '注册', component: Register}
   ],
   mode: 'hash',
   scrollBehavior (to, from, savedPosition) {

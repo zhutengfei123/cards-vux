@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-     <view-box ref="viewBox" body-padding-top="46px" body-padding-bottom="55px">
+     <view-box ref="viewBox" body-padding-top="46px" :body-padding-bottom="/main/.test($route.path)?'55px':'0'">
        <x-header slot="header" :title="title" class="header"></x-header>
        <transition name="vux-header-fade-in-right">
             <router-view></router-view>

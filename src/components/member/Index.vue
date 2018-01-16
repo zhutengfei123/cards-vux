@@ -18,13 +18,13 @@
     <group>
       <cell title="现金账户" :value="`￥${balance}`" is-link link="/member/money"></cell>
       <cell title="收货地址" is-link link="/address"></cell>
-      <cell title="我的卡券商城" :value="sta"  is-link link="/"></cell>
+      <cell title="我的卡券商城" :value="sta" is-link link="/mine"></cell>
     </group>
     <group v-once>
       <cell title="客户服务" value="0571-12345678"></cell>
       <cell title="帮助中心" is-link link="/help"></cell>
     </group>
-    <div class="exit text" @click="exit" v-show="status == 1">退出登录</div>  
+    <div class="exit text" @click="exit" v-if="token">退出登录</div>  
     <p v-once class="text gray bottom-txt">飞象企服提供技术支持</p>
   </div>
 </template>
@@ -45,7 +45,6 @@ const UserAction = namespace('user', Action);
   }
 })
 export default class Member extends Vue {
-  status = 0;
   sta = '有新的订单';
   initImg=initImg;
 
@@ -124,7 +123,6 @@ export default class Member extends Vue {
       bottom:0.6rem;
       text-align: center;
       width:100%;
-      font-size: 0.14rem;
   }
 }
 </style>
