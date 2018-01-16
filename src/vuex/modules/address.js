@@ -8,7 +8,8 @@ const actions = {
     const list = [...state.list];
     const {result, status: {code, msg}} = await axios.get('/address/index');
     if (code === '00000') {
-      commit('setList', list.push(result));
+      list.push(...result);
+      commit('setList', list);
     } else {
       return msg;
     }
@@ -50,9 +51,9 @@ const mutations = {
   }
 };
 
-const getter = {
+const getters = {
   findById (state) {
-    return id => state.list.filter(item => item.id === id);
+    return id => state.list.filter(item => item.id === id)[0] || {};
   }
 };
 
@@ -60,6 +61,6 @@ export default {
   namespaced: true,
   state,
   actions,
-  getter,
+  getters,
   mutations
 };

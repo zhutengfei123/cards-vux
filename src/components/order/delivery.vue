@@ -67,7 +67,6 @@ export default class Delivery extends Vue {
     }
     .text{
         background: #ffffff;
-
     }
 }
 </style>

@@ -76,7 +76,7 @@ export default class Classification extends Vue {
   orderType=''
   category=''
   paddingTop=0
-  imgWidth= screen.width / 2
+  imgWidth= parseInt(screen.width / 2)
 
   @Watch('orderType')
   onOrderTypeChanged () {
@@ -92,7 +92,8 @@ export default class Classification extends Vue {
 
   created () {
     if (!this.inited) {
-      this.getProducts({page: this.page, pageSize: this.pageSize}).then(() => {
+      this.getProducts({page: this.page, pageSize: this.pageSize}).then(msg => {
+        msg && this.$vux.toast.text(msg);
         this.page++;
         this.setInit(true);
       }).catch(error => console.log(error));

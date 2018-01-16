@@ -33,6 +33,7 @@ export default class App extends Vue {
   color: #2c3e50;
   height:100%;
   background: #F6F6F6;
+
   .header{
     width:100%;
     position: absolute;
@@ -46,7 +47,9 @@ export default class App extends Vue {
 <style lang="less">
 @import "~vux/src/styles/reset.less";
 @import "./css/common.less";
-
+  #vux_view_box_body{
+    overflow-x: hidden;
+  }
 .weui-grid{
   text-decoration: none;
   padding:0.04rem!important;
