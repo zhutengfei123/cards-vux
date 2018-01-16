@@ -17,9 +17,9 @@ import {
   Cell,
   XTextarea,
   XAddress,
-  ChinaAddressV4Data,
   XButton
 } from 'vux';
+import addressData from '../../js/addressData.json';
 import { Getter, Action, namespace } from 'vuex-class';
 
 const AddressGetter = namespace('address', Getter);
@@ -32,7 +32,6 @@ const AddressAction = namespace('address', Action);
     Cell,
     XTextarea,
     XAddress,
-    ChinaAddressV4Data,
     XButton
   }
 })
@@ -41,7 +40,7 @@ export default class AddAddress extends Vue {
   phone = '';
   address = [];
   addressDetail = '';
-  addressData = ChinaAddressV4Data;
+  addressData = addressData;
 
   @AddressGetter findById;
 
@@ -49,14 +48,14 @@ export default class AddAddress extends Vue {
   @AddressAction update;
 
   get isAdd () {
-    return this.$route.path === 'add';
+    return this.$route.path === '/address/add';
   }
 
   get id () {
     return this.$route.params.id;
   }
 
-  actived () {
+  created () {
     if (!this.isAdd) {
       const { name, phone, province, city, district, address } = this.findById(
         this.id

@@ -1,7 +1,7 @@
 <template>
   <div class="member">
     <div class="mer">
-       <x-img class="avatar" default-src="../../assets/init.png" :src="`${avatar.split('?')[0]}?x-oss-process=image/resize,w_60/format,jpg`" :webp-src="`${avatar.split('?')[0]}?x-oss-process=image/resize,w_60/format,webp`" container="#vux_view_box_body"/>
+       <x-img class="avatar" :default-src="initImg" :src="`${avatar.split('?')[0]}?x-oss-process=image/resize,w_60/format,jpg`" :webp-src="`${avatar.split('?')[0]}?x-oss-process=image/resize,w_60/format,webp`" container="#vux_view_box_body"/>
        <p v-show="status == 0" class="logintxt" @click="toLogin">请登录</p>
        <ul class="merinfo" v-show="status == 1">
          <li>
@@ -32,6 +32,7 @@
 import { Cell, Group, XImg } from 'vux';
 import { Component, Vue } from 'vue-property-decorator';
 import { State, Action, namespace } from 'vuex-class';
+import initImg from '../../assets/init.png';
 
 const UserState = namespace('user', State);
 const UserAction = namespace('user', Action);
@@ -46,6 +47,7 @@ const UserAction = namespace('user', Action);
 export default class Member extends Vue {
   status = 0;
   sta = '有新的订单';
+  initImg=initImg;
 
   @UserState avatar
   @UserState balance
@@ -54,7 +56,7 @@ export default class Member extends Vue {
 
   @UserAction getInfo
 
-  activated () {
+  created () {
     this.getInfo();
   }
 

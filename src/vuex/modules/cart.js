@@ -13,11 +13,8 @@ const actions = {
     }
   },
   async addReduce ({commit, rootState}, {num, shopId}) {
-    const { status: {code, msg} } = await axios.post('/cart/add', qs.stringify({'shop_id': shopId, 'num': num}));
-    if (code === '00000') {
-    } else {
-      return msg;
-    }
+    const { status: {msg} } = await axios.post('/cart/add', qs.stringify({'shop_id': shopId, 'num': num}));
+    return msg;
   },
   async isSelected ({commit, rootState}, params) {
     const { status: {code, msg} } = await axios.post('/cart/selected', qs.stringify({'ids': params.ids, 'is_selected': params.is_selected}));

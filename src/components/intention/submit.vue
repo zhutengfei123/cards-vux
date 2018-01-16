@@ -15,6 +15,21 @@ export default class IntentionSubmit extends Vue {
       placeholder: '请填写姓名',
       value: '',
       textarea: false
+    }, {
+      label: '联系方式',
+      placeholder: '请填写联系方式',
+      value: '',
+      textarea: false
+    }, {
+      label: '企业名称',
+      placeholder: '请填写企业全称',
+      value: '',
+      textarea: false
+    }, {
+      label: '收货地址',
+      placeholder: '请填写收货地址',
+      value: '',
+      textarea: true
     }]
 }
 </script>
