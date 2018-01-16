@@ -10,7 +10,7 @@ import { sync } from 'vuex-router-sync';
 import { WechatPlugin, BusPlugin, DevicePlugin, ToastPlugin, ConfigPlugin } from 'vux';
 import './js/rem.js';
 
-if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
+if (process.env.NODE_ENV === 'production' && process.env.SERVICE_WORKER && 'serviceWorker' in navigator) {
   navigator.serviceWorker.register('/service-worker.js');
 }
 FastClick.attach(document.body);
@@ -27,7 +27,7 @@ Vue.use(ToastPlugin);
 Vue.use(ConfigPlugin, {
   $layout: 'VIEW_BOX'
 });
-Vue.use(ToastPlugin);
+Vue.use(ToastPlugin, {position: 'middle'});
 
 Vue.mixin({
   created () {
