@@ -14,13 +14,14 @@
             </flexbox>
         </flexbox-item>
         <flexbox-item>
-            <x-button class="button" @click.native="sendCodeClick">发送验证码</x-button>
+            <x-button class="button" @click.native="sendCodeClick" v-show="time===0">发送验证码</x-button>
+            <x-button class="button" v-show="time>0">已发送{{time}}s</x-button>
         </flexbox-item>
       </flexbox>
       <x-button class="button" @click.native="signIn">登录</x-button>
       <flexbox justify="space-between" class="line">
-          <p class="text brown"><span class="gray">没有账号？</span><span @click="$router.push('/register')">马上注册</span></p>
-          <p class="text brown" @click="type=!type">{{type?'密码登录':'短信登录'}} >></p>
+          <p class="text brown"><span class="gray">没有账号？</span><a @click="$router.push('/register')">马上注册</a></p>
+          <a class="text brown " @click="type=!type">{{type?'密码登录':'短信登录'}} >></a>
       </flexbox>
   </div>
 </template>
@@ -39,23 +40,37 @@ export default class Login extends Vue {
     phone=''
     password=''
     code=''
+    time=0
 
     @UserAction login
     @UserAction sendCode
+
+    sendCodeClick () {
+      this.sendCode({
+        mobile: this.phone,
+        type: 'login-shop'
+      }).then(msg => {
+        if (msg) {
+          this.$vux.toast.text(msg);
+        } else {
+          this.time = 60;
+          const id = setInterval(() => {
+            if (this.time > 0) {
+              this.time--;
+            } else {
+              clearInterval(id);
+            }
+          }, 1000);
+        }
+      });
+    }
 
     signIn () {
       this.login({
         mobile: this.phone,
         pwd: this.type ? this.code : this.password,
         type: this.type ? 1 : 0
-      }).then(msg => msg && this.$vux.toast.text(msg));
-    }
-
-    sendCodeClick () {
-      this.sendCode({
-        mobile: this.phone,
-        type: 'login-shop'
-      }).then(msg => msg && this.$vux.toast.text(msg));
+      }).then(msg => msg ? this.$vux.toast.text(msg) : this.$router.push('/main'));
     }
 }
 </script>

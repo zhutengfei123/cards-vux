@@ -49,13 +49,13 @@ import {State, Action, Mutation, namespace} from 'vuex-class';
 import {Tab, TabItem, Flexbox, FlexboxItem, Grid, GridItem, LoadMore, XButton, XImg, Cell} from 'vux';
 import {isBottom} from '../../js';
 import Card from '../index/card';
-import {page} from '../../mixin/page';
 import {Component, Vue, Watch} from 'vue-property-decorator';
+
 const ProductsState = namespace('products', State);
 const ProductsAction = namespace('products', Action);
 const ProductsMutation = namespace('products', Mutation);
+
 @Component({
-  mixins: [page],
   components: {
     Tab,
     TabItem,
@@ -76,6 +76,7 @@ export default class Classification extends Vue {
   orderType=''
   category=''
   paddingTop=0
+  loading=false
   imgWidth= parseInt(screen.width / 2)
 
   @Watch('orderType')
@@ -84,20 +85,20 @@ export default class Classification extends Vue {
   }
 
   @ProductsState list
-  @ProductsState inited
+  @ProductsState page
+  @ProductsState pageSize
 
   @ProductsAction getProducts
+
   @ProductsMutation resetList
-  @ProductsMutation setInit
+  @ProductsMutation setPage
+  @ProductsMutation setIsEnd
 
   created () {
-    if (!this.inited) {
-      this.getProducts({page: this.page, pageSize: this.pageSize}).then(msg => {
-        msg && this.$vux.toast.text(msg);
-        this.page++;
-        this.setInit(true);
-      }).catch(error => console.log(error));
-    }
+    this.getProducts({page: this.page, pageSize: this.pageSize}).then(msg => {
+      msg && this.$vux.toast.text(msg);
+      this.setPage(this.page + 1);
+    }).catch(error => console.log(error));
   }
   mounted () {
     const rect = this.$refs.topBar.$el.getBoundingClientRect();

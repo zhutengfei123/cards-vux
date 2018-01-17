@@ -45,7 +45,9 @@ const actions = {
       mobile,
       type
     });
-    return status.msg;
+    if (status.code !== '00000') {
+      return status.msg;
+    }
   },
   async getInfo ({commit, state}) {
     const {result, status: {code, msg}} = await axios.get('/site/user-info');
@@ -87,7 +89,7 @@ const actions = {
 
 const mutations = {
   setInfo (state, data) {
-    for (const prop in state) {
+    for (const prop in data) {
       state[prop] = data[prop];
     }
   },

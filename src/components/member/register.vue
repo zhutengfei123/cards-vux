@@ -17,12 +17,13 @@
             </flexbox>
         </flexbox-item>
         <flexbox-item>
-            <x-button class="button" @click.native="sendCodeClick">发送验证码</x-button>
+            <x-button class="button" @click.native="sendCodeClick" v-show="time===0">发送验证码</x-button>
+            <x-button class="button" v-show="time>0">已发送{{time}}s</x-button>
         </flexbox-item>
       </flexbox>
       <div class="bottom">
         <x-button class="button" @click.native="signUp">{{type?'关联账号':'注册'}}</x-button>
-        <p class="text brown" v-if="!type" @click="$router.push('/login')">马上登录</p>
+        <a class="text brown" v-if="!type" @click="$router.push('/login')">马上登录</a>
       </div>
   </div>
 </template>
@@ -41,6 +42,7 @@ export default class Register extends Vue {
     password=''
     phone=''
     code=''
+    time=0
 
     @UserAction register
     @UserAction sendCode
@@ -53,7 +55,20 @@ export default class Register extends Vue {
       this.sendCode({
         mobile: this.phone,
         type: 'login-shop'
-      }).then(msg => msg && this.$vux.toast.text(msg));
+      }).then(msg => {
+        if (msg) {
+          this.$vux.toast.text(msg);
+        } else {
+          this.time = 60;
+          const id = setInterval(() => {
+            if (this.time > 0) {
+              this.time--;
+            } else {
+              clearInterval(id);
+            }
+          }, 1000);
+        }
+      });
     }
 
     signUp () {
@@ -62,7 +77,7 @@ export default class Register extends Vue {
         company: this.company,
         password: this.password,
         code: this.code
-      }).then(msg => msg && this.$vux.toast.text(msg));
+      }).then(msg => msg ? this.$vux.toast.text(msg) : this.$router.push('/main'));
     }
 }
 </script>

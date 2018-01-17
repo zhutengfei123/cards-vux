@@ -4,7 +4,7 @@
             <flexbox-item v-once class="title">余额</flexbox-item>
             <flexbox-item>
                 <flexbox align="center" style="height:100%">
-                    <flexbox-item class="price">￥{{money}}</flexbox-item>
+                    <flexbox-item class="price">￥{{balance}}</flexbox-item>
                     <flexbox-item v-once>
                         <x-button class="button">充值</x-button>
                     </flexbox-item>
@@ -14,14 +14,14 @@
         <group class="list">
             <cell is-link v-once>
                 <span slot="title" class="text lg">交易记录</span>
-                <span class="text" @click="handleToAvaliable">更多</span>
+                <span class="text">更多</span>
             </cell>
             <cell v-for="item of list" :key="item.id" class="card">
                 <flexbox slot="title" justify="space-between">
-                    <span class="text lg">{{item.type}}</span>
-                    <span class="text lg">{{item.money}}</span>
+                    <span class="text lg">{{item.title}}</span>
+                    <span class="text lg">{{item.income}}</span>
                 </flexbox>
-                <span slot="inline-desc" class="text lg gray">{{item.time}}</span>
+                <span slot="inline-desc" class="text lg gray">{{item.create_time}}</span>
             </cell>
         </group>
     </div>
@@ -29,16 +29,23 @@
 <script>
 import { Component, Vue } from 'vue-property-decorator';
 import { Flexbox, FlexboxItem, XButton, Cell, Group } from 'vux';
+import {State, Action, namespace} from 'vuex-class';
+
+const UserState = namespace('user', State);
+const BalanceState = namespace('balance', State);
+const BalanceAction = namespace('balance', Action);
+
 @Component({
   components: {Flexbox, FlexboxItem, XButton, Cell, Group}
 })
 export default class Money extends Vue {
-  money=0
-  list=[{type: '账户充值', time: new Date(), money: 1000}]
-  handleToAvaliable () {
-    this.$router.push({
-      path: '/availableBalance'
-    });
+  @UserState balance
+  @BalanceState list
+
+  @BalanceAction getRecords
+
+  created () {
+    this.getRecords().then(msg => msg && this.$vux.toast.text(msg));
   }
 }
 </script>

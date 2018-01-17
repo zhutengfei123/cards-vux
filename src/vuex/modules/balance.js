@@ -1,12 +1,13 @@
 import { axios } from '../../js';
 const state = {
-  list: []
+  list: [],
+  page:1
 };
 
 const actions = {
-    async getRecords ({commit,state}) {
+    async getRecords ({commit,state},{page}) {
       const list = [...state.list];
-      const {result,status} = await axios.get('/site/balance-list');
+      const {result,status} = await axios.get('/site/balance-list',{params:{page:state.page}});
       if(status.code==='00000'){
         commit('setList',list.push(result.list))
       }else{

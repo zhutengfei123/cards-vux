@@ -1,14 +1,19 @@
 import {axios} from '../../js';
 const state = {
   inited: false,
-  list: []
+  list: [],
+  page: 1,
+  pageSize: 6,
+  isEnd: false
 };
 
 const actions = {
   async getProducts ({
     commit,
-    rootState
-  }, {page, pageSize, category, orderType, order}) {
+    rootState,
+    state
+  }, {category, orderType, order}) {
+    const {page, pageSize} = state;
     const {
       result: {list},
       status: {
@@ -27,7 +32,7 @@ const actions = {
     });
     if (code === '00000') {
       commit('pushList', list);
-      return {isEnd: list ? list.length < pageSize : true};
+      commit('setIsEnd', {isEnd: list ? list.length < pageSize : true});
     } else {
       return new Error(msg);
     }
@@ -45,8 +50,11 @@ const mutations = {
   resetList (state) {
     state.list = [];
   },
-  setInit (state, data) {
-    state.inited = data;
+  setPage (state, page) {
+    state.page = page;
+  },
+  setIsEnd (state, isEnd) {
+    state.isEnd = isEnd;
   }
 };
 
