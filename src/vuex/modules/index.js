@@ -14,7 +14,10 @@ const state = {
   recommend: {
     title: '',
     list: []
-  }
+  },
+  page: 1,
+  pageSize: 6,
+  isEnd: false
 };
 
 const actions = {
@@ -26,11 +29,12 @@ const actions = {
       return new Error(msg);
     }
   },
-  async loadMore ({commit, rootState}, {page, pageSize}) {
+  async loadMore ({commit, rootState, state}) {
+    const {page, pageSize} = state;
     const {result: {list}, status: {code, msg}} = await axios.get('/index/gethotproduct', {params: {store_id: rootState.global.storeId, page, pageSize}});
     if (code === '00000') {
       commit('pushRecommend', list);
-      return {isEnd: list ? list.length < pageSize : true};
+      commit('setIsEnd', list ? list.length < pageSize : true);
     } else {
       return new Error(msg);
     }
@@ -52,6 +56,12 @@ const mutations = {
   },
   setInit (state, data) {
     state.inited = data;
+  },
+  setIsEnd (state, isEnd) {
+    state.isEnd = isEnd;
+  },
+  setPage (state, page) {
+    state.page = page;
   }
 };
 
