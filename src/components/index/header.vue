@@ -2,7 +2,7 @@
   <div class="header">
     <flexbox align="center">
       <flexbox-item :span="0.25" class="avatar-container">
-        <img class="avatar" src="../../assets/init.png" container="#vux_view_box_body"/>
+        <x-img class="avatar" :default-src="initImg" container="#vux_view_box_body"/>
       </flexbox-item>
       <flexbox-item :span="0.5">
         <p class="head-title">某某某某的小店</p>
@@ -33,6 +33,8 @@
 import {Swiper, SwiperItem, Marquee, MarqueeItem, Flexbox, FlexboxItem, XImg} from 'vux';
 import { Component, Vue } from 'vue-property-decorator';
 import {State, namespace} from 'vuex-class';
+import initImg from '../../assets/init.png';
+
 const IndexState = namespace('index', State);
 
 @Component({
@@ -41,6 +43,7 @@ const IndexState = namespace('index', State);
 export default class LHeader extends Vue {
   imgWidth=screen.width
   index=0
+  initImg=initImg
 
   @IndexState headerImages
   @IndexState focus

@@ -1,11 +1,11 @@
 <template>
   <div class="member">
     <div class="mer">
-       <x-img class="avatar" default-src="../../assets/init.png" :src="`${avatar.split('?')[0]}?x-oss-process=image/resize,w_60/format,jpg`" :webp-src="`${avatar.split('?')[0]}?x-oss-process=image/resize,w_60/format,webp`" container="#vux_view_box_body"/>
-       <p v-show="status == 0" class="logintxt" @click="toLogin">请登录</p>
-       <ul class="merinfo" v-show="status == 1">
+       <x-img class="avatar" :default-src="initImg" :src="`${avatar.split('?')[0]}?x-oss-process=image/resize,w_60/format,jpg`" :webp-src="`${avatar.split('?')[0]}?x-oss-process=image/resize,w_60/format,webp`" container="#vux_view_box_body"/>
+       <p v-if="!token" class="logintxt" @click="toLogin">请登录</p>
+       <ul class="merinfo" v-else>
          <li>
-           <label class="lableft labcom">{{name}}</label>
+           <label class="lableft labcom">{{realname}}</label>
            <label class="labright labcom">{{level}}</label>
          </li>
          <li class="text gray">杭州礼管家网络科技有限公司</li>
@@ -18,13 +18,13 @@
     <group>
       <cell title="现金账户" :value="`￥${balance}`" is-link link="/member/money"></cell>
       <cell title="收货地址" is-link link="/address"></cell>
-      <cell title="我的卡券商城" :value="sta"  is-link link="/"></cell>
+      <cell title="我的卡券商城" :value="sta" is-link link="/mine"></cell>
     </group>
     <group v-once>
       <cell title="客户服务" value="0571-12345678"></cell>
       <cell title="帮助中心" is-link link="/help"></cell>
     </group>
-    <div class="exit text" @click="exit" v-show="status == 1">退出登录</div>  
+    <div class="exit text" @click="exit" v-if="token">退出登录</div>  
     <p v-once class="text gray bottom-txt">飞象企服提供技术支持</p>
   </div>
 </template>
@@ -32,6 +32,7 @@
 import { Cell, Group, XImg } from 'vux';
 import { Component, Vue } from 'vue-property-decorator';
 import { State, Action, namespace } from 'vuex-class';
+import initImg from '../../assets/init.png';
 
 const UserState = namespace('user', State);
 const UserAction = namespace('user', Action);
@@ -44,18 +45,19 @@ const UserAction = namespace('user', Action);
   }
 })
 export default class Member extends Vue {
-  status = 0;
   sta = '有新的订单';
+  initImg=initImg;
 
   @UserState avatar
   @UserState balance
-  @UserState name
+  @UserState realname
   @UserState level
+  @UserState token
 
   @UserAction getInfo
 
-  activated () {
-    this.getInfo();
+  created () {
+    this.getInfo().then(msg => msg && this.$vux.toast.text(msg));
   }
 
   toLogin () {
@@ -121,7 +123,6 @@ export default class Member extends Vue {
       bottom:0.6rem;
       text-align: center;
       width:100%;
-      font-size: 0.14rem;
   }
 }
 </style>

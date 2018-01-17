@@ -39,10 +39,11 @@ const actions = {
       return status.msg;
     }
   },
-  async getInfo ({commit}) {
+  async getInfo ({commit, state}) {
     const {result, status: {code, msg}} = await axios.get('/site/user-info');
     if (code === '00000') {
       commit('setInfo', {
+        ...state,
         company: result.company,
         realname: result.realname,
         avatar: result.head_pic,
@@ -78,7 +79,9 @@ const actions = {
 
 const mutations = {
   setInfo (state, data) {
-    state = data;
+    for (const prop in state) {
+      state[prop] = data[prop];
+    }
   },
   setToken (state, token) {
     state.token = token;
