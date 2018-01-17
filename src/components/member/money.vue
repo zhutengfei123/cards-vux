@@ -14,7 +14,7 @@
         <group class="list">
             <cell is-link v-once>
                 <span slot="title" class="text lg">交易记录</span>
-                <span class="text">更多</span>
+                <span class="text" @click="handleToAvaliable">更多</span>
             </cell>
             <cell v-for="item of list" :key="item.id" class="card">
                 <flexbox slot="title" justify="space-between">
@@ -35,6 +35,11 @@ import { Flexbox, FlexboxItem, XButton, Cell, Group } from 'vux';
 export default class Money extends Vue {
   money=0
   list=[{type: '账户充值', time: new Date(), money: 1000}]
+  handleToAvaliable () {
+    this.$router.push({
+      path: '/availableBalance'
+    });
+  }
 }
 </script>
 <style lang="less" scoped>
