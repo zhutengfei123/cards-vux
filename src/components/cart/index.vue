@@ -112,30 +112,33 @@ export default class Cart extends Vue {
         item.is_selected = 1;
       }
       this.getIsSelected(ids, isSelect);
-      this.initData.list.forEach(item => {
-        if (item.is_selected === 1) {
-          item.goods.forEach(subItem => {
-            if (subItem.is_selected === 0) {
-              item.is_selected = 0;
-            }
-          });
-        } else {
-          item.goods.forEach(subItem => {
-            if (subItem.is_selected === 0) {
-              item.is_selected = 0;
-            } else {
-              item.is_selected = 1;
-            }
-          });
+      let arr = this.initData.list;
+      let len = this.initData.list.length;
+      for (let i = 0; i < len; i++) {
+        let flag = true;
+        let arr2 = arr[i].goods;
+        let len2 = arr[i].goods.length;
+        for (let j = 0; j < len2; j++) {
+          if (arr2[j].is_selected === 0) {
+            flag = false;
+            break;
+          }
         }
-      });
-      this.initData.list.forEach(item => {
-        if (item.is_selected === 0) {
-          this.initData.is_all_selected = 0;
-        } else {
-          this.initData.is_all_selected = 1;
+        flag ? arr[i].is_selected = 1 : arr[i].is_selected = 0;
+      }
+      this.getFlag();
+    }
+    getFlag () {
+      let flag = true;
+      let arr = this.initData.list;
+      let len = this.initData.list.length;
+      for (let i = 0; i < len; i++) {
+        if (arr[i].is_selected === 0) {
+          flag = false;
+          break;
         }
-      });
+      }
+      flag ? this.initData.is_all_selected = 1 : this.initData.is_all_selected = 0;
     }
     getIsSelected (a, b) {
       const params = {
@@ -177,13 +180,7 @@ export default class Cart extends Vue {
           ids.push(subItem.id);
         });
       }
-      this.initData.list.forEach(item => {
-        if (item.is_selected === 0) {
-          this.initData.is_all_selected = 0;
-        } else {
-          this.initData.is_all_selected = 1;
-        }
-      });
+      this.getFlag();
       this.getIsSelected(ids, isSelect);
     }
     handleCartEdit (isEdit) {
@@ -261,7 +258,8 @@ export default class Cart extends Vue {
       }
     }
     created () {
-      this.init().then(msg => {
+      const params = {};
+      this.init(params).then(msg => {
         if (msg) {
           this.$vux.toast.text(msg, 'middle');
         }

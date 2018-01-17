@@ -2,7 +2,8 @@ import {axios} from '../../js';
 import qs from 'qs';
 const state = {
   payLink: '',
-  rechargeRecords: []
+  rechargeRecords: [],
+  availableBalanceData: []
 };
 const actions = {
   async init ({commit, rootState}, params) {
@@ -27,6 +28,14 @@ const actions = {
     } else {
       return msg;
     }
+  },
+  async initGetAvailableBalance ({commit, rootState}, params) {
+    const { result, status: {code, msg} } = await axios.get('/site/balance-list', {'params': params});
+    if (code === '00000') {
+      commit('getAvailableBalance', result);
+    } else {
+      return msg;
+    }
   }
 };
 const mutations = {
@@ -35,6 +44,9 @@ const mutations = {
   },
   initGetRechargeRecords (state, data) {
     state.rechargeRecords = data;
+  },
+  getAvailableBalance (state, data) {
+    state.availableBalanceData = data;
   }
 };
 export default {

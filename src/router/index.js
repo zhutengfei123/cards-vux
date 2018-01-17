@@ -14,13 +14,14 @@ const RechargeResults = () => import('@/components/pay/rechargeResults');
 const Recharge = () => import('@/components/pay/recharge');
 const RechargeDetailed = () => import('@/components/pay/rechargeDetailed');
 const RechargeDetails = () => import('@/components/pay/rechargeDetails');
+const AvailableBalance = () => import('@/components/pay/availableBalance');
 const Help = () => import('@/components/help/index');
 const Order = () => import('@/components/order/index');
 const OrderDetail = () => import('@/components/order/detail');
 const Delivery = () => import('@/components/order/delivery');
 const Money = () => import('@/components/member/money');
 const Login = () => import('@/components/member/login');
-// const Register = () => import('@/components/member/register');
+const Register = () => import('@/components/member/register');
 const Intention = () => import('@/components/intention/index');
 const IntentionDetail = () => import('@/components/intention/detail');
 const IntentionSubmit = () => import('@/components/intention/submit');
@@ -59,6 +60,7 @@ const router = new Router({
     {path: '/recharge', name: '充值', component: Recharge},
     {path: '/rechargeDetailed', name: '充值明细', component: RechargeDetailed},
     {path: '/rechargeDetails', name: '充值详情', component: RechargeDetails},
+    {path: '/availableBalance', name: '可用余额', component: AvailableBalance},
     {path: '/help', name: '帮助中心', component: Help},
     {path: '/order', name: '我的订单', component: Order},
     {path: '/member/money', name: '现金账户', component: Money},
@@ -70,8 +72,8 @@ const router = new Router({
     {path: '/address', name: '地址管理', component: Address},
     {path: '/address/add', name: '添加新地址', component: AddAddress},
     {path: '/address/edit/:id', name: '编辑地址', component: AddAddress},
-    {path: '/login', name: '登录', component: Login}
-    // {path: '/register', name: '注册', component: Register}
+    {path: '/login', name: '登录', component: Login},
+    {path: '/register', name: '注册', component: Register}
   ],
   mode: 'hash',
   scrollBehavior (to, from, savedPosition) {

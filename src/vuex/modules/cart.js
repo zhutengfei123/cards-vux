@@ -4,8 +4,8 @@ const state = {
   initData: []
 };
 const actions = {
-  async init ({commit, rootState}) {
-    const { result, status: {code, msg} } = await axios.get('/cart/index', {params: {}});
+  async init ({commit, rootState}, params) {
+    const { result, status: {code, msg} } = await axios.get('/cart/index', {'params': params});
     if (code === '00000') {
       commit('getInitData', result);
     } else {

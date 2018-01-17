@@ -1,16 +1,15 @@
 <template>
-  <div class="recharge-detailed">
+  <div class="available-balance">
     <scroller lock-x @on-scroll-bottom="onScrollBottom" ref="scrollerBottom" :scroll-bottom-offst="200" style="overflow:initial">
       <div>
-        <group v-for="(item, i) in list" :key="i" @click.native="handleRechargeDetail(item)">
-          <cell class="r-d-g" is-link>
+        <group v-for="(item, i) in list" :key="i">
+          <cell class="r-d-g">
             <p class="r-d-con1">
-              <span class="con1-desc">充值金额</span>
-              <span class="con1-desc">+￥{{item.income}}</span>
+              <span class="con1-desc">{{item.title}}</span>
+              <span class="con1-desc">{{item.income}}元</span>
             </p>
             <p class="r-d-con1">
               <span class="con2-time">{{item.create_time}}</span>
-              <span class="con2-status">{{item.title}}</span>
             </p>
           </cell>
         </group>
@@ -35,10 +34,10 @@ const rechargeMutation = namespace('recharge', Mutation);
     LoadMore
   }
 })
-export default class RechargeDetailed extends Vue {
-  @rechargeState rechargeRecords
-  @rechargeAction getRechargeRecords
-  @rechargeMutation initGetRechargeRecords
+export default class AvailableBalance extends Vue {
+  @rechargeState availableBalanceData
+  @rechargeAction initGetAvailableBalance
+  @rechargeMutation getAvailableBalance
   list = []
   isLoading = true
   onFetching = false
@@ -63,12 +62,12 @@ export default class RechargeDetailed extends Vue {
     const params = {
       'page': this.currentPage
     };
-    this.getRechargeRecords(params).then(msg => {
+    this.initGetAvailableBalance(params).then(msg => {
       if (msg) {
         this.$vux.toast.text(msg, 'middle');
       } else {
-        if (this.rechargeRecords.list.length > 0) {
-          this.list = this.list.concat(this.rechargeRecords.list);
+        if (this.availableBalanceData.list.length > 0) {
+          this.list = this.list.concat(this.availableBalanceData.list);
         } else {
           this.isLoading = false;
           this.$vux.toast.text('暂无更多数据', 'middle');
@@ -76,25 +75,19 @@ export default class RechargeDetailed extends Vue {
       }
     });
   }
-  handleRechargeDetail (item) {
-    console.log('item', item);
-    this.$router.push({
-      path: '/rechargeDetails'
-    });
-  }
 }
 </script>
 <style lang="less">
-  .recharge-detailed {
+  .available-balance {
     font-size: 0.14rem;
+    .weui-cell__ft {
+      width: 100%;
+    }
     .weui-cells:before {
       border: none !important;
     }
     .con2-time {
       color: #A6A6A6;
-    }
-    .con2-status {
-      color: #B79E74;
     }
     .con1-desc {
       color: #3c3c3c;
