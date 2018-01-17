@@ -43,19 +43,19 @@ export default class Login extends Vue {
     @UserAction login
     @UserAction sendCode
 
-    signIn () {
-      this.login({
-        mobile: this.phone,
-        pwd: this.type ? this.code : this.password,
-        type: this.type ? 1 : 0
-      }).then(msg => msg && this.$vux.toast.text(msg));
-    }
-
     sendCodeClick () {
       this.sendCode({
         mobile: this.phone,
         type: 'login-shop'
       }).then(msg => msg && this.$vux.toast.text(msg));
+    }
+
+    signIn () {
+      this.login({
+        mobile: this.phone,
+        pwd: this.type ? this.code : this.password,
+        type: this.type ? 1 : 0
+      }).then(msg => msg ? this.$vux.toast.text(msg) : this.$router.push('/main'));
     }
 }
 </script>

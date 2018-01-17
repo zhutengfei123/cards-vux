@@ -62,7 +62,7 @@ export default class Register extends Vue {
         company: this.company,
         password: this.password,
         code: this.code
-      }).then(msg => msg && this.$vux.toast.text(msg));
+      }).then(msg => msg ? this.$vux.toast.text(msg) : this.$router.push('/main'));
     }
 }
 </script>
