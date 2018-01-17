@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <flexbox align="center">
+    <flexbox align="center" v-if="$route.path==='mine'">
       <flexbox-item :span="0.25" class="avatar-container">
         <x-img class="avatar" :default-src="initImg" container="#vux_view_box_body"/>
       </flexbox-item>

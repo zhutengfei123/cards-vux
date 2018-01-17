@@ -1,11 +1,11 @@
 <template>
   <div class="index">
-      <flexbox class="top" align="center">
+      <flexbox class="top" align="center" v-if="$route.path==='mine'">
         <flexbox-item class="container">
             <x-button link="/main/intention">意向单</x-button>
         </flexbox-item>
         <flexbox-item class="container">
-            <x-button @click.native="toggleTip">立即推广</x-button>
+            <x-button @click.native="this.showTip = !this.showTip">立即推广</x-button>
         </flexbox-item>
       </flexbox>
       <l-header></l-header>
@@ -44,13 +44,11 @@ import { Component, Vue } from 'vue-property-decorator';
 import {State, Action, Mutation, namespace} from 'vuex-class';
 import Card from './card';
 import {isBottom} from '../../js';
-import {page} from '../../mixin/page';
 
 const IndexState = namespace('index', State);
 const IndexAction = namespace('index', Action);
 const IndexMutation = namespace('index', Mutation);
 @Component({
-  mixins: [page],
   directives: {
     TransferDom
   },
@@ -71,27 +69,24 @@ const IndexMutation = namespace('index', Mutation);
 export default class Index extends Vue {
   imgWidth= screen.width
   showTip=false
+  loading=false
 
   @IndexState recommend
   @IndexState mainRecommend
   @IndexState scrollers
-  @IndexState inited
+  @IndexState page
+  @IndexState isEnd
 
   @IndexAction init
   @IndexAction loadMore
-  @IndexMutation setInit
 
-  toggleTip () {
-    this.showTip = !this.showTip;
-  }
+  @IndexMutation setPage
 
   created () {
-    if (!this.inited) {
-      this.init().then(() => {
-        this.setInit(true);
-        this.page++;
-      }).catch(error => console.log(error));
-    }
+    this.init().then(msg => {
+      msg && this.$vux.toast.text(msg);
+      this.setPage(this.page + 1);
+    }).catch(error => console.log(error));
   }
   mounted () {
     const element = document.querySelector('#vux_view_box_body');
@@ -99,10 +94,9 @@ export default class Index extends Vue {
       () => {
         !this.isEnd && !this.loading && (() => {
           this.loading = true;
-          this.loadMore({page: this.page, pageSize: this.pageSize}).then(({isEnd}) => {
+          this.loadMore().then(() => {
             this.loading = false;
-            this.page++;
-            this.isEnd = isEnd;
+            this.setPage(this.page + 1);
             element.scrollTop -= (this.$refs.loadMore.$el.getBoundingClientRect().height + 10);
           }).catch(error => console.log(error));
         })();

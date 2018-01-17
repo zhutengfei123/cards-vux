@@ -89,7 +89,7 @@ const actions = {
 
 const mutations = {
   setInfo (state, data) {
-    for (const prop in state) {
+    for (const prop in data) {
       state[prop] = data[prop];
     }
   },

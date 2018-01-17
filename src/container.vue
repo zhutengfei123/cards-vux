@@ -5,24 +5,12 @@
             <router-view></router-view>
           </keep-alive>
        </transition> 
-       <tabbar slot="bottom">
-          <tabbar-item v-for="(item,index) in tabs" :key="index" :selected="item.selected" :badge="item.badge" :link="item.link">
-            <span slot="icon" class="app-icon" v-html="item.iconfont"></span>
-            <span slot="label" class="tabbar-item">{{item.name}}</span>
-          </tabbar-item>
-       </tabbar>
     </div>     
 </template>
 <script>
-import { Tabbar, TabbarItem } from 'vux';
 import Vue from 'vue';
 import Component from 'vue-class-component';
-@Component({
-  components: {
-    Tabbar,
-    TabbarItem
-  }
-})
+@Component
 export default class Container extends Vue {
   tabs= [
     { name: '首页', selected: true, iconfont: '&#58972;', link: '/main' },
