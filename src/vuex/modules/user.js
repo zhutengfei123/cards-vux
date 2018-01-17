@@ -39,6 +39,14 @@ const actions = {
       return status.msg;
     }
   },
+  async sendCode ({commit, rootState}, {mobile, type}) {
+    const {status} = await axios.post('/site/send-code', {
+      store_id: rootState.global.storeId,
+      mobile,
+      type
+    });
+    return status.msg;
+  },
   async getInfo ({commit, state}) {
     const {result, status: {code, msg}} = await axios.get('/site/user-info');
     if (code === '00000') {
