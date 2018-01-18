@@ -1,7 +1,7 @@
 <template>
   <div class="order-pay-success">
     <div class="con-top">
-      <span><img class="con-top-img" src="../../assets/pay-success.png" alt=""></span>
+      <span class="app-icon">&#xe605;</span>
       <span class="con-top-title">支付成功</span>
     </div>
     <div class="con-bot">
@@ -33,9 +33,9 @@ export default class OrderPaySuccess extends Vue {
   .order-pay-success {
     font-size: 0.14rem;
     overflow: hidden;
-    .con-top-img {
-      width: 0.45rem;
-      border: none;
+    .app-icon {
+      font-size: 0.45rem;
+      color: #B79E74;
     }
     .con-top-title {
       font-size: 18px;
