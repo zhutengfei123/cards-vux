@@ -1,7 +1,8 @@
 import {axios} from '../../js';
 import qs from 'qs';
 const state = {
-  initData: []
+  initData: [],
+  cartNum: '0'
 };
 const actions = {
   async init ({commit, rootState}, params) {
@@ -37,6 +38,9 @@ const actions = {
 const mutations = {
   getInitData (state, data) {
     state.initData = data;
+  },
+  getCartNum (state, data) {
+    state.cartNum = data;
   }
 };
 export default {

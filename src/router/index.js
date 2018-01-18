@@ -27,6 +27,7 @@ const IntentionDetail = () => import('@/components/intention/detail');
 const IntentionSubmit = () => import('@/components/intention/submit');
 const Address = () => import('@/components/address/index');
 const AddAddress = () => import('@/components/address/add');
+const Cardlist = () => import('@/components/cardlist/index');
 
 Vue.use(Router);
 
@@ -46,12 +47,12 @@ const router = new Router({
       path: '/mine',
       component: Container,
       children: [
-        {path: '', name: '我的卡券商城', component: Index},
+        {path: '', name: '飞象卡券', component: Index},
         {path: 'classification', name: '分类', component: Classification},
         {path: 'cart', name: '意向单', component: Cart}
       ]
     },
-    {path: '/cardlist', name: '卡券列表', component: Classification},
+    {path: '/cardlist', name: '卡券列表', component: Cardlist},
     {path: '/detail/:id', name: '商品详情', component: Detail},
     {path: '/confirmOrder', name: '确认订单', component: ConfirmOrder},
     {path: '/orderPaySuccess', name: '订单支付成功', component: OrderPaySuccess},

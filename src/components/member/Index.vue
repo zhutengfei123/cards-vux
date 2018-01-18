@@ -11,7 +11,6 @@
          <li class="text gray">杭州礼管家网络科技有限公司</li>
        </ul>
     </div>
-
     <group>
       <cell title="我的订单" is-link link="/order"></cell>
     </group>
@@ -33,10 +32,8 @@ import { Cell, Group, XImg } from 'vux';
 import { Component, Vue } from 'vue-property-decorator';
 import { State, Action, namespace } from 'vuex-class';
 import initImg from '../../assets/init.png';
-
 const UserState = namespace('user', State);
 const UserAction = namespace('user', Action);
-
 @Component({
   components: {
     Cell,
@@ -47,19 +44,15 @@ const UserAction = namespace('user', Action);
 export default class Member extends Vue {
   sta = '有新的订单';
   initImg=initImg;
-
   @UserState avatar
   @UserState balance
   @UserState realname
   @UserState level
   @UserState token
-
   @UserAction getInfo
-
   created () {
     this.getInfo().then(msg => msg && this.$vux.toast.text(msg));
   }
-
   toLogin () {
     this.$router.push('/login');
   }

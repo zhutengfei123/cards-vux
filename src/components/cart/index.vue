@@ -262,6 +262,12 @@ export default class Cart extends Vue {
       this.init(params).then(msg => {
         if (msg) {
           this.$vux.toast.text(msg, 'middle');
+        } else {
+          let cartNum = 0;
+          this.initData.list.forEach(item => {
+            cartNum += item.goods.length;
+          });
+          this.$store.commit('cart/getCartNum', cartNum.toString());
         }
       }).catch(error => console.log(error));
     }

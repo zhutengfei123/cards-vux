@@ -26,7 +26,7 @@ const actions = {
     if (code === '00000') {
       commit('initData', result);
     } else {
-      return new Error(msg);
+      return msg;
     }
   },
   async loadMore ({commit, rootState, state}) {
@@ -36,7 +36,7 @@ const actions = {
       commit('pushRecommend', list);
       commit('setIsEnd', list ? list.length < pageSize : true);
     } else {
-      return new Error(msg);
+      return msg;
     }
   }
 };

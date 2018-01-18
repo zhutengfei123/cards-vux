@@ -33,7 +33,7 @@ export default class App extends Vue {
       tabs= [
         { name: '首页', selected: true, iconfont: '&#58972;', link: '/main' },
         { name: '分类', iconfont: '&#58965;', link: '/main/classification' },
-        { name: '购物车', badge: '2', iconfont: '&#58971;', link: '/main/cart' },
+        { name: '购物车', iconfont: '&#58971;', link: '/main/cart' },
         { name: '会员', iconfont: '&#58967;', link: '/main/member' }
       ]
 };
@@ -46,6 +46,7 @@ export default class App extends Vue {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   height:100%;
+  font-size: 0.14rem;
   background: #F6F6F6;
 
   .header{
