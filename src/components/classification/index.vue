@@ -1,10 +1,7 @@
 <template>
   <div class="classification">
     <tab bar-active-color="transparent" class="tab" ref="topBar">
-      <tab-item @on-item-click="">主题</tab-item>
-      <tab-item @on-item-click="">对象</tab-item>
-      <tab-item @on-item-click="">场合</tab-item>
-      <tab-item @on-item-click="">排序</tab-item>
+      <tab-item :selected="index===0?true:false" v-for="(item, index) in tabsList" :key="index" @on-item-click="handleClickTabs(index)">{{item.title}}<span :class="index===isActive?'active':''" class="app-icon">&#xe611;</span></tab-item>
     </tab>
     <div class="card-list-wrap">
       <div class="card-list" v-for="(item, index) in initData.list" :key="index">
@@ -37,11 +34,22 @@ export default class Classification extends Vue {
   @ProductsAction init
   @ProductsMutation getInitData
   @GlobalState storeId
+  currentPage = 1
+  isActive = 0
+  tabsList = [
+    {title: '主题'},
+    {title: '对象'},
+    {title: '场合'},
+    {title: '排序'}
+  ]
+  handleClickTabs (n) {
+    this.isActive = n;
+  }
   created () {
     const params = {
       'store_id': this.storeId,
-      'page': 1,
-      'page_size': 10,
+      'page': this.currentPage,
+      'page_size': 8,
       'category_id': '100',
       'order_by_type': '2',
       'order_by': 1
@@ -57,6 +65,14 @@ export default class Classification extends Vue {
 <style lang="less" scoped>
 .classification{
   width: 100%;
+  .active {
+    color: #B79E74 !important;
+  }
+  .app-icon {
+    font-size: 0.15rem;
+    color: #3c3c3c;
+    margin-left: 0.05rem;
+  }
   .tab{
     position: fixed;
     width: 100%;
