@@ -12,43 +12,49 @@
       </tab-item>
       <tab-item class="app-icon" @on-item-click="handleLayoutType">{{layoutType?'&#xe62c;':'&#xe7e7;'}}</tab-item>
     </tab>
-    <div v-if="layoutType" class="card-list-wrap">
-      <div class="card-list" v-for="(item, index) in initData.list" :key="index">
-        <div class="card-list-img"><img :src="item.pic_url" alt=""></div>
-        <div class="card-list-title">{{item.category_name}}</div>
-        <div class="card-list-price">尊享价:￥ {{item.price}}</div>
-        <div class="card-list-btn"><x-button mini>加入购物车</x-button></div>
+    <scroller lock-x @on-scroll-bottom="onScrollBottom" ref="scrollerBottom" :scroll-bottom-offst="200" style="overflow:initial">
+      <div v-if="layoutType" class="card-list-wrap">
+        <div class="card-list" v-for="(item, index) in dataList" :key="index">
+          <div class="card-list-img"><img :src="item.pic_url" alt=""></div>
+          <div class="card-list-title">{{item.category_name}}</div>
+          <div class="card-list-price">尊享价:￥ {{item.price}}</div>
+          <div class="card-list-btn"><x-button mini @click.native="handleAddCart(item.id)">加入购物车</x-button></div>
+        </div>
       </div>
-    </div>
-    <div v-else class="card-list-wrap">
-      <div class="card-list1" v-for="(item, index) in initData.list" :key="index">
-        <div class="card-list1-left"><img :src="item.pic_url" alt=""></div>
-        <div class="card-list1-right">
-          <div class="card-list1-right-top">{{item.category_name}}</div>
-          <div class="card-list1-right-bot">
-            <span class="card-list-price">尊享价:￥ {{item.price}}</span>
-            <span><x-button mini>加入购物车</x-button></span>
+      <div v-else class="card-list-wrap">
+        <div class="card-list1" v-for="(item, index) in dataList" :key="index">
+          <div class="card-list1-left"><img :src="item.pic_url" alt=""></div>
+          <div class="card-list1-right">
+            <div class="card-list1-right-top">{{item.category_name}}</div>
+            <div class="card-list1-right-bot">
+              <span class="card-list-price">尊享价:￥ {{item.price}}</span>
+              <span><x-button mini @click.native="handleAddCart(item.id)">加入购物车</x-button></span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+      <load-more v-show="onFetching" tip="正在加载中"></load-more>
+    </scroller>
   </div>
 </template>
 <script>
 import {State, Action, Mutation, namespace} from 'vuex-class';
-import {Tab, TabItem, XButton, Toast} from 'vux';
+import {Tab, TabItem, XButton, Toast, Scroller, LoadMore} from 'vux';
 import {Component, Vue} from 'vue-property-decorator';
 import { setTimeout, clearTimeout } from 'timers';
 const ProductsState = namespace('products', State);
 const ProductsAction = namespace('products', Action);
 const ProductsMutation = namespace('products', Mutation);
 const GlobalState = namespace('global', State);
+const CartAction = namespace('cart', Action);
 @Component({
   components: {
     Tab,
     TabItem,
     XButton,
-    Toast
+    Toast,
+    Scroller,
+    LoadMore
   }
 })
 export default class Cardlist extends Vue {
@@ -56,13 +62,56 @@ export default class Cardlist extends Vue {
   @ProductsAction init
   @ProductsMutation getInitData
   @GlobalState storeId
+  @CartAction addReduce
   layoutType = false
   orderBy = 1
   type = 1
+  isLoading = true
+  onFetching = false
   currentPage = 1
   active = false
   flag = true
+  flag1 = true
+  dataList = []
+  onScrollBottom () {
+    if (!this.onFetching && this.isLoading) {
+      this.onFetching = true;
+      setTimeout(() => {
+        this.currentPage++;
+        this.initial();
+        this.$nextTick(() => {
+          this.$refs.scrollerBottom.reset();
+        });
+        this.onFetching = false;
+      }, 2000);
+    }
+  }
+  handleAddCart (id) {
+    if (this.flag1) {
+      const params = {
+        'shop_id': id
+      };
+      this.addReduce(params).then(msg => {
+        if (msg) {
+          this.$vux.toast.text(msg, 'middle');
+        } else {
+          this.$vux.toast.text('加入购物车成功', 'middle');
+        }
+      });
+      this.flag1 = false;
+      let timer = setTimeout(() => {
+        this.flag1 = true;
+        clearTimeout(timer);
+      }, 1000);
+    } else {
+      this.$vux.toast.text('您的操作过于频繁', 'middle');
+    }
+  }
   handleActive (n) {
+    this.isLoading = true;
+    this.onFetching = false;
+    this.dataList = [];
+    this.currentPage = 1;
     if (n === 1) {
       this.active = false;
       this.orderBy = 2;
@@ -73,6 +122,10 @@ export default class Cardlist extends Vue {
     this.initial();
   }
   handleClickTab (n) {
+    this.isLoading = true;
+    this.onFetching = false;
+    this.dataList = [];
+    this.currentPage = 1;
     if (n === 1) {
       this.type = this.orderBy = 1;
     } else if (n === 2) {
@@ -85,20 +138,27 @@ export default class Cardlist extends Vue {
     this.initial();
   }
   created () {
-    this.handleClickTab(0);
+    this.initial();
   }
   initial () {
     if (this.flag) {
       const params = {
         'store_id': this.storeId,
         'page': this.currentPage,
-        'page_size': 10,
+        'page_size': 8,
         'order_by_type': this.type,
         'order_by': this.orderBy
       };
       this.init(params).then(msg => {
         if (msg) {
           this.$vux.toast.text(msg, 'middle');
+        } else {
+          if (this.initData.list.length > 0) {
+            this.dataList = this.dataList.concat(this.initData.list);
+          } else {
+            this.isLoading = false;
+            this.$vux.toast.text('暂无更多数据', 'middle');
+          }
         }
       });
       this.flag = false;
@@ -117,7 +177,11 @@ export default class Cardlist extends Vue {
 </script>
 <style lang="less" scoped>
 .classification{
+  font-size: 0.14rem;
   width: 100%;
+  .vux-tab {
+    z-index: 9999;
+  }
   .active {
     color: #B79E74 !important;
   }
@@ -139,7 +203,7 @@ export default class Cardlist extends Vue {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #000000;
+    color: #3c3c3c;
   }
   .card-list1-right-top {
     width: 100%;
@@ -195,12 +259,14 @@ export default class Cardlist extends Vue {
   }
   .card-list-wrap {
     padding-top: 0.46rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
   }
   .card-list {
-    margin-left: 2px;
-    margin-top: 2px;
-    float: left;
-    width: 49%;
+    margin-top: 0.07rem;
+    width: 48%;
     background: #ffffff;
   }
   .card-list div {

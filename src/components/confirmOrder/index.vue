@@ -45,8 +45,9 @@
 <script>
 import { Cell, Group, Confirm, Toast } from 'vux';
 import { Component, Vue } from 'vue-property-decorator';
-import {State, namespace} from 'vuex-class';
+import {State, Action, namespace} from 'vuex-class';
 const ConfirmOderState = namespace('confirmOrder', State);
+const ConfirmOderAction = namespace('confirmOrder', Action);
 @Component({
   components: {
     Cell,
@@ -58,6 +59,7 @@ const ConfirmOderState = namespace('confirmOrder', State);
 export default class ConfirmOrder extends Vue {
   @ConfirmOderState confirmOrderInitData
   @ConfirmOderState isCreditEnough
+  @ConfirmOderAction isConfirmOrder
   @ConfirmOderState ids
   isConfirmPay = false
   onConfirm () {
@@ -68,7 +70,7 @@ export default class ConfirmOrder extends Vue {
     this.isConfirmOrder(params).then(msg => {
       if (!msg) {
         this.$router.push({
-          path: 'orderPaySuccess'
+          path: '/orderPaySuccess'
         });
       } else {
         this.isConfirmPay = false;
@@ -81,7 +83,7 @@ export default class ConfirmOrder extends Vue {
       this.isConfirmPay = true;
     } else {
       this.$router.push({
-        path: 'recharge'
+        path: '/recharge'
       });
     }
   }
