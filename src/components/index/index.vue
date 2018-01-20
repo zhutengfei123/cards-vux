@@ -31,7 +31,6 @@
       </div>
   </div>
 </template>
-
 <script>
 import LHeader from './header';
 import LScroller from './scroller';
@@ -40,7 +39,6 @@ import { Component, Vue } from 'vue-property-decorator';
 import {State, Action, Mutation, namespace} from 'vuex-class';
 import Card from './card';
 import {isBottom} from '../../js';
-
 const IndexState = namespace('index', State);
 const IndexAction = namespace('index', Action);
 const IndexMutation = namespace('index', Mutation);
@@ -66,16 +64,13 @@ export default class Index extends Vue {
   imgWidth= screen.width
   showTip=false
   loading=false
-
   @IndexState recommend
   @IndexState mainRecommend
   @IndexState scrollers
   @IndexState page
   @IndexState isEnd
-
   @IndexAction init
   @IndexAction loadMore
-
   @IndexMutation setPage
   handleClickIsShow () {
     this.showTip ? this.showTip = false : this.showTip = true;
