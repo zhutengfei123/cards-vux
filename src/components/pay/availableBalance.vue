@@ -80,6 +80,14 @@ export default class AvailableBalance extends Vue {
 <style lang="less">
   .available-balance {
     font-size: 0.14rem;
+    .weui-loadmore {
+      height: 0.44rem;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 !important;
+    }
     .weui-cell__ft {
       width: 100%;
     }

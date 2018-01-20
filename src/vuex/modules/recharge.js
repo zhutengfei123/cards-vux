@@ -3,7 +3,9 @@ import qs from 'qs';
 const state = {
   payLink: '',
   rechargeRecords: [],
-  availableBalanceData: []
+  availableBalanceData: [],
+  accountInfo: {},
+  rechargeItem: {}
 };
 const actions = {
   async init ({commit, rootState}, params) {
@@ -36,6 +38,14 @@ const actions = {
     } else {
       return msg;
     }
+  },
+  async initGetAccountInfo ({commit, rootState}, params) {
+    const { result, status: {code, msg} } = await axios.get('/site/get-bank-info', {'params': params});
+    if (code === '00000') {
+      commit('getAccountInfo', result);
+    } else {
+      return msg;
+    }
   }
 };
 const mutations = {
@@ -47,6 +57,12 @@ const mutations = {
   },
   getAvailableBalance (state, data) {
     state.availableBalanceData = data;
+  },
+  getAccountInfo (state, data) {
+    state.accountInfo = data;
+  },
+  getRechargeItem (state, data) {
+    state.rechargeItem = data;
   }
 };
 export default {

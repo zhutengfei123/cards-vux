@@ -6,11 +6,11 @@
           <cell class="r-d-g" is-link>
             <p class="r-d-con1">
               <span class="con1-desc">充值金额</span>
-              <span class="con1-desc">+￥{{item.income}}</span>
+              <span class="con1-desc">+￥{{item.amount}}</span>
             </p>
             <p class="r-d-con1">
-              <span class="con2-time">{{item.create_time}}</span>
-              <span class="con2-status">{{item.title}}</span>
+              <span class="con2-time">{{item.pay_time}}</span>
+              <span class="con2-status">{{item.state}}</span>
             </p>
           </cell>
         </group>
@@ -77,7 +77,7 @@ export default class RechargeDetailed extends Vue {
     });
   }
   handleRechargeDetail (item) {
-    console.log('item', item);
+    this.$store.commit('recharge/getRechargeItem', item);
     this.$router.push({
       path: '/rechargeDetails'
     });
@@ -87,6 +87,14 @@ export default class RechargeDetailed extends Vue {
 <style lang="less">
   .recharge-detailed {
     font-size: 0.14rem;
+    .weui-loadmore {
+      height: 0.44rem;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 !important;
+    }
     .weui-cells:before {
       border: none !important;
     }

@@ -24,15 +24,15 @@
       <div class="r-2-con">
         <div class="r-2-c-item">
           <span class="r-2-con-l">收款银行</span>
-          <span class="r-2-t-l">中国工商银行浙江分行</span>
+          <span class="r-2-t-l">{{accountInfo.beneficiary_bank}}</span>
         </div>
         <div class="r-2-c-item">
           <span class="r-2-con-l">收款人</span>
-          <span class="r-2-t-l">李晓明</span>
+          <span class="r-2-t-l">{{accountInfo.beneficiary_name}}</span>
         </div>
         <div class="r-2-c-item">
           <span class="r-2-con-l">收款账号</span>
-          <span class="r-2-t-l">147298762836846282</span>
+          <span class="r-2-t-l">{{accountInfo.beneficiary_account_nunber}}</span>
         </div>
       </div>
       <div class="r-top">汇款金额</div>
@@ -87,9 +87,12 @@ const rechargeMutation = namespace('recharge', Mutation);
 })
 export default class OrderPaySuccess extends Vue {
   @rechargeState payLink
+  @rechargeState accountInfo
   @rechargeAction init
+  @rechargeAction initGetAccountInfo
   @rechargeAction initRemit
   @rechargeMutation getLink
+  @rechargeMutation getAccountInfo
   rechargeVal = '';
   flag = false
   flag1 = false
@@ -98,6 +101,14 @@ export default class OrderPaySuccess extends Vue {
   images = [];
   imgEnLarge = false
   tabList = [{ title: '在线支付' }, { title: '转账汇款' }];
+  created () {
+    const params = {};
+    this.initGetAccountInfo(params).then(msg => {
+      if (msg) {
+        this.$vux.toast.text(msg, 'middle');
+      }
+    });
+  }
   handleImgEnlarge () {
     this.imgEnLarge = false;
   }

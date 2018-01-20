@@ -18,6 +18,11 @@ const actions = {
   async initCategoryData ({commit, rootState}, params) {
     const { result, status: {code, msg} } = await axios.get('/index.php/card-category', {'params': params});
     if (code === '00000') {
+      result.forEach(item => {
+        item.children.forEach((subItem, i) => {
+          subItem.checked = 0;
+        });
+      });
       commit('getCategoryData', result);
     } else {
       return msg;
