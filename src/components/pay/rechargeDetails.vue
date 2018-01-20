@@ -1,9 +1,9 @@
 <template>
   <div class="recharge-details">
     <div class="con-top">
-      <span class="con-top-status">{{payStatusList[payStatus]}}</span>
+      <span class="con-top-status">{{rechargeItem.state}}</span>
       <span class="con-top-title">充值金额</span>
-      <span class="con-top-price">￥{{1000.00}}</span>
+      <span class="con-top-price">￥{{rechargeItem.amount}}</span>
     </div>
     <div class="r-2-top">
       <span class="r-2-t-l">订单详情</span>
@@ -11,38 +11,28 @@
     <div class="r-2-con">
       <div class="r-2-c-item">
         <span class="r-2-con-l">订单号</span>
-        <span class="r-2-t-l">{{'147298762836846282'}}</span>
+        <span class="r-2-t-l">{{rechargeItem.recharge_sn}}</span>
       </div>
       <div class="r-2-c-item">
         <span class="r-2-con-l">支付方式</span>
-        <span class="r-2-t-l">{{payType===0?'在线充值':'线下汇款'}}</span>
-      </div>
-      <div v-show="payType===1">
-        <div class="r-2-c-item">
-          <span class="r-2-con-l">转账银行</span>
-          <span class="r-2-t-l">{{'杭州银行城西支行'}}</span>
-        </div>
-        <div class="r-2-c-item">
-          <span class="r-2-con-l">转账账号</span>
-          <span class="r-2-t-l">{{'333002983387187238'}}</span>
-        </div>
+        <span class="r-2-t-l">{{rechargeItem.pay_type}}</span>
       </div>
     </div>
   </div>
 </template>
 <script>
-  import { XButton } from 'vux';
+import { XButton } from 'vux';
 import { Component, Vue } from 'vue-property-decorator';
+import {State, namespace} from 'vuex-class';
+const rechargeState = namespace('recharge', State);
 @Component({
-    components: {
-      XButton
-    }
-  })
-  export default class RechargeDetails extends Vue {
-    payType = 0 // 0 在线支付；1 线下汇款
-    payStatus = 0
-    payStatusList = ['汇款待确认', '汇款审核未通过', '在线支付', '支付失败']
+  components: {
+    XButton
   }
+})
+export default class RechargeDetails extends Vue {
+    @rechargeState rechargeItem
+}
 </script>
 <style lang="less">
   .recharge-details {
@@ -61,10 +51,6 @@ import { Component, Vue } from 'vue-property-decorator';
       display: flex;
       justify-content: space-between;
       align-items: center;
-    }
-    .r-2-t-r {
-      font-size: 0.14rem;
-      color: #B79E74;
     }
     .r-2-t-l {
       font-size: 0.14rem;

@@ -41,7 +41,6 @@
 import {State, Action, Mutation, namespace} from 'vuex-class';
 import {Tab, TabItem, XButton, Toast, Scroller, LoadMore} from 'vux';
 import {Component, Vue} from 'vue-property-decorator';
-import { setTimeout, clearTimeout } from 'timers';
 const ProductsState = namespace('products', State);
 const ProductsAction = namespace('products', Action);
 const ProductsMutation = namespace('products', Mutation);
@@ -179,6 +178,14 @@ export default class Cardlist extends Vue {
 .classification{
   font-size: 0.14rem;
   width: 100%;
+  .weui-loadmore {
+    height: 0.44rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 !important;
+  }
   .vux-tab {
     z-index: 9999;
   }
