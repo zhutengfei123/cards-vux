@@ -7,7 +7,7 @@
             <router-view></router-view>
          </keep-alive>
        </transition>
-       <tabbar slot="bottom" v-show="/main/.test($route.path)">
+       <tabbar slot="bottom" v-show="/main|mine/.test($route.path)">
           <tabbar-item v-for="(item,index) in tabs" :key="index" :selected="item.selected" :badge="item.badge" :link="item.link">
             <span slot="icon" class="app-icon" v-html="item.iconfont"></span>
             <span slot="label" class="tabbar-item">{{item.name}}</span>
@@ -16,29 +16,35 @@
      </view-box>
   </div>
 </template>
-
 <script>
 import { ViewBox, XHeader, Tabbar, TabbarItem } from 'vux';
 import { Component, Vue } from 'vue-property-decorator';
 import {State, namespace} from 'vuex-class';
-
 const GlobalState = namespace('global', State);
-
 @Component({
   components: {ViewBox, XHeader, Tabbar, TabbarItem}
 })
 export default class App extends Vue {
     @GlobalState title
-
-      tabs= [
-        { name: '首页', selected: true, iconfont: '&#58972;', link: '/main' },
-        { name: '分类', iconfont: '&#58965;', link: '/main/classification' },
-        { name: '购物车', iconfont: '&#58971;', link: '/main/cart' },
-        { name: '会员', iconfont: '&#58967;', link: '/main/member' }
-      ]
+    tabs = []
+    created () {
+      if (/mine/.test(location.hash.split('/')[1])) {
+        this.tabs = [
+          { name: '首页', selected: true, iconfont: '&#xe65d;', link: '/mine' },
+          { name: '分类', iconfont: '&#58965;', link: '/mine/classification' },
+          { name: '意向单', iconfont: '&#xe660;', link: '/mine/cart' }
+        ];
+      } else {
+        this.tabs = [
+          { name: '首页', selected: true, iconfont: '&#xe65d;', link: '/main' },
+          { name: '分类', iconfont: '&#58965;', link: '/main/classification' },
+          { name: '购物车', iconfont: '&#xe65c;', link: '/main/cart' },
+          { name: '会员', iconfont: '&#58967;', link: '/main/member' }
+        ];
+      }
+    }
 };
 </script>
-
 <style lang="less" scoped>
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
@@ -48,7 +54,6 @@ export default class App extends Vue {
   height:100%;
   font-size: 0.14rem;
   background: #F6F6F6;
-
   .header{
     width:100%;
     position: absolute;
@@ -68,7 +73,6 @@ export default class App extends Vue {
   text-decoration: none;
   padding:0.04rem!important;
 }
-
 .vux-cell-form-preview{
   font-size:0.14rem
 }

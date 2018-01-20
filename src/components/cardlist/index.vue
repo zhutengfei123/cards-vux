@@ -14,21 +14,21 @@
     </tab>
     <scroller lock-x @on-scroll-bottom="onScrollBottom" ref="scrollerBottom" :scroll-bottom-offst="200" style="overflow:initial">
       <div v-if="layoutType" class="card-list-wrap">
-        <div class="card-list" v-for="(item, index) in dataList" :key="index">
+        <div @click="handleClickToDetail(item.id)" class="card-list" v-for="(item, index) in dataList" :key="index">
           <div class="card-list-img"><img :src="item.pic_url" alt=""></div>
           <div class="card-list-title">{{item.category_name}}</div>
           <div class="card-list-price">尊享价:￥ {{item.price}}</div>
-          <div class="card-list-btn"><x-button mini @click.native="handleAddCart(item.id)">加入购物车</x-button></div>
+          <div class="card-list-btn"><x-button mini @click.native.stop="handleAddCart(item.id)">加入购物车</x-button></div>
         </div>
       </div>
       <div v-else class="card-list-wrap">
-        <div class="card-list1" v-for="(item, index) in dataList" :key="index">
+        <div @click="handleClickToDetail(item.id)" class="card-list1" v-for="(item, index) in dataList" :key="index">
           <div class="card-list1-left"><img :src="item.pic_url" alt=""></div>
           <div class="card-list1-right">
             <div class="card-list1-right-top">{{item.category_name}}</div>
             <div class="card-list1-right-bot">
               <span class="card-list-price">尊享价:￥ {{item.price}}</span>
-              <span><x-button mini @click.native="handleAddCart(item.id)">加入购物车</x-button></span>
+              <span><x-button mini @click.native.stop="handleAddCart(item.id)">加入购物车</x-button></span>
             </div>
           </div>
         </div>
@@ -72,6 +72,9 @@ export default class Cardlist extends Vue {
   flag = true
   flag1 = true
   dataList = []
+  handleClickToDetail (id) {
+    this.$router.push(`/detail/${id}`);
+  }
   onScrollBottom () {
     if (!this.onFetching && this.isLoading) {
       this.onFetching = true;

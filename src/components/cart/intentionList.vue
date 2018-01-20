@@ -27,7 +27,7 @@
         <div class="cart-foot">
             <check-icon :value.sync="initData.is_all_selected===1?true:false" @click.native="handleSelectAll">全选</check-icon>
             <span>合计：<span class="bottom-l">￥{{initData.goods_total_price}}</span></span>
-            <span class="settlement" @click="handleClick(isEdit)">{{isEdit?'删除':'结算'}}</span>
+            <span class="settlement" @click="handleClick(isEdit)">{{isEdit?'删除':'提交意向单'}}</span>
         </div>
     </div>
 </template>
@@ -249,7 +249,7 @@ export default class Cart extends Vue {
                 this.$store.commit('confirmOrder/getIsCreditEnough', false);
               }
               this.$router.push({
-                path: '/confirmOrder'
+                path: '/intention/submit'
               });
             } else {
               this.$vux.toast.text(msg, 'middle');

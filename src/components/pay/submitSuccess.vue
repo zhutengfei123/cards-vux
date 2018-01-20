@@ -5,7 +5,7 @@
       <span class="con-top-title">提交成功</span>
     </div>
     <div class="con-bot">
-      <x-button class="btn-l" link="/recharge">返回</x-button>
+      <x-button class="btn-l" @click.native="handleBack">返回</x-button>
     </div>
   </div>
 </template>
@@ -18,7 +18,9 @@ import { Component, Vue } from 'vue-property-decorator';
     }
   })
   export default class submitSuccess extends Vue {
-
+    handleBack () {
+      this.$router.go(-1);
+    }
   }
 </script>
 <style lang="less">

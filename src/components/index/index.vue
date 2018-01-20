@@ -1,12 +1,8 @@
 <template>
   <div class="index">
-      <flexbox class="top" align="center" v-if="$route.path==='mine'">
-        <flexbox-item class="container">
-            <x-button link="/main/intention">意向单</x-button>
-        </flexbox-item>
-        <flexbox-item class="container">
-            <x-button @click.native="this.showTip = !this.showTip">立即推广</x-button>
-        </flexbox-item>
+      <flexbox class="top" align="center" v-if="$route.path==='/mine'">
+        <x-button mini link="/intention">意向单</x-button>
+        <x-button mini @click.native="handleClickIsShow">立即推广</x-button>
       </flexbox>
       <l-header></l-header>
       <div class="block">
@@ -81,7 +77,9 @@ export default class Index extends Vue {
   @IndexAction loadMore
 
   @IndexMutation setPage
-
+  handleClickIsShow () {
+    this.showTip ? this.showTip = false : this.showTip = true;
+  }
   created () {
     this.init().then(msg => {
       msg && this.$vux.toast.text(msg);
@@ -109,12 +107,16 @@ export default class Index extends Vue {
 <style lang="less" scoped>
 .index {
   font-size: 0.14rem;
+  .weui-btn {
+    margin: 0 !important;
+  }
   .top{
+      margin: 0 !important;
       background: #ffffff;
-      margin-bottom: 0.16rem;
-      .container{
-        padding:0.08rem 0.16rem;
-      }
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      height: 0.44rem;
   }
   .recommend-title{
       position: absolute;
