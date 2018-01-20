@@ -5,6 +5,7 @@ const Member = () => import('@/components/member/index');
 const Index = () => import('@/components/index/index');
 const Classification = () => import('@/components/classification/index');
 const Cart = () => import('@/components/cart/index');
+const intentionList = () => import('@/components/cart/intentionList');
 const Detail = () => import('@/components/detail/index');
 const Container = () => import('@/container');
 const ConfirmOrder = () => import('@/components/confirmOrder/index');
@@ -28,9 +29,7 @@ const IntentionSubmit = () => import('@/components/intention/submit');
 const Address = () => import('@/components/address/index');
 const AddAddress = () => import('@/components/address/add');
 const Cardlist = () => import('@/components/cardlist/index');
-
 Vue.use(Router);
-
 const router = new Router({
   routes: [
     {
@@ -49,9 +48,10 @@ const router = new Router({
       children: [
         {path: '', name: '飞象卡券', component: Index},
         {path: 'classification', name: '分类', component: Classification},
-        {path: 'cart', name: '意向单', component: Cart}
+        {path: 'cart', name: '意向单', component: intentionList}
       ]
     },
+    {path: '/', redirect: '/main', hidden: true},
     {path: '/cardlist', name: '卡券列表', component: Cardlist},
     {path: '/detail/:id', name: '商品详情', component: Detail},
     {path: '/confirmOrder', name: '确认订单', component: ConfirmOrder},

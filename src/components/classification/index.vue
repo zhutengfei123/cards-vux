@@ -17,11 +17,11 @@
     </tab>
     <scroller lock-x @on-scroll-bottom="onScrollBottom" ref="scrollerBottom" :scroll-bottom-offst="200" style="overflow:initial">
     <div class="card-list-wrap">
-      <div class="card-list" v-for="(item, index) in dataList" :key="index">
+      <div @click="handleClickToDetail(item.id)" class="card-list" v-for="(item, index) in dataList" :key="index">
         <div class="card-list-img"><img :src="item.pic_url" alt=""></div>
         <div class="card-list-title">{{item.category_name}}</div>
         <div class="card-list-price">尊享价:￥ {{item.price}}</div>
-        <div class="card-list-btn"><x-button mini @click.native="handleAddCart(item.id)">加入购物车</x-button></div>
+        <div class="card-list-btn"><x-button mini @click.native.stop="handleAddCart(item.id)">加入购物车</x-button></div>
       </div>
     </div>
     <load-more v-show="onFetching" tip="正在加载中"></load-more>
@@ -79,6 +79,9 @@ export default class Classification extends Vue {
     {title: '场合'},
     {title: '排序'}
   ]
+  handleClickToDetail (id) {
+    this.$router.push(`/detail/${id}`);
+  }
   onScrollBottom () {
     if (!this.onFetching && this.isLoading) {
       this.onFetching = true;

@@ -1,12 +1,8 @@
 <template>
   <div class="index">
-      <flexbox class="top" align="center" v-if="$route.path==='mine'">
-        <flexbox-item class="container">
-            <x-button link="/main/intention">意向单</x-button>
-        </flexbox-item>
-        <flexbox-item class="container">
-            <x-button @click.native="this.showTip = !this.showTip">立即推广</x-button>
-        </flexbox-item>
+      <flexbox class="top" align="center" v-if="$route.path==='/mine'">
+        <x-button mini link="/intention">意向单</x-button>
+        <x-button mini @click.native="handleClickIsShow">立即推广</x-button>
       </flexbox>
       <l-header></l-header>
       <div class="block">
@@ -35,7 +31,6 @@
       </div>
   </div>
 </template>
-
 <script>
 import LHeader from './header';
 import LScroller from './scroller';
@@ -44,7 +39,6 @@ import { Component, Vue } from 'vue-property-decorator';
 import {State, Action, Mutation, namespace} from 'vuex-class';
 import Card from './card';
 import {isBottom} from '../../js';
-
 const IndexState = namespace('index', State);
 const IndexAction = namespace('index', Action);
 const IndexMutation = namespace('index', Mutation);
@@ -70,18 +64,17 @@ export default class Index extends Vue {
   imgWidth= screen.width
   showTip=false
   loading=false
-
   @IndexState recommend
   @IndexState mainRecommend
   @IndexState scrollers
   @IndexState page
   @IndexState isEnd
-
   @IndexAction init
   @IndexAction loadMore
-
   @IndexMutation setPage
-
+  handleClickIsShow () {
+    this.showTip ? this.showTip = false : this.showTip = true;
+  }
   created () {
     this.init().then(msg => {
       msg && this.$vux.toast.text(msg);
@@ -109,12 +102,16 @@ export default class Index extends Vue {
 <style lang="less" scoped>
 .index {
   font-size: 0.14rem;
+  .weui-btn {
+    margin: 0 !important;
+  }
   .top{
+      margin: 0 !important;
       background: #ffffff;
-      margin-bottom: 0.16rem;
-      .container{
-        padding:0.08rem 0.16rem;
-      }
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      height: 0.44rem;
   }
   .recommend-title{
       position: absolute;

@@ -24,7 +24,7 @@ export default class OrderPaySuccess extends Vue {
     @ConfirmOderState orderId
     handleCheckOrder () {
       this.$router.push({
-        path: `/order/${this.orderId}`
+        path: `/order/detail/${this.orderId}`
       });
     }
 }
