@@ -17,7 +17,7 @@
                 <span class="num">x{{item.num}}</span>
             </div>
         </div>
-        <div class="detail-top-con foot"><span class="desc">订单金额</span><span class="price">{{'张三'}}</span></div>
+        <div class="detail-top-con foot"><span class="desc">订单金额</span><span class="price">￥{{intentionDetail.total_price}}</span></div>
     </div>
 </template>
 <script>
