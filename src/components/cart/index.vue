@@ -195,7 +195,9 @@ export default class Cart extends Vue {
     }
     handleChange (n, item) {
       if (n === -1) {
-        item.num--;
+        if (item.num > 0) {
+          item.num--;
+        }
       } else {
         item.num++;
       }
