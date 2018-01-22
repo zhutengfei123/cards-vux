@@ -5,7 +5,7 @@ const Member = () => import('@/components/member/index');
 const Index = () => import('@/components/index/index');
 const Classification = () => import('@/components/classification/index');
 const Cart = () => import('@/components/cart/index');
-const intentionList = () => import('@/components/cart/intentionList');
+const IntentionList = () => import('@/components/intention/intentionList');
 const Detail = () => import('@/components/detail/index');
 const Container = () => import('@/container');
 const ConfirmOrder = () => import('@/components/confirmOrder/index');
@@ -48,7 +48,7 @@ const router = new Router({
       children: [
         {path: '', name: '飞象卡券', component: Index},
         {path: 'classification', name: '分类', component: Classification},
-        {path: 'cart', name: '意向单', component: intentionList}
+        {path: 'intentionList', name: '意向单', component: IntentionList}
       ]
     },
     {path: '/', redirect: '/main', hidden: true},

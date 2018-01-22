@@ -32,7 +32,7 @@ export default class App extends Vue {
         this.tabs = [
           { name: '首页', selected: true, iconfont: '&#xe65d;', link: '/mine' },
           { name: '分类', iconfont: '&#58965;', link: '/mine/classification' },
-          { name: '意向单', iconfont: '&#xe660;', link: '/mine/cart' }
+          { name: '意向单', iconfont: '&#xe660;', link: '/mine/intentionList' }
         ];
       } else {
         this.tabs = [

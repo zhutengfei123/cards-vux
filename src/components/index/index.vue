@@ -69,9 +69,12 @@ export default class Index extends Vue {
   @IndexState scrollers
   @IndexState page
   @IndexState isEnd
+  @IndexState intentionList
   @IndexAction init
   @IndexAction loadMore
+  @IndexAction initIntentionList
   @IndexMutation setPage
+  handleClickToIntention
   handleClickIsShow () {
     this.showTip ? this.showTip = false : this.showTip = true;
   }
@@ -102,6 +105,7 @@ export default class Index extends Vue {
 <style lang="less" scoped>
 .index {
   font-size: 0.14rem;
+  padding-bottom: 0.44rem;
   .weui-btn {
     margin: 0 !important;
   }

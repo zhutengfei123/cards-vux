@@ -1,4 +1,5 @@
 import {axios} from '../../js';
+import qs from 'qs';
 const state = {
   inited: false,
   headerImages: [],
@@ -17,7 +18,8 @@ const state = {
   },
   page: 1,
   pageSize: 6,
-  isEnd: false
+  isEnd: false,
+  intentionList: {}
 };
 
 const actions = {
@@ -35,6 +37,14 @@ const actions = {
     if (code === '00000') {
       commit('pushRecommend', list);
       commit('setIsEnd', list ? list.length < pageSize : true);
+    } else {
+      return msg;
+    }
+  },
+  async initIntentionList ({commit, rootState, state}, params) {
+    const {result, status: {code, msg}} = await axios.post('/site/get-intention-list', qs.stringify(params));
+    if (code === '00000') {
+      commit('getIntentionList', result);
     } else {
       return msg;
     }
@@ -62,6 +72,9 @@ const mutations = {
   },
   setPage (state, page) {
     state.page = page;
+  },
+  getIntentionList (state, data) {
+    state.intentionList = data;
   }
 };
 

@@ -23,15 +23,15 @@
       </div>
       <div class="r-2-con">
         <div class="r-2-c-item">
-          <span class="r-2-con-l">收款银行</span>
+          <span class="r-2-con-l">开户名称</span>
           <span class="r-2-t-l">{{accountInfo.beneficiary_bank}}</span>
         </div>
         <div class="r-2-c-item">
-          <span class="r-2-con-l">收款人</span>
+          <span class="r-2-con-l">开户银行</span>
           <span class="r-2-t-l">{{accountInfo.beneficiary_name}}</span>
         </div>
         <div class="r-2-c-item">
-          <span class="r-2-con-l">收款账号</span>
+          <span class="r-2-con-l">银行账号</span>
           <span class="r-2-t-l">{{accountInfo.beneficiary_account_nunber}}</span>
         </div>
       </div>

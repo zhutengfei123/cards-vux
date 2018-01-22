@@ -19,9 +19,9 @@
     <div class="card-list-wrap">
       <div @click="handleClickToDetail(item.id)" class="card-list" v-for="(item, index) in dataList" :key="index">
         <div class="card-list-img"><img :src="item.pic_url" alt=""></div>
-        <div class="card-list-title">{{item.category_name}}</div>
+        <div class="card-list-title">{{item.name}}</div>
         <div class="card-list-price">尊享价:￥ {{item.price}}</div>
-        <div class="card-list-btn"><x-button mini @click.native.stop="handleAddCart(item.id)">加入购物车</x-button></div>
+        <div class="card-list-btn"><x-button mini @click.native.stop="handleAddCart(item)">加入购物车</x-button></div>
       </div>
     </div>
     <load-more v-show="onFetching" tip="正在加载中"></load-more>
@@ -50,6 +50,7 @@ const CartAction = namespace('cart', Action);
 })
 export default class Classification extends Vue {
   @ProductsState initData
+  @ProductsState tempData
   @ProductsState categoryData
   @ProductsAction init
   @ProductsAction initCategoryData
@@ -63,6 +64,7 @@ export default class Classification extends Vue {
   isActive1 = 0
   orderBy = 1
   orderByType = 1
+  intentionData = []
   flag = true
   isLoading = true
   onFetching = false
@@ -95,25 +97,38 @@ export default class Classification extends Vue {
       }, 2000);
     }
   }
-  handleAddCart (id) {
-    if (this.flag) {
-      const params = {
-        'shop_id': id
-      };
-      this.addReduce(params).then(msg => {
-        if (msg) {
-          this.$vux.toast.text(msg, 'middle');
-        } else {
-          this.$vux.toast.text('加入购物车成功', 'middle');
-        }
-      });
-      this.flag = false;
-      let timer = setTimeout(() => {
-        this.flag = true;
-        clearTimeout(timer);
-      }, 1000);
-    } else {
-      this.$vux.toast.text('您的操作过于频繁', 'middle');
+  handleAddCart (item) {
+    if (/mine/.test(this.$route.path)) {
+      if (this.intentionData.indexOf(item) === -1) {
+        this.intentionData.push(item);
+        this.tempData.push({
+          'id': item.id,
+          'num': 1,
+          'is_selected': 1
+        });
+        this.$vux.toast.text('加入购物车成功', 'middle');
+      }
+    }
+    if (/main/.test(this.$route.path)) {
+      if (this.flag) {
+        const params = {
+          'shop_id': item.id
+        };
+        this.addReduce(params).then(msg => {
+          if (msg) {
+            this.$vux.toast.text(msg, 'middle');
+          } else {
+            this.$vux.toast.text('加入购物车成功', 'middle');
+          }
+        });
+        this.flag = false;
+        let timer = setTimeout(() => {
+          this.flag = true;
+          clearTimeout(timer);
+        }, 1000);
+      } else {
+        this.$vux.toast.text('您的操作过于频繁', 'middle');
+      }
     }
   }
   handleSearch () {
@@ -157,6 +172,7 @@ export default class Classification extends Vue {
     this.isShowBox = true;
   }
   created () {
+    this.intentionData = [];
     this.initial();
     const params = {};
     this.initCategoryData(params).then(msg => {
@@ -192,6 +208,7 @@ export default class Classification extends Vue {
 <style lang="less" scoped>
 .classification{
   width: 100%;
+  padding-bottom: 0.44rem;
   .weui-loadmore {
     height: 0.44rem;
     width: 100%;
