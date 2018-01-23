@@ -22,12 +22,9 @@ import { Component, Vue } from 'vue-property-decorator';
 import {State, namespace} from 'vuex-class';
 const GlobalState = namespace('global', State);
 @Component({
-  components: {ViewBox, XHeader, Tabbar, TabbarItem}
-})
-export default class App extends Vue {
-    @GlobalState title
-    tabs = []
-    created () {
+  components: {ViewBox, XHeader, Tabbar, TabbarItem},
+  watch: {
+    '$route': function (val, oldval) {
       if (/mine/.test(location.hash.split('/')[1])) {
         this.tabs = [
           { name: '首页', selected: true, iconfont: '&#xe65d;', link: '/mine' },
@@ -43,6 +40,11 @@ export default class App extends Vue {
         ];
       }
     }
+  }
+})
+export default class App extends Vue {
+    @GlobalState title
+    tabs = []
 };
 </script>
 <style lang="less" scoped>

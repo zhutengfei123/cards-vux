@@ -6,7 +6,8 @@ const state = {
   styleColor: '',
   loginImg: '',
   loginLogo: '',
-  logo: ''
+  logo: '',
+  showEdit: false
 };
 
 const actions = {
@@ -33,6 +34,9 @@ const mutations = {
     for (const prop in data) {
       state[prop] = data[prop];
     }
+  },
+  isShowEdit (state, data) {
+    state.showEdit = data;
   }
 };
 export default {

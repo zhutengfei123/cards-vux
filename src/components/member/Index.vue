@@ -17,7 +17,7 @@
     <group>
       <cell title="现金账户" :value="`￥${balance}`" is-link link="/member/money"></cell>
       <cell title="收货地址" is-link link="/address"></cell>
-      <cell title="我的卡券商城" :value="sta" is-link link="/mine"></cell>
+      <cell title="我的卡券商城" :value="sta" @click.native="handleSetShowEdit" is-link></cell>
     </group>
     <group v-once>
       <cell title="客户服务" value="0571-12345678"></cell>
@@ -30,10 +30,11 @@
 <script>
 import { Cell, Group, XImg } from 'vux';
 import { Component, Vue } from 'vue-property-decorator';
-import { State, Action, namespace } from 'vuex-class';
+import { State, Action, namespace, Mutation } from 'vuex-class';
 import initImg from '../../assets/init.png';
 const UserState = namespace('user', State);
 const UserAction = namespace('user', Action);
+const GlobalMutation = namespace('global', Mutation);
 @Component({
   components: {
     Cell,
@@ -50,6 +51,11 @@ export default class Member extends Vue {
   @UserState level
   @UserState token
   @UserAction getInfo
+  @GlobalMutation isShowEdit
+  handleSetShowEdit () {
+    this.$store.commit('global/isShowEdit', true);
+    this.$router.push('/mine');
+  }
   created () {
     this.getInfo().then(msg => msg && this.$vux.toast.text(msg));
   }

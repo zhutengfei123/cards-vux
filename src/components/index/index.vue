@@ -1,8 +1,18 @@
 <template>
   <div class="index">
-      <flexbox class="top" align="center" v-if="$route.path==='/mine'">
+      <flexbox class="top" align="center" v-show="showEdit&&/mine/.test($route.path)">
         <x-button mini link="/intention">意向单</x-button>
         <x-button mini @click.native="handleClickIsShow">立即推广</x-button>
+        <div class="info-edit-box">
+          <div class="info-left">
+            <span class="img-box"><avatar :src="shareInfo.head_pic" backgroundColor="#B79E74" color="#ffffff" :size="40" username="Avatar"></avatar></span>
+            <span class="info-title">{{shareInfo.realname}}</span>
+          </div>
+          <div @click="handleToInfoEdit" class="info-right">
+            <span class="info-title info-edit">编辑</span>
+            <span class="app-icon info-title">&#xe684;</span>
+          </div>
+        </div>
       </flexbox>
       <l-header></l-header>
       <div class="block">
@@ -34,14 +44,16 @@
 <script>
 import LHeader from './header';
 import LScroller from './scroller';
-import { XImg, Flexbox, FlexboxItem, Grid, GridItem, LoadMore, XButton, XDialog, TransferDomDirective as TransferDom } from 'vux';
+import { Toast, XImg, Flexbox, FlexboxItem, Grid, GridItem, LoadMore, XButton, XDialog, TransferDomDirective as TransferDom } from 'vux';
 import { Component, Vue } from 'vue-property-decorator';
 import {State, Action, Mutation, namespace} from 'vuex-class';
 import Card from './card';
+import Avatar from 'vue-avatar';
 import {isBottom} from '../../js';
 const IndexState = namespace('index', State);
 const IndexAction = namespace('index', Action);
 const IndexMutation = namespace('index', Mutation);
+const GlobalState = namespace('global', State);
 @Component({
   directives: {
     TransferDom
@@ -57,7 +69,9 @@ const IndexMutation = namespace('index', Mutation);
     Grid,
     LoadMore,
     XButton,
-    XDialog
+    XDialog,
+    Avatar,
+    Toast
   }
 })
 export default class Index extends Vue {
@@ -65,6 +79,7 @@ export default class Index extends Vue {
   showTip=false
   loading=false
   @IndexState recommend
+  @IndexState shareInfo
   @IndexState mainRecommend
   @IndexState scrollers
   @IndexState page
@@ -72,9 +87,15 @@ export default class Index extends Vue {
   @IndexState intentionList
   @IndexAction init
   @IndexAction loadMore
+  @IndexAction initGetShareInfo
   @IndexAction initIntentionList
   @IndexMutation setPage
   handleClickToIntention
+  @GlobalState storeId;
+  @GlobalState showEdit;
+  handleToInfoEdit () {
+    this.$router.push('/editInfo');
+  }
   handleClickIsShow () {
     this.showTip ? this.showTip = false : this.showTip = true;
   }
@@ -83,6 +104,17 @@ export default class Index extends Vue {
       msg && this.$vux.toast.text(msg);
       this.setPage(this.page + 1);
     }).catch(error => console.log(error));
+    if (this.showEdit && /mine/.test(this.$route.path)) {
+      const params = {
+        'share_user_id': '62',
+        'store_id': this.storeId
+      };
+      this.initGetShareInfo(params).then(msg => {
+        if (msg) {
+          this.$vux.toast.text(msg, 'middle');
+        }
+      });
+    }
   }
   mounted () {
     const element = document.querySelector('#vux_view_box_body');
@@ -106,6 +138,40 @@ export default class Index extends Vue {
 .index {
   font-size: 0.14rem;
   padding-bottom: 0.44rem;
+  .app-icon {
+    margin: 0 0.15rem;
+  }
+  .info-edit {
+    font-size: 0.16rem !important;
+  }
+  .info-left, .info-right {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .img-box {
+    margin: 0 0.15rem;
+  }
+  .info-title {
+    font-size: 0.18rem;
+    color: #FFFFFF;
+  }
+  .info-img {
+    width: 0.4rem;
+    height: 0.4rem;
+    border: none;
+  }
+  .info-edit-box {
+    position: absolute;
+    top: 0.44rem;
+    left: 0;
+    height: 0.6rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 999;
+  }
   .weui-btn {
     margin: 0 !important;
   }
@@ -116,6 +182,7 @@ export default class Index extends Vue {
       align-items: center;
       justify-content: space-around;
       height: 0.44rem;
+      position: relative;
   }
   .recommend-title{
       position: absolute;
