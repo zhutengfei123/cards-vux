@@ -27,13 +27,11 @@
 </template>
 <script>
 import { Component, Vue } from 'vue-property-decorator';
-import {Flexbox, FlexboxItem, XButton, XImg} from 'vux';
+import {Flexbox, FlexboxItem, XButton, XImg, Toast} from 'vux';
 import {Action, namespace} from 'vuex-class';
-
 const UserAction = namespace('user', Action);
-
 @Component({
-  components: {Flexbox, FlexboxItem, XButton, XImg}
+  components: {Flexbox, FlexboxItem, XButton, XImg, Toast}
 })
 export default class Login extends Vue {
     type=false
@@ -41,36 +39,64 @@ export default class Login extends Vue {
     password=''
     code=''
     time=0
-
+    isType = 0
+    bStop = false
     @UserAction login
     @UserAction sendCode
-
     sendCodeClick () {
-      this.sendCode({
-        mobile: this.phone,
-        type: 'login-shop'
-      }).then(msg => {
-        if (msg) {
-          this.$vux.toast.text(msg);
-        } else {
-          this.time = 60;
-          const id = setInterval(() => {
-            if (this.time > 0) {
-              this.time--;
-            } else {
-              clearInterval(id);
-            }
-          }, 1000);
-        }
-      });
+      let reg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+      if (!reg.test(this.phone)) {
+        this.$vux.toast.text('请输入有效的手机号码', 'middle');
+      } else {
+        this.sendCode({
+          mobile: this.phone,
+          type: 'login-shop'
+        }).then(msg => {
+          if (msg) {
+            this.bStop = false;
+            this.$vux.toast.text(msg, 'middle');
+          } else {
+            this.bStop = true;
+            this.time = 60;
+            const id = setInterval(() => {
+              if (this.time > 0) {
+                this.time--;
+              } else {
+                clearInterval(id);
+              }
+            }, 1000);
+          }
+        });
+      }
     }
-
     signIn () {
-      this.login({
-        mobile: this.phone,
-        pwd: this.type ? this.code : this.password,
-        type: this.type ? 1 : 0
-      }).then(msg => msg ? this.$vux.toast.text(msg) : this.$router.push('/main'));
+      let flag = true;
+      let reg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+      if (this.type && this.code === '') {
+        this.$vux.toast.text('请输入验证码', 'middle');
+        flag = false;
+      }
+      if (this.phone === '' || !reg.test(this.phone)) {
+        this.$vux.toast.text('请输入有效的手机号码', 'middle');
+        flag = false;
+      }
+      if (!this.type && this.password === '') {
+        this.$vux.toast.text('请输入密码', 'middle');
+        flag = false;
+      }
+      if (!this.type) {
+        this.bStop = true;
+        this.isType = 0;
+      } else {
+        this.isType = 1;
+      }
+      if (flag && this.bStop) {
+        this.login({
+          mobile: this.phone,
+          password: this.type ? this.code : this.password,
+          type: this.isType
+        }).then(msg => msg ? this.$vux.toast.text(msg, 'middle') : this.$router.push('/main'));
+      }
     }
 }
 </script>

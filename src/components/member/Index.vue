@@ -28,7 +28,7 @@
   </div>
 </template>
 <script>
-import { Cell, Group, XImg } from 'vux';
+import { Cell, Group, XImg, Toast } from 'vux';
 import { Component, Vue } from 'vue-property-decorator';
 import { State, Action, namespace, Mutation } from 'vuex-class';
 import initImg from '../../assets/init.png';
@@ -39,7 +39,13 @@ const GlobalMutation = namespace('global', Mutation);
   components: {
     Cell,
     Group,
-    XImg
+    XImg,
+    Toast
+  },
+  watch: {
+    '$route': function (val, oldval) {
+      window.location.reload();
+    }
   }
 })
 export default class Member extends Vue {
@@ -57,12 +63,22 @@ export default class Member extends Vue {
     this.$router.push('/mine');
   }
   created () {
-    this.getInfo().then(msg => msg && this.$vux.toast.text(msg));
+    this.initial();
+  }
+  initial () {
+    this.getInfo().then(msg => {
+      if (msg) {
+        this.$vux.toast.text(msg, 'middle');
+      }
+    });
   }
   toLogin () {
     this.$router.push('/login');
   }
-  exit () {}
+  exit () {
+    localStorage.setItem('token', '');
+    this.$router.push('/main');
+  }
 }
 </script>
 <style lang="less" scoped>

@@ -1,6 +1,6 @@
 <template>
   <div class="index">
-      <flexbox class="top" align="center" v-show="showEdit&&/mine/.test($route.path)">
+      <flexbox class="top" align="center" v-show="showEdit">
         <x-button mini link="/intention">意向单</x-button>
         <x-button mini @click.native="handleClickIsShow">立即推广</x-button>
         <div class="info-edit-box">
@@ -104,7 +104,7 @@ export default class Index extends Vue {
       msg && this.$vux.toast.text(msg);
       this.setPage(this.page + 1);
     }).catch(error => console.log(error));
-    if (this.showEdit && /mine/.test(this.$route.path)) {
+    if (this.showEdit) {
       const params = {
         'share_user_id': '62',
         'store_id': this.storeId

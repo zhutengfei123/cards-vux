@@ -31,9 +31,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { Flexbox, FlexboxItem, XButton, XImg } from 'vux';
 import {Action, namespace} from 'vuex-class';
-
 const UserAction = namespace('user', Action);
-
 @Component({
   components: { Flexbox, FlexboxItem, XButton, XImg }
 })
@@ -43,41 +41,64 @@ export default class Register extends Vue {
     phone=''
     code=''
     time=0
-
+    bStop = false
     @UserAction register
     @UserAction sendCode
-
     get type () {
       return this.$route.path === '/register/wechat';
     }
-
     sendCodeClick () {
-      this.sendCode({
-        mobile: this.phone,
-        type: 'login-shop'
-      }).then(msg => {
-        if (msg) {
-          this.$vux.toast.text(msg);
-        } else {
-          this.time = 60;
-          const id = setInterval(() => {
-            if (this.time > 0) {
-              this.time--;
-            } else {
-              clearInterval(id);
-            }
-          }, 1000);
-        }
-      });
+      let reg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+      if (!reg.test(this.phone)) {
+        this.$vux.toast.text('请输入有效的手机号码', 'middle');
+      } else {
+        this.sendCode({
+          mobile: this.phone,
+          type: 'login-shop'
+        }).then(msg => {
+          if (msg) {
+            this.$vux.toast.text(msg);
+          } else {
+            this.bStop = true;
+            this.time = 60;
+            const id = setInterval(() => {
+              if (this.time > 0) {
+                this.time--;
+              } else {
+                clearInterval(id);
+              }
+            }, 1000);
+          }
+        });
+      }
     }
-
     signUp () {
-      this.register({
-        mobile: this.phone,
-        company: this.company,
-        password: this.password,
-        code: this.code
-      }).then(msg => msg ? this.$vux.toast.text(msg) : this.$router.push('/main'));
+      let flag = true;
+      let reg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+      if (this.code === '') {
+        this.$vux.toast.text('请输入验证码', 'middle');
+        flag = false;
+      }
+      if (this.phone === '' || !reg.test(this.phone)) {
+        this.$vux.toast.text('请输入有效的手机号码', 'middle');
+        flag = false;
+      }
+      if (this.password === '') {
+        this.$vux.toast.text('请输入密码', 'middle');
+        flag = false;
+      }
+      if (this.company === '') {
+        this.$vux.toast.text('请输入企业名称', 'middle');
+        flag = false;
+      }
+      if (flag && this.bStop) {
+        this.register({
+          mobile: this.phone,
+          company: this.company,
+          password: this.password,
+          code: this.code
+        }).then(msg => msg ? this.$vux.toast.text(msg, 'middle') : this.$router.push('/login'));
+      }
     }
 }
 </script>
