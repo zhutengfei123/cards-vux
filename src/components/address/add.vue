@@ -3,7 +3,7 @@
         <group gutter="0">
             <x-input title="收货人" v-model="name" placeholder="请填写收货人姓名"></x-input>
             <x-input title="联系电话" v-model="phone" placeholder="请填写联系电话"></x-input>
-            <x-address title="所在地区" v-model="address" :list="addressData" placeholder="请选择"></x-address>
+            <x-address class="address-input-border" title="所在地区" v-model="address" :list="addressData" placeholder="请选择"></x-address>
             <x-textarea title="详细地址" v-model="addressDetail" placeholder="请填写详细地址"></x-textarea>
         </group>
         <x-button class="bottom-button" @click="save">保存</x-button>
@@ -21,10 +21,8 @@ import {
 } from 'vux';
 import addressData from '../../js/addressData.json';
 import { Getter, Action, namespace } from 'vuex-class';
-
 const AddressGetter = namespace('address', Getter);
 const AddressAction = namespace('address', Action);
-
 @Component({
   components: {
     Group,
@@ -41,20 +39,15 @@ export default class AddAddress extends Vue {
   address = [];
   addressDetail = '';
   addressData = addressData;
-
   @AddressGetter findById;
-
   @AddressAction add;
   @AddressAction update;
-
   get isAdd () {
     return this.$route.path === '/address/add';
   }
-
   get id () {
     return this.$route.params.id;
   }
-
   created () {
     if (!this.isAdd) {
       const { name, phone, province_id: provinceId, city_id: cityId, district_id: districtId, address } = this.findById(
@@ -66,7 +59,6 @@ export default class AddAddress extends Vue {
       this.addressDetail = address;
     }
   }
-
   save () {
     const func = this.isAdd ? this.add : this.update;
     func({
@@ -83,12 +75,31 @@ export default class AddAddress extends Vue {
 </script>
 <style lang="less" scoped>
 .add-address {
+  .address-input-border {
+    position: relative;
+  }
+  .address-input-border:before {
+    content: " ";
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    height: 1px;
+    border-bottom: 1px solid #D9D9D9;
+    color: #D9D9D9;
+    transform-origin: 0 100%;
+    transform: scaleY(0.5);
+  }
+  height: 100%;
+  padding-bottom: 0.44rem;
+  .weui-cell:before {
+    left: 0 !important;
+  }
   .bottom-button {
-    padding: 0 0.16rem;
     position: fixed;
+    width: 100%;
     bottom: 0;
-    margin: 0.16rem;
-    width: calc(~"100% - 0.32rem");
+    left: 0;
   }
 }
 </style>

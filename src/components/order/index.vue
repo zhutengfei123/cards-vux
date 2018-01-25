@@ -64,7 +64,7 @@ export default class Order extends Vue {
   toggleShow (order) {
     order.show = !order.show;
   }
-  activated () {
+  created () {
     this.getOrders({ orderStatus: this.orderStatus }).then(msg => {
       msg && this.$vux.toast.text(msg);
     });
@@ -86,7 +86,22 @@ export default class Order extends Vue {
     justify-content: flex-start;
   }
   .vux-flexbox {
-    border-top: 1px solid #D9D9D9;
+    position: relative;
+  }
+  .vux-flex-col:before {
+    border: none !important;
+  }
+  .vux-flexbox:before {
+    content: " ";
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    height: 1px;
+    border-bottom: 1px solid #D9D9D9;
+    color: #D9D9D9;
+    transform-origin: 0 100%;
+    transform: scaleY(0.5);
   }
   .weui-cell:before {
     left: 0 !important;

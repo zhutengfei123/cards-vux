@@ -63,7 +63,7 @@ export default class Delivery extends Vue {
     }
   }
 
-  activated () {
+  created () {
     this.getInfo();
   }
 }

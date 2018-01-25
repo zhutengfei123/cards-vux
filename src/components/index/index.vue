@@ -101,7 +101,7 @@ export default class Index extends Vue {
   handleClickIsShow () {
     this.showTip ? this.showTip = false : this.showTip = true;
   }
-  activated () {
+  created () {
     this.init().then(msg => {
       msg && this.$vux.toast.text(msg);
       this.setPage(this.page + 1);

@@ -3,9 +3,7 @@
      <view-box ref="viewBox" body-padding-top="46px" :body-padding-bottom="/main/.test($route.path)?'55px':'0'">
        <x-header slot="header" :title="title" class="header"></x-header>
        <transition name="vux-header-fade-in-right">
-         <keep-alive exclude="/商品详情|订单详情|物流信息|意向单详情|充值详情/">
-            <router-view></router-view>
-         </keep-alive>
+          <router-view></router-view>
        </transition>
        <tabbar slot="bottom" v-show="/main|mine/.test($route.path)">
           <tabbar-item v-for="(item,index) in tabs" :key="index" :selected="item.selected" :badge="item.badge" :link="item.link">

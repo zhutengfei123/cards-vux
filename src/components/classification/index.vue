@@ -171,7 +171,7 @@ export default class Classification extends Vue {
     this.isActive = n;
     this.isShowBox = true;
   }
-  activated () {
+  created () {
     this.intentionData = [];
     this.initial();
     const params = {};

@@ -39,7 +39,7 @@ export default class Money extends Vue {
   @UserState userInfo;
   @BalanceAction getRecords;
   currentPage = 1;
-  activated () {
+  created () {
     const params = {
       page: this.currentPage
     };

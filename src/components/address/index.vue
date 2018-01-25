@@ -71,6 +71,8 @@ export default class Address extends Vue {
 </script>
 <style lang="less">
 .address-index {
+    height: 100%;
+    padding-bottom: 0.44rem;
   .vux-no-group-title,
   .weui-cells {
     margin-top: 0 !important;
