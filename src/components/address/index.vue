@@ -1,6 +1,6 @@
 <template>
     <div class="address-index">
-        <group v-for="item of list" :key="item.id">
+        <group v-for="(item, index) in list" :key="index">
             <cell>
                 <p class="text lg" slot="title"><span class="bold">{{item.name}}</span>&nbsp;{{item.phone}}</p>
                 <p class="text" slot="title">{{item.province}} {{item.city}} {{item.district}} {{item.address}}</p>

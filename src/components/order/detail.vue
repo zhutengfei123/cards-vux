@@ -20,7 +20,7 @@
         </group>
         <group>
             <cell><p slot="title" class="text">共{{list.length}}件商品</p></cell>
-            <item v-for="item of list" :key="item.id" :item="item"></item>
+            <item v-for="(item, index) in list" :key="index" :item="item"></item>
         </group>
         <group>
             <cell-form-preview :list="preview"></cell-form-preview>
@@ -37,7 +37,6 @@ import { Cell, Group, CellFormPreview, Flexbox, FlexboxItem } from 'vux';
 import { axios } from '../../js';
 import Item from './item';
 import qs from 'qs';
-
 @Component({
   components: {
     Cell,
@@ -86,7 +85,6 @@ export default class OrderDetail extends Vue {
         return '已完成';
     }
   }
-
   async getInfo () {
     const { result, status: { code, msg } } = await axios.post(
       '/order/details',

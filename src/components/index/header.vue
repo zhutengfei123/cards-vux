@@ -12,7 +12,7 @@
       </flexbox-item>
     </flexbox>
      <swiper loop height="2.5rem" ref="swiper">
-       <swiper-item v-for="image of headerImages" :key="image.id">
+       <swiper-item v-for="(image, index) in headerImages" :key="index">
          <div class="swiper-height">
              <img class="swiper-image" :src="`${image.pic_url.split('?')[0]}?x-oss-process=image/resize,w_${imgWidth}/format,jpg`"/>
          </div>
@@ -23,7 +23,7 @@
      <flexbox class="marqueediv">
         <span class="focus">热点关注</span>
         <marquee>
-            <marquee-item v-for="(item,index) in focus.list" :key="index" class="marquee-height text">{{item.title}}</marquee-item>
+            <marquee-item v-for="(item, index) in focus.list" :key="index" class="marquee-height text">{{item.title}}</marquee-item>
         </marquee>
      </flexbox>
   </div>

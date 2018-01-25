@@ -18,17 +18,17 @@
       <div class="block">
         <p class="recommend-title">{{mainRecommend.title}}</p>
         <flexbox wrap="wrap" :gutter="0">
-            <flexbox-item style="display:flex" :key="item.id" :span="item.show_type===1?0.5:1/1.0001" v-for="item of mainRecommend.list" >
+            <flexbox-item style="display:flex" :key="index" :span="item.show_type===1?0.5:1/1.0001" v-for="(item, index) in mainRecommend.list" >
                 <x-img v-if="item.show_type===1" :src="`${item.pic_url.split('?')[0]}?x-oss-process=image/resize,w_${parseInt(imgWidth/2)}/format,jpg`" :webp-src="`${item.pic_url.split('?')[0]}?x-oss-process=image/resize,w_${parseInt(imgWidth/2)}/format,webp`" container="#vux_view_box_body"></x-img>
                 <x-img v-else-if="item.show_type===2" :src="`${item.pic_url.split('?')[0]}?x-oss-process=image/resize,w_${imgWidth}/format,jpg`" :webp-src="`${item.pic_url.split('?')[0]}?x-oss-process=image/resize,w_${imgWidth}/format,webp`" container="#vux_view_box_body"></x-img>
             </flexbox-item>
         </flexbox>
       </div>
-      <l-scroller v-for="scroller of scrollers" :key="scroller.id" color="blue" :title="scroller.title" :list="scroller.card_list"></l-scroller>
+      <l-scroller v-for="(scroller, index) in scrollers" :key="index" color="blue" :title="scroller.title" :list="scroller.card_list"></l-scroller>
       <div class="block">
         <p class="recommend-title">{{recommend.title}}</p>
         <grid :cols="2">
-          <grid-item v-for="item of recommend.list" :key="item.id">
+          <grid-item v-for="(item, index) in recommend.list" :key="index">
             <card :item="item"></card>
           </grid-item>
         </grid>

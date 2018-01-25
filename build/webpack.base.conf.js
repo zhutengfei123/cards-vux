@@ -4,11 +4,9 @@ const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 const vuxLoader = require('vux-loader')
-
-function resolve (dir) {
+function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
-
 const createLintingRule = () => ({
   test: /\.(js|vue)$/,
   loader: 'eslint-loader',
@@ -17,12 +15,11 @@ const createLintingRule = () => ({
   options: {
     formatter: require('eslint-friendly-formatter'),
     emitWarning: !config.dev.showEslintErrorsInOverlay,
-    fix:true
+    fix: true
   }
 })
-
 const webpackConfig = {
-  cache:true,
+  cache: true,
   context: path.resolve(__dirname, '../'),
   entry: {
     app: './src/main.js'
@@ -82,11 +79,7 @@ const webpackConfig = {
     ]
   },
   node: {
-    // prevent webpack from injecting useless setImmediate polyfill because Vue
-    // source contains it (although only uses it if it's native).
     setImmediate: false,
-    // prevent webpack from injecting mocks to Node native modules
-    // that does not make sense for the client
     dgram: 'empty',
     fs: 'empty',
     net: 'empty',
@@ -94,11 +87,9 @@ const webpackConfig = {
     child_process: 'empty'
   }
 }
-
-
 module.exports = vuxLoader.merge(webpackConfig, {
   plugins: [
-    'vux-ui','inline-manifest',
+    'vux-ui', 'inline-manifest',
     {
       name: 'less-theme',
       path: 'src/css/theme.less'
