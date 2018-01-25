@@ -10,9 +10,9 @@
             </flexbox-item>
         </flexbox>
         <group class="list">
-            <cell is-link v-once>
+            <cell link="/rechargeDetailed" is-link v-once>
                 <span slot="title" class="text lg">交易记录</span>
-                <span class="text" @click="$router.push('/rechargeDetailed')">更多</span>
+                <span class="text">更多</span>
             </cell>
             <cell v-for="(item, index) in recordList" :key="index" class="card">
                 <flexbox slot="title" justify="space-between">
@@ -82,6 +82,7 @@ export default class Money extends Vue {
     width: unset;
     height: 100%;
     background: url("../../assets/bg.png") center center no-repeat;
+    background-size: 100% 100%;
     .title {
       font-size: 0.18rem;
       color: #ffffff;

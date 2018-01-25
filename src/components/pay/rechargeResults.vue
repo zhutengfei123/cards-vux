@@ -18,7 +18,7 @@ import { Component, Vue } from 'vue-property-decorator';
     }
   })
   export default class OrderPayFail extends Vue {
-    status = true // true 充值成功；false 充值失败
+    status = true
   }
 </script>
 <style lang="less">

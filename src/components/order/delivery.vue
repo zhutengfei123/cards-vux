@@ -8,7 +8,7 @@
         <flexbox-item :span="0.3">快递单号</flexbox-item>
         <flexbox-item>{{expressNo}}&nbsp;&nbsp;&nbsp;({{expressName}})</flexbox-item>
     </flexbox>
-    <flexbox orient="vertical" v-for="(item,index) of list" :key="index" :class="`text ${index>0&&'gray'}`">
+    <flexbox orient="vertical" v-for="(item, index) in list" :key="index" :class="`text ${index>0&&'gray'}`">
         <flexbox-item>{{item.context}}</flexbox-item>
         <flexbox-item>{{item.time}}</flexbox-item>
     </flexbox>
@@ -19,7 +19,6 @@ import { Component, Vue } from 'vue-property-decorator';
 import { Flexbox, FlexboxItem } from 'vux';
 import { axios } from '../../js';
 import qs from 'qs';
-
 @Component({
   components: { Flexbox, FlexboxItem }
 })
@@ -28,7 +27,6 @@ export default class Delivery extends Vue {
   expressNo = '';
   expressName = '';
   list = [];
-
   get status () {
     switch (this.state) {
       case 0:
@@ -47,7 +45,6 @@ export default class Delivery extends Vue {
         return '退回';
     }
   }
-
   async getInfo () {
     const { result, status: { code, msg } } = await axios.post(
       '/order/get-express',
@@ -62,7 +59,6 @@ export default class Delivery extends Vue {
       this.$vux.toast.text(msg);
     }
   }
-
   created () {
     this.getInfo();
   }

@@ -43,9 +43,6 @@ const GlobalState = namespace('global', State);
   components: {
     CheckIcon,
     Toast
-  },
-  watch: {
-    '$route': 'initial'
   }
 })
 export default class Cart extends Vue {
@@ -200,9 +197,6 @@ export default class Cart extends Vue {
     }
   }
   created () {
-    this.initial();
-  }
-  initial () {
     const params = {
       store_id: this.storeId,
       shop_ids: JSON.stringify(this.tempData)

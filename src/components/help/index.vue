@@ -1,7 +1,7 @@
 <template>
     <div class="help">
         <group>
-            <cell is-link :link="help.url" v-for="help of list" :key="help.id">
+            <cell is-link :link="help.url" v-for="(help, index) in list" :key="index">
                 <span class="text" slot="title">{{help.title}}</span>
                 <span class="text gray" slot="inline-desc">{{help.content}}</span>
             </cell>
