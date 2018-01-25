@@ -1,5 +1,5 @@
 <template>
-    <flexbox class="item" align="center">
+    <flexbox class="my-item" align="center">
         <flexbox-item :span="0.25" class="image-container">
             <x-img class="image" :src="`${item.goods_pic.split('?')[0]}?x-oss-process=image/resize,w_${imgWidth}/format,jpg`" :webp-src="`${item.goods_pic.split('?')[0]}?x-oss-process=image/resize,w_${imgWidth}/format,webp`" container="#vux_view_box_body"/></flexbox-item>
         <flexbox-item :span="0.5" class="text">{{item.goods_name}}</flexbox-item>
@@ -24,13 +24,14 @@ export default class Item extends Vue {
 }
 </script>
 <style lang="less">
-.item {
+.my-item {
   .text {
     display: -webkit-box !important;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
     overflow: hidden;
     margin-left: 0 !important;
+    height: 100%;
   }
   .vux-flexbox .vux-flexbox-item {
     display: flex;

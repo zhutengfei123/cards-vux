@@ -53,8 +53,14 @@ export default class Money extends Vue {
 </script>
 <style lang="less" scoped>
 .money {
+  .title {
+    height: 0.95rem;
+  }
+  .vux-flexbox-item {
+    margin-top: 0 !important;
+  }
   .price-mark {
-    font-size: 0.18rem;
+    font-size: 0.24rem;
     color: #ffffff;
   }
   .vux-flexbox {
@@ -72,9 +78,9 @@ export default class Money extends Vue {
     line-height: initial !important;
   }
   .top {
-    padding: 0 0.16rem;
+    padding: 0 0.15rem;
     width: unset;
-    height: 2rem;
+    height: 100%;
     background: url("../../assets/bg.png") center center no-repeat;
     .title {
       font-size: 0.18rem;

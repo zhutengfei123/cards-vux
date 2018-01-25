@@ -1,5 +1,5 @@
 <template>
-    <div class="order">
+    <div class="order-index">
         <tab class="tab" ref="topBar" bar-active-color="#B79E74">
             <tab-item :selected="true" @on-item-click="orderStatus=0">全部</tab-item>
             <tab-item @on-item-click="orderStatus=1">待发货</tab-item>
@@ -71,8 +71,23 @@ export default class Order extends Vue {
   }
 }
 </script>
-<style lang="less" scoped>
-.order {
+<style lang="less">
+.order-index {
+  .weui-cell {
+    padding: 0 0.15rem !important;
+  }
+  .vux-flexbox-item {
+    margin: 0 !important;
+  }
+  .text {
+    height: 0.44rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .vux-flexbox {
+    border-top: 1px solid #D9D9D9;
+  }
   .weui-cell:before {
     left: 0 !important;
   }
@@ -83,9 +98,7 @@ export default class Order extends Vue {
     z-index: 99;
   }
   .center {
-    text-align: center;
-    line-height: 0.44rem;
-    height: 0.44rem;
+    justify-content: center !important;
   }
 }
 </style>

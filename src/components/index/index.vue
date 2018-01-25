@@ -140,6 +140,9 @@ export default class Index extends Vue {
 .index {
   font-size: 0.14rem;
   padding-bottom: 0.44rem;
+  .weui-btn {
+    width: 1rem;
+  }
   .app-icon {
     margin: 0 0.15rem;
   }
