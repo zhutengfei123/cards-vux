@@ -111,7 +111,7 @@ export default class OrderDetail extends Vue {
       this.$vux.toast.text(msg);
     }
   }
-  activated () {
+  created () {
     this.getInfo();
   }
 }

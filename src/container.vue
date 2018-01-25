@@ -1,9 +1,7 @@
 <template>
     <div class="container">
        <transition name="vux-header-fade-in-right">
-          <keep-alive>
-            <router-view></router-view>
-          </keep-alive>
+          <router-view></router-view>
        </transition> 
     </div>     
 </template>

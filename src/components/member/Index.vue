@@ -55,7 +55,7 @@ export default class Member extends Vue {
     this.$store.commit('global/isShowEdit', true);
     this.$router.push('/mine');
   }
-  activated () {
+  created () {
     this.initial();
   }
   initial () {
