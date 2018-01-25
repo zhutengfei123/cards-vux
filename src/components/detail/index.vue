@@ -1,149 +1,210 @@
 <template>
-  <div class="detail">
-      <flexbox orient="vertical">
-         <flexbox-item class="image">
-            <span class="app-icon left" @click="$router.go(-1)"></span>
-            <span class="app-icon right" @click="$router.push('/main/cart')"></span>
-            <x-img :src="`${picUrl.split('?')[0]}?x-oss-process=image/resize,w_${imgWidth}/format,jpg`" :webp-src="`${picUrl.split('?')[0]}?x-oss-process=image/resize,w_${imgWidth}/format,webp`" container="#vux_view_box_body"/>
-         </flexbox-item>
-         <flexbox-item>
-             <p class="text lg padding">{{name}}</p>
-             <p class="text lg red padding">￥{{price}}</p>
-             <group>
-                 <cell-box :border-intent="false"><flexbox justify="space-between"><p class="text gray">库存</p><p class="text gray">{{stock}}</p></flexbox></cell-box>
-                 <cell-box is-link :border-intent="false"><flexbox justify="space-between"><p class="text gray">查看可兑换商品</p></flexbox></cell-box>
-             </group>
-         </flexbox-item>
-      </flexbox>
-      <div class="card">
-        <p class="text" style="text-align: center">使用规则</p>
-        <p class="text" style="font-size: 0.12rem">{{useService}}</p>
+  <div class="detail-index">
+    <div class="image">
+      <span class="left" @click="$router.go(-1)"><img src="../../assets/back.png" alt=""></span>
+      <span class="right" @click="$router.push('/main/cart')"><img src="../../assets/cart.png" alt=""></span>
+      <img class="my-img" :src="shopDetails.pic_url" alt="">
+    </div>
+    <div class="shop-title">{{shopDetails.name}}</div>
+    <div class="shop-price"><span class="market-price">￥{{shopDetails.price}}</span><span><del class="original-price"> ￥{{'1000'}}</del></span></div>
+    <group>
+      <cell><span>库存</span><span>{{shopDetails.stock}}</span></cell>
+      <cell is-link><span>查看可兑换商品</span></cell>
+    </group>
+    <div class="card">
+      <div class="card-title">购卡须知</div>
+      <div class="card-con">{{shopDetails.use_service}}</div>
+    </div>
+    <div class="card">
+      <div class="card-title">使用规则</div>
+      <div class="card-con">{{shopDetails.use_service}}</div>
+    </div>
+    <div class="detail-foot">
+      <div class="detail-foot-left">
+        <span class="cart-num">数量</span>
+        <inline-x-number class="add-reduce-num" width="0.4rem" :min="1" :max="Number(shopDetails.stock)" v-model="count" :fillable="true"></inline-x-number>
       </div>
-      <flexbox align="center" class="bottom-bar">
-        <flexbox-item :span="0.6">
-            <flexbox>
-                <label class="text gray">数量</label>
-                <inline-x-number class="price" width="0.4rem" :min="0" :max="Number(stock)" v-model="count" :fillable="true"></inline-x-number>
-            </flexbox>
-        </flexbox-item>
-        <flexbox-item>
-            <x-button class="btn" @click.native="addCart">加入购物车</x-button>
-        </flexbox-item>
-     </flexbox>
+      <x-button class="add-cart" @click.native="addCart">加入购物车</x-button>
+    </div>
   </div>
 </template>
 <script>
-import {
-  Flexbox,
-  FlexboxItem,
-  CellBox,
-  Group,
-  InlineXNumber,
-  XButton,
-  XImg
-} from 'vux';
-import { axios } from '../../js';
-import {State, Action, namespace} from 'vuex-class';
+import { Group, InlineXNumber, XButton, Cell } from 'vux';
+import { State, Action, namespace } from 'vuex-class';
 import { Component, Vue } from 'vue-property-decorator';
-const GlobalState = namespace('global', State);
+const ProductsState = namespace('products', State);
+const ProductsAction = namespace('products', Action);
 const CartAction = namespace('cart', Action);
+const GlobalState = namespace('global', State);
 @Component({
-  components: {
-    Flexbox,
-    FlexboxItem,
-    CellBox,
-    Group,
-    InlineXNumber,
-    XButton,
-    XImg
-  }
+  components: { Group, InlineXNumber, XButton, Cell }
 })
 export default class Detail extends Vue {
-  count=0
-  stock=0
-  price=0
-  picUrl=''
-  name=''
-  shopId=''
-  useService=''
-  imgWidth= parseInt(screen.width)
-
-  @GlobalState storeId
-
   @CartAction addReduce
-
-  getInfo () {
-    axios
-      .get('/card-shop/info', {
-        params: { store_id: this.storeId, id: this.$route.params.id }
-      })
-      .then(({ result, status: { code, msg } }) => {
-        this.stock = result.stock;
-        this.picUrl = result.pic_url;
-        this.name = result.name;
-        this.price = result.price;
-        this.shopId = result.id;
-        this.useService = result.use_service;
-      });
-  }
-
-  addCart () {
-    this.addReduce({num: this.count, shopId: this.shopId}).then(msg => msg && this.$vux.toast.text(msg));
-  }
-
+  @ProductsState shopDetails
+  @ProductsAction initGetShopDetails
+  @GlobalState storeId
+  imgWidth = parseInt(screen.width)
+  count = 1
   created () {
-    this.getInfo();
+    const params = {
+      'store_id': this.storeId,
+      'id': this.$route.params.id
+    };
+    this.initGetShopDetails(params).then(msg => {
+      if (msg) {
+        this.$vux.toast.text(msg, 'middle');
+      }
+    });
+  }
+  addCart () {
+    const params = {
+      'num': this.count,
+      'shopId': this.shopDetails.id
+    };
+    this.addReduce(params).then(msg => {
+      if (msg) {
+        this.$vux.toast.text(msg, 'middle');
+      }
+    });
   }
 }
 </script>
-<style lang="less" scoped>
-.detail {
-  padding: 0.16rem 0;
+<style lang="less">
+.detail-index {
+  overflow: hidden;
+  padding-top: 0.15rem;
+  padding-bottom: 0.44rem;
+  .cart-num {
+    font-size: 0.14rem;
+    color: #A6A6A6;
+    padding: 0 0.15rem;
+  }
+  .detail-foot-left {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .weui-btn {
+    margin: 0 !important;
+  }
+  .add-cart {
+    width: 1.5rem;
+    height: 100%;
+  }
+  .detail-foot {
+    background: #ffffff;
+    width: 100%;
+    height: 0.5rem;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .card-title {
+    height: 0.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.14rem;
+    color: #3C3C3C;
+  }
+  .card-con {
+    min-height: 0.6rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 0 0.15rem 0.15rem 0.15rem;
+    font-size: 0.12rem;
+    color: #3C3C3C;
+    line-height: 0.16rem;
+  }
+  .card {
+    margin: 0.15rem auto;
+    width: 90%;
+    background: #F0F0F0;
+  }
+  .weui-cell:before {
+    left: 0 !important;
+  }
+  .weui-cell__ft {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .market-price {
+    font-size: 0.2rem;
+    color: #C61A2A;
+    padding-right: 0.05rem;
+  }
+  .original-price {
+    font-size: 0.14rem;
+    color: #A6A6A6;
+  }
+  .shop-price {
+    height: 0.44rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 0.15rem;
+  }
+  .shop-title {
+    margin-top: 0.1rem;
+    height: 0.44rem;
+    font-size: 0.16rem;
+    color: #3C3C3C;
+    padding: 0 0.15rem;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    line-height: 0.22rem;
+    font-weight: bold;
+  }
+  .my-img {
+    border: none;
+    width: 73%;
+  }
   .image {
     position: relative;
-    width: 3.45rem;
+    margin: 0 auto;
+    width: 90%;
     height: 3.45rem;
     background: #ffffff;
     display: flex;
     align-items: center;
-    .left {
-      position: absolute;
-      left: 0;
-      top: 0;
-      border-radius: 50%;
-      width: 0.35rem;
-      height: 0.35rem;
-    }
-    .right {
-      position: absolute;
-      right: 0;
-      top: 0;
-      border-radius: 50%;
-      width: 0.35rem;
-      height: 0.35rem;
-    }
+    justify-content: center;
   }
-  .padding{
-    padding: 0 0.16rem;
+  .left img {
+    width: 100%;
+    height: 100%;
+    border: none;
   }
-  .bottom-bar {
-    position: fixed;
-    bottom: 0;
-    background: #ffffff;
-    label {
-      padding-left: 0.16rem;
-    }
-    .btn {
-      border-radius: unset;
-    }
+  .right img {
+    width: 100%;
+    height: 100%;
+    border: none;
   }
-  .card{
-    margin:0.16rem;
-    padding:0.08rem 0;
-    background: #F0F0F0;
-    .text{
-      padding:0 0.08rem;
-    }
+  .left {
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-radius: 50%;
+    width: 0.35rem;
+    height: 0.35rem;
+    overflow: hidden;
+  }
+  .right {
+    position: absolute;
+    right: 0;
+    top: 0;
+    border-radius: 50%;
+    width: 0.35rem;
+    height: 0.35rem;
+    overflow: hidden;
   }
 }
 </style>

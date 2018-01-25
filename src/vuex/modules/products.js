@@ -7,7 +7,8 @@ const state = {
   ],
   tempData: [],
   intentionList: {},
-  intentionDetail: {}
+  intentionDetail: {},
+  shopDetails: {}
 };
 const actions = {
   async init ({commit, rootState}, params) {
@@ -55,6 +56,14 @@ const actions = {
     } else {
       return msg;
     }
+  },
+  async initGetShopDetails ({commit, rootState}, params) {
+    const { result, status: {code, msg} } = await axios.get('/card-shop/info', {'params': params});
+    if (code === '00000') {
+      commit('getShopDetails', result);
+    } else {
+      return msg;
+    }
   }
 };
 const mutations = {
@@ -72,6 +81,9 @@ const mutations = {
   },
   getIntentionDetail (state, data) {
     state.intentionDetail = data;
+  },
+  getShopDetails (state, data) {
+    state.shopDetails = data;
   }
 };
 export default {
