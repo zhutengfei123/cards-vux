@@ -73,7 +73,7 @@ const router = new Router({
     {path: '/intention/submit', name: '提交意向单', component: IntentionSubmit},
     {path: '/address', name: '地址管理', component: Address},
     {path: '/address/add', name: '添加新地址', component: AddAddress},
-    {path: '/address/edit/:id', name: '编辑地址', component: AddAddress},
+    {path: '/address/edit', name: '编辑地址', component: AddAddress},
     {path: '/login', name: '登录', component: Login},
     {path: '/register', name: '注册', component: Register},
     {path: '/editInfo', name: '信息修改', component: EditInfo}

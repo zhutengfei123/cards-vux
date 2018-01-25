@@ -17,7 +17,7 @@
     </tab>
     <scroller lock-x @on-scroll-bottom="onScrollBottom" ref="scrollerBottom" :scroll-bottom-offst="200" style="overflow:initial">
     <div class="card-list-wrap">
-      <div @click="handleClickToDetail(item.id)" class="card-list" v-for="(item, index) in dataList" :key="index">
+      <div @click="$router.push(`/detail/${item.id}`)" class="card-list" v-for="(item, index) in dataList" :key="index">
         <div class="card-list-img"><img :src="item.pic_url" alt=""></div>
         <div class="card-list-title">{{item.name}}</div>
         <div class="card-list-price">尊享价:￥ {{item.price}}</div>
@@ -30,12 +30,11 @@
   </div>
 </template>
 <script>
-import {State, Action, Mutation, namespace} from 'vuex-class';
+import {State, Action, namespace} from 'vuex-class';
 import {Tab, TabItem, XButton, Toast, Scroller, LoadMore} from 'vux';
 import {Component, Vue} from 'vue-property-decorator';
 const ProductsState = namespace('products', State);
 const ProductsAction = namespace('products', Action);
-const ProductsMutation = namespace('products', Mutation);
 const GlobalState = namespace('global', State);
 const CartAction = namespace('cart', Action);
 @Component({
@@ -54,7 +53,6 @@ export default class Classification extends Vue {
   @ProductsState categoryData
   @ProductsAction init
   @ProductsAction initCategoryData
-  @ProductsMutation getInitData
   @GlobalState storeId
   @CartAction addReduce
   itemList = []
@@ -81,9 +79,6 @@ export default class Classification extends Vue {
     {title: '场合'},
     {title: '排序'}
   ]
-  handleClickToDetail (id) {
-    this.$router.push(`/detail/${id}`);
-  }
   onScrollBottom () {
     if (!this.onFetching && this.isLoading) {
       this.onFetching = true;

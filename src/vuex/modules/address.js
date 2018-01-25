@@ -1,66 +1,54 @@
 import { axios } from '../../js';
+import qs from 'qs';
 const state = {
-  list: []
+  addressList: []
 };
-
 const actions = {
-  async getData ({commit, state}) {
-    const list = [...state.list];
-    const {result, status: {code, msg}} = await axios.get('/address/index');
+  async getData ({commit, rootState}, params) {
+    const {result, status: {code, msg}} = await axios.get('/address/index', {'params': params});
     if (code === '00000') {
-      list.push(...result);
-      commit('setList', list);
+      commit('setList', result);
     } else {
       return msg;
     }
   },
-  async remove ({commit, state}, id) {
-    const list = [...state.list];
-    const {status: {code, msg}} = await axios.delete('/address/delete', {data: {id}});
-    const index = list.findIndex(item => item.id === id);
+  async remove ({commit, rootState}, params) {
+    const {status: {code, msg}} = await axios.post('/address/delete', qs.stringify(params));
     if (code === '00000') {
-      commit('setList', list.splice(index, 1));
     } else {
       return msg;
     }
   },
-  async add ({commit, state}, {name, phone, province, city, district, town, address}) {
-    const list = [...state.list];
-    const {result, status: {code, msg}} = await axios.post('/address/add', {name, phone, province, city, district, town, address});
+  async setDefaultAdress ({commit, rootState}, params) {
+    const {status: {code, msg}} = await axios.post('/address/set-default', qs.stringify(params));
     if (code === '00000') {
-      commit('setList', list.unshift(result));
     } else {
       return msg;
     }
   },
-  async update ({commit, state}, {name, phone, province, city, district, town, address, id}) {
-    const list = [...state.list];
-    const {result, status: {code, msg}} = await axios.post('/address/update', {name, phone, province, city, district, town, address, id});
-    const index = list.findIndex(item => item.id === id);
+  async editAddress ({commit, rootState}, params) {
+    const {status: {code, msg}} = await axios.post('/address/update', qs.stringify(params));
     if (code === '00000') {
-      commit('setList', list.splice(index, 1, result));
+    } else {
+      return msg;
+    }
+  },
+  async addAddress ({commit, rootState}, params) {
+    const {status: {code, msg}} = await axios.post('/address/add', qs.stringify(params));
+    if (code === '00000') {
     } else {
       return msg;
     }
   }
 };
-
 const mutations = {
-  setList (state, list) {
-    state.list = list;
+  setList (state, data) {
+    state.addressList = data;
   }
 };
-
-const getters = {
-  findById (state) {
-    return id => state.list.filter(item => item.id === id)[0] || {};
-  }
-};
-
 export default {
   namespaced: true,
   state,
   actions,
-  getters,
   mutations
 };

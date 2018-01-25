@@ -1,75 +1,99 @@
 <template>
-    <div class="add-address">        
+    <div class="add-address">
         <group gutter="0">
-            <x-input title="收货人" v-model="name" placeholder="请填写收货人姓名"></x-input>
-            <x-input title="联系电话" v-model="phone" placeholder="请填写联系电话"></x-input>
-            <x-address class="address-input-border" title="所在地区" v-model="address" :list="addressData" placeholder="请选择"></x-address>
-            <x-textarea title="详细地址" v-model="addressDetail" placeholder="请填写详细地址"></x-textarea>
+            <x-input title="收货人" v-model="addressForm.name" placeholder="请填写收货人姓名"></x-input>
+            <x-input title="联系电话" v-model="addressForm.phone" placeholder="请填写联系电话"></x-input>
+            <x-address class="address-input-border" title="所在地区" v-model="addressForm.addressArr" :list="addressDataList" placeholder="请选择"></x-address>
+            <x-textarea title="详细地址" v-model="addressForm.addressDetail" placeholder="请填写详细地址"></x-textarea>
         </group>
-        <x-button class="bottom-button" @click="save">保存</x-button>
+        <x-button class="bottom-button" @click.native="saveAddress">保存</x-button>
     </div>
 </template>
 <script>
-import { Component, Vue } from 'vue-property-decorator';
-import {
-  Group,
-  XInput,
-  Cell,
-  XTextarea,
-  XAddress,
-  XButton
-} from 'vux';
 import addressData from '../../js/addressData.json';
-import { Getter, Action, namespace } from 'vuex-class';
-const AddressGetter = namespace('address', Getter);
+import { Component, Vue } from 'vue-property-decorator';
+import { Group, XInput, Cell, XTextarea, XAddress, XButton, Toast } from 'vux';
+import { Action, namespace } from 'vuex-class';
 const AddressAction = namespace('address', Action);
 @Component({
-  components: {
-    Group,
-    XInput,
-    Cell,
-    XTextarea,
-    XAddress,
-    XButton
-  }
+  components: { Group, XInput, Cell, XTextarea, XAddress, XButton, Toast }
 })
 export default class AddAddress extends Vue {
-  name = '';
-  phone = '';
-  address = [];
-  addressDetail = '';
-  addressData = addressData;
-  @AddressGetter findById;
-  @AddressAction add;
-  @AddressAction update;
-  get isAdd () {
-    return this.$route.path === '/address/add';
-  }
-  get id () {
-    return this.$route.params.id;
+  @AddressAction editAddress
+  @AddressAction addAddress
+  addressDataList = addressData
+  addressInfo = {}
+  flag = true
+  isEditAddress = true
+  addressForm = {
+    'name': '',
+    'phone': '',
+    'addressArr': [],
+    'addressDetail': ''
   }
   created () {
-    if (!this.isAdd) {
-      const { name, phone, province_id: provinceId, city_id: cityId, district_id: districtId, address } = this.findById(
-        this.id
-      );
-      this.name = name;
-      this.phone = phone;
-      this.address = [provinceId, cityId, districtId];
-      this.addressDetail = address;
+    this.isEditAddress = /address\/edit/.test(this.$route.path);
+    if (this.isEditAddress) {
+      this.addressInfo = JSON.parse(localStorage.getItem('addressInfo'));
+      if (this.addressInfo !== '') {
+        const {name, phone, address} = this.addressInfo;
+        this.addressForm = {
+          'name': name,
+          'phone': phone,
+          'addressArr': [this.addressInfo.province_id, this.addressInfo.city_id, this.addressInfo.district_id],
+          'addressDetail': address
+        };
+      }
     }
   }
-  save () {
-    const func = this.isAdd ? this.add : this.update;
-    func({
-      name: this.name,
-      phone: this.phone,
-      province: this.address[0],
-      city: this.address[1],
-      district: this.address[2],
-      address: this.addressDetail,
-      id: this.id
-    }).then(msg => msg && this.$vux.toast.text(msg));
+  saveAddress () {
+    if (this.addressForm.addressDetail === '') {
+      this.$vux.toast.text('请填写详细地址', 'middle');
+      this.flag = false;
+    }
+    if (this.addressForm.addressArr.length === 0) {
+      this.$vux.toast.text('请填写所在地区', 'middle');
+      this.flag = false;
+    }
+    if (this.addressForm.phone === '') {
+      this.$vux.toast.text('请填写手机号码', 'middle');
+      this.flag = false;
+    }
+    if (this.addressForm.name === '') {
+      this.$vux.toast.text('请填写收货人', 'middle');
+      this.flag = false;
+    }
+    if (this.flag) {
+      let params = {
+        'name': this.addressForm.name,
+        'phone': this.addressForm.phone,
+        'province': this.addressForm.addressArr[0],
+        'city': this.addressForm.addressArr[1],
+        'district': this.addressForm.addressArr[2],
+        'town': this.addressInfo.town,
+        'address': this.addressForm.addressDetail,
+        'id': this.isEditAddress ? this.addressInfo.id : ''
+      };
+      if (this.isEditAddress) {
+        this.editAddress(params).then(msg => {
+          if (msg) {
+            this.$vux.toast.text(msg, 'middle');
+          } else {
+            this.$vux.toast.text('地址修改成功', 'middle');
+            this.$router.push('/address');
+          }
+        });
+      } else {
+        this.addAddress(params).then(msg => {
+          if (msg) {
+            this.$vux.toast.text(msg, 'middle');
+          } else {
+            this.$vux.toast.text('地址添加成功', 'middle');
+            this.$router.push('/address');
+          }
+        });
+      }
+    }
   }
 }
 </script>
