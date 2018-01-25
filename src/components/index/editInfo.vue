@@ -3,7 +3,7 @@
     <group>
       <cell title="商城头像" is-link>
         <span class="img-box">
-          <avatar backgroundColor="#B79E74" color="#ffffff" :size="40" :src="uploadRes.file_url" username="Avatar"></avatar>
+          <avatar backgroundColor="#B79E74" color="#ffffff" :size="40" :src="imagesVal" username="Avatar"></avatar>
           <input type="file" ref="uploadImg" @change="handleUpload($event)" class="upload" accept="image/gif,image/jpeg,image/png,image/jpg">
         </span>
       </cell>
@@ -17,6 +17,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import { Toast, Group, Cell, XInput, XButton } from 'vux';
 import { Action, namespace, State } from 'vuex-class';
 import Avatar from 'vue-avatar';
+import { setTimeout, clearTimeout } from 'timers';
 const IndexAction = namespace('index', Action);
 const IndexState = namespace('index', State);
 @Component({
@@ -26,8 +27,13 @@ export default class EditInfo extends Vue {
   @IndexAction saveEditInfo
   @IndexAction initUploadImg
   @IndexState uploadRes
+  @IndexState shareInfo
   shopName = ''
   imagesVal = ''
+  created () {
+    this.imagesVal = this.shareInfo.head_pic;
+    this.shopName = this.shareInfo.realname;
+  }
   handleUpload (e) {
     let file = e.target.files[0];
     let imgSize = file.size / 1024;
@@ -39,6 +45,8 @@ export default class EditInfo extends Vue {
       this.initUploadImg(formData).then(msg => {
         if (msg) {
           this.$vux.toast.text(msg, 'middle');
+        } else {
+          this.imagesVal = this.uploadRes.file_url;
         }
       });
     }
@@ -47,7 +55,7 @@ export default class EditInfo extends Vue {
     if (this.shopName === '') {
       this.$vux.toast.text('请填写商城名称', 'middle');
     } else {
-      const params = {
+      let params = {
         'realname': this.shopName,
         'head_pic': this.uploadRes.file_hash
       };
@@ -56,7 +64,11 @@ export default class EditInfo extends Vue {
           this.$vux.toast.text(msg, 'middle');
         } else {
           this.$vux.toast.text('修改信息成功', 'middle');
-          this.$router.push('/mine');
+          let timer = null;
+          timer = setTimeout(() => {
+            clearTimeout(timer);
+            this.$router.push('/mine');
+          }, 1000);
         }
       });
     }

@@ -53,6 +53,7 @@ import {isBottom} from '../../js';
 const IndexState = namespace('index', State);
 const IndexAction = namespace('index', Action);
 const IndexMutation = namespace('index', Mutation);
+const UserState = namespace('user', State);
 const GlobalState = namespace('global', State);
 @Component({
   directives: {
@@ -80,6 +81,7 @@ export default class Index extends Vue {
   loading=false
   @IndexState recommend
   @IndexState shareInfo
+  @UserState userInfo
   @IndexState mainRecommend
   @IndexState scrollers
   @IndexState page
@@ -99,14 +101,14 @@ export default class Index extends Vue {
   handleClickIsShow () {
     this.showTip ? this.showTip = false : this.showTip = true;
   }
-  created () {
+  activated () {
     this.init().then(msg => {
       msg && this.$vux.toast.text(msg);
       this.setPage(this.page + 1);
     }).catch(error => console.log(error));
     if (this.showEdit) {
       const params = {
-        'share_user_id': '62',
+        'share_user_id': this.userInfo.user_id,
         'store_id': this.storeId
       };
       this.initGetShareInfo(params).then(msg => {

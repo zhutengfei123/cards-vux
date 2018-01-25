@@ -56,7 +56,7 @@ export default class RechargeDetailed extends Vue {
       }, 2000);
     }
   }
-  created () {
+  activated () {
     this.getInitData();
   }
   getInitData () {

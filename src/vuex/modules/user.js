@@ -2,23 +2,13 @@ import { axios } from '../../js';
 import qs from 'qs';
 // 用户 Store
 const state = {
-  user: null,
   token: '',
-  account: '',
-  company: '',
-  realname: '',
-  avatar: '',
-  level: '',
-  balance: ''
+  isRead: {},
+  userInfo: {}
 };
 const actions = {
-  async login ({commit, rootState}, {mobile, password, type}) {
-    const {result, status: {code, msg}} = await axios.post('/site/login', qs.stringify({
-      store_id: rootState.global.storeId,
-      mobile,
-      type,
-      pwd: password
-    }));
+  async login ({commit, rootState}, params) {
+    const {result, status: {code, msg}} = await axios.post('/site/login', qs.stringify(params));
     if (code === '00000') {
       localStorage.setItem('token', result.token);
       commit('setToken', result.token);
@@ -26,52 +16,31 @@ const actions = {
       return msg;
     }
   },
-  async register ({commit, rootState}, {mobile, password, company, code}) {
-    const {status} = await axios.post('/site/register', qs.stringify({
-      store_id: rootState.global.storeId,
-      mobile,
-      password,
-      company,
-      code
-    }));
+  async register ({commit, rootState}, params) {
+    const {status} = await axios.post('/site/register', qs.stringify(params));
     if (status.code === '00000') {
     } else {
       return status.msg;
     }
   },
-  async sendCode ({commit, rootState}, {mobile, type}) {
-    const {status} = await axios.post('/site/send-code', qs.stringify({
-      store_id: rootState.global.storeId,
-      mobile,
-      type
-    }));
+  async sendCode ({commit, rootState}, params) {
+    const {status} = await axios.post('/site/send-code', qs.stringify(params));
     if (status.code !== '00000') {
       return status.msg;
     }
   },
-  async getInfo ({commit, state}) {
-    const {result, status: {code, msg}} = await axios.get('/site/user-info');
+  async getInfo ({commit, rootState}, params) {
+    const {result, status: {code, msg}} = await axios.get('/site/user-info', {'params': params});
     if (code === '00000') {
-      commit('setInfo', {
-        ...state,
-        company: result.company || '',
-        realname: result.realname || '',
-        avatar: result.head_pic || '',
-        level: result.level_name || '',
-        balance: result.balance
-      });
+      commit('setInfo', result);
     } else {
       return msg;
     }
   },
-  async updateInfo ({commit, state}, {realname, avatar}) {
-    const {status: {code, msg}} = await axios.post('/site/update-info', qs.stringify({realname, head_pic: avatar}));
+  async initGetIsRead ({commit, rootState}, params) {
+    const {result, status: {code, msg}} = await axios.get('/site/is-read-by-intention', {'params': params});
     if (code === '00000') {
-      commit('setInfo', {
-        ...state,
-        realname,
-        avatar
-      });
+      commit('getIsRead', result);
     } else {
       return msg;
     }
@@ -88,12 +57,13 @@ const actions = {
 };
 const mutations = {
   setInfo (state, data) {
-    for (const prop in data) {
-      state[prop] = data[prop];
-    }
+    state.userInfo = data;
   },
-  setToken (state, token) {
-    state.token = token;
+  setToken (state, data) {
+    state.token = data;
+  },
+  getIsRead (state, data) {
+    state.isRead = data;
   }
 };
 export default {
