@@ -42,8 +42,7 @@
   </div>
 </template>
 <script>
-import '../../js/weixin-1.2.0';
-let wx = {};
+import wx from '../../js/weixin-1.2.0';
 wx.config({
   debug: true,
   appId: this.WxShare.wechat.appId,
