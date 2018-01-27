@@ -23,7 +23,8 @@
     "vuex-class": "^0.3.0",
     "vuex-router-sync": "^5.0.0",
     "vux": "^2.7.7",
-    "vux-uploader": "^0.1.8"
+    "vux-uploader": "^0.1.8",
+    "weixin-js-sdk": "^1.2.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.2.4",

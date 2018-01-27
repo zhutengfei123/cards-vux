@@ -42,48 +42,6 @@
   </div>
 </template>
 <script>
-import wx from '../../js/weixin-1.2.0';
-wx.config({
-  debug: true,
-  appId: this.WxShare.wechat.appId,
-  timestamp: this.WxShare.wechat.timestamp,
-  nonceStr: this.WxShare.wechat.nonceStr,
-  signature: this.WxShare.wechat.signature,
-  jsApiList: this.WxShare.wechat.jsApiList
-});
-wx.checkJsApi({
-  jsApiList: this.WxShare.wechat.jsApiList,
-  success: function (res) {
-    console.log('res', res);
-  }
-});
-wx.onMenuShareTimeline({
-  title: this.WxShare.share.share_title,
-  link: this.WxShare.share.link,
-  imgUrl: this.WxShare.share.share_img,
-  success: function () {
-    console.log('分享成功');
-  },
-  cancel: function () {
-    console.log('取消分享');
-  }
-});
-wx.onMenuShareAppMessage({
-  title: this.WxShare.share.share_title,
-  desc: this.WxShare.share.share_describe,
-  link: this.WxShare.share.link,
-  imgUrl: this.WxShare.share.share_img,
-  type: 'link',
-  dataUrl: '',
-  success: function () {
-    console.log('分享成功');
-  },
-  cancel: function () {
-    console.log('取消分享');
-  }
-});
-</script>
-<script>
 import LHeader from './header';
 import LScroller from './scroller';
 import { Toast, XImg, Flexbox, FlexboxItem, Grid, GridItem, LoadMore, XButton, XDialog, TransferDomDirective as TransferDom } from 'vux';
@@ -97,6 +55,7 @@ const IndexAction = namespace('index', Action);
 const IndexMutation = namespace('index', Mutation);
 const UserState = namespace('user', State);
 const GlobalState = namespace('global', State);
+let wx = require('weixin-js-sdk');
 @Component({
   directives: {
     TransferDom
@@ -166,12 +125,6 @@ export default class Index extends Vue {
         }
       });
     }
-    const params = {};
-    this.initWxshare(params).then(msg => {
-      if (msg) {
-        this.$vux.toast.text(msg, 'middle');
-      }
-    });
   }
   mounted () {
     const element = document.querySelector('#vux_view_box_body');
@@ -187,6 +140,52 @@ export default class Index extends Vue {
         })();
       }
     );
+    const params = {};
+    this.initWxshare(params).then(msg => {
+      if (msg) {
+        this.$vux.toast.text(msg, 'middle');
+      } else {
+        wx.config({
+          debug: true,
+          appId: this.WxShare.wechat.appId,
+          timestamp: this.WxShare.wechat.timestamp,
+          nonceStr: this.WxShare.wechat.nonceStr,
+          signature: this.WxShare.wechat.signature,
+          jsApiList: this.WxShare.wechat.jsApiList
+        });
+        wx.checkJsApi({
+          jsApiList: this.WxShare.wechat.jsApiList,
+          success: function (res) {
+            console.log('res', res);
+          }
+        });
+        wx.onMenuShareTimeline({
+          title: this.WxShare.share.share_title,
+          link: this.WxShare.share.link,
+          imgUrl: this.WxShare.share.share_img,
+          success: function () {
+            console.log('分享成功');
+          },
+          cancel: function () {
+            console.log('取消分享');
+          }
+        });
+        wx.onMenuShareAppMessage({
+          title: this.WxShare.share.share_title,
+          desc: this.WxShare.share.share_describe,
+          link: this.WxShare.share.link,
+          imgUrl: this.WxShare.share.share_img,
+          type: 'link',
+          dataUrl: '',
+          success: function () {
+            console.log('分享成功');
+          },
+          cancel: function () {
+            console.log('取消分享');
+          }
+        });
+      }
+    });
   }
 }
 </script>
