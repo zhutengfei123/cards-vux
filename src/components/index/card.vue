@@ -26,9 +26,23 @@ export default class Card extends Vue {
 .card{
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     padding:0.08rem;
     text-decoration: none;
     background: #ffffff;
+    box-shadow: 0 0 0.1rem 0 rgba(0,0,0,0.05);
+    .weui-btn_mini {
+        font-size: 0.12rem !important;
+        width: 1.1rem !important;
+        line-height: initial;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 !important;
+        padding: 0 !important;
+        height: 0.24rem;
+    }
     img{
         width: 100%;
         vertical-align: middle;
