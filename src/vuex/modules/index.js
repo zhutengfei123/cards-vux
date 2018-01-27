@@ -21,7 +21,8 @@ const state = {
   isEnd: false,
   intentionList: {},
   uploadRes: {},
-  shareInfo: {}
+  shareInfo: {},
+  WxShare: {}
 };
 
 const actions = {
@@ -62,6 +63,14 @@ const actions = {
   async saveEditInfo ({commit, rootState, state}, params) {
     const {status: {code, msg}} = await axios.post('/site/update-info', qs.stringify(params));
     if (code === '00000') {
+    } else {
+      return msg;
+    }
+  },
+  async initWxshare ({commit, rootState, state}, params) {
+    const {result, status: {code, msg}} = await axios.post('/site/wx-jsconfig', qs.stringify(params));
+    if (code === '00000') {
+      commit('getWxShare', result);
     } else {
       return msg;
     }
@@ -111,6 +120,9 @@ const mutations = {
   },
   getShareInfo (state, data) {
     state.shareInfo = data;
+  },
+  getWxShare (state, data) {
+    state.WxShare = data;
   }
 };
 

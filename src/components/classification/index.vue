@@ -16,15 +16,17 @@
       </div>
     </tab>
     <scroller lock-x @on-scroll-bottom="onScrollBottom" ref="scrollerBottom" :scroll-bottom-offst="200" style="overflow:initial">
-    <div class="card-list-wrap">
-      <div @click="$router.push(`/detail/${item.id}`)" class="card-list" v-for="(item, index) in dataList" :key="index">
-        <div class="card-list-img"><img :src="item.pic_url" alt=""></div>
-        <div class="card-list-title">{{item.name}}</div>
-        <div class="card-list-price">尊享价:￥ {{item.price}}</div>
-        <div class="card-list-btn"><x-button mini @click.native.stop="handleAddCart(item)">加入购物车</x-button></div>
+      <div class="my-scorller">
+        <div class="card-list-wrap">
+          <div @click="$router.push(`/detail/${item.id}`)" class="card-list" v-for="(item, index) in dataList" :key="index">
+            <div class="card-list-img"><img :src="item.pic_url" alt=""></div>
+            <div class="card-list-title">{{item.name}}</div>
+            <div class="card-list-price">尊享价:￥ {{item.price}}</div>
+            <div class="card-list-btn"><x-button mini @click.native.stop="handleAddCart(item)">加入购物车</x-button></div>
+          </div>
+        </div>
+        <load-more v-show="onFetching" tip="正在加载中"></load-more>
       </div>
-    </div>
-    <load-more v-show="onFetching" tip="正在加载中"></load-more>
     </scroller>
     <div v-show="isShowBox" class="msk-box"></div>
   </div>
@@ -80,7 +82,8 @@ export default class Classification extends Vue {
     {title: '排序'}
   ]
   onScrollBottom () {
-    if (!this.onFetching && this.isLoading) {
+    if (this.onFetching) {
+    } else {
       this.onFetching = true;
       setTimeout(() => {
         this.currentPage++;
@@ -210,6 +213,9 @@ export default class Classification extends Vue {
 .classification{
   width: 100%;
   padding-bottom: 0.44rem;
+  .my-scorller, .xs-container {
+    float: left;
+  }
   .weui-loadmore {
     height: 0.44rem;
     width: 100%;
@@ -231,6 +237,7 @@ export default class Classification extends Vue {
   }
   .weui-btn_mini {
     padding: 0 !important;
+    font-size: 0.12rem !important;
   }
   .msk-box {
     position: fixed;
@@ -302,13 +309,18 @@ export default class Classification extends Vue {
   }
   .card-list-wrap {
     padding-top: 0.46rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding-left: 0.07rem;
+    padding-right: 0.07rem;
   }
   .card-list {
-    margin-left: 2px;
-    margin-top: 2px;
-    float: left;
+    margin-top: 0.07rem;
     width: 49%;
     background: #ffffff;
+    box-shadow: 0 0 0.1rem 0 rgba(0,0,0,0.05);
   }
   .card-list div {
     display: flex;
@@ -340,7 +352,7 @@ export default class Classification extends Vue {
     height: 0.5rem;
   }
   .card-list-img img {
-    width: 95%;
+    width: 94%;
     border: none;
   }
 }

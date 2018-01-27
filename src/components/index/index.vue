@@ -1,5 +1,5 @@
 <template>
-  <div class="index">
+  <div class="index-myIndex">
       <flexbox class="top" align="center" v-show="showEdit">
         <x-button mini link="/intention">意向单</x-button>
         <x-button mini @click.native="handleClickIsShow">立即推广</x-button>
@@ -35,12 +35,55 @@
       </div>
       <load-more tip="正在加载" v-show="loading" ref="loadMore"></load-more>
       <div v-transfer-dom>
-        <x-dialog :dialog-style="{background:'transparent'}" v-model="showTip" hide-on-blur>
-          <img src="../../assets/share.png" style="width:100%"/>
+        <x-dialog :dialog-style="{width:'2.56rem',height:'2.08rem',background:'transparent'}" v-model="showTip" hide-on-blur>
+          <img src="../../assets/share.png" style="width:100%;height:100%;"/>
         </x-dialog>
       </div>
   </div>
 </template>
+<script>
+import '../../js/weixin-1.2.0';
+let wx = {};
+wx.config({
+  debug: true,
+  appId: this.WxShare.wechat.appId,
+  timestamp: this.WxShare.wechat.timestamp,
+  nonceStr: this.WxShare.wechat.nonceStr,
+  signature: this.WxShare.wechat.signature,
+  jsApiList: this.WxShare.wechat.jsApiList
+});
+wx.checkJsApi({
+  jsApiList: this.WxShare.wechat.jsApiList,
+  success: function (res) {
+    console.log('res', res);
+  }
+});
+wx.onMenuShareTimeline({
+  title: this.WxShare.share.share_title,
+  link: this.WxShare.share.link,
+  imgUrl: this.WxShare.share.share_img,
+  success: function () {
+    console.log('分享成功');
+  },
+  cancel: function () {
+    console.log('取消分享');
+  }
+});
+wx.onMenuShareAppMessage({
+  title: this.WxShare.share.share_title,
+  desc: this.WxShare.share.share_describe,
+  link: this.WxShare.share.link,
+  imgUrl: this.WxShare.share.share_img,
+  type: 'link',
+  dataUrl: '',
+  success: function () {
+    console.log('分享成功');
+  },
+  cancel: function () {
+    console.log('取消分享');
+  }
+});
+</script>
 <script>
 import LHeader from './header';
 import LScroller from './scroller';
@@ -78,6 +121,7 @@ const GlobalState = namespace('global', State);
 export default class Index extends Vue {
   @IndexState recommend
   @IndexState shareInfo
+  @IndexState WxShare
   @UserState userInfo
   @IndexState mainRecommend
   @IndexState scrollers
@@ -88,6 +132,7 @@ export default class Index extends Vue {
   @IndexAction loadMore
   @IndexAction initGetShareInfo
   @IndexAction initIntentionList
+  @IndexAction initWxshare
   @IndexMutation setPage
   handleClickToIntention
   @GlobalState storeId;
@@ -102,7 +147,11 @@ export default class Index extends Vue {
     this.showTip ? this.showTip = false : this.showTip = true;
   }
   created () {
-    this.showEdit = JSON.parse(localStorage.getItem('showEdit'));
+    if (/main/.test(this.$route.path)) {
+      this.showEdit = localStorage.setItem('showEdit', JSON.stringify(false));
+    } else {
+      this.showEdit = JSON.parse(localStorage.getItem('showEdit'));
+    }
     this.init().then(msg => {
       msg && this.$vux.toast.text(msg);
       this.setPage(this.page + 1);
@@ -118,6 +167,12 @@ export default class Index extends Vue {
         }
       });
     }
+    const params = {};
+    this.initWxshare(params).then(msg => {
+      if (msg) {
+        this.$vux.toast.text(msg, 'middle');
+      }
+    });
   }
   mounted () {
     const element = document.querySelector('#vux_view_box_body');
@@ -137,10 +192,13 @@ export default class Index extends Vue {
 }
 </script>
 
-<style lang="less" scoped>
-.index {
+<style lang="less">
+.index-myIndex {
   font-size: 0.14rem;
   padding-bottom: 0.44rem;
+  .weui-btn_mini {
+    font-size: 0.12rem !important;
+  }
   .weui-btn {
     width: 1rem;
   }
@@ -176,7 +234,7 @@ export default class Index extends Vue {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    z-index: 999;
+    z-index: 1;
   }
   .weui-btn {
     margin: 0 !important;
