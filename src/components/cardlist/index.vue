@@ -181,6 +181,9 @@ export default class Cardlist extends Vue {
 .classification{
   font-size: 0.14rem;
   width: 100%;
+  .weui-btn_mini {
+    font-size: 0.12rem !important;
+  }
   .weui-loadmore {
     height: 0.44rem;
     width: 100%;
@@ -229,7 +232,7 @@ export default class Cardlist extends Vue {
     justify-content: space-between;
   }
   .card-list1-left {
-    width: 38%;
+    width: 30%;
     height: 100%;
     display: flex;
     align-items: center;
@@ -240,7 +243,7 @@ export default class Cardlist extends Vue {
     border: none;
   }
   .card-list1-right {
-    width: 62%;
+    width: 68%;
     height: 100%;
     display: flex;
     align-items: center;
@@ -250,10 +253,11 @@ export default class Cardlist extends Vue {
   }
   .card-list1 {
     height: 1.05rem;
-    background: #ffffff;
-    margin-top: 0.15rem;
+    margin-top: 0.07rem;
     display: flex;
     padding: 0.1rem;
+    background: #FFFFFF;
+    box-shadow: 0 0 0.1rem 0 rgba(0,0,0,0.05);
   }
   .app-icon {
     font-size: 0.2rem;
@@ -270,14 +274,17 @@ export default class Cardlist extends Vue {
   .card-list-wrap {
     padding-top: 0.46rem;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
+    padding-left: 0.07rem;
+    padding-right: 0.07rem;
   }
   .card-list {
     margin-top: 0.07rem;
-    width: 48%;
+    width: 49%;
     background: #ffffff;
+    box-shadow: 0 0 0.1rem 0 rgba(0,0,0,0.05);
   }
   .card-list div {
     display: flex;
@@ -309,7 +316,7 @@ export default class Cardlist extends Vue {
     height: 0.5rem;
   }
   .card-list-img img {
-    width: 95%;
+    width: 94%;
     border: none;
   }
 }

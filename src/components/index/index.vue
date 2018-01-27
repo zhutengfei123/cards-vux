@@ -102,7 +102,11 @@ export default class Index extends Vue {
     this.showTip ? this.showTip = false : this.showTip = true;
   }
   created () {
-    this.showEdit = JSON.parse(localStorage.getItem('showEdit'));
+    if (/main/.test(this.$route.path)) {
+      this.showEdit = localStorage.setItem('showEdit', JSON.stringify(false));
+    } else {
+      this.showEdit = JSON.parse(localStorage.getItem('showEdit'));
+    }
     this.init().then(msg => {
       msg && this.$vux.toast.text(msg);
       this.setPage(this.page + 1);
@@ -141,6 +145,9 @@ export default class Index extends Vue {
 .index {
   font-size: 0.14rem;
   padding-bottom: 0.44rem;
+  .weui-btn_mini {
+    font-size: 0.12rem !important;
+  }
   .weui-btn {
     width: 1rem;
   }

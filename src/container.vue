@@ -12,7 +12,7 @@ import Component from 'vue-class-component';
 export default class Container extends Vue {
 }
 </script>
-<style lang="less">
+<style lang="less" scoped>
 .container {
   .weui-tabbar__label{
     line-height: unset;
