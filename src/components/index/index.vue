@@ -145,44 +145,48 @@ export default class Index extends Vue {
       if (msg) {
         this.$vux.toast.text(msg, 'middle');
       } else {
+        let {appId, timestamp, nonceStr, signature, jsApiList} = this.WxShare.wechat;
+        let {share} = this.WxShare;
         wx.config({
           debug: true,
-          appId: this.WxShare.wechat.appId,
-          timestamp: this.WxShare.wechat.timestamp,
-          nonceStr: this.WxShare.wechat.nonceStr,
-          signature: this.WxShare.wechat.signature,
-          jsApiList: this.WxShare.wechat.jsApiList
+          appId: appId,
+          timestamp: timestamp,
+          nonceStr: nonceStr,
+          signature: signature,
+          jsApiList: jsApiList
         });
-        wx.checkJsApi({
-          jsApiList: this.WxShare.wechat.jsApiList,
-          success: function (res) {
-            console.log('res', res);
-          }
-        });
-        wx.onMenuShareTimeline({
-          title: this.WxShare.share.share_title,
-          link: this.WxShare.share.link,
-          imgUrl: this.WxShare.share.share_img,
-          success: function () {
-            console.log('分享成功');
-          },
-          cancel: function () {
-            console.log('取消分享');
-          }
-        });
-        wx.onMenuShareAppMessage({
-          title: this.WxShare.share.share_title,
-          desc: this.WxShare.share.share_describe,
-          link: this.WxShare.share.link,
-          imgUrl: this.WxShare.share.share_img,
-          type: 'link',
-          dataUrl: '',
-          success: function () {
-            console.log('分享成功');
-          },
-          cancel: function () {
-            console.log('取消分享');
-          }
+        wx.ready(() => {
+          wx.checkJsApi({
+            jsApiList: jsApiList,
+            success: function (res) {
+              console.log('res', res);
+            }
+          });
+          wx.onMenuShareTimeline({
+            title: share.share_title,
+            link: share.link,
+            imgUrl: share.share_img,
+            success: function () {
+              console.log('分享成功');
+            },
+            cancel: function () {
+              console.log('取消分享');
+            }
+          });
+          wx.onMenuShareAppMessage({
+            title: share.share_title,
+            desc: share.share_describe,
+            link: share.link,
+            imgUrl: share.share_img,
+            type: 'link',
+            dataUrl: '',
+            success: function () {
+              console.log('分享成功');
+            },
+            cancel: function () {
+              console.log('取消分享');
+            }
+          });
         });
       }
     });
