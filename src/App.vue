@@ -43,6 +43,9 @@ const GlobalState = namespace('global', State);
 export default class App extends Vue {
   @GlobalState title;
   tabs = [];
+  created(){
+    document.title = this.title
+  }
 }
 </script>
 <style lang="less" scoped>
