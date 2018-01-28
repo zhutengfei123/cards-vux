@@ -24,7 +24,7 @@
       <cell title="帮助中心" is-link link="/help"></cell>
     </group>
     <div class="exit text" @click="exit" v-if="token!==''">退出登录</div>  
-    <p v-once class="text gray bottom-txt">飞象企服提供技术支持</p>
+    <div class="support">飞象企服提供技术支持</div>
   </div>
 </template>
 <script>
@@ -133,12 +133,13 @@ export default class Member extends Vue {
     background: #fff;
     margin-top: 0.15rem;
   }
-  .bottom-txt {
-    position: fixed;
-    bottom: 0.6rem;
-    text-align: center;
-    width: 100%;
-    padding-bottom: 0.2rem;
+  .support {
+    height: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #a6a6a6;
+    font-size: 0.14rem;
   }
 }
 </style>

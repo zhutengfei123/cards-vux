@@ -23,6 +23,7 @@ const GlobalState = namespace('global', State);
   components: { ViewBox, XHeader, Tabbar, TabbarItem },
   watch: {
     '$route': function (val, oldval) {
+      document.title = this.title;
       if (/mine/.test(location.hash.split('/')[1])) {
         this.tabs = [
           { name: '首页', selected: true, iconfont: '&#xe65d;', link: '/mine' },
@@ -43,9 +44,6 @@ const GlobalState = namespace('global', State);
 export default class App extends Vue {
   @GlobalState title;
   tabs = [];
-  created(){
-    document.title = this.title
-  }
 }
 </script>
 <style lang="less" scoped>
