@@ -1,41 +1,15 @@
-import axios from '../../js';
 const state = {
   storeId: '',
-  title: '',
-  name: '',
-  styleColor: '',
-  loginImg: '',
-  loginLogo: '',
-  logo: ''
+  title: ''
 };
 
-const actions = {
-  async getBasicInfo ({commit, rootState}) {
-    const {result, status} = await axios.get('/site/index', {params: {store_id: rootState.global.storeId}});
-    if (status.code === '00000') {
-      commit('setInfo', {
-        name: result.store_name,
-        logo: result.store_logo,
-        loginLogo: result.store_login_logo,
-        loginImg: result.store_login_img,
-        styleColor: result.style_color
-      });
-    } else {
-      return status.msg;
-    }
-  }
-};
+const actions = {};
 const mutations = {
   setTitle (state, data) {
     state.title = data;
   },
   setStoreId (state, data) {
     state.storeId = data;
-  },
-  setInfo (state, data) {
-    for (const prop in data) {
-      state[prop] = data[prop];
-    }
   }
 };
 export default {
