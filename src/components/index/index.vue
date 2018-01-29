@@ -147,7 +147,7 @@ export default class Index extends Vue {
         let {appId, timestamp, nonceStr, signature, jsApiList} = this.WxShare.wechat;
         let {share} = this.WxShare;
         wx.config({
-          debug: true,
+          debug: false,
           appId: appId,
           timestamp: timestamp,
           nonceStr: nonceStr,
