@@ -51,12 +51,18 @@ export default class App extends Vue {
     this.isActive = index;
   }
   created () {
-    let str = location.hash.split('main')[1] || '&';
-    let arr = str.split('&') || [];
-    let storeId = arr[0].split('store_id=')[1] || '';
-    let shareId = arr[1].split('share_user_id=')[1] || '';
+    let storeId = '';
+    let shareId = '';
+    if (/share_user_id/.test(location.hash)) {
+      let str = location.hash.split('main')[1] || '&';
+      let arr = str.split('&') || [];
+      storeId = arr[0].split('store_id=')[1] || '';
+      shareId = arr[1].split('share_user_id=')[1] || '';
+      this.$store.commit('index/setShareId', shareId);
+    } else {
+      storeId = location.hash.split('store_id=')[1];
+    }
     this.$store.commit('global/setStoreId', storeId);
-    this.$store.commit('index/setShareId', shareId);
   }
 }
 </script>
