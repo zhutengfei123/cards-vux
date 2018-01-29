@@ -6,9 +6,9 @@
           <router-view></router-view>
        </transition>
        <tabbar slot="bottom" v-show="/main|mine/.test($route.path)">
-          <tabbar-item v-for="(item,index) in tabs" :key="index" :selected="item.selected" :badge="item.badge" :link="item.link">
-            <span slot="icon" class="app-icon" v-html="item.iconfont"></span>
-            <span slot="label" class="tabbar-item">{{item.name}}</span>
+          <tabbar-item v-for="(item, index) in tabs" :key="index" @click.native="handleClickTabs(index)" :link="item.link">
+            <span slot="icon" :class="isActive===index?'active':''" class="app-icon" v-html="isActive===index?item.icon2:item.icon1"></span>
+            <span slot="label" :class="isActive===index?'active':''" class="tabbar-item">{{item.name}}</span>
           </tabbar-item>
        </tabbar> 
      </view-box>
@@ -24,18 +24,18 @@ const GlobalState = namespace('global', State);
   watch: {
     '$route': function (val, oldval) {
       document.title = this.title;
-      if (/mine/.test(location.hash.split('/')[1])) {
+      if (!this.showEdit) {
         this.tabs = [
-          { name: '首页', selected: true, iconfont: '&#xe65d;', link: '/mine' },
-          { name: '分类', iconfont: '&#58965;', link: '/mine/classification' },
-          { name: '意向单', iconfont: '&#xe660;', link: '/mine/intentionList' }
+          { name: '首页', icon1: '&#xe65d;', icon2: '&#xe65b;', link: '/mine' },
+          { name: '分类', icon1: '&#58965;', icon2: '&#xe659;', link: '/mine/classification' },
+          { name: '意向单', icon1: '&#xe660;', icon2: '&#xe65f;', link: '/mine/intentionList' }
         ];
       } else {
         this.tabs = [
-          { name: '首页', selected: true, iconfont: '&#xe65d;', link: '/main' },
-          { name: '分类', iconfont: '&#58965;', link: '/main/classification' },
-          { name: '购物车', iconfont: '&#xe65c;', link: '/main/cart' },
-          { name: '会员', iconfont: '&#58967;', link: '/main/member' }
+          { name: '首页', icon1: '&#xe65d;', icon2: '&#xe65b;', link: '/main' },
+          { name: '分类', icon1: '&#58965;', icon2: '&#xe659;', link: '/main/classification' },
+          { name: '购物车', icon1: '&#xe65c;', icon2: '&#xe65a;', link: '/main/cart' },
+          { name: '会员', icon1: '&#58967;', icon2: '&#xe65b;', link: '/main/member' }
         ];
       }
     }
@@ -43,7 +43,12 @@ const GlobalState = namespace('global', State);
 })
 export default class App extends Vue {
   @GlobalState title;
+  @GlobalState showEdit;
   tabs = [];
+  isActive = 0
+  handleClickTabs (index) {
+    this.isActive = index;
+  }
 }
 </script>
 <style lang="less" scoped>
@@ -67,6 +72,9 @@ export default class App extends Vue {
 <style lang="less">
 @import "~vux/src/styles/reset.less";
 @import "./css/common.less";
+.active {
+  color: #B79E74 !important;
+}
 #vux_view_box_body {
   overflow-x: hidden;
 }

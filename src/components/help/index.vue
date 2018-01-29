@@ -6,7 +6,7 @@
                 <span class="text gray" slot="inline-desc">{{help.content}}</span>
             </cell>
         </group>
-        <p class="text gray bottom-txt">飞象企服提供技术支持</p>
+        <div class="support">飞象企服提供技术支持</div>
     </div>
 </template>
 <script>
@@ -21,13 +21,23 @@ export default class Help extends Vue {
   @HelpState list
 }
 </script>
-<style lang="less" scoped>
+<style lang="less">
 .help{
-    .bottom-txt{
-        position:fixed;
-        bottom:0.6rem;
-        text-align: center;
-        width:100%;
+    position: relative;
+    height: 100%;
+    .weui-cells {
+        margin-top: 0 !important;
+    }
+    .support{
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 0.8rem;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #a6a6a6;
         font-size: 0.14rem;
     }
 }
