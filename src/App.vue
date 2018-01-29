@@ -23,6 +23,7 @@ const GlobalState = namespace('global', State);
   components: { ViewBox, XHeader, Tabbar, TabbarItem },
   watch: {
     '$route': function (val, oldval) {
+      document.title = this.title;
       if (/mine/.test(location.hash.split('/')[1])) {
         this.tabs = [
           { name: '首页', selected: true, iconfont: '&#xe65d;', link: '/mine' },
