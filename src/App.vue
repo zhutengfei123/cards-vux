@@ -59,6 +59,7 @@ export default class App extends Vue {
       storeId = arr[0].split('store_id=')[1] || '';
       shareId = arr[1].split('share_user_id=')[1] || '';
       this.$store.commit('index/setShareId', shareId);
+      this.$router.push('/mine');
     } else {
       storeId = location.hash.split('store_id=')[1];
     }
