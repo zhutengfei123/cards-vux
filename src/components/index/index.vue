@@ -138,7 +138,7 @@ export default class Index extends Vue {
       }
     );
     const params = {
-      'share_url': `${location.protocol}//${location.host}/`
+      'share_url': location.href.split('#')[0]
     };
     this.initWxshare(params).then(msg => {
       if (msg) {
