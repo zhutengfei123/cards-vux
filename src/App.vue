@@ -24,13 +24,15 @@ const GlobalState = namespace('global', State);
   watch: {
     '$route': function (val, oldval) {
       document.title = this.title;
-      if (!this.showEdit) {
+      let str = this.$route.path;
+      if (/mine/.test(str)) {
         this.tabs = [
           { name: '首页', icon1: '&#xe65d;', icon2: '&#xe65b;', link: '/mine' },
           { name: '分类', icon1: '&#58965;', icon2: '&#xe659;', link: '/mine/classification' },
           { name: '意向单', icon1: '&#xe660;', icon2: '&#xe65f;', link: '/mine/intentionList' }
         ];
-      } else {
+      }
+      if (/main/.test(str)) {
         this.tabs = [
           { name: '首页', icon1: '&#xe65d;', icon2: '&#xe65b;', link: '/main' },
           { name: '分类', icon1: '&#58965;', icon2: '&#xe659;', link: '/main/classification' },
@@ -43,7 +45,6 @@ const GlobalState = namespace('global', State);
 })
 export default class App extends Vue {
   @GlobalState title;
-  @GlobalState showEdit;
   tabs = [];
   isActive = 0
   handleClickTabs (index) {
