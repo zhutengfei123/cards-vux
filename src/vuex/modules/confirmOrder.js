@@ -1,7 +1,7 @@
 import {axios} from '../../js';
 import qs from 'qs';
 const state = {
-  confirmOrderInitData: [],
+  confirmOrderInitData: {},
   orderId: '',
   isCreditEnough: true,
   ids: ''

@@ -91,7 +91,7 @@ export default class ConfirmOrder extends Vue {
 </script>
 <style lang="less">
   .confirm-order {
-    padding-bottom: 0.15rem;
+    height: 100%;
     font-size: 0.14rem;
     overflow: hidden;
     .no-address .vux-cell-primary {
@@ -178,6 +178,7 @@ export default class ConfirmOrder extends Vue {
       padding: 0 0.15rem;
     }
     .con-mid-m {
+      width: 40%;
       height: 100%;
       align-items: flex-start;
       justify-content: flex-start;
@@ -198,16 +199,23 @@ export default class ConfirmOrder extends Vue {
       color: #A6A6A6;
     }
     .con-mid-r {
+      width: 30%;
       height: 100%;
       display: flex;
       align-items: flex-end;
       justify-content: space-between;
       flex-direction: column;
     }
-    .img, .my-img {
-      width: 1rem;
+    .img {
+      width: 100%;
       border: none;
       height: 100%;
+    }
+    .my-img {
+      width: 30%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .con-mid {
       height: 0.6rem;
