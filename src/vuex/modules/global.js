@@ -1,6 +1,6 @@
 import axios from '../../js';
 const state = {
-  storeId: '1000255',
+  storeId: '',
   title: '',
   name: '',
   styleColor: '',
