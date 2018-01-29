@@ -50,6 +50,14 @@ export default class App extends Vue {
   handleClickTabs (index) {
     this.isActive = index;
   }
+  created () {
+    let str = location.hash.split('main')[1] || '&';
+    let arr = str.split('&') || [];
+    let storeId = arr[0].split('store_id=')[1] || '';
+    let shareId = arr[1].split('share_user_id=')[1] || '';
+    this.$store.commit('global/setStoreId', storeId);
+    this.$store.commit('index/setShareId', shareId);
+  }
 }
 </script>
 <style lang="less" scoped>
