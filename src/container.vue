@@ -14,6 +14,7 @@ export default class Container extends Vue {
 </script>
 <style lang="less" scoped>
 .container {
+  height: 100%;
   .weui-tabbar__label{
     line-height: unset;
     margin:0;

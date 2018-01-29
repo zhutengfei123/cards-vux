@@ -85,14 +85,11 @@ export default class Index extends Vue {
   @IndexState scrollers
   @IndexState page
   @IndexState isEnd
-  @IndexState intentionList
   @IndexAction init
   @IndexAction loadMore
   @IndexAction initGetShareInfo
-  @IndexAction initIntentionList
   @IndexAction initWxshare
   @IndexMutation setPage
-  handleClickToIntention
   @GlobalState storeId;
   imgWidth= screen.width
   showTip=false
@@ -140,7 +137,9 @@ export default class Index extends Vue {
         })();
       }
     );
-    const params = {};
+    const params = {
+      'share_url': `${location.protocol}//${location.host}/`
+    };
     this.initWxshare(params).then(msg => {
       if (msg) {
         this.$vux.toast.text(msg, 'middle');
@@ -158,20 +157,14 @@ export default class Index extends Vue {
         wx.ready(() => {
           wx.checkJsApi({
             jsApiList: jsApiList,
-            success: function (res) {
-              console.log('res', res);
-            }
+            success: function (res) {}
           });
           wx.onMenuShareTimeline({
             title: share.share_title,
             link: share.link,
             imgUrl: share.share_img,
-            success: function () {
-              console.log('分享成功');
-            },
-            cancel: function () {
-              console.log('取消分享');
-            }
+            success: function () {},
+            cancel: function () {}
           });
           wx.onMenuShareAppMessage({
             title: share.share_title,
@@ -180,12 +173,8 @@ export default class Index extends Vue {
             imgUrl: share.share_img,
             type: 'link',
             dataUrl: '',
-            success: function () {
-              console.log('分享成功');
-            },
-            cancel: function () {
-              console.log('取消分享');
-            }
+            success: function () {},
+            cancel: function () {}
           });
         });
       }
