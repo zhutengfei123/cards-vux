@@ -48,7 +48,7 @@ const actions = {
     }
   },
   async initGetPayResults ({commit, rootState}, params) {
-    const { result, status: {code, msg} } = await axios.post('/site/recharge-info', qs.stringify(params));
+    const { result, status: {code, msg} } = await axios.post('/site/recharge-info-by-order-sn', qs.stringify(params));
     if (code === '00000') {
       commit('getPayResults', result);
     } else {
