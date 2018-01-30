@@ -58,6 +58,11 @@ export default class AvailableBalance extends Vue {
   created () {
     this.getInitData();
   }
+  mounted () {
+    this.$nextTick(() => {
+      this.$refs.scrollerBottom.reset({top: 0});
+    });
+  }
   getInitData () {
     const params = {
       'page': this.currentPage

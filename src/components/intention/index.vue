@@ -48,6 +48,11 @@ export default class Intention extends Vue {
     created () {
       this.initial();
     }
+    mounted () {
+      this.$nextTick(() => {
+        this.$refs.scrollerBottom.reset({top: 0});
+      });
+    }
     initial () {
       const params = {
         'page': this.currentPage

@@ -43,6 +43,11 @@ export default class RechargeDetailed extends Vue {
   isLoading = true
   onFetching = false
   currentPage = 1
+  mounted () {
+    this.$nextTick(() => {
+      this.$refs.scrollerBottom.reset({top: 0});
+    });
+  }
   onScrollBottom () {
     if (!this.onFetching && this.isLoading) {
       this.onFetching = true;
