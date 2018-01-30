@@ -72,6 +72,11 @@ export default class CardList extends Vue {
   flag = true
   flag1 = true
   dataList = []
+  mounted () {
+    this.$nextTick(() => {
+      this.$refs.scrollerBottom.reset({top: 0});
+    });
+  }
   handleClickToDetail (id) {
     this.$router.push(`/detail/${id}`);
   }

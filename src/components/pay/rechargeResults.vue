@@ -24,7 +24,7 @@ const rechargeAction = namespace('recharge', Action);
     created () {
       let orderId = location.hash.split('order_sn=')[1] || '';
       const params = {
-        'recharge_id': orderId
+        'recharge_sn': orderId
       };
       this.initGetPayResults(params).then(msg => {
         if (msg) {
