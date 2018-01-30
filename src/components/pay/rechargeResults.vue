@@ -1,8 +1,8 @@
 <template>
   <div class="order-pay-success">
     <div class="con-top">
-      <span class="app-icon">{{status?'&#xe605;':'&#xe658;'}}</span>
-      <span class="con-top-title">{{status?'支付成功':'支付失败'}}</span>
+      <span class="app-icon">{{payResults.pay_status===1?'&#xe605;':'&#xe658;'}}</span>
+      <span class="con-top-title">{{payResults.pay_status===1?'支付成功':'支付失败'}}</span>
     </div>
     <div class="con-bot">
       <x-button class="btn-l" link="/rechargeDetailed">查看明细</x-button>
@@ -10,15 +10,28 @@
   </div>
 </template>
 <script>
-  import { XButton } from 'vux';
+  import { XButton, Toast } from 'vux';
 import { Component, Vue } from 'vue-property-decorator';
+import {State, Action, namespace} from 'vuex-class';
+const rechargeState = namespace('recharge', State);
+const rechargeAction = namespace('recharge', Action);
 @Component({
-    components: {
-      XButton
-    }
+    components: {XButton, Toast}
   })
   export default class OrderPayFail extends Vue {
-    status = true
+    @rechargeState payResults
+    @rechargeAction initGetPayResults
+    created () {
+      let orderId = location.hash.split('order_sn=')[1] || '';
+      const params = {
+        'recharge_id': orderId
+      };
+      this.initGetPayResults(params).then(msg => {
+        if (msg) {
+          this.$vux.toast.text(msg, 'middle');
+        }
+      });
+    }
   }
 </script>
 <style lang="less">

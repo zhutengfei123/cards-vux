@@ -77,7 +77,7 @@ export default class RechargeDetailed extends Vue {
     });
   }
   handleRechargeDetail (item) {
-    this.$store.commit('recharge/getRechargeItem', item);
+    localStorage.setItem('rechargeItem', JSON.stringify(item));
     this.$router.push({
       path: '/rechargeDetails'
     });

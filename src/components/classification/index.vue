@@ -40,14 +40,7 @@ const ProductsAction = namespace('products', Action);
 const GlobalState = namespace('global', State);
 const CartAction = namespace('cart', Action);
 @Component({
-  components: {
-    Tab,
-    TabItem,
-    XButton,
-    Toast,
-    Scroller,
-    LoadMore
-  }
+  components: {Tab, TabItem, XButton, Toast, Scroller, LoadMore}
 })
 export default class Classification extends Vue {
   @ProductsState initData

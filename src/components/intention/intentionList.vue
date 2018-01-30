@@ -227,6 +227,7 @@ export default class Cart extends Vue {
 </script>
 <style lang="less" scoped>
 .cart {
+  height: 100%;
   padding-top: 0.44rem;
   padding-bottom: 1rem;
   overflow: hidden;
@@ -313,7 +314,7 @@ export default class Cart extends Vue {
   .cart-top {
     position: fixed;
     left: 0;
-    top: 46px;
+    top: 0;
     width: 100%;
     height: 0.44rem;
     background: #ffffff;
@@ -330,7 +331,6 @@ export default class Cart extends Vue {
   }
   .cart-con {
     background: #ffffff;
-    margin-top: 0.15rem;
   }
   .con-top {
     position: relative;

@@ -1,13 +1,14 @@
 <template>
     <div class="money">
         <flexbox class="top" orient="vertical" justify="space-around">
-            <flexbox-item v-once class="title">余额</flexbox-item>
-            <flexbox-item>
-                <flexbox align="center" style="height:100%">
-                    <div><span class="price-mark">￥</span><span class="head-price">{{userInfo.balance || '0.00'}}</span></div>
-                    <x-button class="button" @click.native="$router.push('/recharge')">充值</x-button>
-                </flexbox>
-            </flexbox-item>
+          <img class="my-img" src="../../assets/bg.png" alt="">
+          <flexbox-item v-once class="title">余额</flexbox-item>
+          <flexbox-item class="head-money-show">
+              <flexbox align="center" style="height:100%">
+                  <div><span class="price-mark">￥</span><span class="head-price">{{userInfo.balance || '0.00'}}</span></div>
+                  <x-button class="button" @click.native="$router.push('/recharge')">充值</x-button>
+              </flexbox>
+          </flexbox-item>
         </flexbox>
         <group class="list">
             <cell link="/rechargeDetailed" is-link v-once>
@@ -53,8 +54,8 @@ export default class Money extends Vue {
 </script>
 <style lang="less" scoped>
 .money {
-  .title {
-    height: 0.95rem;
+  .weui-cell:before {
+    left: 0 !important;
   }
   .vux-flexbox-item {
     margin-top: 0 !important;
@@ -77,18 +78,30 @@ export default class Money extends Vue {
     justify-content: center;
     line-height: initial !important;
   }
+  .my-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+  .head-money-show {
+    z-index: 1;
+  }
   .top {
+    position: relative;
     padding: 0 0.15rem;
     width: unset;
     height: 100%;
-    background: url("../../assets/bg.png") center center no-repeat;
-    background-size: 100% 100%;
     .title {
       font-size: 0.18rem;
       color: #ffffff;
       letter-spacing: -0.0043rem;
       display: flex;
       align-items: center;
+      z-index: 1;
+      height: 0.95rem;
     }
     .head-price {
       font-size: 0.48rem;

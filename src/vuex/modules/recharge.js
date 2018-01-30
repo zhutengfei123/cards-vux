@@ -5,7 +5,7 @@ const state = {
   rechargeRecords: [],
   availableBalanceData: [],
   accountInfo: {},
-  rechargeItem: {}
+  payResults: {}
 };
 const actions = {
   async init ({commit, rootState}, params) {
@@ -46,6 +46,14 @@ const actions = {
     } else {
       return msg;
     }
+  },
+  async initGetPayResults ({commit, rootState}, params) {
+    const { result, status: {code, msg} } = await axios.post('/site/recharge-info', qs.stringify(params));
+    if (code === '00000') {
+      commit('getPayResults', result);
+    } else {
+      return msg;
+    }
   }
 };
 const mutations = {
@@ -61,8 +69,8 @@ const mutations = {
   getAccountInfo (state, data) {
     state.accountInfo = data;
   },
-  getRechargeItem (state, data) {
-    state.rechargeItem = data;
+  getPayResults (state, data) {
+    state.payResults = data;
   }
 };
 export default {
