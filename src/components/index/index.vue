@@ -29,7 +29,7 @@
         <p class="recommend-title">{{recommend.title}}</p>
         <grid :cols="2">
           <grid-item v-for="(item, index) in recommend.list" :key="index">
-            <card :item="item"></card>
+            <card class="my-card" :item="item" @click.native="$router.push(`/detail/${item.id}`)"></card>
           </grid-item>
         </grid>
       </div>
@@ -60,21 +60,7 @@ let wx = require('weixin-js-sdk');
   directives: {
     TransferDom
   },
-  components: {
-    LHeader,
-    LScroller,
-    XImg,
-    Card,
-    Flexbox,
-    FlexboxItem,
-    GridItem,
-    Grid,
-    LoadMore,
-    XButton,
-    XDialog,
-    Avatar,
-    Toast
-  }
+  components: {LHeader, LScroller, XImg, Card, Flexbox, FlexboxItem, GridItem, Grid, LoadMore, XButton, XDialog, Avatar, Toast}
 })
 export default class Index extends Vue {
   @IndexState recommend
@@ -186,7 +172,56 @@ export default class Index extends Vue {
 <style lang="less">
 .index-myIndex {
   font-size: 0.14rem;
-  padding-bottom: 0.44rem;
+  .my-card {
+    height: 2.6rem !important;
+  }
+  .focus {
+    margin-right: 0 !important;
+    width: 40% !important;
+  }
+  .marquee-height {
+    width: 2.4rem;
+    padding: 0 !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .card img {
+    height: 1.1rem;
+  }
+  .my-card img {
+    height: 1.34rem;
+  }
+  .card {
+    height: 2.05rem;
+    justify-content: space-around !important;
+  }
+  .vux-flexbox {
+    justify-content: flex-start;
+  }
+  .scroller {
+    margin-top: 0.2rem !important;
+    padding: 0 0.08rem;
+  }
+  .bold {
+    color: #ffffff !important;
+    font-weight: initial;
+  }
+  .block {
+    margin-top: 0.3rem !important;
+  }
+  .title {
+    height: 0.44rem;
+    line-height: 0.44rem !important;
+  }
+  .vux-swiper {
+    height: 2.44rem !important;
+  }
+  .marqueediv  {
+    margin: 0 !important;
+    padding: 0 !important;
+    height: 0.44rem;
+  }
   .vux-icon-dot {
     width: 0.12rem !important;
     height: 0.04rem !important;
@@ -263,7 +298,6 @@ export default class Index extends Vue {
       z-index:50;
   }
   .block{
-    margin:0.16rem 0;
     width: 100%;
     position: relative;
   }

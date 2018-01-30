@@ -28,7 +28,7 @@ const IntentionDetail = () => import('@/components/intention/detail');
 const IntentionSubmit = () => import('@/components/intention/submit');
 const Address = () => import('@/components/address/index');
 const AddAddress = () => import('@/components/address/add');
-const Cardlist = () => import('@/components/cardlist/index');
+const CardList = () => import('@/components/cardList/index');
 const EditInfo = () => import('@/components/index/editInfo');
 Vue.use(Router);
 const router = new Router({
@@ -53,7 +53,7 @@ const router = new Router({
       ]
     },
     {path: '/', redirect: '/main', hidden: true},
-    {path: '/cardlist', name: '卡券列表', component: Cardlist},
+    {path: '/cardList', name: '卡券列表', component: CardList},
     {path: '/detail/:id', name: '实体卡', component: Detail},
     {path: '/confirmOrder', name: '确认订单', component: ConfirmOrder},
     {path: '/orderPaySuccess', name: '订单支付成功', component: OrderPaySuccess},

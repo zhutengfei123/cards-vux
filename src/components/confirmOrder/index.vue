@@ -91,7 +91,6 @@ export default class ConfirmOrder extends Vue {
 </script>
 <style lang="less">
   .confirm-order {
-    height: 100%;
     font-size: 0.14rem;
     overflow: hidden;
     .no-address .vux-cell-primary {
@@ -219,15 +218,26 @@ export default class ConfirmOrder extends Vue {
     }
     .con-mid {
       height: 0.6rem;
-      border-bottom: 1px solid #D9D9D9;
       padding: 0.15rem;
+      position: relative;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
+    .con-mid:before {
+      content: " ";
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      height: 1px;
+      border-bottom: 1px solid #D9D9D9;
+      color: #D9D9D9;
+      transform-origin: 0 100%;
+      transform: scaleY(0.5);
+    }
     .con-top {
       height: 0.44rem;
-      border-bottom: 1px solid #D9D9D9;
       display: flex;
       align-items: center;
       justify-content: flex-start;

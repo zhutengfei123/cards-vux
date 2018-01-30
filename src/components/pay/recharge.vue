@@ -70,10 +70,9 @@
 import { XButton, Tab, TabItem, XInput, Group, Toast } from 'vux';
 import { Component, Vue } from 'vue-property-decorator';
 import Uploader from 'vux-uploader';
-import {State, Action, Mutation, namespace} from 'vuex-class';
+import {State, Action, namespace} from 'vuex-class';
 const rechargeState = namespace('recharge', State);
 const rechargeAction = namespace('recharge', Action);
-const rechargeMutation = namespace('recharge', Mutation);
 @Component({
   components: {
     XButton,
@@ -91,8 +90,6 @@ export default class OrderPaySuccess extends Vue {
   @rechargeAction init
   @rechargeAction initGetAccountInfo
   @rechargeAction initRemit
-  @rechargeMutation getLink
-  @rechargeMutation getAccountInfo
   rechargeVal = '';
   flag = false
   flag1 = false
@@ -259,6 +256,7 @@ export default class OrderPaySuccess extends Vue {
     color: #3c3c3c;
   }
   .r-2-top {
+    position: relative;
     height: 0.44rem;
     background: #ffffff;
     padding: 0 0.15rem;
@@ -266,7 +264,18 @@ export default class OrderPaySuccess extends Vue {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #d9d9d9;
+  }
+  .r-2-top:before {
+    content: ' ';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 1px;
+    border-bottom: 1px solid #D9D9D9;
+    color: #D9D9D9;
+    transform-origin: 0 100%;
+    transform: scaleY(0.5);
   }
   .weui-cells {
     margin-top: 0 !important;

@@ -107,7 +107,7 @@ export default class Order extends Vue {
     left: 0 !important;
   }
   .tab {
-    top: 46px;
+    top: 0;
     position: fixed;
     width: 100%;
     z-index: 99;

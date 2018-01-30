@@ -2,12 +2,12 @@
   <div class="scroller" :style="{backgroundImage}">
     <a class="list-top">
         <label class="text bold">{{title}}</label>
-        <i class="iconfont icon-gengduo1"></i>
+        <span class="app-icon" @click="$router.push('/cardList')">&#xe61e;</span>
     </a>
     <div class="scroll-x">
       <flexbox align="center" class="container">
         <flexbox-item v-for="(item, index) in list" :key="index" span="154">
-          <card :item="item"></card>
+          <card :item="item" @click.native="$router.push(`/detail/${item.id}`)"></card>
         </flexbox-item>  
       </flexbox>
     </div>
@@ -30,14 +30,16 @@ export default class LScroller extends Vue {
   backgroundImage = `linear-gradient(-29deg, ${
     this.color === 'blue' ? '#0F4AB0' : '#D51717'
   } 0%, ${this.color === 'blue' ? '#34D4F1' : '#F1D134'} 100%)`;
-  addCart (id) {
-    console.log(id);
-  }
 }
 </script>
 <style lang="less" scoped>
 .scroller {
-  margin: 0.16rem 0;
+  height: 2.8rem;
+  .app-icon {
+    color: #ffffff;
+    margin: 0 !important;
+    font-size: 0.14rem;
+  }
   .scroll-x {
     width: 100%;
     overflow-x: scroll;
@@ -49,7 +51,7 @@ export default class LScroller extends Vue {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 0.5rem;
+    height: 0.44rem;
     color: #fff;
     padding: 0 0.08rem;
   }

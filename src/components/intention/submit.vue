@@ -86,16 +86,20 @@ export default class IntentionSubmit extends Vue {
 </script>
 <style lang="less" scoped>
 .submit {
-  position: relative;
-  height: 100%;
+  padding-bottom: 0.44rem;
   .l-input {
     margin-bottom: 0.15rem;
     margin-top: 0;
   }
   .submit-btn {
-    position: absolute;
+    position: fixed;
     left: 0;
     bottom: 0;
+    height: 0.44rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: initial;
   }
 }
 </style>

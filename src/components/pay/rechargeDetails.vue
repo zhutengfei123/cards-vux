@@ -23,15 +23,14 @@
 <script>
 import { XButton } from 'vux';
 import { Component, Vue } from 'vue-property-decorator';
-import {State, namespace} from 'vuex-class';
-const rechargeState = namespace('recharge', State);
 @Component({
-  components: {
-    XButton
-  }
+  components: {XButton}
 })
 export default class RechargeDetails extends Vue {
-    @rechargeState rechargeItem
+  rechargeItem = {}
+  created () {
+    this.rechargeItem = JSON.parse(localStorage.getItem('rechargeItem'));
+  }
 }
 </script>
 <style lang="less">
@@ -57,6 +56,7 @@ export default class RechargeDetails extends Vue {
       color: #3C3C3C;
     }
     .r-2-top {
+      position: relative;
       height: 0.44rem;
       background: #ffffff;
       padding: 0 0.15rem;
@@ -64,7 +64,18 @@ export default class RechargeDetails extends Vue {
       display: flex;
       justify-content: space-between;
       align-items: center;
+    }
+    .r-2-top:before {
+      content: ' ';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      height: 1px;
       border-bottom: 1px solid #D9D9D9;
+      color: #D9D9D9;
+      transform-origin: 0 100%;
+      transform: scaleY(0.5);
     }
     .con-top-status {
       font-size: 0.18rem;

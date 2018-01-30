@@ -1,7 +1,7 @@
 <template>
   <div id="app">
      <view-box ref="viewBox" body-padding-top="46px" :body-padding-bottom="/main/.test($route.path)?'55px':'0'">
-       <x-header slot="header" :title="title" class="header"></x-header>
+       <!-- <x-header slot="header" :title="title" class="header"></x-header> -->
        <transition name="vux-header-fade-in-right">
           <router-view></router-view>
        </transition>
@@ -51,18 +51,18 @@ export default class App extends Vue {
     this.isActive = index;
   }
   created () {
-    let storeId = '';
-    let shareId = '';
-    if (/share_user_id/.test(location.hash)) {
-      let str = location.hash.split('main')[1] || '&';
-      let arr = str.split('&') || [];
-      storeId = arr[0].split('store_id=')[1] || '';
-      shareId = arr[1].split('share_user_id=')[1] || '';
-      this.$store.commit('index/setShareId', shareId);
-      this.$router.push('/mine');
-    } else {
-      storeId = location.hash.split('store_id=')[1];
-    }
+    let storeId = '1000255';
+    // let shareId = '';
+    // if (/share_user_id/.test(location.hash)) {
+    //   let str = location.hash.split('main')[1] || '&';
+    //   let arr = str.split('&') || [];
+    //   storeId = arr[0].split('store_id=')[1] || '';
+    //   shareId = arr[1].split('share_user_id=')[1] || '';
+    //   this.$store.commit('index/setShareId', shareId);
+    //   this.$router.push('/mine');
+    // } else {
+    //   storeId = location.hash.split('store_id=')[1];
+    // }
     this.$store.commit('global/setStoreId', storeId);
   }
 }
@@ -93,6 +93,7 @@ export default class App extends Vue {
 }
 #vux_view_box_body {
   overflow-x: hidden;
+  padding-top: 0 !important;
 }
 .weui-grid {
   text-decoration: none;

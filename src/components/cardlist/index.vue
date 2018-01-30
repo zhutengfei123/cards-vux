@@ -56,7 +56,7 @@ const CartAction = namespace('cart', Action);
     LoadMore
   }
 })
-export default class Cardlist extends Vue {
+export default class CardList extends Vue {
   @ProductsState initData
   @ProductsAction init
   @ProductsMutation getInitData
@@ -272,13 +272,13 @@ export default class Cardlist extends Vue {
     padding: 0 !important;
   }
   .card-list-wrap {
-    padding-top: 0.46rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
     padding-left: 0.07rem;
     padding-right: 0.07rem;
+    padding-top: 0.44rem;
   }
   .card-list {
     margin-top: 0.07rem;
