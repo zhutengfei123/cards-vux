@@ -10,15 +10,15 @@
   </div>
 </template>
 <script>
-  import { XButton, Toast } from 'vux';
+import { XButton, Toast } from 'vux';
 import { Component, Vue } from 'vue-property-decorator';
 import {State, Action, namespace} from 'vuex-class';
 const rechargeState = namespace('recharge', State);
 const rechargeAction = namespace('recharge', Action);
 @Component({
-    components: {XButton, Toast}
-  })
-  export default class OrderPayFail extends Vue {
+  components: {XButton, Toast}
+})
+export default class OrderPayFail extends Vue {
     @rechargeState payResults
     @rechargeAction initGetPayResults
     created () {
@@ -32,7 +32,7 @@ const rechargeAction = namespace('recharge', Action);
         }
       });
     }
-  }
+}
 </script>
 <style lang="less">
   .order-pay-success {

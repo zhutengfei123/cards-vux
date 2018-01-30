@@ -2,8 +2,8 @@
     <div class="address-index">
         <group v-for="(item, index) in addressList" :key="index">
             <cell>
-                <p class="text lg" slot="title"><span class="bold">{{item.name}}</span>{{item.phone}}</p>
-                <p class="text" slot="title">{{item.province+' '+item.city+' '+item.district+' '+item.address}}</p>
+                <p class="text lg" slot="title"><span class="bold">{{item.name || ''}}</span>{{item.phone || ''}}</p>
+                <p class="text" slot="title">{{item.province || ''+' '+item.city || ''+' '+item.district || ''+' '+item.address || ''}}</p>
             </cell>
             <cell class="address-edit-row">
                 <check-icon :value.sync="item.is_default==='1'?true:false" @click.native="handleSelectAdress(item)">
