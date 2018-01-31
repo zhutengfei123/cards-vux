@@ -52,7 +52,7 @@
           upload-url="http://cardshopapi.koudaiqifu.cn/site/upload"
           size="small"
           :handleClick="false"
-          @preview="previewMethod">
+          @preview="previewMethod($event)">
         </uploader>
       </div>
       <div class="r-foot">
@@ -61,7 +61,7 @@
     </div>
     <transition name="bounce">
       <div class="img-enlarge" v-show="imgEnLarge" @click="handleImgEnlarge">
-        <img class="img" :src="images.length>0?images[0].url:''" alt="">
+        <img class="img" :src="imgUrl" alt="">
       </div>
     </transition>
   </div>
@@ -97,6 +97,7 @@ export default class OrderPaySuccess extends Vue {
   active = 0;
   images = [];
   imgEnLarge = false
+  imgUrl = ''
   tabList = [{ title: '在线支付' }, { title: '转账汇款' }];
   created () {
     const params = {};
@@ -176,7 +177,8 @@ export default class OrderPaySuccess extends Vue {
       this.$vux.toast.text('请输入充值金额', 'middle');
     }
   }
-  previewMethod () {
+  previewMethod (e) {
+    this.imgUrl = e.url;
     this.imgEnLarge = true;
   }
 }
