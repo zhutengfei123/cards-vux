@@ -92,6 +92,7 @@ export default class IntentionSubmit extends Vue {
     margin-top: 0;
   }
   .submit-btn {
+    text-align: center;
     position: fixed;
     left: 0;
     bottom: 0;

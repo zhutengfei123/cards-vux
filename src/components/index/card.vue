@@ -86,6 +86,7 @@ export default class Card extends Vue {
         margin: 0 !important;
         padding: 0 !important;
         height: 0.24rem;
+        text-align: center;
     }
     img{
         width: 100%;
