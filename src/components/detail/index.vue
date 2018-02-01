@@ -100,6 +100,12 @@ export default class Detail extends Vue {
   overflow: hidden;
   padding-top: 0.15rem;
   padding-bottom: 0.44rem;
+  .weui-cell {
+    height: 0.2rem;
+  }
+  .weui-btn:after {
+    content: initial;
+  }
   .cart-num {
     font-size: 0.14rem;
     color: #A6A6A6;
