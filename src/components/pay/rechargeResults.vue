@@ -43,7 +43,7 @@ export default class OrderPayFail extends Vue {
       color: #B79E74;
     }
     .con-top-title {
-      font-size: 18px;
+      font-size: 0.18rem;
       color: #3C3C3C;
     }
     .btn-l {
