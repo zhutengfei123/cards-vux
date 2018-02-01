@@ -78,6 +78,12 @@ export default class EditInfo extends Vue {
 <style lang="less">
   .edit-info {
     font-size: 0.14rem;
+    .weui-btn {
+      border-radius: 0 !important;
+    }
+    .weui-btn::before {
+      content: initial;
+    }
     .img-box {
       position: relative;
       display: flex;

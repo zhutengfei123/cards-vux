@@ -47,6 +47,7 @@ export default class IntentionDetail extends Vue {
 <style lang="less">
 .intention-detail{
     font-size: 0.14rem;
+    padding-bottom: 0.55rem;
     .img-box {
         display: flex;
         align-items: center;
@@ -109,11 +110,23 @@ export default class IntentionDetail extends Vue {
         justify-content: space-between;
         padding: 0 0.15rem;
     }
+    .detail-con-list:before {
+        content: " ";
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        height: 1px;
+        border-bottom: 1px solid #D9D9D9;
+        color: #D9D9D9;
+        transform-origin: 0 100%;
+        transform: scaleY(0.5);
+    }
     .detail-con-list {
+        position: relative;
         background: #ffffff;
         height: 0.6rem;
         padding: 0.15rem 0.15rem !important;
-        border-top: 1px solid #a6a6a6;
         display: flex;
         align-items: center;
         justify-content: space-between;
