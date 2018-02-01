@@ -117,6 +117,11 @@ export default class Detail extends Vue {
     width: 1.5rem;
     height: 100%;
     padding: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0 !important;
+    line-height: initial !important;
   }
   .detail-foot {
     background: #ffffff;

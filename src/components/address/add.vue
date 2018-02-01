@@ -120,6 +120,7 @@ export default class AddAddress extends Vue {
     left: 0 !important;
   }
   .bottom-button {
+    border-radius: 0 !important;
     position: fixed;
     width: 100%;
     bottom: 0;
