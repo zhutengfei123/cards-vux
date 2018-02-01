@@ -211,7 +211,7 @@ export default class Classification extends Vue {
 .classification{
   width: 100%;
   .my-scorller {
-    padding-bottom: 0.55rem;
+    padding-bottom: 0.48rem;
   }
   .xs-container {
     float: left;
@@ -335,7 +335,7 @@ export default class Classification extends Vue {
     color: #3C3C3C;
     justify-content: flex-start !important;
     align-items: flex-start !important;
-    padding: 0 5px;
+    padding: 0 0.05rem;
     line-height: 0.18rem;
     display: -webkit-box !important;
     -webkit-box-orient: vertical;

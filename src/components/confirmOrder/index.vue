@@ -132,10 +132,10 @@ export default class ConfirmOrder extends Vue {
       color: #C61A2A;
     }
     .pay-btn {
-      margin-right: 15px;
+      margin-right: 0.15rem;
       height: 100%;
       background: #B79E74;
-      width: 147px;
+      width: 1.47rem;
       color: #ffffff;
       display: flex;
       align-items: center;
@@ -194,7 +194,7 @@ export default class ConfirmOrder extends Vue {
       color: #C61A2A;
     }
     .my-color-b {
-      font-size: 10px;
+      font-size: 0.1rem;
       color: #A6A6A6;
     }
     .con-mid-r {

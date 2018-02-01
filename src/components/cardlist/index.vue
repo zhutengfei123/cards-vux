@@ -304,7 +304,7 @@ export default class CardList extends Vue {
     color: #3C3C3C;
     justify-content: flex-start !important;
     align-items: flex-start !important;
-    padding: 0 5px;
+    padding: 0 0.05rem;
     line-height: 0.18rem;
     display: -webkit-box !important;
     -webkit-box-orient: vertical;

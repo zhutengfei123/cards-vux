@@ -142,7 +142,7 @@ export default class Register extends Vue {
   .box {
     margin-top: 0.16rem;
     border: 1px solid #979797;
-    border-radius: 3px;
+    border-radius: 0.03rem;
     width: 100%;
     height: 0.4rem;
     input {

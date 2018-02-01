@@ -88,6 +88,9 @@ export default class App extends Vue {
 <style lang="less">
 @import "~vux/src/styles/reset.less";
 @import "./css/common.less";
+.weui-tabbar__item {
+  padding: 0 !important;
+}
 .active {
   color: #B79E74 !important;
 }

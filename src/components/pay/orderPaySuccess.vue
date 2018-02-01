@@ -38,13 +38,13 @@ export default class OrderPaySuccess extends Vue {
       color: #B79E74;
     }
     .con-top-title {
-      font-size: 18px;
+      font-size: 0.18rem;
       color: #3C3C3C;
     }
     .btn-l, .btn-r {
       width: 1.6rem;
       height: 0.44rem;
-      font-size: 16px;
+      font-size: 0.16rem;
       margin: 0 !important;
       background: #B79E74;
     }

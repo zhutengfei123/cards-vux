@@ -321,7 +321,7 @@ export default class Cart extends Vue {
         }
         .add-or-reduce {
             border: 1px solid #a6a6a6;
-            border-radius: 3px;
+            border-radius: 0.03rem;
             display: flex;
             align-items: center;
             justify-content: space-around;
@@ -350,7 +350,7 @@ export default class Cart extends Vue {
             background: #ffffff;
             position: fixed;
             left: 0;
-            bottom: 0.52rem;
+            bottom: 0.48rem;
         }
         .bottom-l {
             color: #C61A2A;
