@@ -97,8 +97,11 @@ export default class AddAddress extends Vue {
   }
 }
 </script>
-<style lang="less" scoped>
+<style lang="less">
 .add-address {
+  .weui-btn:after {
+    content: initial;
+  }
   .address-input-border {
     position: relative;
   }

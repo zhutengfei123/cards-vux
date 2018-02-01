@@ -1,5 +1,5 @@
 <template>
-    <div class='submit'>
+    <div class="submit-index">
         <l-input v-for="(item, index) in list" :key="index" :textarea="item.textarea" :placeholder="item.placeholder" :label="item.label" v-model="item.value"></l-input>
         <x-button class="submit-btn" @click.native="handleSubmit">提 交</x-button>
     </div>
@@ -84,9 +84,12 @@ export default class IntentionSubmit extends Vue {
   }
 }
 </script>
-<style lang="less" scoped>
-.submit {
+<style lang="less">
+.submit-index {
   padding-bottom: 0.44rem;
+  .weui-btn:after {
+    content: initial;
+  }
   .l-input {
     margin-bottom: 0.15rem;
     margin-top: 0;

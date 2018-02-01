@@ -103,6 +103,9 @@ export default class Address extends Vue {
 <style lang="less">
 .address-index {
   padding-bottom: 0.44rem;
+  .weui-btn:after {
+    content: initial;
+  }
   .bold {
     padding-right: 0.15rem;
   }
