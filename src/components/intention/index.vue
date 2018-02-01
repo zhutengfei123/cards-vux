@@ -1,5 +1,5 @@
 <template>
-    <div class="intention">
+    <div class="intention-index">
         <scroller lock-x @on-scroll-bottom="onScrollBottom" ref="scrollerBottom" :scroll-bottom-offst="200" style="overflow:initial">
             <group gutter="0">
                 <cell is-link v-for="(item, index) in dataList" :key="index" :link="`/intention/detail/${item.id}`">
@@ -73,9 +73,12 @@ export default class Intention extends Vue {
 }
 </script>
 <style lang="less">
-.intention{
+.intention-index {
     font-size: 0.14rem;
     padding-bottom: 0.44rem;
+    .weui-cell:before {
+      left: 0 !important;
+    }
     .text {
       margin-left: 0.3rem !important;
     }
