@@ -101,6 +101,7 @@ export default class IntentionSubmit extends Vue {
     align-items: center;
     justify-content: center;
     line-height: initial;
+    border-radius: 0 !important;
   }
 }
 </style>

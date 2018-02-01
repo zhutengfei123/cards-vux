@@ -299,7 +299,7 @@ export default class Cart extends Vue {
     background: #ffffff;
     position: fixed;
     left: 0;
-    bottom: 53px;
+    bottom: 0.52rem;
   }
   .bottom-l {
     color: #c61a2a;

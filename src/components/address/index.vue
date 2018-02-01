@@ -131,6 +131,7 @@ export default class Address extends Vue {
     left: 0;
     bottom: 0;
     width: 100%;
+    border-radius: 0 !important;
   }
 }
 </style>
