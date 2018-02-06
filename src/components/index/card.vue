@@ -3,7 +3,7 @@
         <x-img container="#vux_view_box_body" :src="`${item.pic_url.split('?')[0]}?x-oss-process=image/resize,w_${imgWidth}/format,jpg`" :webp-src="`${item.pic_url.split('?')[0]}?x-oss-process=image/resize,w_${imgWidth}/format,webp`"/>
         <p class="text">{{item.name}}</p>
         <p class="text red">尊享价:{{item.price}}</p>
-        <x-button mini @click.native.stop="handleAddCart(item)">加入购物车</x-button>
+        <x-button  mini @click.native.stop="handleAddCart(item)">加入购物车</x-button>
     </div>
 </template>
 <script>
@@ -79,15 +79,8 @@ export default class Card extends Vue {
     .weui-btn_mini {
         font-size: 0.12rem !important;
         width: 1.1rem !important;
-        display: flex;
-        align-items: center;
-        justify-content:center;
-        -webkit-justify-content: center;
-        margin: 0 !important;
-        padding: 0 !important;
         height: 0.24rem;
-        text-align: center;
-        line-height: 0.24rem !important;
+        line-height: 0.24rem; 
     }
     img{
         width: 100%;
