@@ -125,11 +125,7 @@ export default class Login extends Vue {
 <style lang="less" scoped>
 .login {
   .weui-btn {
-    padding: 0 !important;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+    height: 0.42rem;
     line-height: 0.42rem !important;
   }
   background: #ffffff;

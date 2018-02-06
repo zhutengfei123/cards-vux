@@ -172,6 +172,11 @@ export default class Index extends Vue {
 <style lang="less">
 .index-myIndex {
   font-size: 0.14rem;
+  .vux-x-img {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
   .my-card {
     height: 2.6rem !important;
   }
