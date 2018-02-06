@@ -70,15 +70,6 @@ export default class Money extends Vue {
   .weui-btn {
     margin: 0 !important;
   }
-  .button {
-    width: 0.8rem;
-    height: 0.3rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    line-height: 0.3rem !important;
-  }
   .my-img {
     position: absolute;
     top: 0;
@@ -114,6 +105,9 @@ export default class Money extends Vue {
       letter-spacing: -0.0043rem;
       background: #ffffff;
       border-radius: 0.03rem;
+      width: 0.8rem;
+      height: 0.3rem;
+      line-height: 0.3rem !important;
     }
   }
   .list {

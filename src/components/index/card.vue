@@ -80,7 +80,7 @@ export default class Card extends Vue {
         font-size: 0.12rem !important;
         width: 1.1rem !important;
         height: 0.24rem;
-        line-height: 0.24rem; 
+        line-height: 0.24rem;
     }
     img{
         width: 100%;

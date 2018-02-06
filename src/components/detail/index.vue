@@ -122,10 +122,6 @@ export default class Detail extends Vue {
   .add-cart {
     width: 1.5rem;
     height: 100%;
-    padding: 0 !important;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     border-radius: 0 !important;
     line-height: 0.5rem !important;
   }
