@@ -81,7 +81,8 @@ export default class Card extends Vue {
         width: 1.1rem !important;
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content:center;
+        -webkit-justify-content: center;
         margin: 0 !important;
         padding: 0 !important;
         height: 0.24rem;
