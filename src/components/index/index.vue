@@ -18,9 +18,9 @@
       <div class="block">
         <p class="recommend-title">{{mainRecommend.title}}</p>
         <flexbox wrap="wrap" :gutter="0">
-            <flexbox-item style="display:flex" :key="index" :span="item.show_type===1?0.5:1/1.0001" v-for="(item, index) in mainRecommend.list" >
-                <x-img v-if="item.show_type===1" :src="`${item.pic_url.split('?')[0]}?x-oss-process=image/resize,w_${parseInt(imgWidth/2)}/format,jpg`" :webp-src="`${item.pic_url.split('?')[0]}?x-oss-process=image/resize,w_${parseInt(imgWidth/2)}/format,webp`" container="#vux_view_box_body"></x-img>
-                <x-img v-else-if="item.show_type===2" :src="`${item.pic_url.split('?')[0]}?x-oss-process=image/resize,w_${imgWidth}/format,jpg`" :webp-src="`${item.pic_url.split('?')[0]}?x-oss-process=image/resize,w_${imgWidth}/format,webp`" container="#vux_view_box_body"></x-img>
+            <flexbox-item style="display:flex" :key="index" :span="item.show_type===1?0.5:1/1.0001" v-for="(item, index) in mainRecommend.list">
+              <img class="my-img" v-show="item.show_type===1" :src="item.pic_url" alt="">
+              <img class="my-img" v-show="item.show_type===2" :src="item.pic_url" alt="">
             </flexbox-item>
         </flexbox>
       </div>
@@ -44,7 +44,7 @@
 <script>
 import LHeader from './header';
 import LScroller from './scroller';
-import { Toast, XImg, Flexbox, FlexboxItem, Grid, GridItem, LoadMore, XButton, XDialog, TransferDomDirective as TransferDom } from 'vux';
+import { Toast, Flexbox, FlexboxItem, Grid, GridItem, LoadMore, XButton, XDialog, TransferDomDirective as TransferDom } from 'vux';
 import { Component, Vue } from 'vue-property-decorator';
 import {State, Action, Mutation, namespace} from 'vuex-class';
 import Card from './card';
@@ -60,7 +60,7 @@ let wx = require('weixin-js-sdk');
   directives: {
     TransferDom
   },
-  components: {LHeader, LScroller, XImg, Card, Flexbox, FlexboxItem, GridItem, Grid, LoadMore, XButton, XDialog, Avatar, Toast}
+  components: {LHeader, LScroller, Card, Flexbox, FlexboxItem, GridItem, Grid, LoadMore, XButton, XDialog, Avatar, Toast}
 })
 export default class Index extends Vue {
   @IndexState recommend
@@ -172,7 +172,7 @@ export default class Index extends Vue {
 <style lang="less">
 .index-myIndex {
   font-size: 0.14rem;
-  .vux-x-img {
+  .my-img {
     width: 100%;
     height: 100%;
     border: none;
