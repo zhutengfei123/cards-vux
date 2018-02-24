@@ -76,6 +76,12 @@ export default class App extends Vue {
   height: 100%;
   font-size: 0.14rem;
   background: #f6f6f6;
+  .weui-tabbar {
+    background: #ffffff !important;
+  }
+  .weui-tabbar:before {
+    content: initial !important;
+  }
   .header {
     width: 100%;
     position: absolute;
