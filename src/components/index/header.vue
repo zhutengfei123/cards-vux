@@ -11,8 +11,8 @@
         <p class="text lg white">编辑<span class="app-icon"></span></p>
       </flexbox-item>
     </flexbox>
-     <swiper loop height="2.5rem" ref="swiper">
-       <swiper-item v-for="(image, index) in headerImages" :key="index">
+     <swiper v-show="headerImages.is_show==='1'" loop height="2.5rem" ref="swiper">
+       <swiper-item v-for="(image, index) in headerImages.block_content" :key="index">
          <div class="swiper-height">
              <img class="swiper-image" :src="`${image.pic_url.split('?')[0]}?x-oss-process=image/resize,w_${imgWidth}/format,jpg`"/>
          </div>
@@ -20,10 +20,10 @@
          <p class="text">{{image.describe}}</p>
        </swiper-item>
      </swiper>
-     <flexbox class="marqueediv">
+     <flexbox v-show="focus.is_show==='1'" class="marqueediv">
         <span class="focus">热点关注</span>
         <marquee>
-            <marquee-item v-for="(item, index) in focus.list" :key="index" class="marquee-height text">{{item.title}}</marquee-item>
+            <marquee-item v-for="(item, index) in focus.block_content.list" :key="index" class="marquee-height text">{{item.title}}</marquee-item>
         </marquee>
      </flexbox>
   </div>
