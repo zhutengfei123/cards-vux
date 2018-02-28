@@ -2,19 +2,25 @@ import {axios} from '../../js';
 import qs from 'qs';
 const state = {
   inited: false,
-  headerImages: [],
+  headerImages: {},
   focus: {
-    title: '',
-    list: []
+    block_content: {
+      title: '',
+      list: []
+    }
   },
   mainRecommend: {
-    title: '',
-    list: []
+    block_content: {
+      title: '',
+      list: []
+    }
   },
-  scrollers: [],
+  scrollers: {},
   recommend: {
-    title: '',
-    list: []
+    block_content: {
+      title: '',
+      list: []
+    }
   },
   page: 1,
   pageSize: 6,
@@ -93,11 +99,11 @@ const actions = {
 
 const mutations = {
   initData (state, data) {
-    state.headerImages = data[0].block_content;
-    state.focus = data[1].block_content;
-    state.mainRecommend = data[2].block_content;
-    state.scrollers = data[3].block_content;
-    state.recommend = data[4].block_content;
+    state.headerImages = data[0];
+    state.focus = data[1];
+    state.mainRecommend = data[2];
+    state.scrollers = data[3];
+    state.recommend = data[4];
   },
   pushRecommend (state, data) {
     if (data.length > 0) {

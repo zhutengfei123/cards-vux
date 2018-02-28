@@ -15,20 +15,20 @@
         </div>
       </flexbox>
       <l-header></l-header>
-      <div class="block">
-        <p class="recommend-title">{{mainRecommend.title}}</p>
+      <div v-show="mainRecommend.is_show==='1'" class="block">
+        <p class="recommend-title">{{mainRecommend.block_content.title}}</p>
         <flexbox wrap="wrap" :gutter="0">
-            <flexbox-item style="display:flex" :key="index" :span="item.show_type===1?0.5:1/1.0001" v-for="(item, index) in mainRecommend.list">
+            <flexbox-item style="display:flex" :key="index" :span="item.show_type===1?0.5:1/1.0001" v-for="(item, index) in mainRecommend.block_content.list">
               <img class="my-img" v-show="item.show_type===1" :src="item.pic_url" alt="">
               <img class="my-img" v-show="item.show_type===2" :src="item.pic_url" alt="">
             </flexbox-item>
         </flexbox>
       </div>
-      <l-scroller v-for="(scroller, index) in scrollers" :key="index" color="blue" :title="scroller.title" :list="scroller.card_list"></l-scroller>
-      <div class="block">
-        <p class="recommend-title">{{recommend.title}}</p>
+      <l-scroller v-show="scrollers.is_show==='1'" v-for="(scroller, index) in scrollers.block_content" :key="index" color="blue" :title="scroller.title" :list="scroller.card_list"></l-scroller>
+      <div v-show="recommend.is_show==='1'" class="block">
+        <p class="recommend-title">{{recommend.block_content.title}}</p>
         <grid :cols="2">
-          <grid-item v-for="(item, index) in recommend.list" :key="index">
+          <grid-item v-for="(item, index) in recommend.block_content.list" :key="index">
             <card class="my-card" :item="item" @click.native="$router.push(`/detail/${item.id}`)"></card>
           </grid-item>
         </grid>
