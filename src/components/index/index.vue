@@ -41,7 +41,6 @@
       </div>
   </div>
 </template>
-
 <script>
 import LHeader from './header';
 import LScroller from './scroller';
