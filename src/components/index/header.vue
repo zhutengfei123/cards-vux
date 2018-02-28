@@ -14,7 +14,7 @@
      <swiper v-show="headerImages.is_show==='1'" loop height="2.5rem" ref="swiper">
        <swiper-item v-for="(image, index) in headerImages.block_content" :key="index">
          <div class="swiper-height">
-             <img class="swiper-image" :src="`${image.pic_url.split('?')[0]}?x-oss-process=image/resize,w_${imgWidth}/format,jpg`"/>
+             <img class="swiper-image" :src="image.pic_url" alt=""/>
          </div>
          <p class="title">{{image.title}}</p>
          <p class="text">{{image.describe}}</p>
@@ -55,6 +55,8 @@ export default class LHeader extends Vue {
     .swiper-image {
       height: 100%;
       border: none;
+      width: 100%;
+      border-radius: 0.1rem;
     }
     .avatar-container{
       display:flex;
@@ -90,9 +92,6 @@ export default class LHeader extends Vue {
       font-weight: bold;
       margin:0 0.16rem;  
       width: 50%;
-    }
-    .swiper-image{
-      width: 100%;
     }
     .swiper-height{
       height: 1.6rem;
