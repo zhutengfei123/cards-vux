@@ -283,7 +283,7 @@ export default class Classification extends Vue {
     background: #ffffff;
     position: absolute;
     width: 100%;
-    top: 0.43rem;
+    top: 0.4rem;
     left: 0;
     box-sizing: border-box;
   }
