@@ -334,6 +334,12 @@ export default class Cart extends Vue {
             justify-content: space-between;
             align-items: center;
             padding-left: 0.14rem;
+            height: 0.44rem;
+            width: 100%;
+            background: #ffffff;
+            position: absolute;
+            left: 0;
+            bottom: 0.48rem;
         }
         .settlement {
             height: 100%;
@@ -343,14 +349,6 @@ export default class Cart extends Vue {
             line-height: 0.44rem;
             text-align: center;
             margin-right: 0.14rem;
-        }
-        .cart-foot {
-            height: 0.44rem;
-            width: 100%;
-            background: #ffffff;
-            position: fixed;
-            left: 0;
-            bottom: 0.48rem;
         }
         .bottom-l {
             color: #C61A2A;

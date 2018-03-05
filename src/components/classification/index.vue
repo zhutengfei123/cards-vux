@@ -230,7 +230,18 @@ export default class Classification extends Vue {
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    position: relative;
+  }
+  .order-by:after {
+    content: " ";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 1px;
     border-bottom: 1px solid #F6F6F6;
+    transform-origin: 0 100%;
+    transform: scaleY(0.5);
   }
   .vux-tab {
     z-index: 993;
@@ -256,7 +267,18 @@ export default class Classification extends Vue {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+  }
+  .con-box:after {
+    content: " ";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 1px;
     border-bottom: 1px solid #F6F6F6;
+    transform-origin: 0 100%;
+    transform: scaleY(0.5);
   }
   .drop-t {
     height: 1.35rem;
@@ -283,7 +305,7 @@ export default class Classification extends Vue {
     background: #ffffff;
     position: absolute;
     width: 100%;
-    top: 0.43rem;
+    top: 0.4rem;
     left: 0;
     box-sizing: border-box;
   }
@@ -291,8 +313,19 @@ export default class Classification extends Vue {
     color: #B79E74 !important;
   }
   .active1 {
-    color: #B79E74 !important;
-    border-bottom: 1px solid #B79E74 !important;
+    position: relative;
+    color: #B79E74;
+  }
+  .active1:after {
+    content: " ";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 1px;
+    border-bottom: 1px solid #B79E74;
+    transform-origin: 0 100%;
+    transform: scaleY(0.5);
   }
   .app-icon {
     font-size: 0.15rem;
