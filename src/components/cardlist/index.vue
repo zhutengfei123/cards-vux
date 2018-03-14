@@ -6,8 +6,8 @@
       <tab-item @on-item-click="handleClickTab(3)">
         <span>价格</span>
         <div class="order-by">
-          <span :class="active?'':'active'" @click.stop="handleActive(1)" class="app-icon" style="font-size:0.18rem;">&#xe627;</span>
-          <span :class="active?'active':''" @click.stop="handleActive(2)" class="app-icon" style="font-size:0.14rem;">&#xe611;</span>
+          <span v-show="active" :class="active?'':'active'" @click.stop="handleActive(1)" class="app-icon" style="font-size:0.18rem;">&#xe627;</span>
+          <span v-show="!active" :class="active?'active':''" @click.stop="handleActive(2)" class="app-icon" style="font-size:0.14rem;">&#xe611;</span>
         </div>
       </tab-item>
       <tab-item class="app-icon" @on-item-click="handleLayoutType">{{layoutType?'&#xe62c;':'&#xe7e7;'}}</tab-item>
