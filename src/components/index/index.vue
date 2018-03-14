@@ -70,6 +70,7 @@ export default class Index extends Vue {
   @IndexState scrollers
   @IndexState page
   @IndexState isEnd
+  @IndexState getIndexInfo
   @IndexAction init
   @IndexAction loadMore
   @IndexAction initGetShareInfo
@@ -86,6 +87,7 @@ export default class Index extends Vue {
     this.showTip ? this.showTip = false : this.showTip = true;
   }
   created () {
+    document.title = localStorage.getItem('storeName');
     if (/main/.test(this.$route.path)) {
       this.showEdit = localStorage.setItem('showEdit', JSON.stringify(false));
     } else {

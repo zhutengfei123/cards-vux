@@ -1,38 +1,40 @@
 <template>
   <div class="login">
-      <x-img class="top-image"/>
-      <flexbox class="box">
-        <input placeholder="请输入手机号" v-model="phone" type="tel"/>
-      </flexbox>
-      <flexbox class="box" v-show="!type">
-        <input placeholder="请输入密码" v-model="password" type="password"/>
-      </flexbox>
-      <flexbox v-show="type">
-        <flexbox-item :span="0.6">
-            <flexbox class="box">
-                <input placeholder="请输入验证码" v-model="code"/>
-            </flexbox>
-        </flexbox-item>
-        <flexbox-item>
-            <x-button class="button" @click.native="sendCodeClick" v-show="time===0">发送验证码</x-button>
-            <x-button class="button" v-show="time>0">已发送{{time}}s</x-button>
-        </flexbox-item>
-      </flexbox>
-      <x-button class="button" @click.native="signIn">登录</x-button>
-      <flexbox justify="space-between" class="line">
-          <p class="text brown"><span class="gray">没有账号？</span><span @click="$router.push('/register')">马上注册</span></p>
-          <span class="text brown " @click="type=!type">{{type?'密码登录':'短信登录'}} >></span>
-      </flexbox>
+      <div class="top-image"><img src="" alt=""></div>
+      <div class="bot-con">
+        <flexbox class="box">
+          <input placeholder="请输入手机号" v-model="phone" type="tel"/>
+        </flexbox>
+        <flexbox class="box" v-show="!type">
+          <input placeholder="请输入密码" v-model="password" type="password"/>
+        </flexbox>
+        <flexbox v-show="type">
+          <flexbox-item :span="0.6">
+              <flexbox class="box">
+                  <input placeholder="请输入验证码" v-model="code"/>
+              </flexbox>
+          </flexbox-item>
+          <flexbox-item>
+              <x-button class="button" @click.native="sendCodeClick" v-show="time===0">发送验证码</x-button>
+              <x-button class="button" v-show="time>0">已发送{{time}}s</x-button>
+          </flexbox-item>
+        </flexbox>
+        <x-button class="button" @click.native="signIn">登录</x-button>
+        <flexbox justify="space-between" class="line">
+            <p class="text brown"><span class="gray">没有账号？</span><span @click="$router.push('/register')">马上注册</span></p>
+            <span class="text brown " @click="type=!type">{{type?'密码登录':'短信登录'}} >></span>
+        </flexbox>
+      </div>
   </div>
 </template>
 <script>
 import { Component, Vue } from 'vue-property-decorator';
-import { Flexbox, FlexboxItem, XButton, XImg, Toast } from 'vux';
+import { Flexbox, FlexboxItem, XButton, Toast } from 'vux';
 import { Action, namespace } from 'vuex-class';
 const UserAction = namespace('user', Action);
 let timer = null;
 @Component({
-  components: { Flexbox, FlexboxItem, XButton, XImg, Toast },
+  components: { Flexbox, FlexboxItem, XButton, Toast },
   watch: {
     $route: function (val, oldval) {
       if (timer) {
@@ -122,17 +124,27 @@ export default class Login extends Vue {
 </script>
 <style lang="less" scoped>
 .login {
+  .bot-con {
+    padding: 0 0.15rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
   .weui-btn {
     height: 0.42rem;
     line-height: 0.42rem !important;
   }
   background: #ffffff;
   height: 100%;
-  padding: 0 0.16rem;
   .top-image {
     width: 100%;
-    max-height: 1.25rem;
-    overflow: hidden;
+    height: 1.25rem;
+  }
+  .top-image img {
+    width: 100%;
+    height: 100%;
+    border: none;
   }
   .box {
     margin-top: 0.16rem;

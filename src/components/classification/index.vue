@@ -101,24 +101,28 @@ export default class Classification extends Vue {
       }
       this.$vux.toast.text('加入购物车成功', 'middle');
     } else {
-      if (this.flag) {
-        const params = {
-          'shop_id': item.id
-        };
-        this.addReduce(params).then(msg => {
-          if (msg) {
-            this.$vux.toast.text(msg, 'middle');
-          } else {
-            this.$vux.toast.text('加入购物车成功', 'middle');
-          }
-        });
-        this.flag = false;
-        let timer = setTimeout(() => {
-          this.flag = true;
-          clearTimeout(timer);
-        }, 1000);
+      if (localStorage.getItem('token') === '') {
+        this.$router.push('/login');
       } else {
-        this.$vux.toast.text('您的操作过于频繁', 'middle');
+        if (this.flag) {
+          const params = {
+            'shop_id': item.id
+          };
+          this.addReduce(params).then(msg => {
+            if (msg) {
+              this.$vux.toast.text(msg, 'middle');
+            } else {
+              this.$vux.toast.text('加入购物车成功', 'middle');
+            }
+          });
+          this.flag = false;
+          let timer = setTimeout(() => {
+            this.flag = true;
+            clearTimeout(timer);
+          }, 1000);
+        } else {
+          this.$vux.toast.text('您的操作过于频繁', 'middle');
+        }
       }
     }
   }

@@ -1,22 +1,22 @@
 <template>
   <div class="member">
     <div class="mer">
-      <avatar backgroundColor="#B79E74" color="#ffffff" :size="60" :src="userInfo.head_pic" username="Avatar"></avatar>
+      <avatar backgroundColor="#B79E74" color="#ffffff" :size="60" :src="token===''?'':userInfo.head_pic" username="Avatar"></avatar>
        <p v-if="token===''" class="logintxt" @click="toLogin">请登录</p>
        <ul class="merinfo" v-else>
          <li>
            <label class="lableft labcom">{{userInfo.realname}}</label>
            <label class="labright labcom">{{userInfo.lever_name}}</label>
          </li>
-         <li class="text gray">杭州礼管家网络科技有限公司</li>
+         <li class="text gray">{{userInfo.company}}</li>
        </ul>
     </div>
     <group>
-      <cell title="我的订单" is-link link="/order"></cell>
+      <cell title="我的订单" is-link :link="token===''?'/login':'/order'"></cell>
     </group>
     <group>
-      <cell title="现金账户" :value="`￥${userInfo.balance}`" is-link link="/member/money"></cell>
-      <cell title="收货地址" is-link link="/address"></cell>
+      <cell title="现金账户" :value="`￥${token===''?0:userInfo.balance}`" is-link :link="token===''?'/login':'/member/money'"></cell>
+      <cell title="收货地址" is-link :link="token===''?'/login':'/address'"></cell>
       <cell title="我的卡券商城" @click.native="handleSetShowEdit" is-link>{{isRead.is_read==='0'?'':'有新的订单'}}</cell>
     </group>
     <group v-once>
@@ -50,8 +50,12 @@ export default class Member extends Vue {
   @UserAction getInfo;
   @UserAction initGetIsRead;
   handleSetShowEdit () {
-    localStorage.setItem('showEdit', JSON.stringify(true));
-    this.$router.push('/mine');
+    if (this.token === '') {
+      this.$router.push('/login');
+    } else {
+      localStorage.setItem('showEdit', JSON.stringify(true));
+      this.$router.push('/mine');
+    }
   }
   created () {
     if (this.token !== '') {
@@ -77,7 +81,6 @@ export default class Member extends Vue {
   exit () {
     localStorage.setItem('token', '');
     this.$store.commit('user/setToken', '');
-    this.initial();
   }
 }
 </script>

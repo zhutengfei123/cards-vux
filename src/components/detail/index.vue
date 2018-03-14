@@ -78,17 +78,21 @@ export default class Detail extends Vue {
       localStorage.setItem('tempData', JSON.stringify(this.tempData));
       this.$vux.toast.text('加入购物车成功', 'middle');
     } else {
-      const params = {
-        'num': this.count,
-        'shop_id': this.shopDetails.id
-      };
-      this.addReduce(params).then(msg => {
-        if (msg) {
-          this.$vux.toast.text(msg, 'middle');
-        } else {
-          this.$vux.toast.text('加入购物车成功', 'middle');
-        }
-      });
+      if (localStorage.getItem('token') === '') {
+        this.$router.push('/login');
+      } else {
+        const params = {
+          'num': this.count,
+          'shop_id': this.shopDetails.id
+        };
+        this.addReduce(params).then(msg => {
+          if (msg) {
+            this.$vux.toast.text(msg, 'middle');
+          } else {
+            this.$vux.toast.text('加入购物车成功', 'middle');
+          }
+        });
+      }
     }
   }
 }
