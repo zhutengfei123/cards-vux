@@ -1,6 +1,6 @@
 <template>
   <div class="register">
-      <x-img class="top-image"/>
+      <div class="top-image"><img src="" alt=""></div>
       <flexbox class="box">
         <input placeholder="请填写企业全称" v-model="company"/>
       </flexbox>
@@ -10,13 +10,13 @@
       <flexbox class="box">
         <input placeholder="请输入手机号" v-model="phone" type="tel"/>
       </flexbox>
-      <flexbox align="center">
+      <flexbox class="phone-code" align="center">
         <flexbox-item :span="0.6">
-            <flexbox class="box">
+            <flexbox class="box my-box">
                 <input placeholder="请输入验证码" v-model="code"/>
             </flexbox>
         </flexbox-item>
-        <flexbox-item>
+        <flexbox-item class="phone">
             <x-button class="button" @click.native="sendCodeClick" v-show="time===0">发送验证码</x-button>
             <x-button class="button" v-show="time>0">已发送{{time}}s</x-button>
         </flexbox-item>
@@ -29,12 +29,12 @@
 </template>
 <script>
 import { Component, Vue } from 'vue-property-decorator';
-import { Flexbox, FlexboxItem, XButton, XImg } from 'vux';
+import { Flexbox, FlexboxItem, XButton } from 'vux';
 import { Action, namespace } from 'vuex-class';
 const UserAction = namespace('user', Action);
 let timer = null;
 @Component({
-  components: { Flexbox, FlexboxItem, XButton, XImg },
+  components: { Flexbox, FlexboxItem, XButton },
   watch: {
     $route: function (val, oldval) {
       if (timer) {
@@ -122,23 +122,39 @@ export default class Register extends Vue {
 </script>
 <style lang="less" scoped>
 .register {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  .phone-code {
+    width: 3.47rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .my-box {
+    width: 2.3rem !important;
+  }
   .weui-btn {
     height: 0.42rem;
     line-height: 0.42rem !important;
   }
   background: #ffffff;
   height: 100%;
-  padding: 0 0.16rem;
   .top-image {
     width: 100%;
-    max-height: 1.25rem;
-    overflow: hidden;
+    height: 1.25rem;
+  }
+  .top-image img {
+    width: 100%;
+    height: 100%;
+    border: none;
   }
   .box {
     margin-top: 0.16rem;
     border: 1px solid #979797;
     border-radius: 0.03rem;
-    width: 100%;
+    width: 3.45rem;
     height: 0.4rem;
     input {
       padding: 0 0.08rem;
@@ -148,12 +164,19 @@ export default class Register extends Vue {
       font-size: 0.14rem;
     }
   }
-  .button {
+  .phone {
+    flex: initial;
+    width: initial;
+    min-width: initial;
+  }
+  .phone .button {
     margin-top: 0.16rem;
+    width: 1rem;
+    margin-left: 0;
   }
   .bottom {
     text-align: center;
-    position: fixed;
+    position: absolute;
     bottom: 0.64rem;
     width: calc(~"100% - 0.32rem");
     .button {

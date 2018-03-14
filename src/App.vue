@@ -17,13 +17,29 @@
 <script>
 import { ViewBox, XHeader, Tabbar, TabbarItem } from 'vux';
 import { Component, Vue } from 'vue-property-decorator';
-import { State, namespace } from 'vuex-class';
+import { State, namespace, Action } from 'vuex-class';
 const GlobalState = namespace('global', State);
+const UserState = namespace('user', State);
+const IndexState = namespace('index', State);
+const IndexAction = namespace('index', Action);
 @Component({
   components: { ViewBox, XHeader, Tabbar, TabbarItem },
   watch: {
     '$route': function (val, oldval) {
-      document.title = this.title;
+      if (this.title !== '首页') {
+        document.title = this.title;
+        if (document.title === '分类') {
+          this.isActive = 1;
+        }
+        if (document.title === '购物车') {
+          this.isActive = 2;
+        }
+        if (document.title === '会员') {
+          this.isActive = 3;
+        }
+      } else {
+        this.isActive = 0;
+      }
       let str = this.$route.path;
       if (/mine/.test(str)) {
         this.tabs = [
@@ -36,7 +52,7 @@ const GlobalState = namespace('global', State);
         this.tabs = [
           { name: '首页', icon1: '&#xe65d;', icon2: '&#xe65b;', link: '/main' },
           { name: '分类', icon1: '&#58965;', icon2: '&#xe659;', link: '/main/classification' },
-          { name: '购物车', icon1: '&#xe65c;', icon2: '&#xe65a;', link: '/main/cart' },
+          { name: '购物车', icon1: '&#xe65c;', icon2: '&#xe65a;', link: `${this.token === '' ? '/login' : '/main/cart'}` },
           { name: '会员', icon1: '&#58967;', icon2: '&#xe65b;', link: '/main/member' }
         ];
       }
@@ -45,6 +61,9 @@ const GlobalState = namespace('global', State);
 })
 export default class App extends Vue {
   @GlobalState title;
+  @UserState token;
+  @IndexAction getInitTitleInfo
+  @IndexState getIndexInfo;
   tabs = [];
   isActive = 0
   handleClickTabs (index) {
@@ -64,6 +83,18 @@ export default class App extends Vue {
       localStorage.setItem('shareId', shareId);
       this.$router.push('/mine');
     }
+    const params = {
+      'store_id': localStorage.getItem('store_id')
+    };
+    this.getInitTitleInfo(params).then(msg => {
+      if (msg) {
+        this.$vux.toast.text(msg, 'middle');
+      } else {
+        localStorage.setItem('storeName', this.getIndexInfo.store_name);
+        localStorage.setItem('bgImgUrl', this.getIndexInfo.store_logo_url);
+        document.title = localStorage.getItem('storeName');
+      }
+    });
   }
 }
 </script>
@@ -96,6 +127,9 @@ export default class App extends Vue {
 @import "./css/common.less";
 .weui-tabbar__item {
   padding: 0 !important;
+}
+.tabbar-item {
+  color: #999999 !important;
 }
 .active {
   color: #B79E74 !important;

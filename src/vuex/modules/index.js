@@ -28,7 +28,8 @@ const state = {
   intentionList: {},
   uploadRes: {},
   shareInfo: {},
-  WxShare: {}
+  WxShare: {},
+  getIndexInfo: {}
 };
 
 const actions = {
@@ -36,6 +37,14 @@ const actions = {
     const { result, status: {code, msg} } = await axios.get('/index', {params: {store_id: localStorage.getItem('store_id'), source: 1}});
     if (code === '00000') {
       commit('initData', result);
+    } else {
+      return msg;
+    }
+  },
+  async getInitTitleInfo ({commit, rootState}, params) {
+    const { result, status: {code, msg} } = await axios.get('site/index', {'params': params});
+    if (code === '00000') {
+      commit('initData1', result);
     } else {
       return msg;
     }
@@ -111,6 +120,9 @@ const mutations = {
   },
   setInit (state, data) {
     state.inited = data;
+  },
+  initData1 (state, data) {
+    state.getIndexInfo = data;
   },
   setIsEnd (state, isEnd) {
     state.isEnd = isEnd;
