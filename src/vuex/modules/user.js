@@ -1,7 +1,7 @@
 import { axios } from '../../js';
 import qs from 'qs';
 const state = {
-  token: localStorage.getItem('token'),
+  token: localStorage.getItem('token') || '',
   isRead: {},
   userInfo: {}
 };
