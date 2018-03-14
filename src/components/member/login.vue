@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-      <div class="top-image"><img src="" alt=""></div>
+      <div class="top-image"><img :src="bgImgUrl" alt=""></div>
       <div class="bot-con">
         <flexbox class="box">
           <input placeholder="请输入手机号" v-model="phone" type="tel"/>
@@ -54,6 +54,7 @@ export default class Login extends Vue {
   time = 0;
   isType = 0;
   bStop = false;
+  bgImgUrl = localStorage.getItem('bgImgUrl') || '';
   sendCodeClick () {
     let reg = /^(((1[0-9]{2}))+\d{8})$/;
     if (!reg.test(this.phone)) {

@@ -1,6 +1,6 @@
 <template>
   <div class="register">
-      <div class="top-image"><img src="" alt=""></div>
+      <div class="top-image"><img :src="bgImgUrl" alt=""></div>
       <flexbox class="box">
         <input placeholder="请填写企业全称" v-model="company"/>
       </flexbox>
@@ -51,6 +51,7 @@ export default class Register extends Vue {
   code = '';
   time = 0;
   bStop = false;
+  bgImgUrl = localStorage.getItem('bgImgUrl') || '';
   @UserAction register;
   @UserAction sendCode;
   get type () {
