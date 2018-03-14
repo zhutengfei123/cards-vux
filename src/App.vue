@@ -31,7 +31,7 @@ const IndexAction = namespace('index', Action);
         if (document.title === '分类') {
           this.isActive = 1;
         }
-        if (document.title === '购物车') {
+        if (document.title === '购物车' || document.title === '意向单') {
           this.isActive = 2;
         }
         if (document.title === '会员') {
@@ -42,6 +42,9 @@ const IndexAction = namespace('index', Action);
       }
       let str = this.$route.path;
       if (/mine/.test(str)) {
+        if (window.location.hash.split('#')[1] === '/mine') {
+          this.isActive = 0;
+        }
         this.tabs = [
           { name: '首页', icon1: '&#xe65d;', icon2: '&#xe65b;', link: '/mine' },
           { name: '分类', icon1: '&#58965;', icon2: '&#xe659;', link: '/mine/classification' },
