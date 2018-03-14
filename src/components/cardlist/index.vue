@@ -44,7 +44,6 @@ import {Component, Vue} from 'vue-property-decorator';
 const ProductsState = namespace('products', State);
 const ProductsAction = namespace('products', Action);
 const ProductsMutation = namespace('products', Mutation);
-const GlobalState = namespace('global', State);
 const CartAction = namespace('cart', Action);
 @Component({
   components: {
@@ -60,7 +59,6 @@ export default class CardList extends Vue {
   @ProductsState initData
   @ProductsAction init
   @ProductsMutation getInitData
-  @GlobalState storeId
   @CartAction addReduce
   layoutType = false
   orderBy = 1
@@ -150,7 +148,7 @@ export default class CardList extends Vue {
   initial () {
     if (this.flag) {
       const params = {
-        'store_id': this.storeId,
+        'store_id': localStorage.getItem('store_id'),
         'page': this.currentPage,
         'page_size': 8,
         'order_by_type': this.type,

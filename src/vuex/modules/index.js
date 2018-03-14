@@ -28,13 +28,12 @@ const state = {
   intentionList: {},
   uploadRes: {},
   shareInfo: {},
-  WxShare: {},
-  shareId: ''
+  WxShare: {}
 };
 
 const actions = {
   async init ({commit, rootState}) {
-    const { result, status: {code, msg} } = await axios.get('/index', {params: {store_id: rootState.global.storeId, source: 1}});
+    const { result, status: {code, msg} } = await axios.get('/index', {params: {store_id: localStorage.getItem('store_id'), source: 1}});
     if (code === '00000') {
       commit('initData', result);
     } else {
@@ -43,7 +42,7 @@ const actions = {
   },
   async loadMore ({commit, rootState, state}) {
     const {page, pageSize} = state;
-    const {result: {list}, status: {code, msg}} = await axios.get('/index/gethotproduct', {params: {store_id: rootState.global.storeId, page, pageSize}});
+    const {result: {list}, status: {code, msg}} = await axios.get('/index/gethotproduct', {params: {store_id: localStorage.getItem('store_id'), page, pageSize}});
     if (code === '00000') {
       commit('pushRecommend', list);
       commit('setIsEnd', list ? list.length < pageSize : true);
@@ -130,9 +129,6 @@ const mutations = {
   },
   getWxShare (state, data) {
     state.WxShare = data;
-  },
-  setShareId (state, data) {
-    state.shareId = data;
   }
 };
 

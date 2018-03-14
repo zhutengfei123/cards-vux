@@ -51,19 +51,19 @@ export default class App extends Vue {
     this.isActive = index;
   }
   created () {
-    let storeId = '';
-    let shareId = '';
-    if (/share_user_id/.test(location.hash)) {
+    if (!/share_user_id/.test(location.hash) && /store_id/.test(location.hash)) {
+      const storeId = location.hash.split('store_id=')[1];
+      localStorage.setItem('store_id', storeId);
+    }
+    if (/share_user_id/.test(location.hash) && /store_id/.test(location.hash)) {
       let str = location.hash.split('main')[1] || '&';
       let arr = str.split('&') || [];
-      storeId = arr[0].split('store_id=')[1] || '';
-      shareId = arr[1].split('share_user_id=')[1] || '';
-      this.$store.commit('index/setShareId', shareId);
+      const storeId = arr[0].split('store_id=')[1] || '';
+      const shareId = arr[1].split('share_user_id=')[1] || '';
+      localStorage.setItem('store_id', storeId);
+      localStorage.setItem('shareId', shareId);
       this.$router.push('/mine');
-    } else {
-      storeId = location.hash.split('store_id=')[1];
     }
-    this.$store.commit('global/setStoreId', storeId);
   }
 }
 </script>

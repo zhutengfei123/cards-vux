@@ -37,7 +37,6 @@ import { Component, Vue } from 'vue-property-decorator';
 import { State, namespace, Action } from 'vuex-class';
 const ProductsState = namespace('products', State);
 const ProductsAction = namespace('products', Action);
-const GlobalState = namespace('global', State);
 @Component({
   components: {
     CheckIcon,
@@ -46,7 +45,6 @@ const GlobalState = namespace('global', State);
 })
 export default class Cart extends Vue {
   @ProductsState intentionList;
-  @GlobalState storeId;
   @ProductsAction initGetIntentionList;
   isEdit = false;
   myTempData = []
@@ -214,7 +212,7 @@ export default class Cart extends Vue {
   created () {
     let tempData = localStorage.getItem('tempData') || '[]';
     const params = {
-      'store_id': this.storeId,
+      'store_id': localStorage.getItem('store_id'),
       'shop_ids': tempData
     };
     this.initGetIntentionList(params).then(msg => {

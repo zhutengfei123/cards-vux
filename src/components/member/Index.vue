@@ -54,7 +54,9 @@ export default class Member extends Vue {
     this.$router.push('/mine');
   }
   created () {
-    this.initial();
+    if (this.token !== '') {
+      this.initial();
+    }
   }
   initial () {
     const params = {};
