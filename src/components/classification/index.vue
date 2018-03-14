@@ -79,9 +79,6 @@ export default class Classification extends Vue {
       setTimeout(() => {
         this.currentPage++;
         this.initial();
-        // this.$nextTick(() => {
-        //   this.$refs.scrollerBottom.reset();
-        // });
         this.onFetching = false;
       }, 2000);
     }
@@ -165,11 +162,6 @@ export default class Classification extends Vue {
     this.isActive = n;
     this.isShowBox = true;
   }
-  // mounted () {
-  //   this.$nextTick(() => {
-  //     this.$refs.scrollerBottom.reset({top: 0});
-  //   });
-  // }
   created () {
     this.showEdit = JSON.parse(localStorage.getItem('showEdit') || 'false');
     this.tempData = JSON.parse(localStorage.getItem('tempData') || '[]');
