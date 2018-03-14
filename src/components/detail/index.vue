@@ -35,7 +35,6 @@ import { Component, Vue } from 'vue-property-decorator';
 const ProductsState = namespace('products', State);
 const ProductsAction = namespace('products', Action);
 const CartAction = namespace('cart', Action);
-const GlobalState = namespace('global', State);
 @Component({
   components: { Group, InlineXNumber, XButton, Cell }
 })
@@ -43,7 +42,6 @@ export default class Detail extends Vue {
   @CartAction addReduce
   @ProductsState shopDetails
   @ProductsAction initGetShopDetails
-  @GlobalState storeId
   imgWidth = parseInt(screen.width)
   count = 1
   showEdit = false
@@ -52,7 +50,7 @@ export default class Detail extends Vue {
     this.showEdit = JSON.parse(localStorage.getItem('showEdit') || 'false');
     this.tempData = JSON.parse(localStorage.getItem('tempData') || '[]');
     const params = {
-      'store_id': this.storeId,
+      'store_id': localStorage.getItem('store_id'),
       'id': this.$route.params.id
     };
     this.initGetShopDetails(params).then(msg => {

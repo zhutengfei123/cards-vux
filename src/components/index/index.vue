@@ -1,6 +1,6 @@
 <template>
   <div class="index-myIndex">
-      <flexbox class="top" align="center" v-show="showEdit">
+      <flexbox class="top" align="center" v-if="showEdit">
         <x-button mini link="/intention">意向单</x-button>
         <x-button mini @click.native="handleClickIsShow">立即推广</x-button>
         <div class="info-edit-box">
@@ -54,7 +54,6 @@ const IndexState = namespace('index', State);
 const IndexAction = namespace('index', Action);
 const IndexMutation = namespace('index', Mutation);
 const UserState = namespace('user', State);
-const GlobalState = namespace('global', State);
 let wx = require('weixin-js-sdk');
 @Component({
   directives: {
@@ -76,7 +75,6 @@ export default class Index extends Vue {
   @IndexAction initGetShareInfo
   @IndexAction initWxshare
   @IndexMutation setPage
-  @GlobalState storeId;
   imgWidth= screen.width
   showTip=false
   loading=false
@@ -100,7 +98,7 @@ export default class Index extends Vue {
     if (this.showEdit) {
       const params = {
         'share_user_id': this.userInfo.user_id,
-        'store_id': this.storeId
+        'store_id': localStorage.getItem('store_id')
       };
       this.initGetShareInfo(params).then(msg => {
         if (msg) {
@@ -110,7 +108,7 @@ export default class Index extends Vue {
     }
   }
   mounted () {
-    const element = document.querySelector('#vux_view_box_body');
+    let element = document.querySelector('#vux_view_box_body');
     isBottom(element,
       () => {
         !this.isEnd && !this.loading && (() => {
@@ -123,48 +121,50 @@ export default class Index extends Vue {
         })();
       }
     );
-    const params = {
-      'share_url': location.href.split('#')[0]
-    };
-    this.initWxshare(params).then(msg => {
-      if (msg) {
-        this.$vux.toast.text(msg, 'middle');
-      } else {
-        let {appId, timestamp, nonceStr, signature, jsApiList} = this.WxShare.wechat;
-        let {share} = this.WxShare;
-        wx.config({
-          debug: false,
-          appId: appId,
-          timestamp: timestamp,
-          nonceStr: nonceStr,
-          signature: signature,
-          jsApiList: jsApiList
-        });
-        wx.ready(() => {
-          wx.checkJsApi({
-            jsApiList: jsApiList,
-            success: function (res) {}
+    if (this.showEdit) {
+      const params = {
+        'share_url': location.href.split('#')[0]
+      };
+      this.initWxshare(params).then(msg => {
+        if (msg) {
+          this.$vux.toast.text(msg, 'middle');
+        } else {
+          let {appId, timestamp, nonceStr, signature, jsApiList} = this.WxShare.wechat;
+          let {share} = this.WxShare;
+          wx.config({
+            debug: false,
+            appId: appId,
+            timestamp: timestamp,
+            nonceStr: nonceStr,
+            signature: signature,
+            jsApiList: jsApiList
           });
-          wx.onMenuShareTimeline({
-            title: share.share_title,
-            link: share.link,
-            imgUrl: share.share_img,
-            success: function () {},
-            cancel: function () {}
+          wx.ready(() => {
+            wx.checkJsApi({
+              jsApiList: jsApiList,
+              success: function (res) {}
+            });
+            wx.onMenuShareTimeline({
+              title: share.share_title,
+              link: share.link,
+              imgUrl: share.share_img,
+              success: function () {},
+              cancel: function () {}
+            });
+            wx.onMenuShareAppMessage({
+              title: share.share_title,
+              desc: share.share_describe,
+              link: share.link,
+              imgUrl: share.share_img,
+              type: 'link',
+              dataUrl: '',
+              success: function () {},
+              cancel: function () {}
+            });
           });
-          wx.onMenuShareAppMessage({
-            title: share.share_title,
-            desc: share.share_describe,
-            link: share.link,
-            imgUrl: share.share_img,
-            type: 'link',
-            dataUrl: '',
-            success: function () {},
-            cancel: function () {}
-          });
-        });
-      }
-    });
+        }
+      });
+    }
   }
 }
 </script>

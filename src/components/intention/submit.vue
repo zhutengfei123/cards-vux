@@ -10,16 +10,13 @@ import LInput from '../common/input';
 import { XButton, Toast } from 'vux';
 import { State, namespace, Action } from 'vuex-class';
 const ProductsAction = namespace('products', Action);
-const GlobalState = namespace('global', State);
 const IndexState = namespace('index', State);
 @Component({
   components: { LInput, XButton, Toast }
 })
 export default class IntentionSubmit extends Vue {
-  @GlobalState storeId;
   @ProductsAction submitIntentionList;
   @IndexState shareInfo;
-  @IndexState shareId;
   list = [
     {
       label: '姓名',
@@ -64,9 +61,9 @@ export default class IntentionSubmit extends Vue {
       } else {
         let myTempData = localStorage.getItem('myTempData');
         const params = {
-          store_id: this.storeId,
+          store_id: localStorage.getItem('store_id'),
           shop_ids: myTempData,
-          share_user_id: this.shareId,
+          share_user_id: localStorage.getItem('shareId'),
           full_address: arr[3].value,
           phone: arr[1].value,
           name: arr[0].value,

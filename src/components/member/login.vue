@@ -28,9 +28,8 @@
 <script>
 import { Component, Vue } from 'vue-property-decorator';
 import { Flexbox, FlexboxItem, XButton, XImg, Toast } from 'vux';
-import { Action, State, namespace } from 'vuex-class';
+import { Action, namespace } from 'vuex-class';
 const UserAction = namespace('user', Action);
-const GlobalState = namespace('global', State);
 let timer = null;
 @Component({
   components: { Flexbox, FlexboxItem, XButton, XImg, Toast },
@@ -46,7 +45,6 @@ let timer = null;
 export default class Login extends Vue {
   @UserAction login;
   @UserAction sendCode;
-  @GlobalState storeId;
   type = false;
   phone = '';
   password = '';
@@ -60,7 +58,7 @@ export default class Login extends Vue {
       this.$vux.toast.text('请输入有效的手机号码', 'middle');
     } else {
       const params = {
-        store_id: this.storeId,
+        store_id: localStorage.getItem('store_id'),
         mobile: this.phone,
         type: 'login-shop'
       };
@@ -105,7 +103,7 @@ export default class Login extends Vue {
     }
     if (flag && this.bStop) {
       const params = {
-        store_id: this.storeId,
+        store_id: localStorage.getItem('store_id'),
         mobile: this.phone,
         pwd: this.type ? this.code : this.password,
         type: this.isType

@@ -37,7 +37,6 @@ import {Tab, TabItem, XButton, Toast, Scroller, LoadMore} from 'vux';
 import {Component, Vue} from 'vue-property-decorator';
 const ProductsState = namespace('products', State);
 const ProductsAction = namespace('products', Action);
-const GlobalState = namespace('global', State);
 const CartAction = namespace('cart', Action);
 @Component({
   components: {Tab, TabItem, XButton, Toast, Scroller, LoadMore}
@@ -47,7 +46,6 @@ export default class Classification extends Vue {
   @ProductsState categoryData
   @ProductsAction init
   @ProductsAction initCategoryData
-  @GlobalState storeId
   @CartAction addReduce
   itemList = []
   currentPage = 1
@@ -81,9 +79,6 @@ export default class Classification extends Vue {
       setTimeout(() => {
         this.currentPage++;
         this.initial();
-        this.$nextTick(() => {
-          this.$refs.scrollerBottom.reset();
-        });
         this.onFetching = false;
       }, 2000);
     }
@@ -167,11 +162,6 @@ export default class Classification extends Vue {
     this.isActive = n;
     this.isShowBox = true;
   }
-  mounted () {
-    this.$nextTick(() => {
-      this.$refs.scrollerBottom.reset({top: 0});
-    });
-  }
   created () {
     this.showEdit = JSON.parse(localStorage.getItem('showEdit') || 'false');
     this.tempData = JSON.parse(localStorage.getItem('tempData') || '[]');
@@ -185,7 +175,7 @@ export default class Classification extends Vue {
   }
   initial () {
     const params = {
-      'store_id': this.storeId,
+      'store_id': localStorage.getItem('store_id'),
       'page': this.currentPage,
       'page_size': 8,
       'category_id': this.itemList.join(','),

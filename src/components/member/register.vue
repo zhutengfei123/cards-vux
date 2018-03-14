@@ -30,9 +30,8 @@
 <script>
 import { Component, Vue } from 'vue-property-decorator';
 import { Flexbox, FlexboxItem, XButton, XImg } from 'vux';
-import { Action, namespace, State } from 'vuex-class';
+import { Action, namespace } from 'vuex-class';
 const UserAction = namespace('user', Action);
-const GlobalState = namespace('global', State);
 let timer = null;
 @Component({
   components: { Flexbox, FlexboxItem, XButton, XImg },
@@ -54,7 +53,6 @@ export default class Register extends Vue {
   bStop = false;
   @UserAction register;
   @UserAction sendCode;
-  @GlobalState storeId;
   get type () {
     return this.$route.path === '/register/wechat';
   }
@@ -64,7 +62,7 @@ export default class Register extends Vue {
       this.$vux.toast.text('请输入有效的手机号码', 'middle');
     } else {
       const params = {
-        store_id: this.storeId,
+        store_id: localStorage.getItem('store_id'),
         mobile: this.phone,
         type: 'login-shop'
       };
@@ -106,7 +104,7 @@ export default class Register extends Vue {
     }
     if (flag && this.bStop) {
       const params = {
-        store_id: this.storeId,
+        store_id: localStorage.getItem('store_id'),
         mobile: this.phone,
         company: this.company,
         password: this.password,
