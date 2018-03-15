@@ -205,7 +205,8 @@ export default class Classification extends Vue {
 .classification{
   width: 100%;
   .my-scorller {
-    padding-bottom: 0.48rem;
+    padding-bottom: 0.55rem;
+    padding-top: 0.46rem;
   }
   .xs-container {
     float: left;
@@ -334,7 +335,6 @@ export default class Classification extends Vue {
     width: 1.1rem !important;
   }
   .card-list-wrap {
-    padding-top: 0.46rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
