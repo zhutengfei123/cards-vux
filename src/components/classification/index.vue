@@ -146,15 +146,7 @@ export default class Classification extends Vue {
     item.checked === 0 ? item.checked = 1 : item.checked = 0;
     this.isActive1 = n;
     if (this.isActive === 3) {
-      if (n === 0) {
-        this.orderByType = 1;
-      } else if (n === 1) {
-        this.orderByType = 2;
-      } else if (n === 2) {
-        this.orderByType = 3;
-      } else {
-        this.orderByType = 3;
-      }
+      n === 3 ? this.orderByType = 3 : this.orderByType = n + 1;
       this.orderBy = item.orderType;
     } else {
       this.itemList.push(item.id);
