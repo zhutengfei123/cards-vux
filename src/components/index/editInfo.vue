@@ -68,7 +68,7 @@ export default class EditInfo extends Vue {
           timer = setTimeout(() => {
             clearTimeout(timer);
             this.$router.push('/mine');
-          }, 1000);
+          }, 500);
         }
       });
     }

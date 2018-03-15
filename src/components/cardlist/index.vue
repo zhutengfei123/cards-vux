@@ -10,7 +10,7 @@
           <span :class="active?'active':''" class="app-icon" style="font-size:0.14rem;">&#xe611;</span>
         </div>
       </tab-item>
-      <tab-item @on-item-click="handleLayoutType"><span class="app-icon">{{layoutType?'&#xe62c;':'&#xe7e7;'}}</span></tab-item>
+      <tab-item @on-item-click="layoutType=!layoutType"><span class="app-icon">{{layoutType?'&#xe62c;':'&#xe7e7;'}}</span></tab-item>
     </tab>
     <scroller lock-x @on-scroll-bottom="onScrollBottom" ref="scrollerBottom" :scroll-bottom-offst="200" style="overflow:initial">
       <div v-if="layoutType" class="card-list-wrap">
@@ -70,11 +70,6 @@ export default class CardList extends Vue {
   flag = true
   flag1 = true
   dataList = []
-  mounted () {
-    this.$nextTick(() => {
-      this.$refs.scrollerBottom.reset({top: 0});
-    });
-  }
   handleClickToDetail (id) {
     this.$router.push(`/detail/${id}`);
   }
@@ -107,12 +102,13 @@ export default class CardList extends Vue {
       let timer = setTimeout(() => {
         this.flag1 = true;
         clearTimeout(timer);
-      }, 1000);
+      }, 500);
     } else {
       this.$vux.toast.text('您的操作过于频繁', 'middle');
     }
   }
   handleClickTab (n) {
+    this.toTop();
     this.isLoading = true;
     this.onFetching = false;
     this.dataList = [];
@@ -129,6 +125,14 @@ export default class CardList extends Vue {
   }
   created () {
     this.initial();
+  }
+  toTop () {
+    this.$nextTick(() => {
+      this.$refs.scrollerBottom.reset({top: 0});
+    });
+  }
+  mounted () {
+    this.toTop();
   }
   initial () {
     if (this.flag) {
@@ -155,13 +159,10 @@ export default class CardList extends Vue {
       let timer = setTimeout(() => {
         this.flag = true;
         clearTimeout(timer);
-      }, 1000);
+      }, 500);
     } else {
       this.$vux.toast.text('您的操作过于频繁', 'middle');
     }
-  }
-  handleLayoutType () {
-    this.layoutType ? this.layoutType = false : this.layoutType = true;
   }
 }
 </script>
