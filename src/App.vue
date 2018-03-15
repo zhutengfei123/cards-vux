@@ -2,9 +2,7 @@
   <div id="app">
      <view-box ref="viewBox" body-padding-top="46px" :body-padding-bottom="/main/.test($route.path)?'55px':'0'">
        <!-- <x-header slot="header" :title="title" class="header"></x-header> -->
-       <transition name="vux-header-fade-in-right">
-          <router-view></router-view>
-       </transition>
+        <router-view></router-view>
        <tabbar slot="bottom" v-show="/main|mine/.test($route.path)">
           <tabbar-item v-for="(item, index) in tabs" :key="index" @click.native="handleClickTabs(index)" :link="item.link">
             <span slot="icon" :class="isActive===index?'active':''" class="app-icon" v-html="isActive===index?item.icon2:item.icon1"></span>

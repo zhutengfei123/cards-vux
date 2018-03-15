@@ -61,7 +61,7 @@ export default class Card extends Vue {
           let timer = setTimeout(() => {
             this.flag = true;
             clearTimeout(timer);
-          }, 1000);
+          }, 500);
         } else {
           this.$vux.toast.text('您的操作过于频繁', 'middle');
         }
