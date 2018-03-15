@@ -6,7 +6,10 @@
       <img class="my-img" :src="shopDetails.pic_url" alt="">
     </div>
     <div class="shop-title">{{shopDetails.name}}</div>
-    <div class="shop-price"><span class="market-price">￥{{shopDetails.price}}</span><span><del class="original-price"> ￥{{'1000'}}</del></span></div>
+    <div class="shop-price">
+      <span class="market-price">￥{{shopDetails.price}}</span>
+      <span v-show="shopDetails.base_price!=0"><del class="original-price"> ￥{{shopDetails.base_price}}</del></span>
+    </div>
     <group>
       <cell><span>库存</span><span>{{shopDetails.stock}}</span></cell>
       <cell is-link :link="shopDetails.mall_url"><span>{{shopDetails.mall_title}}</span></cell>
