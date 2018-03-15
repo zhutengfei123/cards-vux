@@ -156,6 +156,7 @@ export default class Classification extends Vue {
     }
   }
   handleClickTabs (n) {
+    this.toTop();
     this.isActive1 = 0;
     this.isActive = n;
     this.isShowBox = true;
@@ -170,6 +171,14 @@ export default class Classification extends Vue {
         this.$vux.toast.text(msg, 'middle');
       }
     });
+  }
+  toTop () {
+    this.$nextTick(() => {
+      this.$refs.scrollerBottom.reset({top: 0});
+    });
+  }
+  mounted () {
+    this.toTop();
   }
   initial () {
     const params = {
