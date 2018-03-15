@@ -22,7 +22,7 @@
         </flexbox-item>
       </flexbox>
       <div class="bottom">
-        <x-button class="button" @click.native="signUp">{{type?'关联账号':'注册'}}</x-button>
+        <x-button style="font-size:0.18rem;" class="button" @click.native="signUp">{{type?'关联账号':'注册'}}</x-button>
         <span class="text brown" v-if="!type" @click="$router.push('/login')">马上登录</span>
       </div>
   </div>
@@ -139,6 +139,8 @@ export default class Register extends Vue {
   .weui-btn {
     height: 0.42rem;
     line-height: 0.42rem !important;
+    padding: 0 !important;
+    font-size: 0.16rem;
   }
   background: #ffffff;
   height: 100%;
