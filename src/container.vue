@@ -1,8 +1,8 @@
 <template>
     <div class="container">
-       <transition name="vux-header-fade-in-right">
+       <!-- <transition name="vux-header-fade-in-right"> -->
           <router-view></router-view>
-       </transition> 
+       <!-- </transition>  -->
     </div>     
 </template>
 <script>
