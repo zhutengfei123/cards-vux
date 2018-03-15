@@ -17,8 +17,8 @@
             </flexbox>
         </flexbox-item>
         <flexbox-item class="phone">
-            <x-button class="button" @click.native="sendCodeClick" v-show="time===0">发送验证码</x-button>
-            <x-button class="button" v-show="time>0">已发送{{time}}s</x-button>
+            <x-button class="button send-code" @click.native="sendCodeClick" v-show="time===0">发送验证码</x-button>
+            <x-button class="button send-code" v-show="time>0">已发送{{time}}s</x-button>
         </flexbox-item>
       </flexbox>
       <div class="bottom">
@@ -127,6 +127,10 @@ export default class Register extends Vue {
   display: flex;
   align-items: center;
   flex-direction: column;
+  .send-code {
+    font-size: 0.14rem;
+    padding: 0;
+  }
   .phone-code {
     width: 3.47rem;
     display: flex;
