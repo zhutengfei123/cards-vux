@@ -1,16 +1,16 @@
 <template>
-  <div class="classification">
+  <div class="classification-index">
     <tab bar-active-color="transparent" class="tab" ref="topBar">
       <tab-item :selected="true" @on-item-click="handleClickTab(1)">全部</tab-item>
       <tab-item @on-item-click="handleClickTab(2)">销量</tab-item>
       <tab-item @on-item-click="handleClickTab(3)">
         <span>价格</span>
         <div class="order-by">
-          <span v-show="active" :class="active?'':'active'" @click.stop="handleActive(1)" class="app-icon" style="font-size:0.18rem;">&#xe627;</span>
-          <span v-show="!active" :class="active?'active':''" @click.stop="handleActive(2)" class="app-icon" style="font-size:0.14rem;">&#xe611;</span>
+          <span :class="active?'':'active'" class="app-icon" style="font-size:0.18rem;">&#xe627;</span>
+          <span :class="active?'active':''" class="app-icon" style="font-size:0.14rem;">&#xe611;</span>
         </div>
       </tab-item>
-      <tab-item class="app-icon" @on-item-click="handleLayoutType">{{layoutType?'&#xe62c;':'&#xe7e7;'}}</tab-item>
+      <tab-item @on-item-click="handleLayoutType"><span class="app-icon">{{layoutType?'&#xe62c;':'&#xe7e7;'}}</span></tab-item>
     </tab>
     <scroller lock-x @on-scroll-bottom="onScrollBottom" ref="scrollerBottom" :scroll-bottom-offst="200" style="overflow:initial">
       <div v-if="layoutType" class="card-list-wrap">
@@ -61,7 +61,7 @@ export default class CardList extends Vue {
   @ProductsMutation getInitData
   @CartAction addReduce
   layoutType = false
-  orderBy = 1
+  orderBy = 2
   type = 1
   isLoading = true
   onFetching = false
@@ -112,33 +112,18 @@ export default class CardList extends Vue {
       this.$vux.toast.text('您的操作过于频繁', 'middle');
     }
   }
-  handleActive (n) {
-    this.isLoading = true;
-    this.onFetching = false;
-    this.dataList = [];
-    this.currentPage = 1;
-    if (n === 1) {
-      this.active = false;
-      this.orderBy = 2;
-    } else {
-      this.active = true;
-      this.orderBy = 1;
-    }
-    this.initial();
-  }
   handleClickTab (n) {
     this.isLoading = true;
     this.onFetching = false;
     this.dataList = [];
     this.currentPage = 1;
-    if (n === 1) {
-      this.type = this.orderBy = 1;
-    } else if (n === 2) {
+    this.type = n;
+    if (n === 2) {
       this.orderBy = 1;
-      this.type = 2;
-    } else {
-      this.orderBy = 2;
-      this.type = 3;
+    }
+    if (n === 3) {
+      this.active = !this.active;
+      this.active ? this.orderBy = 1 : this.orderBy = 2;
     }
     this.initial();
   }
@@ -180,10 +165,14 @@ export default class CardList extends Vue {
   }
 }
 </script>
-<style lang="less" scoped>
-.classification{
+<style lang="less">
+.classification-index {
   font-size: 0.14rem;
   width: 100%;
+  .xs-container {
+    padding-top: 0.44rem !important;
+    padding-bottom: 0.44rem !important;
+  }
   .weui-btn_mini {
     font-size: 0.12rem !important;
   }
@@ -282,7 +271,6 @@ export default class CardList extends Vue {
     flex-wrap: wrap;
     padding-left: 0.07rem;
     padding-right: 0.07rem;
-    padding-top: 0.44rem;
   }
   .card-list {
     margin-top: 0.07rem;
