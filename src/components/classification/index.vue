@@ -47,7 +47,6 @@ export default class Classification extends Vue {
   @ProductsAction init
   @ProductsAction initCategoryData
   @CartAction addReduce
-  itemList = []
   currentPage = 1
   isShowBox = false
   isActive = 0
@@ -60,9 +59,10 @@ export default class Classification extends Vue {
   dataList = []
   tempData = []
   showEdit = false
+  idList = []
   orderByList = [
     {title: '默认排序', orderType: '1'},
-    {title: '销量从高到低', orderType: '2'},
+    {title: '销量从高到低', orderType: '1'},
     {title: '价格从高到低', orderType: '1'},
     {title: '价格从低到高', orderType: '2'}
   ]
@@ -131,7 +131,12 @@ export default class Classification extends Vue {
     this.currentPage = 1;
     this.isLoading = true;
     this.onFetching = false;
-    this.dataList = [];
+    this.dataList = this.idList = [];
+    this.categoryData[this.isActive].children.forEach(item => {
+      if (item.checked === 1) {
+        this.idList.push(item.id);
+      }
+    });
     this.initial();
   }
   handleReset () {
@@ -140,28 +145,17 @@ export default class Classification extends Vue {
         item.checked = 0;
       });
     }
-    this.itemList = [];
+    this.idList = [];
   }
   handleSelectCon (n, item) {
     item.checked === 0 ? item.checked = 1 : item.checked = 0;
     this.isActive1 = n;
     if (this.isActive === 3) {
-      if (n === 0) {
-        this.orderByType = 1;
-      } else if (n === 1) {
-        this.orderByType = 2;
-      } else if (n === 2) {
-        this.orderByType = 3;
-      } else {
-        this.orderByType = 3;
-      }
+      n === 3 ? this.orderByType = 3 : this.orderByType = n + 1;
       this.orderBy = item.orderType;
-    } else {
-      this.itemList.push(item.id);
     }
   }
   handleClickTabs (n) {
-    this.itemList = [];
     this.isActive1 = 0;
     this.isActive = n;
     this.isShowBox = true;
@@ -182,7 +176,7 @@ export default class Classification extends Vue {
       'store_id': localStorage.getItem('store_id'),
       'page': this.currentPage,
       'page_size': 8,
-      'category_id': this.itemList.join(','),
+      'category_id': this.idList.join(','),
       'order_by_type': this.orderByType,
       'order_by': this.orderBy
     };
@@ -205,7 +199,8 @@ export default class Classification extends Vue {
 .classification{
   width: 100%;
   .my-scorller {
-    padding-bottom: 0.48rem;
+    padding-bottom: 0.55rem;
+    padding-top: 0.46rem;
   }
   .xs-container {
     float: left;
@@ -334,7 +329,6 @@ export default class Classification extends Vue {
     width: 1.1rem !important;
   }
   .card-list-wrap {
-    padding-top: 0.46rem;
     display: flex;
     align-items: center;
     justify-content: space-between;

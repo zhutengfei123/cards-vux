@@ -15,8 +15,8 @@
               </flexbox>
           </flexbox-item>
           <flexbox-item>
-              <x-button class="button" @click.native="sendCodeClick" v-show="time===0">发送验证码</x-button>
-              <x-button class="button" v-show="time>0">已发送{{time}}s</x-button>
+              <x-button class="button send-code" @click.native="sendCodeClick" v-show="time===0">发送验证码</x-button>
+              <x-button class="button send-code" v-show="time>0">已发送{{time}}s</x-button>
           </flexbox-item>
         </flexbox>
         <x-button class="button" @click.native="signIn">登录</x-button>
@@ -125,6 +125,10 @@ export default class Login extends Vue {
 </script>
 <style lang="less" scoped>
 .login {
+  .send-code {
+    font-size: 0.14rem;
+    padding: 0;
+  }
   .bot-con {
     padding: 0 0.15rem;
     display: flex;

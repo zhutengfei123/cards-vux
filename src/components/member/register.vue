@@ -17,12 +17,12 @@
             </flexbox>
         </flexbox-item>
         <flexbox-item class="phone">
-            <x-button class="button" @click.native="sendCodeClick" v-show="time===0">发送验证码</x-button>
-            <x-button class="button" v-show="time>0">已发送{{time}}s</x-button>
+            <x-button class="button send-code" @click.native="sendCodeClick" v-show="time===0">发送验证码</x-button>
+            <x-button class="button send-code" v-show="time>0">已发送{{time}}s</x-button>
         </flexbox-item>
       </flexbox>
       <div class="bottom">
-        <x-button style="font-size:0.18rem;" class="button" @click.native="signUp">{{type?'关联账号':'注册'}}</x-button>
+        <x-button class="button" @click.native="signUp">{{type?'关联账号':'注册'}}</x-button>
         <span class="text brown" v-if="!type" @click="$router.push('/login')">马上登录</span>
       </div>
   </div>
@@ -127,6 +127,10 @@ export default class Register extends Vue {
   display: flex;
   align-items: center;
   flex-direction: column;
+  .send-code {
+    font-size: 0.14rem;
+    padding: 0;
+  }
   .phone-code {
     width: 3.47rem;
     display: flex;
@@ -139,8 +143,6 @@ export default class Register extends Vue {
   .weui-btn {
     height: 0.42rem;
     line-height: 0.42rem !important;
-    padding: 0 !important;
-    font-size: 0.16rem;
   }
   background: #ffffff;
   height: 100%;

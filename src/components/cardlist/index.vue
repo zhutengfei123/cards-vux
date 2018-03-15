@@ -148,7 +148,7 @@ export default class CardList extends Vue {
   initial () {
     if (this.flag) {
       const params = {
-        'store_id': localStorage.getItem('store_id'),
+        'store_id': localStorage.getItem('store_id') || '',
         'page': this.currentPage,
         'page_size': 8,
         'order_by_type': this.type,
