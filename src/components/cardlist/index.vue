@@ -20,6 +20,7 @@
           <div class="card-list-price">尊享价:￥ {{item.price}}</div>
           <div class="card-list-btn"><x-button mini @click.native.stop="handleAddCart(item.id)">加入购物车</x-button></div>
         </div>
+        <div style="height:0.44rem"></div>
       </div>
       <div v-else class="card-list-wrap">
         <div @click="handleClickToDetail(item.id)" class="card-list1" v-for="(item, index) in dataList" :key="index">
@@ -32,6 +33,7 @@
             </div>
           </div>
         </div>
+        <div style="height:0.44rem"></div>
       </div>
       <load-more v-show="onFetching" tip="正在加载中"></load-more>
     </scroller>
@@ -181,7 +183,7 @@ export default class CardList extends Vue {
     height: 0.44rem;
     width: 100%;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     margin: 0 !important;
   }
