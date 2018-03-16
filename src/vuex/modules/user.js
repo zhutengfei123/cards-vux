@@ -46,7 +46,7 @@ const actions = {
   },
   async resetPwd ({commit, rootState}, {mobile, password, code}) {
     const {status: {msg}} = await axios.post('/site/reset-pwd', qs.stringify({
-      store_id: localStorage.getItem('store_id'),
+      store_id: localStorage.getItem('store_id') || '',
       mobile,
       password,
       code

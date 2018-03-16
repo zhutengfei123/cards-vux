@@ -61,7 +61,7 @@ export default class IntentionSubmit extends Vue {
       } else {
         let myTempData = localStorage.getItem('myTempData');
         const params = {
-          store_id: localStorage.getItem('store_id'),
+          store_id: localStorage.getItem('store_id') || '',
           shop_ids: myTempData,
           share_user_id: localStorage.getItem('shareId'),
           full_address: arr[3].value,

@@ -85,7 +85,7 @@ export default class App extends Vue {
       this.$router.push('/mine');
     }
     const params = {
-      'store_id': localStorage.getItem('store_id')
+      'store_id': localStorage.getItem('store_id') || ''
     };
     this.getInitTitleInfo(params).then(msg => {
       if (msg) {

@@ -32,6 +32,9 @@ export default class LScroller extends Vue {
 <style lang="less" scoped>
 .scroller {
   height: 2.8rem;
+  .vux-flexbox-item {
+    flex: 0 0 1.5rem !important;
+  }
   .app-icon {
     color: #ffffff;
     margin: 0 !important;

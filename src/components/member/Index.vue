@@ -47,8 +47,8 @@ export default class Member extends Vue {
   @UserState token;
   @UserState userInfo;
   @UserState isRead;
-  @UserAction getInfo;
   @UserAction initGetIsRead;
+  @UserAction getInfo;
   handleSetShowEdit () {
     if (this.token === '') {
       this.$router.push('/login');
@@ -67,6 +67,8 @@ export default class Member extends Vue {
     this.getInfo(params).then(msg => {
       if (msg) {
         this.$vux.toast.text(msg, 'middle');
+      } else {
+        localStorage.setItem('balancePrice', this.userInfo.balance);
       }
     });
     this.initGetIsRead(params).then(msg => {

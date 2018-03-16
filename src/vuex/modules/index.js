@@ -34,7 +34,7 @@ const state = {
 
 const actions = {
   async init ({commit, rootState}) {
-    const { result, status: {code, msg} } = await axios.get('/index', {params: {store_id: localStorage.getItem('store_id'), source: 1}});
+    const { result, status: {code, msg} } = await axios.get('/index', {params: {store_id: localStorage.getItem('store_id') || '', source: 1}});
     if (code === '00000') {
       commit('initData', result);
     } else {
@@ -51,7 +51,7 @@ const actions = {
   },
   async loadMore ({commit, rootState, state}) {
     const {page, pageSize} = state;
-    const {result: {list}, status: {code, msg}} = await axios.get('/index/gethotproduct', {params: {store_id: localStorage.getItem('store_id'), page, pageSize}});
+    const {result: {list}, status: {code, msg}} = await axios.get('/index/gethotproduct', {params: {store_id: localStorage.getItem('store_id') || '', page, pageSize}});
     if (code === '00000') {
       commit('pushRecommend', list);
       commit('setIsEnd', list ? list.length < pageSize : true);

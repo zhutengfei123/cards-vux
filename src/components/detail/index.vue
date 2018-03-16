@@ -8,7 +8,7 @@
     <div class="shop-title">{{shopDetails.name}}</div>
     <div class="shop-price">
       <span class="market-price">￥{{shopDetails.price}}</span>
-      <span v-show="shopDetails.base_price!=0"><del class="original-price"> ￥{{shopDetails.base_price}}</del></span>
+      <span v-show="shopDetails.base_price&&shopDetails.base_price!=0"><del class="original-price"> ￥{{shopDetails.base_price}}</del></span>
     </div>
     <group>
       <cell><span>库存</span><span>{{shopDetails.stock}}</span></cell>
@@ -53,7 +53,7 @@ export default class Detail extends Vue {
     this.showEdit = JSON.parse(localStorage.getItem('showEdit') || 'false');
     this.tempData = JSON.parse(localStorage.getItem('tempData') || '[]');
     const params = {
-      'store_id': localStorage.getItem('store_id'),
+      'store_id': localStorage.getItem('store_id') || '',
       'id': this.$route.params.id
     };
     this.initGetShopDetails(params).then(msg => {

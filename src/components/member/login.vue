@@ -61,7 +61,7 @@ export default class Login extends Vue {
       this.$vux.toast.text('请输入有效的手机号码', 'middle');
     } else {
       const params = {
-        store_id: localStorage.getItem('store_id'),
+        store_id: localStorage.getItem('store_id') || '',
         mobile: this.phone,
         type: 'login-shop'
       };
@@ -106,7 +106,7 @@ export default class Login extends Vue {
     }
     if (flag && this.bStop) {
       const params = {
-        store_id: localStorage.getItem('store_id'),
+        store_id: localStorage.getItem('store_id') || '',
         mobile: this.phone,
         pwd: this.type ? this.code : this.password,
         type: this.isType
