@@ -212,7 +212,7 @@ export default class Cart extends Vue {
   created () {
     let tempData = localStorage.getItem('tempData') || '[]';
     const params = {
-      'store_id': localStorage.getItem('store_id'),
+      'store_id': localStorage.getItem('store_id') || '',
       'shop_ids': tempData
     };
     this.initGetIntentionList(params).then(msg => {

@@ -53,7 +53,7 @@ export default class Detail extends Vue {
     this.showEdit = JSON.parse(localStorage.getItem('showEdit') || 'false');
     this.tempData = JSON.parse(localStorage.getItem('tempData') || '[]');
     const params = {
-      'store_id': localStorage.getItem('store_id'),
+      'store_id': localStorage.getItem('store_id') || '',
       'id': this.$route.params.id
     };
     this.initGetShopDetails(params).then(msg => {

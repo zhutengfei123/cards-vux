@@ -100,7 +100,7 @@ export default class Index extends Vue {
     if (this.showEdit) {
       const params = {
         'share_user_id': this.userInfo.user_id,
-        'store_id': localStorage.getItem('store_id')
+        'store_id': localStorage.getItem('store_id') || ''
       };
       this.initGetShareInfo(params).then(msg => {
         if (msg) {

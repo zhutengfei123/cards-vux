@@ -182,7 +182,7 @@ export default class Classification extends Vue {
   }
   initial () {
     const params = {
-      'store_id': localStorage.getItem('store_id'),
+      'store_id': localStorage.getItem('store_id') || '',
       'page': this.currentPage,
       'page_size': 8,
       'category_id': this.idList.join(','),

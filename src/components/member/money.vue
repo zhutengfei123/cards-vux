@@ -5,7 +5,7 @@
           <flexbox-item v-once class="title">余额</flexbox-item>
           <flexbox-item class="head-money-show">
               <flexbox align="center" style="height:100%">
-                  <div><span class="price-mark">￥</span><span class="head-price">{{userInfo.balance || '0.00'}}</span></div>
+                  <div><span class="price-mark">￥</span><span class="head-price">{{balancePrice}}</span></div>
                   <x-button class="button" @click.native="$router.push('/recharge')">充值</x-button>
               </flexbox>
           </flexbox-item>
@@ -31,15 +31,14 @@ import { Flexbox, FlexboxItem, XButton, Cell, Group, Toast } from 'vux';
 import { State, Action, namespace } from 'vuex-class';
 const BalanceState = namespace('balance', State);
 const BalanceAction = namespace('balance', Action);
-const UserState = namespace('user', State);
 @Component({
   components: { Flexbox, FlexboxItem, XButton, Cell, Group, Toast }
 })
 export default class Money extends Vue {
   @BalanceState recordList;
-  @UserState userInfo;
   @BalanceAction getRecords;
   currentPage = 1;
+  balancePrice = localStorage.getItem('balancePrice') || '0.00';
   created () {
     const params = {
       page: this.currentPage
