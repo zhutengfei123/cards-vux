@@ -13,31 +13,32 @@
       <tab-item @on-item-click="layoutType=!layoutType"><span class="app-icon">{{layoutType?'&#xe62c;':'&#xe7e7;'}}</span></tab-item>
     </tab>
     <scroller lock-x @on-scroll-bottom="onScrollBottom" ref="scrollerBottom" :scroll-bottom-offst="200" style="overflow:initial">
-      <div v-if="layoutType" class="card-list-wrap">
-        <div @click="handleClickToDetail(item.id)" class="card-list" v-for="(item, index) in dataList" :key="index">
-          <div class="card-list-img"><img :src="item.pic_url" alt=""></div>
-          <div class="card-list-title">{{item.category_name}}</div>
-          <div class="card-list-price">尊享价:￥ {{item.price}}</div>
-          <div class="card-list-btn"><x-button mini @click.native.stop="handleAddCart(item.id)">加入购物车</x-button></div>
-        </div>
-        <div style="height:0.44rem"></div>
-      </div>
-      <div v-else class="card-list-wrap">
-        <div @click="handleClickToDetail(item.id)" class="card-list1" v-for="(item, index) in dataList" :key="index">
-          <div class="card-list1-left">
-            <img :src="item.pic_url" alt="">
-          </div>
-          <div class="card-list1-right">
-            <div class="card-list1-right-top">{{item.category_name}}</div>
-            <div class="card-list1-right-bot">
-              <span class="card-list-price">尊享价:￥ {{item.price}}</span>
-              <span><x-button mini @click.native.stop="handleAddCart(item.id)">加入购物车</x-button></span>
+      <div>
+        <div>
+          <div v-if="layoutType" class="card-list-wrap">
+            <div @click="handleClickToDetail(item.id)" class="card-list" v-for="(item, index) in dataList" :key="index">
+              <div class="card-list-img"><img :src="item.pic_url" alt=""></div>
+              <div class="card-list-title">{{item.category_name}}</div>
+              <div class="card-list-price">尊享价:￥ {{item.price}}</div>
+              <div class="card-list-btn"><x-button mini @click.native.stop="handleAddCart(item.id)">加入购物车</x-button></div>
             </div>
           </div>
+          <div v-else class="card-list-wrap">
+            <div @click="handleClickToDetail(item.id)" class="card-list1" v-for="(item, index) in dataList" :key="index">
+              <div class="card-list1-left"><img :src="item.pic_url" alt=""></div>
+              <div class="card-list1-right">
+                <div class="card-list1-right-top">{{item.category_name}}</div>
+                <div class="card-list1-right-bot">
+                  <span class="card-list-price">尊享价:￥ {{item.price}}</span>
+                  <span><x-button mini @click.native.stop="handleAddCart(item.id)">加入购物车</x-button></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div v-show="hideBox" class="hidebox"></div>
         </div>
-        <div style="height:0.44rem"></div>
+        <load-more v-show="onFetching" tip="正在加载中"></load-more>
       </div>
-      <load-more v-show="onFetching" tip="正在加载中"></load-more>
     </scroller>
   </div>
 </template>
@@ -74,6 +75,7 @@ export default class CardList extends Vue {
   flag = true
   flag1 = true
   dataList = []
+  hideBox = false
   handleClickToDetail (id) {
     this.$router.push(`/detail/${id}`);
   }
@@ -83,9 +85,6 @@ export default class CardList extends Vue {
       setTimeout(() => {
         this.currentPage++;
         this.initial();
-        this.$nextTick(() => {
-          this.$refs.scrollerBottom.reset();
-        });
         this.onFetching = false;
       }, 2000);
     }
@@ -156,6 +155,7 @@ export default class CardList extends Vue {
           } else {
             this.isLoading = false;
             this.$vux.toast.text('暂无更多数据', 'middle');
+            this.hideBox = true;
           }
         }
       });
@@ -174,6 +174,9 @@ export default class CardList extends Vue {
 .classification-index {
   font-size: 0.14rem;
   width: 100%;
+  .hidebox {
+    height: 0.44rem;
+  }
   .xs-container {
     padding-top: 0.44rem !important;
     padding-bottom: 0.44rem !important;
@@ -185,7 +188,7 @@ export default class CardList extends Vue {
     height: 0.44rem;
     width: 100%;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
     margin: 0 !important;
   }
