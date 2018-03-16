@@ -24,7 +24,9 @@
       </div>
       <div v-else class="card-list-wrap">
         <div @click="handleClickToDetail(item.id)" class="card-list1" v-for="(item, index) in dataList" :key="index">
-          <div class="card-list1-left"><img :src="item.pic_url" alt=""></div>
+          <div class="card-list1-left">
+            <img :src="item.pic_url" alt="">
+          </div>
           <div class="card-list1-right">
             <div class="card-list1-right-top">{{item.category_name}}</div>
             <div class="card-list1-right-bot">
