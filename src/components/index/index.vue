@@ -15,14 +15,11 @@
         </div>
       </flexbox>
       <l-header></l-header>
-      <div v-show="mainRecommend.is_show==='1'" class="block">
+      <div v-show="mainRecommend.is_show==='1'" class="block main-recommend">
         <p class="recommend-title">{{mainRecommend.block_content.title}}</p>
-        <flexbox wrap="wrap" :gutter="0">
-            <flexbox-item style="display:flex" :key="index" :span="item.show_type===1?0.5:1/1.0001" v-for="(item, index) in mainRecommend.block_content.list">
-              <img class="my-img" v-show="item.show_type===1" :src="item.pic_url" alt="">
-              <img class="my-img" v-show="item.show_type===2" :src="item.pic_url" alt="">
-            </flexbox-item>
-        </flexbox>
+        <div :class="{'img-box1':item.show_type===1}" class="img-box" v-for="(item, index) in mainRecommend.block_content.list" :key="index">
+          <img class="my-img" :src="item.pic_url" alt="">
+        </div>
       </div>
       <l-scroller :style="{'background':`linear-gradient(to right,${scroller.color_start},${scroller.color_end})`}" v-show="scrollers.is_show==='1'" v-for="(scroller, index) in scrollers.block_content" :key="index" color="blue" :title="scroller.title" :list="scroller.card_list"></l-scroller>
       <div v-show="recommend.is_show==='1'" class="block">
@@ -174,6 +171,18 @@ export default class Index extends Vue {
 <style lang="less">
 .index-myIndex {
   font-size: 0.14rem;
+  .main-recommend {
+    font-size: 0;
+  }
+  .img-box1 {
+    width: 50% !important;
+  }
+  .img-box {
+    width: 100%;
+    height: 1.3rem;
+    display: inline-block;
+    margin: 0;
+  }
   .my-img {
     width: 100%;
     height: 100%;
@@ -220,6 +229,10 @@ export default class Index extends Vue {
   .title {
     height: 0.44rem;
     line-height: 0.44rem !important;
+    width: 2rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   .vux-swiper {
     height: 2.44rem !important;
@@ -253,9 +266,6 @@ export default class Index extends Vue {
     display: flex;
     align-items: center;
     justify-content: space-between;
-  }
-  .img-box {
-    margin: 0 0.15rem;
   }
   .info-title {
     font-size: 0.18rem;

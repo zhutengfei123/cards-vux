@@ -95,6 +95,9 @@ export default class LHeader extends Vue {
     .swiper-height{
       height: 1.6rem;
       overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .marquee-height{
       height:0.17rem;
