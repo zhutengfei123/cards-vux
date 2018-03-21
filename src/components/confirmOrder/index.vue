@@ -1,7 +1,7 @@
 <template>
   <div class="confirm-order">
     <group>
-      <cell v-if="confirmOrderInitData.address.length>0" is-link link="/address">
+      <cell v-if="JSON.stringify(confirmOrderInitData.address)!=='{}'" is-link link="/address">
         <div class="address-t"><span class="address-name">{{confirmOrderInitData.address.name}}</span>&nbsp;<span>{{confirmOrderInitData.address.phone}}</span></div>
         <div class="address-b">{{confirmOrderInitData.address.province+' '+confirmOrderInitData.address.city+' '+confirmOrderInitData.address.district+' '+confirmOrderInitData.address.town+confirmOrderInitData.address.address}}</div>
       </cell>
@@ -61,7 +61,18 @@ export default class ConfirmOrder extends Vue {
   @ConfirmOderState isCreditEnough
   @ConfirmOderAction isConfirmOrder
   @ConfirmOderState ids
+  @ConfirmOderAction confirmOrderInit
   isConfirmPay = false
+  created () {
+    const params = {
+      'ids': this.ids
+    };
+    this.confirmOrderInit(params).then(msg => {
+      if (msg) {
+        this.$vux.toast.text(msg, 'middle');
+      }
+    });
+  }
   onConfirm () {
     const params = {
       'ids': this.ids,

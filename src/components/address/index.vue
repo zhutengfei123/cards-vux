@@ -63,6 +63,8 @@ export default class Address extends Vue {
       this.setDefaultAdress(params).then(msg => {
         if (msg) {
           this.$vux.toast.text(msg, 'middle');
+        } else {
+          this.$router.push('/confirmOrder');
         }
       });
       let timer = null;
