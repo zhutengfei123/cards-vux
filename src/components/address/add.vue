@@ -80,7 +80,9 @@ export default class AddAddress extends Vue {
             this.$vux.toast.text(msg, 'middle');
           } else {
             this.$vux.toast.text('地址修改成功', 'middle');
-            this.$router.push('/address');
+            this.$router.push({
+              path: '/address'
+            });
           }
         });
       } else {
@@ -89,7 +91,9 @@ export default class AddAddress extends Vue {
             this.$vux.toast.text(msg, 'middle');
           } else {
             this.$vux.toast.text('地址添加成功', 'middle');
-            this.$router.push('/address');
+            this.$router.push({
+              path: '/address'
+            });
           }
         });
       }

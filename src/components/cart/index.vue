@@ -239,7 +239,7 @@ export default class Cart extends Vue {
         }
       } else {
         if (ids.length > 0) {
-          this.$store.commit('confirmOrder/getIds', ids.join(','));
+          localStorage.setItem('ids', ids.join(','));
           const params = {
             'ids': ids.join(',')
           };
