@@ -5,8 +5,8 @@
         <x-button mini @click.native="handleClickIsShow">立即推广</x-button>
         <div class="info-edit-box">
           <div class="info-left">
-            <span class="img-box"><avatar :src="shareInfo.head_pic" backgroundColor="#B79E74" color="#ffffff" :size="40" username="Avatar"></avatar></span>
-            <span class="info-title">{{shareInfo.realname}}</span>
+            <span class="img-box2"><avatar :src="shareInfo.head_pic" backgroundColor="#B79E74" color="#ffffff" :size="40" username="Avatar"></avatar></span>
+            <span class="info-title my-desc">{{shareInfo.realname}}</span>
           </div>
           <div @click="handleToInfoEdit" class="info-right">
             <span class="info-title info-edit">编辑</span>
@@ -171,6 +171,15 @@ export default class Index extends Vue {
 <style lang="less">
 .index-myIndex {
   font-size: 0.14rem;
+  .img-box2 {
+    margin: 0 0.15rem;
+  }
+  .my-desc {
+    width: 2rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
   .main-recommend {
     font-size: 0;
   }
