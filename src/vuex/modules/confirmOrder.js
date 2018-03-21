@@ -1,10 +1,32 @@
 import {axios} from '../../js';
 import qs from 'qs';
 const state = {
-  confirmOrderInitData: {},
+  confirmOrderInitData: {
+    address: {
+      name: '',
+      phone: '',
+      province: '',
+      city: '',
+      district: '',
+      town: '',
+      address: ''
+    },
+    list: [
+      {
+        goods: [],
+        title: '',
+        name: '',
+        member_price: '',
+        num: '',
+        total_price: '',
+        freight: ''
+      }
+    ],
+    balance: '',
+    total_price: ''
+  },
   orderId: '',
-  isCreditEnough: true,
-  ids: ''
+  isCreditEnough: true
 };
 const actions = {
   async confirmOrderInit ({commit, rootState}, params) {
@@ -33,9 +55,6 @@ const mutations = {
   },
   getIsCreditEnough (state, data) {
     state.isCreditEnough = data;
-  },
-  getIds (state, data) {
-    state.ids = data;
   }
 };
 export default {

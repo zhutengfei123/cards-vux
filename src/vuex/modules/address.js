@@ -1,7 +1,16 @@
 import { axios } from '../../js';
 import qs from 'qs';
 const state = {
-  addressList: []
+  addressList: [
+    {
+      name: '',
+      phone: '',
+      province: '',
+      city: '',
+      district: '',
+      address: ''
+    }
+  ]
 };
 const actions = {
   async getData ({commit, rootState}, params) {

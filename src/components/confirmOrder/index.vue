@@ -60,9 +60,9 @@ export default class ConfirmOrder extends Vue {
   @ConfirmOderState confirmOrderInitData
   @ConfirmOderState isCreditEnough
   @ConfirmOderAction isConfirmOrder
-  @ConfirmOderState ids
   @ConfirmOderAction confirmOrderInit
   isConfirmPay = false
+  ids = localStorage.getItem('ids') || ''
   created () {
     const params = {
       'ids': this.ids
@@ -104,7 +104,8 @@ export default class ConfirmOrder extends Vue {
   .confirm-order {
     font-size: 0.14rem;
     overflow: hidden;
-    padding-bottom: 0.55rem;
+    position: relative;
+    height: 100%;
     .no-address .vux-cell-primary {
       flex: initial;
       width: 100%;
@@ -154,7 +155,7 @@ export default class ConfirmOrder extends Vue {
       justify-content: center;
     }
     .confirm-foot {
-      position: fixed;
+      position: absolute;
       left: 0;
       bottom: 0;
       height: 0.5rem;

@@ -82,7 +82,9 @@ export default class App extends Vue {
       const shareId = arr[1].split('share_user_id=')[1] || '';
       localStorage.setItem('store_id', storeId);
       localStorage.setItem('shareId', shareId);
-      this.$router.push('/mine');
+      this.$router.push({
+        path: '/mine'
+      });
     }
     const params = {
       'store_id': localStorage.getItem('store_id') || ''
