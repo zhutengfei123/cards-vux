@@ -15,7 +15,7 @@
         </div>
       </flexbox>
       <l-header></l-header>
-      <div v-show="mainRecommend.is_show==='1'" class="block main-recommend">
+      <div  @click="$router.push('/cardList')" v-show="mainRecommend.is_show==='1'" class="block main-recommend">
         <p class="recommend-title">{{mainRecommend.block_content.title}}</p>
         <div :class="{'img-box1':item.show_type===1}" class="img-box" v-for="(item, index) in mainRecommend.block_content.list" :key="index">
           <img class="my-img" :src="item.pic_url" alt="">

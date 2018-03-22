@@ -11,7 +11,7 @@
         <p class="text lg white">编辑<span class="app-icon"></span></p>
       </flexbox-item>
     </flexbox>
-     <swiper v-show="headerImages.is_show==='1'" loop height="2.5rem" ref="swiper">
+     <swiper @click.native="$router.push('/cardList')" v-show="headerImages.is_show==='1'" loop height="2.5rem" ref="swiper">
        <swiper-item v-for="(image, index) in headerImages.block_content" :key="index">
          <div class="swiper-height">
              <img class="swiper-image" :src="image.pic_url" alt=""/>
