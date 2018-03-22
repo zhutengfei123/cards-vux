@@ -1,7 +1,7 @@
 <template>
   <div class="classification">
     <tab bar-active-color="transparent" class="tab" ref="topBar">
-      <tab-item :selected="index===0?true:false" v-for="(item, index) in tabsList" :key="index" @on-item-click="handleClickTabs(index)">{{item.title}}<span :class="index===isActive&&isShowBox?'active':''" class="app-icon">&#xe611;</span></tab-item>
+      <tab-item :selected="index===0?true:false" v-for="(item, index) in tabsList" :key="index" @on-item-click="handleClickTabs(index)">{{item.title}}<span :class="{'active':index===isActive&&isShowBox}" class="app-icon">&#xe611;</span></tab-item>
       <div class="drop-down-box" v-show="isShowBox">
         <div v-if="isActive!==3" class="drop-t">
           <div @click="handleSelectCon(index, item)" :class="item.checked===1?'active1':''" class="con-box" v-for="(item, index) in categoryData[isActive].children" :key="index">{{item.name}}</div>
