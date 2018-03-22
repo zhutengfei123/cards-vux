@@ -1,7 +1,7 @@
 <template>
   <div class="classification">
     <tab bar-active-color="transparent" class="tab" ref="topBar">
-      <tab-item :selected="index===0?true:false" v-for="(item, index) in tabsList" :key="index" @on-item-click="handleClickTabs(index)">{{item.title}}<span :class="index===isActive?'active':''" class="app-icon">&#xe611;</span></tab-item>
+      <tab-item :selected="index===0?true:false" v-for="(item, index) in tabsList" :key="index" @on-item-click="handleClickTabs(index)">{{item.title}}<span :class="{'active':index===isActive&&isShowBox}" class="app-icon">&#xe611;</span></tab-item>
       <div class="drop-down-box" v-show="isShowBox">
         <div v-if="isActive!==3" class="drop-t">
           <div @click="handleSelectCon(index, item)" :class="item.checked===1?'active1':''" class="con-box" v-for="(item, index) in categoryData[isActive].children" :key="index">{{item.name}}</div>
@@ -311,6 +311,11 @@ export default class Classification extends Vue {
   }
   .active {
     color: #B79E74 !important;
+    transform: rotate(180deg) !important;
+    -ms-transform:rotate(180deg) !important;
+    -webkit-transform:rotate(180deg) !important;
+    -o-transform:rotate(180deg) !important;
+    -moz-transform:rotate(180deg) !important;
   }
   .active1 {
     position: relative;
@@ -328,9 +333,16 @@ export default class Classification extends Vue {
     transform: scaleY(0.5);
   }
   .app-icon {
+    display: inline-block;
     font-size: 0.15rem;
     color: #3c3c3c;
     margin-left: 0.05rem;
+    transition: transform 0.5s;
+    transform: rotate(0deg);
+    -ms-transform:rotate(0deg);
+    -webkit-transform:rotate(0deg);
+    -o-transform:rotate(0deg);
+    -moz-transform:rotate(0deg);
   }
   .tab{
     position: fixed;
