@@ -28,7 +28,7 @@
         <load-more v-show="onFetching" tip="正在加载中"></load-more>
       </div>
     </scroller>
-    <div v-show="isShowBox" class="msk-box"></div>
+    <div @click="isShowBox=!isShowBox" v-show="isShowBox" class="msk-box"></div>
   </div>
 </template>
 <script>
