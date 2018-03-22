@@ -159,13 +159,15 @@ export default class Classification extends Vue {
     this.toTop();
     this.isActive1 = 0;
     this.isActive = n;
-    this.isShowBox = true;
+    this.isShowBox = !this.isShowBox;
   }
   created () {
     this.showEdit = JSON.parse(localStorage.getItem('showEdit') || 'false');
     this.tempData = JSON.parse(localStorage.getItem('tempData') || '[]');
     this.initial();
-    const params = {};
+    const params = {
+      'store_id': localStorage.getItem('store_id') || ''
+    };
     this.initCategoryData(params).then(msg => {
       if (msg) {
         this.$vux.toast.text(msg, 'middle');
