@@ -3,31 +3,31 @@ import qs from 'qs';
 const state = {
   inited: false,
   headerImages: {
-    is_show: '',
+    is_show: '1',
     block_content: []
   },
   focus: {
-    is_show: '',
+    is_show: '1',
     block_content: {
       title: '',
       list: []
     }
   },
   mainRecommend: {
-    is_show: '',
+    is_show: '1',
     block_content: {
       title: '',
       list: []
     }
   },
   scrollers: {
-    is_show: '',
+    is_show: '1',
     block_content: [
       {card_list: []}
     ]
   },
   recommend: {
-    is_show: '',
+    is_show: '1',
     block_content: {
       title: '',
       list: []
