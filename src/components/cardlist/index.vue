@@ -65,7 +65,7 @@ export default class CardList extends Vue {
   @ProductsAction init
   @ProductsMutation getInitData
   @CartAction addReduce
-  layoutType = false
+  layoutType = true
   orderBy = 2
   type = 1
   isLoading = true
