@@ -125,6 +125,21 @@ export default class Login extends Vue {
 </script>
 <style lang="less" scoped>
 .login {
+  .weui-btn:after {
+    content: initial;
+  }
+  input::-webkit-input-placeholder{
+      color:#d9d9d9;
+  }
+  input::-moz-placeholder{
+      color:#d9d9d9;
+  }
+  input:-moz-placeholder{
+      color:#d9d9d9;
+  }
+  input:-ms-input-placeholder{
+      color:#d9d9d9;
+  }
   .send-code {
     font-size: 0.14rem;
     padding: 0;
@@ -153,7 +168,7 @@ export default class Login extends Vue {
   }
   .box {
     margin-top: 0.16rem;
-    border: 1px solid #979797;
+    border: 1px solid #d9d9d9;
     border-radius: 0.03rem;
     width: 100%;
     height: 0.4rem;

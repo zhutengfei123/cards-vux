@@ -1,14 +1,14 @@
 <template>
   <div class="scroller">
     <a class="list-top">
-        <label class="text bold">{{title}}</label>
-        <span class="app-icon" @click="$router.push('/cardList')">&#xe61e;</span>
+        <label class="text bold">{{list.title}}</label>
+        <span class="app-icon" @click="handleClickCardList(list)">&#xe61e;</span>
     </a>
     <div class="scroll-x">
       <flexbox align="center" class="container">
-        <flexbox-item v-for="(item, index) in list" :key="index" span="154">
-          <card :item="item" @click.native="$router.push(`/detail/${item.id}`)"></card>
-        </flexbox-item>  
+        <flexbox-item v-for="(item, index) in list.card_list" :key="index" span="154">
+          <card :item="item" @click.native="$router.push(`/detail/${item.shop_id}`)"></card>
+        </flexbox-item>
       </flexbox>
     </div>
   </div>
@@ -21,12 +21,12 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
   components: { Scroller, Card, Flexbox, FlexboxItem }
 })
 export default class LScroller extends Vue {
-  @Prop([String])
-  color;
-  @Prop([String])
-  title;
-  @Prop([Array])
+  @Prop([Object])
   list;
+  handleClickCardList (item) {
+    localStorage.setItem('cardId', item.id);
+    this.$router.push('/cardList');
+  }
 }
 </script>
 <style lang="less" scoped>

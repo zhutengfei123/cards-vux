@@ -1,7 +1,7 @@
 <template>
     <div class="cart">
         <div class="cart-top">
-            <span>共{{initData.num}}件</span>
+            <span>共{{initData.num||0}}件</span>
             <span class="cart-edit" @click="handleCartEdit(isEdit)">{{isEdit?'完成':'编辑'}}</span>
         </div>
         <div class="cart-con" v-for="(item, index) in initData.list" :key="index">
@@ -10,7 +10,7 @@
             </div>
             <div class="con-mid" v-for="(subItem, i) in item.goods" :key="i">
                 <check-icon :value.sync="subItem.is_selected===1?true:false" @click.native="handleSelect(subItem)"></check-icon>
-                <span @click="handleClickToDetail(subItem.id)" class="my-img"><img class="img" :src="subItem.pic" alt=""></span>
+                <span @click="$router.push(`/detail/${subIem.shop_id}`)" class="my-img"><img class="img" :src="subItem.pic" alt=""></span>
                 <div class="con-r">
                     <div class="con-mid-t">{{subItem.name}}</div>
                     <div class="con-mid-b">
@@ -59,9 +59,6 @@ export default class Cart extends Vue {
     @ConfirmOderMutation confirmOrderGetInitData
     @ConfirmOderState confirmOrderInitData
     isEdit = false
-    handleClickToDetail (id) {
-      this.$router.push(`/detail/${id}`);
-    }
     handleInputChange (num, id) {
       const params = {
         'shop_id': id,
@@ -281,7 +278,7 @@ export default class Cart extends Vue {
 <style lang="less" scoped>
     .cart {
         height: 100%;
-        padding: 0.44rem 0;
+        padding: 0.6rem 0;
         overflow: hidden;
         font-size: 0.14rem;
         .con-mid-t {
@@ -352,6 +349,7 @@ export default class Cart extends Vue {
         }
         .bottom-l {
             color: #C61A2A;
+            font-weight: bold;
         }
         .con-mid-b {
             width: 100%;
