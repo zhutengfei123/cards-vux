@@ -15,18 +15,18 @@
         </div>
       </flexbox>
       <l-header></l-header>
-      <div  @click="$router.push('/cardList')" v-show="mainRecommend.is_show==='1'" class="block main-recommend">
+      <div v-show="mainRecommend.is_show==='1'" class="block main-recommend">
         <p class="recommend-title">{{mainRecommend.block_content.title}}</p>
-        <div :class="{'img-box1':item.show_type===1}" class="img-box" v-for="(item, index) in mainRecommend.block_content.list" :key="index">
+        <div @click="handleClickImg(item)" :class="{'img-box1':item.show_type===1}" class="img-box" v-for="(item, index) in mainRecommend.block_content.list" :key="index">
           <img class="my-img" :src="item.pic_url" alt="">
         </div>
       </div>
-      <l-scroller :style="{'background':`linear-gradient(to right,${scroller.color_start},${scroller.color_end})`}" v-show="scrollers.is_show==='1'" v-for="(scroller, index) in scrollers.block_content" :key="index" color="blue" :title="scroller.title" :list="scroller.card_list"></l-scroller>
+      <l-scroller :style="{'background':`linear-gradient(to right,${scroller.color_start},${scroller.color_end})`}" v-show="scrollers.is_show==='1'" v-for="(scroller, index) in scrollers.block_content" :key="index" :list="scroller" ></l-scroller>
       <div v-show="recommend.is_show==='1'" class="block">
         <p class="recommend-title">{{recommend.block_content.title}}</p>
         <grid :cols="2">
           <grid-item v-for="(item, index) in recommend.block_content.list" :key="index">
-            <card class="my-card" :item="item" @click.native="$router.push(`/detail/${item.id}`)"></card>
+            <card class="my-card" :item="item" @click.native="$router.push(`/detail/${item.shop_id}`)"></card>
           </grid-item>
         </grid>
       </div>
@@ -77,6 +77,18 @@ export default class Index extends Vue {
   showTip=false
   loading=false
   showEdit = false
+  handleClickImg (item) {
+    if (item.jump_type === '1') {
+      localStorage.setItem('cardId', item.jump_type_value);
+      this.$router.push('/cardList');
+    }
+    if (item.jump_type === '2') {
+      this.$router.push(`/detail/${item.jump_type_value}`);
+    }
+    if (item.jump_type === '3') {
+      window.location.href = item.jump_type_value;
+    }
+  }
   handleToInfoEdit () {
     this.$router.push('/editInfo');
   }
@@ -210,6 +222,7 @@ export default class Index extends Vue {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    line-height: 0.17rem !important;
   }
   .card img {
     height: 1.1rem;
@@ -230,7 +243,7 @@ export default class Index extends Vue {
   }
   .bold {
     color: #ffffff !important;
-    font-weight: initial;
+    font-weight: bold;
   }
   .block {
     margin-top: 0.3rem !important;
@@ -254,6 +267,7 @@ export default class Index extends Vue {
   .vux-icon-dot {
     width: 0.12rem !important;
     height: 0.04rem !important;
+    border-radius: 0 !important;
     background: #D9D9D9;
   }
   .active {
@@ -264,6 +278,8 @@ export default class Index extends Vue {
   }
   .weui-btn {
     width: 1rem;
+    font-weight: bold;
+    margin: 0 !important;
   }
   .app-icon {
     margin: 0 0.15rem;
@@ -296,9 +312,6 @@ export default class Index extends Vue {
     justify-content: space-between;
     z-index: 1;
   }
-  .weui-btn {
-    margin: 0 !important;
-  }
   .top{
       margin: 0 !important;
       background: #ffffff;
@@ -322,6 +335,7 @@ export default class Index extends Vue {
       font-weight: bold;
       font-size: 0.16rem;
       z-index:50;
+      padding: 0 0.1rem;
   }
   .block{
     width: 100%;

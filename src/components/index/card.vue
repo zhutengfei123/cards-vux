@@ -2,7 +2,7 @@
     <div class="card">
         <x-img container="#vux_view_box_body" :src="`${item.pic_url.split('?')[0]}?x-oss-process=image/resize,w_${imgWidth}/format,jpg`" :webp-src="`${item.pic_url.split('?')[0]}?x-oss-process=image/resize,w_${imgWidth}/format,webp`"/>
         <p class="text">{{item.name}}</p>
-        <p class="text red">尊享价:{{item.price}}</p>
+        <p class="text red">尊享价:￥{{item.price}}</p>
         <x-button  mini @click.native.stop="handleAddCart(item)">加入购物车</x-button>
     </div>
 </template>
@@ -48,7 +48,7 @@ export default class Card extends Vue {
       } else {
         if (this.flag) {
           const params = {
-            'shop_id': item.id
+            'shop_id': item.shop_id
           };
           this.addReduce(params).then(msg => {
             if (msg) {
@@ -97,9 +97,11 @@ export default class Card extends Vue {
         white-space: nowrap;
         margin: 0 !important;
         text-align: center;
+        width: 1.3rem;
     }
     .red{
         font-size: 0.12rem;
+        font-weight: bold;
     }
 }
 </style>

@@ -11,8 +11,8 @@
         <p class="text lg white">编辑<span class="app-icon"></span></p>
       </flexbox-item>
     </flexbox>
-     <swiper @click.native="$router.push('/cardList')" v-show="headerImages.is_show==='1'" loop height="2.5rem" ref="swiper">
-       <swiper-item v-for="(image, index) in headerImages.block_content" :key="index">
+     <swiper v-show="headerImages.is_show==='1'" loop height="2.5rem" ref="swiper">
+       <swiper-item @click.native="handleClickSwiper(image)" v-for="(image, index) in headerImages.block_content" :key="index">
          <div class="swiper-height">
              <img class="swiper-image" :src="image.pic_url" alt=""/>
          </div>
@@ -43,6 +43,18 @@ export default class LHeader extends Vue {
   initImg=initImg
   @IndexState headerImages
   @IndexState focus
+  handleClickSwiper (item) {
+    if (item.jump_type === '1') {
+      localStorage.setItem('cardId', item.jump_type_value);
+      this.$router.push('/cardList');
+    }
+    if (item.jump_type === '2') {
+      this.$router.push(`/detail/${item.jump_type_value}`);
+    }
+    if (item.jump_type === '3') {
+      window.location.href = item.jump_type_value;
+    }
+  }
   indexChange (index) {
     this.index = index;
   }

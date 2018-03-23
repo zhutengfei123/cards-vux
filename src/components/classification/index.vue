@@ -1,7 +1,7 @@
 <template>
   <div class="classification">
     <tab bar-active-color="transparent" class="tab" ref="topBar">
-      <tab-item :selected="index===0?true:false" v-for="(item, index) in tabsList" :key="index" @on-item-click="handleClickTabs(index)">{{item.title}}<span :class="{'active':index===isActive&&isShowBox}" class="app-icon">&#xe611;</span></tab-item>
+      <tab-item :selected="index===0?true:false" v-for="(item, index) in tabsList" :key="index" @on-item-click="handleClickTabs(index)"><span class="title-bold">{{item.title}}</span><span :class="{'active':index===isActive&&isShowBox}" class="app-icon">&#xe611;</span></tab-item>
       <div class="drop-down-box" v-show="isShowBox">
         <div v-if="isActive!==3" class="drop-t">
           <div @click="handleSelectCon(index, item)" :class="item.checked===1?'active1':''" class="con-box" v-for="(item, index) in categoryData[isActive].children" :key="index">{{item.name}}</div>
@@ -21,7 +21,7 @@
           <div @click="$router.push(`/detail/${item.id}`)" class="card-list" v-for="(item, index) in dataList" :key="index">
             <div class="card-list-img"><img :src="item.pic_url" alt=""></div>
             <div class="card-list-title">{{item.name}}</div>
-            <div class="card-list-price">尊享价:￥ {{item.price}}</div>
+            <div class="card-list-price">尊享价:￥{{item.price}}</div>
             <div class="card-list-btn"><x-button mini @click.native.stop="handleAddCart(item)">加入购物车</x-button></div>
           </div>
         </div>
@@ -156,7 +156,6 @@ export default class Classification extends Vue {
     }
   }
   handleClickTabs (n) {
-    this.toTop();
     this.isActive1 = 0;
     this.isActive = n;
     this.isShowBox = !this.isShowBox;
@@ -173,14 +172,6 @@ export default class Classification extends Vue {
         this.$vux.toast.text(msg, 'middle');
       }
     });
-  }
-  toTop () {
-    this.$nextTick(() => {
-      this.$refs.scrollerBottom.reset({top: 0});
-    });
-  }
-  mounted () {
-    this.toTop();
   }
   initial () {
     const params = {
@@ -209,6 +200,9 @@ export default class Classification extends Vue {
 <style lang="less" scoped>
 .classification{
   width: 100%;
+  .title-bold {
+    font-weight: bold;
+  }
   .my-scorller {
     padding-bottom: 0.55rem;
     padding-top: 0.46rem;
@@ -249,6 +243,9 @@ export default class Classification extends Vue {
   .weui-btn_mini {
     padding: 0 !important;
     font-size: 0.12rem !important;
+  }
+  .weui-btn {
+    font-weight: bold;
   }
   .msk-box {
     position: fixed;
@@ -388,7 +385,7 @@ export default class Classification extends Vue {
   .card-list-price {
     height: 0.25rem;
     font-size: 0.14rem;
-    font-weight: bolder;
+    font-weight: bold;
     color: #C61A2A;
   }
   .card-list-btn {

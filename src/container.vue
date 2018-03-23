@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container-index">
        <!-- <transition name="vux-header-fade-in-right"> -->
           <router-view></router-view>
        <!-- </transition>  -->
@@ -12,8 +12,11 @@ import Component from 'vue-class-component';
 export default class Container extends Vue {
 }
 </script>
-<style lang="less" scoped>
-.container {
+<style lang="less">
+.container-index {
+  .weui-btn:after {
+    content: initial !important;
+  }
   .weui-tabbar__label{
     line-height: unset;
     margin:0;

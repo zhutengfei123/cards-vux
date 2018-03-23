@@ -1,10 +1,10 @@
 <template>
   <div class="classification-index">
     <tab bar-active-color="transparent" class="tab" ref="topBar">
-      <tab-item :selected="true" @on-item-click="handleClickTab(1)">全部</tab-item>
-      <tab-item @on-item-click="handleClickTab(2)">销量</tab-item>
+      <tab-item :selected="true" @on-item-click="handleClickTab(1)"><span class="title-bold">全部</span></tab-item>
+      <tab-item @on-item-click="handleClickTab(2)"><span class="title-bold">销量</span></tab-item>
       <tab-item @on-item-click="handleClickTab(3)">
-        <span>价格</span>
+        <span class="title-bold">价格</span>
         <div class="order-by">
           <span :class="active?'':'active'" class="app-icon" style="font-size:0.18rem;">&#xe627;</span>
           <span :class="active?'active':''" class="app-icon" style="font-size:0.14rem;">&#xe611;</span>
@@ -16,21 +16,21 @@
       <div>
         <div>
           <div v-if="layoutType" class="card-list-wrap">
-            <div @click="handleClickToDetail(item.id)" class="card-list" v-for="(item, index) in dataList" :key="index">
+            <div @click="$router.push(`/detail/${item.shop_id}`)" class="card-list" v-for="(item, index) in dataList" :key="index">
               <div class="card-list-img"><img :src="item.pic_url" alt=""></div>
-              <div class="card-list-title">{{item.category_name}}</div>
+              <div class="card-list-title">{{item.name}}</div>
               <div class="card-list-price">尊享价:￥ {{item.price}}</div>
-              <div class="card-list-btn"><x-button mini @click.native.stop="handleAddCart(item.id)">加入购物车</x-button></div>
+              <div class="card-list-btn"><x-button mini @click.native.stop="handleAddCart(item.shop_id)">加入购物车</x-button></div>
             </div>
           </div>
           <div v-else class="card-list-wrap">
-            <div @click="handleClickToDetail(item.id)" class="card-list1" v-for="(item, index) in dataList" :key="index">
+            <div @click="$router.push(`/detail/${item.shop_id}`)" class="card-list1" v-for="(item, index) in dataList" :key="index">
               <div class="card-list1-left"><img :src="item.pic_url" alt=""></div>
               <div class="card-list1-right">
-                <div class="card-list1-right-top">{{item.category_name}}</div>
+                <div class="card-list1-right-top">{{item.name}}</div>
                 <div class="card-list1-right-bot">
                   <span class="card-list-price">尊享价:￥ {{item.price}}</span>
-                  <span><x-button mini @click.native.stop="handleAddCart(item.id)">加入购物车</x-button></span>
+                  <span><x-button mini @click.native.stop="handleAddCart(item.shop_id)">加入购物车</x-button></span>
                 </div>
               </div>
             </div>
@@ -43,12 +43,11 @@
   </div>
 </template>
 <script>
-import {State, Action, Mutation, namespace} from 'vuex-class';
+import {State, Action, namespace} from 'vuex-class';
 import {Tab, TabItem, XButton, Toast, Scroller, LoadMore} from 'vux';
 import {Component, Vue} from 'vue-property-decorator';
 const ProductsState = namespace('products', State);
 const ProductsAction = namespace('products', Action);
-const ProductsMutation = namespace('products', Mutation);
 const CartAction = namespace('cart', Action);
 @Component({
   components: {
@@ -61,9 +60,8 @@ const CartAction = namespace('cart', Action);
   }
 })
 export default class CardList extends Vue {
-  @ProductsState initData
-  @ProductsAction init
-  @ProductsMutation getInitData
+  @ProductsState initData1
+  @ProductsAction init1
   @CartAction addReduce
   layoutType = true
   orderBy = 2
@@ -76,9 +74,6 @@ export default class CardList extends Vue {
   flag1 = true
   dataList = []
   hideBox = false
-  handleClickToDetail (id) {
-    this.$router.push(`/detail/${id}`);
-  }
   onScrollBottom () {
     if (!this.onFetching && this.isLoading) {
       this.onFetching = true;
@@ -111,7 +106,6 @@ export default class CardList extends Vue {
     }
   }
   handleClickTab (n) {
-    this.toTop();
     this.isLoading = true;
     this.onFetching = false;
     this.dataList = [];
@@ -129,14 +123,6 @@ export default class CardList extends Vue {
   created () {
     this.initial();
   }
-  toTop () {
-    this.$nextTick(() => {
-      this.$refs.scrollerBottom.reset({top: 0});
-    });
-  }
-  mounted () {
-    this.toTop();
-  }
   initial () {
     if (this.flag) {
       const params = {
@@ -144,14 +130,15 @@ export default class CardList extends Vue {
         'page': this.currentPage,
         'page_size': 8,
         'order_by_type': this.type,
-        'order_by': this.orderBy
+        'order_by': this.orderBy,
+        'card_shop_special_id': localStorage.getItem('cardId') || ''
       };
-      this.init(params).then(msg => {
+      this.init1(params).then(msg => {
         if (msg) {
           this.$vux.toast.text(msg, 'middle');
         } else {
-          if (this.initData.list.length > 0) {
-            this.dataList = this.dataList.concat(this.initData.list);
+          if (this.initData1.list.length > 0) {
+            this.dataList = this.dataList.concat(this.initData1.list);
           } else {
             this.isLoading = false;
             this.$vux.toast.text('暂无更多数据', 'middle');
@@ -174,6 +161,12 @@ export default class CardList extends Vue {
 .classification-index {
   font-size: 0.14rem;
   width: 100%;
+  .weui-btn:after {
+    content: initial;
+  }
+  .title-bold {
+    font-weight: bold;
+  }
   .hidebox {
     height: 0.44rem;
   }
@@ -183,6 +176,10 @@ export default class CardList extends Vue {
   }
   .weui-btn_mini {
     font-size: 0.12rem !important;
+  }
+  .weui-btn {
+    font-weight: bold;
+    width: 1.1rem;
   }
   .weui-loadmore {
     height: 0.44rem;
@@ -269,7 +266,6 @@ export default class CardList extends Vue {
     width: 100%;
   }
   button.weui-btn, input.weui-btn {
-    width: 0.8rem !important;
     padding: 0 !important;
   }
   .card-list-wrap {

@@ -84,12 +84,39 @@ export default class IntentionSubmit extends Vue {
 <style lang="less">
 .submit-index {
   padding-bottom: 0.44rem;
+  input::-webkit-input-placeholder{
+      color:#d9d9d9;
+  }
+  input::-moz-placeholder{
+      color:#d9d9d9;
+  }
+  input:-moz-placeholder{
+      color:#d9d9d9;
+  }
+  input:-ms-input-placeholder{
+      color:#d9d9d9;
+  }
+  textarea::-webkit-input-placeholder{
+      color:#d9d9d9;
+  }
+  textarea::-moz-placeholder{
+      color:#d9d9d9;
+  }
+  textarea:-moz-placeholder{
+      color:#d9d9d9;
+  }
+  textarea:-ms-input-placeholder{
+      color:#d9d9d9;
+  }
   .weui-btn:after {
     content: initial;
   }
   .l-input {
     margin-bottom: 0.15rem;
-    margin-top: 0;
+    margin-top: 0 !important;
+  }
+  .box {
+    border: 1px solid #d9d9d9 !important;
   }
   .submit-btn {
     text-align: center;

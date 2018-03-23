@@ -1,7 +1,7 @@
 <template>
     <div class="cart">
         <div class="cart-top">
-            <span>共{{intentionList.num}}件</span>
+            <span>共{{intentionList.num||0}}件</span>
             <span class="cart-edit" @click="handleCartEdit(isEdit)">{{isEdit?'完成':'编辑'}}</span>
         </div>
         <div class="cart-con" v-for="(item, index) in intentionList.list" :key="index">
@@ -10,7 +10,7 @@
             </div>
             <div class="con-mid" v-for="(subItem, i) in item.goods" :key="i">
                 <check-icon :value.sync="subItem.is_selected===1?true:false" @click.native="handleSelect(subItem)"></check-icon>
-                <span @click="handleClickToDetail(subItem.id)" class="my-img"><img class="img" :src="subItem.pic" alt=""></span>
+                <span @click="$router.push(`/detail/${subIem.shop_id}`)" class="my-img"><img class="img" :src="subItem.pic" alt=""></span>
                 <div class="con-r">
                     <div class="con-mid-t">{{subItem.name}}</div>
                     <div class="con-mid-b">
@@ -59,9 +59,6 @@ export default class Cart extends Vue {
       });
     });
     this.intentionList.goods_total_price = totalPrice.toFixed(2);
-  }
-  handleClickToDetail (id) {
-    this.$router.push(`/detail/${id}`);
   }
   handleInputChange (a, item) {
     item.num = a;
@@ -185,6 +182,7 @@ export default class Cart extends Vue {
       });
       localStorage.setItem('tempData', JSON.stringify(tempData));
       this.computedPrice();
+      this.initial();
     } else {
       if (this.intentionList.list) {
         let flag = false;
@@ -210,6 +208,9 @@ export default class Cart extends Vue {
     }
   }
   created () {
+    this.initial();
+  }
+  initial () {
     let tempData = localStorage.getItem('tempData') || '[]';
     const params = {
       'store_id': localStorage.getItem('store_id') || '',
@@ -226,7 +227,7 @@ export default class Cart extends Vue {
 <style lang="less" scoped>
 .cart {
   height: 100%;
-  padding-top: 0.44rem;
+  padding-top: 0.6rem;
   padding-bottom: 1rem;
   overflow: hidden;
   font-size: 0.14rem;
@@ -299,6 +300,7 @@ export default class Cart extends Vue {
   }
   .bottom-l {
     color: #c61a2a;
+    font-weight: bold;
   }
   .con-mid-b {
     width: 100%;

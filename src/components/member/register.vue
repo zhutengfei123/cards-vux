@@ -127,6 +127,21 @@ export default class Register extends Vue {
   display: flex;
   align-items: center;
   flex-direction: column;
+  .weui-btn:after {
+    content: initial;
+  }
+  input::-webkit-input-placeholder{
+      color:#d9d9d9;
+  }
+  input::-moz-placeholder{
+      color:#d9d9d9;
+  }
+  input:-moz-placeholder{
+      color:#d9d9d9;
+  }
+  input:-ms-input-placeholder{
+      color:#d9d9d9;
+  }
   .send-code {
     font-size: 0.14rem;
     padding: 0;
@@ -157,7 +172,7 @@ export default class Register extends Vue {
   }
   .box {
     margin-top: 0.16rem;
-    border: 1px solid #979797;
+    border: 1px solid #d9d9d9;
     border-radius: 0.03rem;
     width: 3.45rem;
     height: 0.4rem;

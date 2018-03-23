@@ -2,6 +2,7 @@ import {axios} from '../../js';
 import qs from 'qs';
 const state = {
   initData: [],
+  initData1: [],
   categoryData: [
     {children: []}
   ],
@@ -14,6 +15,14 @@ const actions = {
     const { result, status: {code, msg} } = await axios.get('/index.php/card-shop', {'params': params});
     if (code === '00000') {
       commit('getInitData', result);
+    } else {
+      return msg;
+    }
+  },
+  async init1 ({commit, rootState}, params) {
+    const { result, status: {code, msg} } = await axios.get('/special/info', {'params': params});
+    if (code === '00000') {
+      commit('getInitData1', result);
     } else {
       return msg;
     }
@@ -68,6 +77,9 @@ const actions = {
 const mutations = {
   getInitData (state, data) {
     state.initData = data;
+  },
+  getInitData1 (state, data) {
+    state.initData1 = data;
   },
   getCategoryData (state, data) {
     state.categoryData = data;
