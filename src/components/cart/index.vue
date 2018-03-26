@@ -2,7 +2,7 @@
     <div class="cart">
         <div class="cart-top">
             <span>共{{initData.num||0}}件</span>
-            <span class="cart-edit" @click="handleCartEdit(isEdit)">{{isEdit?'完成':'编辑'}}</span>
+            <span class="cart-edit" @click="handleCartEdit(isEdit)">{{isEdit?'编辑':'完成'}}</span>
         </div>
         <div class="cart-con" v-for="(item, index) in initData.list" :key="index">
             <div class="con-top">
@@ -17,7 +17,7 @@
                         <span class="bottom-l">￥{{subItem.member_price}}</span>
                         <div class="add-or-reduce" v-show="isEdit">
                             <span class="reduce" @click="handleChange(-1, subItem)">－</span>
-                            <span class="num-value"><input onkeypress="return event.keyCode>=48&&event.keyCode<=57" ng-pattern="/[^a-zA-Z]/" type="text" :value="subItem.num>0?subItem.num:'0'" @blur="handleInputChange($event.target.value, subItem.shop_id)"></span>
+                            <span class="num-value"><input onkeypress="return event.keyCode>=48&&event.keyCode<=57" ng-pattern="/[^a-zA-Z]/" type="text" :value="subItem.num>0?subItem.num:'1'" @blur="handleInputChange($event.target.value, subItem.shop_id)"></span>
                             <span class="add" @click="handleChange(1, subItem)">＋</span>
                         </div>
                     </div>
@@ -27,20 +27,18 @@
         <div class="cart-foot">
             <check-icon :value.sync="initData.is_all_selected===1?true:false" @click.native="handleSelectAll">全选</check-icon>
             <span>合计：<span class="bottom-l">￥{{initData.goods_total_price}}</span></span>
-            <span class="settlement" @click="handleClick(isEdit)">{{isEdit?'删除':'结算'}}</span>
+            <span class="settlement" @click="handleClick(!isEdit)">{{isEdit?'结算':'删除'}}</span>
         </div>
     </div>
 </template>
 <script>
 import { CheckIcon, Toast } from 'vux';
 import { Component, Vue } from 'vue-property-decorator';
-import {State, Action, Mutation, namespace} from 'vuex-class';
+import {State, Action, namespace} from 'vuex-class';
 const CartState = namespace('cart', State);
 const CartAction = namespace('cart', Action);
-const CartMutation = namespace('cart', Mutation);
 const ConfirmOderState = namespace('confirmOrder', State);
 const ConfirmOderAction = namespace('confirmOrder', Action);
-const ConfirmOderMutation = namespace('confirmOrder', Mutation);
 @Component({
   components: {
     CheckIcon,
@@ -52,13 +50,11 @@ export default class Cart extends Vue {
     @CartAction addReduce
     @CartAction isSelected
     @CartAction deleteList
-    @CartMutation getInitData
     @CartState initData
     @ConfirmOderAction confirmOrderInit
     @ConfirmOderAction isConfirmOrder
-    @ConfirmOderMutation confirmOrderGetInitData
     @ConfirmOderState confirmOrderInitData
-    isEdit = false
+    isEdit = true
     handleInputChange (num, id) {
       const params = {
         'shop_id': id,
@@ -422,7 +418,10 @@ export default class Cart extends Vue {
         .img, .my-img {
             width: 1rem;
             border: none;
-            height: 100%;
+            height: 0.66rem;
+        }
+        .my-img {
+          margin-left: 0.08rem;
         }
         .con-r {
             width: 100%;

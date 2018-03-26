@@ -17,7 +17,7 @@
                         <span class="bottom-l">￥{{subItem.member_price}}</span>
                         <div class="add-or-reduce" v-show="isEdit">
                             <span class="reduce" @click="handleChange(-1, subItem)">－</span>
-                            <span class="num-value"><input onkeypress="return event.keyCode>=48&&event.keyCode<=57" ng-pattern="/[^a-zA-Z]/" type="text" :value="parseFloat(subItem.num)>0?subItem.num:0" @blur="handleInputChange($event.target.value, subItem)"></span>
+                            <span class="num-value"><input onkeypress="return event.keyCode>=48&&event.keyCode<=57" ng-pattern="/[^a-zA-Z]/" type="text" :value="parseFloat(subItem.num)>0?subItem.num:1" @blur="handleInputChange($event.target.value, subItem)"></span>
                             <span class="add" @click="handleChange(1, subItem)">＋</span>
                         </div>
                     </div>
@@ -374,7 +374,10 @@ export default class Cart extends Vue {
   .my-img {
     width: 1rem;
     border: none;
-    height: 100%;
+    height: 0.66rem;
+  }
+  .my-img {
+    margin-left: 0.08rem;
   }
   .con-r {
     width: 100%;

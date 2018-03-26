@@ -4,7 +4,7 @@
        <!-- <x-header slot="header" :title="title" class="header"></x-header> -->
         <router-view></router-view>
         <tabbar slot="bottom" v-show="/main|mine/.test($route.path)">
-            <tabbar-item v-for="(item, index) in tabs" :key="index" @click.native="handleClickTabs(index)" :link="item.link">
+            <tabbar-item :badge="item.badge" v-for="(item, index) in tabs" :key="index" @click.native="handleClickTabs(index)" :link="item.link">
               <span slot="icon" :class="isActive===index?'active':''" class="app-icon" v-html="isActive===index?item.icon2:item.icon1"></span>
               <span slot="label" :class="isActive===index?'active':''" class="tabbar-item">{{item.name}}</span>
             </tabbar-item>
@@ -46,14 +46,14 @@ const IndexAction = namespace('index', Action);
         this.tabs = [
           { name: '首页', icon1: '&#xe65d;', icon2: '&#xe65b;', link: '/mine' },
           { name: '分类', icon1: '&#58965;', icon2: '&#xe659;', link: '/mine/classification' },
-          { name: '意向单', icon1: '&#xe660;', icon2: '&#xe65f;', link: '/mine/intentionList' }
+          { name: '意向单', badge: '3', icon1: '&#xe660;', icon2: '&#xe65f;', link: '/mine/intentionList' }
         ];
       }
       if (/main/.test(str)) {
         this.tabs = [
           { name: '首页', icon1: '&#xe65d;', icon2: '&#xe65b;', link: '/main' },
           { name: '分类', icon1: '&#58965;', icon2: '&#xe659;', link: '/main/classification' },
-          { name: '购物车', icon1: '&#xe65c;', icon2: '&#xe65a;', link: `${this.token === '' ? '/login' : '/main/cart'}` },
+          { name: '购物车', badge: '0', icon1: '&#xe65c;', icon2: '&#xe65a;', link: `${this.token === '' ? '/login' : '/main/cart'}` },
           { name: '会员', icon1: '&#58967;', icon2: '&#xe65b;', link: '/main/member' }
         ];
       }
