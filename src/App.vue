@@ -54,7 +54,7 @@ const IndexAction = namespace('index', Action);
           { name: '首页', icon1: '&#xe65d;', icon2: '&#xe65b;', link: '/main' },
           { name: '分类', icon1: '&#58965;', icon2: '&#xe659;', link: '/main/classification' },
           { name: '购物车', icon1: '&#xe65c;', icon2: '&#xe65a;', link: `${this.token === '' ? '/login' : '/main/cart'}` },
-          { name: '会员', icon1: '&#58967;', icon2: '&#xe65b;', link: '/main/member' }
+          { name: '会员', icon1: '&#58967;', icon2: '&#xe656;', link: '/main/member' }
         ];
       }
     }
