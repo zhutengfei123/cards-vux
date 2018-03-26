@@ -225,10 +225,10 @@ export default class Index extends Vue {
     line-height: 0.17rem !important;
   }
   .card img {
-    height: 1.1rem;
+    height: 0.9rem;
   }
   .my-card img {
-    height: 1.34rem;
+    height: 1.04rem;
   }
   .card {
     height: 2.05rem;
@@ -255,9 +255,6 @@ export default class Index extends Vue {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-  }
-  .vux-swiper {
-    height: 2.44rem !important;
   }
   .marqueediv  {
     margin: 0 !important;

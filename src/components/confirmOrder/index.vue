@@ -1,7 +1,7 @@
 <template>
   <div class="confirm-order">
     <group>
-      <cell v-if="JSON.stringify(confirmOrderInitData.address)!=='{}'" is-link link="/address">
+      <cell v-if="confirmOrderInitData.address.phone" is-link link="/address">
         <div class="address-t"><span class="address-name">{{confirmOrderInitData.address.name}}</span>&nbsp;<span>{{confirmOrderInitData.address.phone}}</span></div>
         <div class="address-b">{{confirmOrderInitData.address.province+' '+confirmOrderInitData.address.city+' '+confirmOrderInitData.address.district+' '+confirmOrderInitData.address.town+confirmOrderInitData.address.address}}</div>
       </cell>

@@ -2,7 +2,7 @@
     <div class="cart">
         <div class="cart-top">
             <span>共{{intentionList.num||0}}件</span>
-            <span class="cart-edit" @click="handleCartEdit(isEdit)">{{isEdit?'完成':'编辑'}}</span>
+            <span class="cart-edit" @click="handleCartEdit(isEdit)">{{isEdit?'编辑':'完成'}}</span>
         </div>
         <div class="cart-con" v-for="(item, index) in intentionList.list" :key="index">
             <div class="con-top">
@@ -17,7 +17,7 @@
                         <span class="bottom-l">￥{{subItem.member_price}}</span>
                         <div class="add-or-reduce" v-show="isEdit">
                             <span class="reduce" @click="handleChange(-1, subItem)">－</span>
-                            <span class="num-value"><input onkeypress="return event.keyCode>=48&&event.keyCode<=57" ng-pattern="/[^a-zA-Z]/" type="text" :value="parseFloat(subItem.num)>0?subItem.num:0" @blur="handleInputChange($event.target.value, subItem)"></span>
+                            <span class="num-value"><input onkeypress="return event.keyCode>=48&&event.keyCode<=57" ng-pattern="/[^a-zA-Z]/" type="text" :value="parseFloat(subItem.num)>0?subItem.num:1" @blur="handleInputChange($event.target.value, subItem)"></span>
                             <span class="add" @click="handleChange(1, subItem)">＋</span>
                         </div>
                     </div>
@@ -27,7 +27,7 @@
         <div class="cart-foot">
             <check-icon :value.sync="intentionList.is_all_selected===1?true:false" @click.native="handleSelectAll">全选</check-icon>
             <span>合计：<span class="bottom-l">￥{{intentionList.goods_total_price}}</span></span>
-            <span class="settlement" @click="handleClick">{{isEdit?'删除':'提交意向单'}}</span>
+            <span class="settlement" @click="handleClick">{{isEdit?'提交意向单':'删除'}}</span>
         </div>
     </div>
 </template>
@@ -46,7 +46,7 @@ const ProductsAction = namespace('products', Action);
 export default class Cart extends Vue {
   @ProductsState intentionList;
   @ProductsAction initGetIntentionList;
-  isEdit = false;
+  isEdit = true;
   myTempData = []
   computedPrice () {
     let totalPrice = 0;
@@ -158,7 +158,7 @@ export default class Cart extends Vue {
     this.computedPrice();
   }
   handleClick () {
-    if (this.isEdit) {
+    if (!this.isEdit) {
       let arr = this.intentionList.list;
       let len = this.intentionList.list.length;
       for (let i = 0; i < len; i++) {
@@ -374,7 +374,10 @@ export default class Cart extends Vue {
   .my-img {
     width: 1rem;
     border: none;
-    height: 100%;
+    height: 0.66rem;
+  }
+  .my-img {
+    margin-left: 0.08rem;
   }
   .con-r {
     width: 100%;

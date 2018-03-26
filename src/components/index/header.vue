@@ -1,5 +1,5 @@
 <template>
-  <div class="header">
+  <div class="header-myIndex">
     <flexbox align="center" v-if="$route.path==='mine'">
       <flexbox-item :span="0.25" class="avatar-container">
         <x-img class="avatar" :default-src="initImg" container="#vux_view_box_body"/>
@@ -11,7 +11,7 @@
         <p class="text lg white">编辑<span class="app-icon"></span></p>
       </flexbox-item>
     </flexbox>
-     <swiper v-show="headerImages.is_show==='1'" loop height="2.5rem" ref="swiper">
+     <swiper v-show="headerImages.is_show==='1'" loop ref="swiper">
        <swiper-item @click.native="handleClickSwiper(image)" v-for="(image, index) in headerImages.block_content" :key="index">
          <div class="swiper-height">
              <img class="swiper-image" :src="image.pic_url" alt=""/>
@@ -60,10 +60,13 @@ export default class LHeader extends Vue {
   }
 }
 </script>
-<style lang="less" scoped>
-.header{
+<style lang="less">
+.header-myIndex {
     background-image: linear-gradient(0deg, #FFFFFF 27%, #4386F4 100%);
     width: 100%;
+    .vux-slider, .vux-swiper {
+      height: 3.3rem !important;
+    }
     .swiper-image {
       height: 100%;
       border: none;
@@ -95,6 +98,10 @@ export default class LHeader extends Vue {
     .text{
       line-height: 0.2rem;
       padding-left: 0.2rem;
+      width: 2rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
     .focus{
       color:red;
@@ -105,7 +112,7 @@ export default class LHeader extends Vue {
       width: 50%;
     }
     .swiper-height{
-      height: 1.6rem;
+      height: 2.5rem;
       overflow: hidden;
       display: flex;
       align-items: center;

@@ -1,5 +1,5 @@
 <template>
-  <div class="classification">
+  <div class="classification-index">
     <tab bar-active-color="transparent" class="tab" ref="topBar">
       <tab-item :selected="index===0?true:false" v-for="(item, index) in tabsList" :key="index" @on-item-click="handleClickTabs(index)"><span class="title-bold">{{item.title}}</span><span :class="{'active':index===isActive&&isShowBox}" class="app-icon">&#xe611;</span></tab-item>
       <div class="drop-down-box" v-show="isShowBox">
@@ -197,11 +197,14 @@ export default class Classification extends Vue {
   }
 }
 </script>
-<style lang="less" scoped>
-.classification{
+<style lang="less">
+.classification-index {
   width: 100%;
   .title-bold {
     font-weight: bold;
+  }
+  .vux-tab .vux-tab-item {
+    color: #a6a6a6;
   }
   .my-scorller {
     padding-bottom: 0.55rem;
@@ -306,6 +309,9 @@ export default class Classification extends Vue {
     left: 0;
     box-sizing: border-box;
   }
+  .vux-tab-selected .app-icon {
+    color: #B79E74 !important;
+  }
   .active {
     color: #B79E74 !important;
     transform: rotate(180deg) !important;
@@ -332,7 +338,7 @@ export default class Classification extends Vue {
   .app-icon {
     display: inline-block;
     font-size: 0.15rem;
-    color: #3c3c3c;
+    color: #a6a6a6;
     margin-left: 0.05rem;
     transition: transform 0.5s;
     transform: rotate(0deg);

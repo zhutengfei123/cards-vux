@@ -5,10 +5,10 @@
       <tab-item @on-item-click="handleClickTab(2)"><span class="title-bold">销量</span></tab-item>
       <tab-item @on-item-click="handleClickTab(3)">
         <span class="title-bold">价格</span>
-        <div class="order-by">
+        <span class="order-by">
           <span :class="active?'':'active'" class="app-icon" style="font-size:0.18rem;">&#xe627;</span>
           <span :class="active?'active':''" class="app-icon" style="font-size:0.14rem;">&#xe611;</span>
-        </div>
+        </span>
       </tab-item>
       <tab-item @on-item-click="layoutType=!layoutType"><span class="app-icon">{{layoutType?'&#xe62c;':'&#xe7e7;'}}</span></tab-item>
     </tab>
@@ -161,6 +161,9 @@ export default class CardList extends Vue {
 .classification-index {
   font-size: 0.14rem;
   width: 100%;
+  .vux-tab .vux-tab-item {
+    color: #a6a6a6;
+  }
   .weui-btn:after {
     content: initial;
   }
@@ -214,7 +217,7 @@ export default class CardList extends Vue {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #3c3c3c;
+    color: #a6a6a6;
   }
   .card-list1-right-top {
     width: 100%;
