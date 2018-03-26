@@ -202,8 +202,6 @@ export default class Classification extends Vue {
   width: 100%;
   .title-bold {
     font-weight: bold;
-  }
-  .vux-tab .vux-tab-item {
     color: #a6a6a6;
   }
   .my-scorller {
@@ -308,6 +306,9 @@ export default class Classification extends Vue {
     top: 0.4rem;
     left: 0;
     box-sizing: border-box;
+  }
+  .vux-tab-selected .title-bold {
+    color: #B79E74 !important;
   }
   .vux-tab-selected .app-icon {
     color: #B79E74 !important;

@@ -1,5 +1,5 @@
 <template>
-  <div class="classification-index">
+  <div class="classification-index1">
     <tab bar-active-color="transparent" class="tab" ref="topBar">
       <tab-item :selected="true" @on-item-click="handleClickTab(1)"><span class="title-bold">全部</span></tab-item>
       <tab-item @on-item-click="handleClickTab(2)"><span class="title-bold">销量</span></tab-item>
@@ -158,17 +158,18 @@ export default class CardList extends Vue {
 }
 </script>
 <style lang="less">
-.classification-index {
+.classification-index1 {
   font-size: 0.14rem;
   width: 100%;
-  .vux-tab .vux-tab-item {
-    color: #a6a6a6;
+  .vux-tab-selected .title-bold {
+    color: #B79E74 !important;
   }
   .weui-btn:after {
     content: initial;
   }
   .title-bold {
     font-weight: bold;
+    color: #a6a6a6;
   }
   .hidebox {
     height: 0.44rem;
@@ -205,12 +206,13 @@ export default class CardList extends Vue {
     justify-content: center;
   }
   .order-by {
-    height: 0.24rem;
+    height: 0.3rem;
     margin-left: 0.054rem;
-    display: flex;
     align-items: center;
     justify-content: space-around;
     flex-direction: column;
+    padding-left: 0 !important;
+    display: block;
   }
   .order-by span {
     height: 0.15rem;
