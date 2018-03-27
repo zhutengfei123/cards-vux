@@ -132,11 +132,13 @@ export default class Classification extends Vue {
     this.isLoading = true;
     this.onFetching = false;
     this.idList = [];
-    this.categoryData[this.isActive].children.forEach(item => {
-      if (item.checked === 1) {
-        this.idList.push(item.id);
-      }
-    });
+    if (this.isActive !== 3) {
+      this.categoryData[this.isActive].children.forEach(item => {
+        if (item.checked === 1) {
+          this.idList.push(item.id);
+        }
+      });
+    }
     this.dataList = [];
     this.initial();
   }
