@@ -111,12 +111,17 @@ export default class Register extends Vue {
         password: this.password,
         code: this.code
       };
-      this.register(params).then(
-        msg =>
-          msg
-            ? this.$vux.toast.text(msg, 'middle')
-            : this.$router.push('/login')
-      );
+      this.register(params).then(msg => {
+        if (msg) {
+          this.$vux.toast.text(msg, 'middle');
+        } else {
+          this.$vux.toast.text('注册成功', 'middle');
+          let timer = setTimeout(() => {
+            clearTimeout(timer);
+            this.$router.push('/login');
+          }, 2000);
+        }
+      });
     }
   }
 }
