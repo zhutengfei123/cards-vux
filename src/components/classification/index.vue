@@ -147,6 +147,8 @@ export default class Classification extends Vue {
       this.categoryData[this.isActive].children.forEach(item => {
         item.checked = 0;
       });
+    } else {
+      this.isActive1 = 0;
     }
     this.idList = [];
   }
@@ -159,7 +161,6 @@ export default class Classification extends Vue {
     }
   }
   handleClickTabs (n) {
-    this.isActive1 = 0;
     this.isActive = n;
     this.isShowBox = !this.isShowBox;
   }
