@@ -325,17 +325,6 @@ export default class Classification extends Vue {
     position: relative;
     color: #B79E74;
   }
-  .active1:after {
-    content: " ";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    height: 1px;
-    border-bottom: 1px solid #B79E74;
-    transform-origin: 0 100%;
-    transform: scaleY(0.5);
-  }
   .app-icon {
     display: inline-block;
     font-size: 0.15rem;
