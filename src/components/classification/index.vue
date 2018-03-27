@@ -131,12 +131,13 @@ export default class Classification extends Vue {
     this.currentPage = 1;
     this.isLoading = true;
     this.onFetching = false;
-    this.dataList = this.idList = [];
+    this.idList = [];
     this.categoryData[this.isActive].children.forEach(item => {
       if (item.checked === 1) {
         this.idList.push(item.id);
       }
     });
+    this.dataList = [];
     this.initial();
   }
   handleReset () {
@@ -324,17 +325,6 @@ export default class Classification extends Vue {
   .active1 {
     position: relative;
     color: #B79E74;
-  }
-  .active1:after {
-    content: " ";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    height: 1px;
-    border-bottom: 1px solid #B79E74;
-    transform-origin: 0 100%;
-    transform: scaleY(0.5);
   }
   .app-icon {
     display: inline-block;
