@@ -16,7 +16,7 @@
     </group>
     <div class="card">
       <div class="card-title">购卡须知</div>
-      <div class="card-con">{{shopDetails.use_service}}</div>
+      <div class="card-con" v-html="shopDetails.details"></div>
     </div>
     <div class="card">
       <div class="card-title">使用规则</div>
@@ -105,6 +105,12 @@ export default class Detail extends Vue {
   overflow: hidden;
   padding-top: 0.15rem;
   padding-bottom: 0.44rem;
+  .card-con p {
+    width: 100%;
+  }
+  .card-con p img {
+    width: 100%;
+  }
   .weui-cell {
     height: 0.2rem;
   }
