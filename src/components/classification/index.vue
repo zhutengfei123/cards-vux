@@ -132,11 +132,13 @@ export default class Classification extends Vue {
     this.isLoading = true;
     this.onFetching = false;
     this.idList = [];
-    this.categoryData[this.isActive].children.forEach(item => {
-      if (item.checked === 1) {
-        this.idList.push(item.id);
-      }
-    });
+    if (this.isActive !== 3) {
+      this.categoryData[this.isActive].children.forEach(item => {
+        if (item.checked === 1) {
+          this.idList.push(item.id);
+        }
+      });
+    }
     this.dataList = [];
     this.initial();
   }
@@ -145,6 +147,8 @@ export default class Classification extends Vue {
       this.categoryData[this.isActive].children.forEach(item => {
         item.checked = 0;
       });
+    } else {
+      this.isActive1 = 0;
     }
     this.idList = [];
   }
@@ -157,7 +161,6 @@ export default class Classification extends Vue {
     }
   }
   handleClickTabs (n) {
-    this.isActive1 = 0;
     this.isActive = n;
     this.isShowBox = !this.isShowBox;
   }
