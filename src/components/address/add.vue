@@ -6,7 +6,7 @@
             <x-address class="address-input-border" title="所在地区" v-model="addressForm.addressArr" :list="addressDataList" placeholder="请选择"></x-address>
             <x-textarea title="详细地址" v-model="addressForm.addressDetail" placeholder="请填写详细地址"></x-textarea>
         </group>
-        <x-button class="bottom-button" @click.native="saveAddress">保存</x-button>
+        <x-button class="bottom-button" @click.native="saveAddress" :style="{'background-color':setColor}">保存</x-button>
     </div>
 </template>
 <script>
@@ -25,6 +25,7 @@ export default class AddAddress extends Vue {
   addressInfo = {}
   flag = true
   isEditAddress = true
+  setColor = localStorage.getItem('setColor')
   addressForm = {
     'name': '',
     'phone': '',

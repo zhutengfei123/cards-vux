@@ -32,6 +32,7 @@ export default class Item extends Vue {
     -webkit-line-clamp: 3;
     overflow: hidden;
     margin-left: 0 !important;
+    margin-top: 10px !important;
     height: 100%;
   }
   .vux-flexbox .vux-flexbox-item {

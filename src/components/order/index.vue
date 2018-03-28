@@ -8,7 +8,7 @@
         <group v-for="(order,index) in orders" :key="index" :style="{paddingTop:index===0&&'44px'}" @click.native="$router.push(`/order/detail/${order.order_sn}`)">
             <cell>
                 <p slot="title" class="text">订单编号：{{order.order_sn}}</p>
-                <p class="text brown">{{getStatus(order.order_status)}}</p>
+                <p class="text brown" :style="{'color':setColor}" >{{getStatus(order.order_status)}}</p>
             </cell>
             <div v-for="(goods,index) in order.goods_list" :key="index">
                 <item v-for="(item,index) in goods.list" :key="index" :item="item" v-if="index<2"></item>
@@ -40,6 +40,7 @@ export default class Order extends Vue {
   @OrderState orders;
   @OrderMutation setOrders;
   @OrderAction getOrders;
+  setColor = localStorage.getItem('setColor')
   @Watch('orderStatus')
   onStatusChange (newValue, oldValue) {
     if (newValue !== oldValue) {

@@ -10,7 +10,7 @@
             </cell>
         </group>
         <group>
-            <flexbox><span class="text label">订单状态</span><span class="text brown">{{type}}</span></flexbox>
+            <flexbox><span class="text label">订单状态</span><span class="text brown" :style="{'color':setColor}" >{{type}}</span></flexbox>
             <flexbox><span class="text label">订单号</span><span class="text">{{orderSn}}</span></flexbox>
             <flexbox v-if="orderStatus!=='1'"><span class="text label">快递单号</span><span class="text">{{expressNo}}&nbsp;&nbsp;&nbsp;({{expressName}})</span></flexbox>
             <cell v-if="orderStatus!=='1'" is-link class="link" :link="`/order/delivery/${orderSn}`">
@@ -60,6 +60,7 @@ export default class OrderDetail extends Vue {
   time = '';
   context = '';
   totalPrice = 0;
+  setColor = localStorage.getItem('setColor')
   preview = [
     {
       label: '下单时间',

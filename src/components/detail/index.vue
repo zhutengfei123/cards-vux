@@ -27,7 +27,7 @@
         <span class="cart-num">数量</span>
         <inline-x-number class="add-reduce-num" width="0.4rem" :min="1" :max="Number(shopDetails.stock)" v-model="count" :fillable="true"></inline-x-number>
       </div>
-      <x-button class="add-cart" @click.native="addCart">加入购物车</x-button>
+      <x-button class="add-cart" @click.native="addCart"  :style="{'background-color':setColor}">加入购物车</x-button>
     </div>
   </div>
 </template>
@@ -49,6 +49,7 @@ export default class Detail extends Vue {
   count = 1
   showEdit = false
   tempData = []
+  setColor = localStorage.getItem('setColor')
   created () {
     this.showEdit = JSON.parse(localStorage.getItem('showEdit') || 'false');
     this.tempData = JSON.parse(localStorage.getItem('tempData') || '[]');

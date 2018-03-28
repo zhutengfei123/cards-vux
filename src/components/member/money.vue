@@ -6,7 +6,7 @@
           <flexbox-item class="head-money-show">
               <flexbox align="center" style="height:100%">
                   <div><span class="price-mark">￥</span><span class="head-price">{{balancePrice}}</span></div>
-                  <x-button class="button" @click.native="$router.push('/recharge')">充值</x-button>
+                  <x-button class="button" @click.native="$router.push('/recharge')" :style="{'color':setColor}">充值</x-button>
               </flexbox>
           </flexbox-item>
         </flexbox>
@@ -38,6 +38,7 @@ export default class Money extends Vue {
   @BalanceState recordList;
   @BalanceAction getRecords;
   currentPage = 1;
+  setColor = localStorage.getItem('setColor')
   balancePrice = localStorage.getItem('balancePrice') || '0.00';
   created () {
     const params = {

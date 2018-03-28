@@ -7,15 +7,15 @@
             </cell>
             <cell class="address-edit-row">
                 <check-icon :value.sync="item.is_default==='1'?true:false" @click.native="handleSelectAdress(item)">
-                  <span class="checked-title">默认地址</span>
+                  <span class="checked-title" :style="{'color':setColor}">默认地址</span>
                 </check-icon>
                 <div class="text brown">
-                  <span @click="handleEditAddress(item)">编辑</span>
-                  <span class="address-remove" @click="deleteAddress(item.id)">删除</span>
+                  <span @click="handleEditAddress(item)" :style="{'color':setColor}" >编辑</span>
+                  <span class="address-remove" :style="{'color':setColor}" @click="deleteAddress(item.id)">删除</span>
                 </div>
             </cell>
         </group>
-        <x-button class="bottom-button" @click.native="$router.push('/address/add')">添加新地址</x-button>
+        <x-button class="bottom-button" @click.native="$router.push('/address/add')" :style="{'background-color':setColor}" >添加新地址</x-button>
         <div v-transfer-dom>
             <confirm v-model="isShow" @on-cancel="onCancel" @on-confirm="onConfirm">
                 <p class="text" style="font-size: 0.18rem;font-weight:bold">提示</p>
@@ -44,6 +44,7 @@ export default class Address extends Vue {
   isShow = false;
   clickId = '';
   flag = true
+  setColor = localStorage.getItem('setColor')
   handleEditAddress (item) {
     localStorage.setItem('addressInfo', JSON.stringify(item));
     this.$router.push('/address/edit');
