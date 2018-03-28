@@ -3,7 +3,6 @@
         <tab class="tab" ref="topBar" bar-active-color="#B79E74">
             <tab-item :selected="true" @on-item-click="orderStatus=0">全部</tab-item>
             <tab-item @on-item-click="orderStatus=1">待发货</tab-item>
-            <tab-item @on-item-click="orderStatus=2">待支付</tab-item>
             <tab-item @on-item-click="orderStatus=3">已发货</tab-item>
         </tab>
         <group v-for="(order,index) in orders" :key="index" :style="{paddingTop:index===0&&'44px'}" @click.native="$router.push(`/order/detail/${order.order_sn}`)">
