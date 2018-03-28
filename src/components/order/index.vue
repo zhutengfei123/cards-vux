@@ -71,6 +71,7 @@ export default class Order extends Vue {
     order.show = !order.show;
   }
   created () {
+    this.setOrders({ orders: [], page: 1 });
     this.getOrders({ orderStatus: this.orderStatus }).then(msg => {
       msg && this.$vux.toast.text(msg);
     });
