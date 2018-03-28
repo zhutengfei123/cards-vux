@@ -239,9 +239,9 @@ export default class Cart extends Vue {
           this.confirmOrderInit(params).then(msg => {
             if (!msg) {
               if (parseFloat(this.confirmOrderInitData.balance) >= parseFloat(this.confirmOrderInitData.total_price)) {
-                this.$store.commit('confirmOrder/getIsCreditEnough', true);
+                localStorage.setItem('isCreditEnough', '1');
               } else {
-                this.$store.commit('confirmOrder/getIsCreditEnough', false);
+                localStorage.setItem('isCreditEnough', '0');
               }
               this.$router.push({
                 path: '/confirmOrder'

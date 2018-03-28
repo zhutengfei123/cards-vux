@@ -4,7 +4,7 @@
         <flexbox-item :span="0.3">物流状态</flexbox-item>
         <flexbox-item>{{status}}</flexbox-item>
     </flexbox>
-    <flexbox class="text lg">
+    <flexbox id="myClass" class="text lg">
         <flexbox-item :span="0.3">快递单号</flexbox-item>
         <flexbox-item>{{expressNo}}&nbsp;&nbsp;&nbsp;({{expressName}})</flexbox-item>
     </flexbox>
@@ -29,19 +29,19 @@ export default class Delivery extends Vue {
   list = [];
   get status () {
     switch (this.state) {
-      case 0:
+      case '0':
         return '在途';
-      case 1:
+      case '1':
         return '揽件';
-      case 2:
+      case '2':
         return '疑难';
-      case 3:
+      case '3':
         return '签收';
-      case 4:
+      case '4':
         return '退签';
-      case 5:
+      case '5':
         return '派件';
-      case 6:
+      case '6':
         return '退回';
     }
   }
@@ -73,6 +73,21 @@ export default class Delivery extends Vue {
   }
   .text {
     background: #ffffff;
+  }
+  #myClass {
+    position: relative;
+  }
+  #myClass:before {
+    content: " ";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 1px;
+    border-top: 1px solid #D9D9D9;
+    color: #D9D9D9;
+    transform-origin: 0 0;
+    transform: scaleY(0.5);
   }
 }
 </style>

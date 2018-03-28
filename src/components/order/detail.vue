@@ -12,8 +12,8 @@
         <group>
             <flexbox><span class="text label">订单状态</span><span class="text brown">{{type}}</span></flexbox>
             <flexbox><span class="text label">订单号</span><span class="text">{{orderSn}}</span></flexbox>
-            <flexbox><span class="text label" v-if="orderStatus!==1">快递单号</span><span class="text">{{expressNo}}&nbsp;&nbsp;&nbsp;({{expressName}})</span></flexbox>
-            <cell is-link class="link" :link="`/order/delivery/${orderSn}`" v-if="orderStatus!==1">
+            <flexbox v-if="orderStatus!=='1'"><span class="text label">快递单号</span><span class="text">{{expressNo}}&nbsp;&nbsp;&nbsp;({{expressName}})</span></flexbox>
+            <cell v-if="orderStatus!=='1'" is-link class="link" :link="`/order/delivery/${orderSn}`">
                 <p slot="inline-desc" class="text gray">{{time}}</p>
                 <p slot="inline-desc" class="text gray">{{context}}</p>
             </cell>
@@ -74,7 +74,6 @@ export default class OrderDetail extends Vue {
       value: ''
     }
   ];
-
   get type () {
     switch (this.orderStatus) {
       case '1':
@@ -91,9 +90,10 @@ export default class OrderDetail extends Vue {
       qs.stringify({ order_sn: this.$route.params.id })
     );
     if (code === '00000') {
-      this.name = result.address_info.name;
-      this.phone = result.address_info.phone;
-      this.address = result.address_info.address;
+      const {name, phone, address} = result.address_info;
+      this.name = name;
+      this.phone = phone;
+      this.address = address;
       this.list = result.goods_list[0].list;
       this.orderStatus = result.order_status;
       this.orderSn = result.order_sn;
@@ -114,20 +114,52 @@ export default class OrderDetail extends Vue {
   }
 }
 </script>
-<style lang="less" scoped>
+<style lang="less">
 .order-detail {
+  .gray {
+    width: 2rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .my-item {
+    position: relative;
+  }
+  .my-item:before {
+    content: " ";
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    height: 1px;
+    border-top: 1px solid #D9D9D9;
+    color: #D9D9D9;
+    transform-origin: 0 0;
+    transform: scaleY(0.5);
+  }
+  .weui-cells:after {
+    content: initial;
+  }
+  .weui-cell:before {
+    left: 0 !important;
+  }
+  .vux-flexbox {
+    height: 0.44rem;
+  }
   .link {
     width: calc(~"70% - 0.32rem");
     float: right;
+    min-height: 0.68rem;
   }
   .label {
     width: 30%;
     padding-left: 0.16rem;
   }
-}
-</style>
-<style lang="less">
-.order-detail {
+  .weui-cells,.vux-no-group-title {
+    margin-top: 0 !important;
+    margin-bottom: 0.15rem;
+    min-height: 0.95rem;
+  }
   .weui-form-preview__label {
     font-size: 0.14rem;
     color: #a6a6a6;

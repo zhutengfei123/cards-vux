@@ -25,6 +25,7 @@ export default class Item extends Vue {
 </script>
 <style lang="less">
 .my-item {
+  height: 0.76rem !important;
   .text {
     display: -webkit-box !important;
     -webkit-box-orient: vertical;

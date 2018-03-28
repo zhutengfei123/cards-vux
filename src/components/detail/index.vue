@@ -15,12 +15,12 @@
       <cell is-link :link="shopDetails.mall_url"><span>{{shopDetails.mall_title}}</span></cell>
     </group>
     <div class="card">
-      <div class="card-title">购卡须知</div>
-      <div class="card-con" v-html="shopDetails.details"></div>
-    </div>
-    <div class="card">
       <div class="card-title">使用规则</div>
       <div class="card-con">{{shopDetails.use_service}}</div>
+    </div>
+    <div class="card">
+      <div class="card-title">卡券详情</div>
+      <div class="card-con" v-html="shopDetails.details"></div>
     </div>
     <div class="detail-foot">
       <div class="detail-foot-left">
@@ -160,6 +160,7 @@ export default class Detail extends Vue {
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
+    flex-direction: column;
     padding: 0 0.15rem 0.15rem 0.15rem;
     font-size: 0.12rem;
     color: #3C3C3C;
