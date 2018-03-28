@@ -1,5 +1,5 @@
 <template>
-  <div class="order-pay-success">
+  <div class="order-pay-index">
     <div class="con-top">
       <span class="app-icon">{{payResults.pay_status===1?'&#xe605;':'&#xe658;'}}</span>
       <span class="con-top-title">{{payResults.pay_status===1?'支付成功':'支付失败'}}</span>
@@ -35,7 +35,7 @@ export default class OrderPayFail extends Vue {
 }
 </script>
 <style lang="less">
-  .order-pay-success {
+  .order-pay-index {
     font-size: 0.14rem;
     overflow: hidden;
     .app-icon {

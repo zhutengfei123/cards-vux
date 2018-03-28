@@ -23,7 +23,7 @@ import { Component, Vue } from 'vue-property-decorator';
     }
   }
 </script>
-<style lang="less">
+<style lang="less" scoped>
   .submit-success {
     font-size: 0.14rem;
     overflow: hidden;
