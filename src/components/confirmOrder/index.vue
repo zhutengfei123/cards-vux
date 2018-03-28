@@ -28,12 +28,12 @@
     </div>
     <div class="con-foot foot-money">
       <span class="con-total">账户余额</span>
-      <span v-if="isCreditEnough" class="my-color-t">￥{{confirmOrderInitData.balance}}</span>
+      <span v-if="isCreditEnough==='1'" class="my-color-t">￥{{confirmOrderInitData.balance}}</span>
       <span v-else class="my-color-t">￥{{confirmOrderInitData.balance}}<span class="con-total">（余额不足）</span></span>
     </div>
     <div class="confirm-foot">
       <span class="pay-price">合计：￥{{confirmOrderInitData.total_price}}</span>
-      <span class="pay-btn" @click="handlePayBtn">{{isCreditEnough?'去付款':'去充值'}}</span>
+      <span class="pay-btn" @click="handlePayBtn">{{isCreditEnough==='1'?'去付款':'去充值'}}</span>
     </div>
     <div>
       <confirm v-model="isConfirmPay" title="确认支付" @on-cancel="isConfirmPay===false" @on-confirm="onConfirm">
@@ -90,7 +90,7 @@ export default class ConfirmOrder extends Vue {
     }).catch(error => console.log(error));
   }
   handlePayBtn () {
-    if (this.isCreditEnough) {
+    if (this.isCreditEnough === '1') {
       this.isConfirmPay = true;
     } else {
       this.$router.push({

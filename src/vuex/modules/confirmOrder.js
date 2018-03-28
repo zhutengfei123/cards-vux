@@ -26,7 +26,7 @@ const state = {
     total_price: ''
   },
   orderId: '',
-  isCreditEnough: true
+  isCreditEnough: localStorage.getItem('isCreditEnough') || '0'
 };
 const actions = {
   async confirmOrderInit ({commit, rootState}, params) {
@@ -52,9 +52,6 @@ const mutations = {
   },
   getOrderId (state, data) {
     state.orderId = data;
-  },
-  getIsCreditEnough (state, data) {
-    state.isCreditEnough = data;
   }
 };
 export default {
