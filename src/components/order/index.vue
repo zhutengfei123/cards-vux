@@ -9,7 +9,7 @@
         <group v-for="(order,index) in orders" :key="index" :style="{paddingTop:index===0&&'44px'}" @click.native="$router.push(`/order/detail/${order.order_sn}`)">
             <cell>
                 <p slot="title" class="text">订单编号：{{order.order_sn}}</p>
-                <p class="text brown">{{order.order_status}}</p>
+                <p class="text brown">{{getStatus(order.order_status)}}</p>
             </cell>
             <div v-for="(goods,index) in order.goods_list" :key="index">
                 <item v-for="(item,index) in goods.list" :key="index" :item="item" v-if="index<2"></item>
@@ -57,9 +57,15 @@ export default class Order extends Vue {
     return goods =>
       goods.list.reduce((sum, item) => sum + Number(item.price), 0);
   }
-
-  filter (type) {
-    this.orderStatus = type;
+  getStatus (n) {
+    switch (n) {
+      case '1':
+        return '待发货';
+      case '2':
+        return '待收货';
+      case '3':
+        return '已完成';
+    }
   }
   toggleShow (order) {
     order.show = !order.show;
