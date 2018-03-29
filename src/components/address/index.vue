@@ -6,9 +6,13 @@
                 <p class="text" slot="title">{{item.province+' '+item.city+' '+item.district+' '+item.address}}</p>
             </cell>
             <cell class="address-edit-row">
-                <check-icon :value.sync="item.is_default==='1'?true:false" @click.native="handleSelectAdress(item)">
+                <!-- <check-icon :value.sync="item.is_default==='1'?true:false"  @click.native="handleSelectAdress(item)">
                   <span class="checked-title" :style="{'color':setColor}">默认地址</span>
-                </check-icon>
+                </check-icon> -->
+                <div class="addresdiv"  @click="handleSelectAdress(item)">
+                  <icon :type="item.is_default==='1' ? 'success' : 'circle'"  :style="{'color':setColor}"></icon>
+                  <span class="checked-title" :style="{'color':setColor}">默认地址</span>
+                </div>
                 <div class="text brown">
                   <span @click="handleEditAddress(item)" :style="{'color':setColor}" >编辑</span>
                   <span class="address-remove" :style="{'color':setColor}" @click="deleteAddress(item.id)">删除</span>
@@ -25,7 +29,7 @@
     </div>
 </template>
 <script>
-import { Toast, Group, Cell, CheckIcon, Confirm, TransferDomDirective as TransferDom, XButton } from 'vux';
+import { Toast, Group, Cell, CheckIcon, Confirm, Icon, TransferDomDirective as TransferDom, XButton } from 'vux';
 import { Component, Vue } from 'vue-property-decorator';
 import { State, Action, namespace } from 'vuex-class';
 const AddressState = namespace('address', State);
@@ -34,7 +38,7 @@ const AddressAction = namespace('address', Action);
   directives: {
     TransferDom
   },
-  components: { Group, Cell, CheckIcon, Confirm, XButton, Toast }
+  components: { Group, Cell, CheckIcon, Confirm, XButton, Toast, Icon }
 })
 export default class Address extends Vue {
   @AddressState addressList;
@@ -141,5 +145,12 @@ export default class Address extends Vue {
     width: 100%;
     border-radius: 0 !important;
   }
+}
+
+.addresdiv{
+    width: 26%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 }
 </style>

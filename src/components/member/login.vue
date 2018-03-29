@@ -19,10 +19,10 @@
               <x-button class="button send-code" v-show="time>0">已发送{{time}}s</x-button>
           </flexbox-item>
         </flexbox>
-        <x-button class="button" @click.native="signIn">登录</x-button>
+        <x-button class="button" @click.native="signIn" :style="{'background-color':setColor}">登录</x-button>
         <flexbox justify="space-between" class="line">
-            <p class="text brown"><span class="gray">没有账号？</span><span @click="$router.push('/register')">马上注册</span></p>
-            <span class="text brown " @click="type=!type">{{type?'密码登录':'短信登录'}} >></span>
+            <p class="text brown"><span class="gray">没有账号？</span><span @click="$router.push('/register')" :style="{'color':setColor}">马上注册</span></p>
+            <span class="text brown " @click="type=!type" :style="{'color':setColor}">{{type?'密码登录':'短信登录'}} >></span>
         </flexbox>
       </div>
   </div>
@@ -55,6 +55,7 @@ export default class Login extends Vue {
   isType = 0;
   bStop = false;
   bgImgUrl = localStorage.getItem('bgImgUrl') || '';
+  setColor = localStorage.getItem('setColor')
   sendCodeClick () {
     let reg = /^(((1[0-9]{2}))+\d{8})$/;
     if (!reg.test(this.phone)) {

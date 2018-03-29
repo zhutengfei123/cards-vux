@@ -2,7 +2,7 @@
   <div class="member">
     <div class="mer">
       <avatar :backgroundColor="setColor" color="#ffffff" :size="60" :src="token===''?'':userInfo.head_pic" username="Avatar"></avatar>
-       <p v-if="token===''" class="logintxt" @click="toLogin">请登录</p>
+       <p v-if="token===''" class="logintxt" :style="{'color':setColor}" @click="toLogin">请登录</p>
        <ul class="merinfo" v-else>
          <li>
            <label class="lableft labcom">{{userInfo.realname}}</label>

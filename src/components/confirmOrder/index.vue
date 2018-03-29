@@ -33,7 +33,7 @@
     </div>
     <div class="confirm-foot">
       <span class="pay-price">合计：￥{{confirmOrderInitData.total_price}}</span>
-      <span class="pay-btn" @click="handlePayBtn">{{isCreditEnough==='1'?'去付款':'去充值'}}</span>
+      <span class="pay-btn" @click="handlePayBtn" :style="{'background-color':setColor}">{{isCreditEnough==='1'?'去付款':'去充值'}}</span>
     </div>
     <div>
       <confirm v-model="isConfirmPay" title="确认支付" @on-cancel="isConfirmPay===false" @on-confirm="onConfirm">
@@ -62,6 +62,7 @@ export default class ConfirmOrder extends Vue {
   @ConfirmOderAction isConfirmOrder
   @ConfirmOderAction confirmOrderInit
   isConfirmPay = false
+  setColor = localStorage.getItem('setColor')
   ids = localStorage.getItem('ids') || ''
   created () {
     const params = {
