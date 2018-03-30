@@ -1,7 +1,7 @@
 <template>
   <div class="recharge-details">
     <div class="con-top">
-      <span class="con-top-status">{{rechargeItem.state}}</span>
+      <span class="con-top-status" :style="{'color':setColor}">{{rechargeItem.state}}</span>
       <span class="con-top-title">充值金额</span>
       <span class="con-top-price">￥{{rechargeItem.amount}}</span>
     </div>
@@ -28,6 +28,7 @@ import { Component, Vue } from 'vue-property-decorator';
 })
 export default class RechargeDetails extends Vue {
   rechargeItem = {}
+  setColor = localStorage.getItem('setColor')
   created () {
     this.rechargeItem = JSON.parse(localStorage.getItem('rechargeItem'));
   }

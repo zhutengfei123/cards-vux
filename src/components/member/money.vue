@@ -6,7 +6,7 @@
           <flexbox-item class="head-money-show">
               <flexbox align="center" style="height:100%">
                   <div><span class="price-mark">￥</span><span class="head-price">{{balancePrice}}</span></div>
-                  <x-button class="button" @click.native="$router.push('/recharge')">充值</x-button>
+                  <x-button class="button" @click.native="$router.push('/recharge')" :style="{'color':setColor}">充值</x-button>
               </flexbox>
           </flexbox-item>
         </flexbox>
@@ -31,13 +31,18 @@ import { Flexbox, FlexboxItem, XButton, Cell, Group, Toast } from 'vux';
 import { State, Action, namespace } from 'vuex-class';
 const BalanceState = namespace('balance', State);
 const BalanceAction = namespace('balance', Action);
+
 @Component({
   components: { Flexbox, FlexboxItem, XButton, Cell, Group, Toast }
 })
 export default class Money extends Vue {
   @BalanceState recordList;
+  @BalanceState userInfo;
   @BalanceAction getRecords;
+  @BalanceAction getInfo;
   currentPage = 1;
+  setColor = localStorage.getItem('setColor')
+  params = {};
   balancePrice = localStorage.getItem('balancePrice') || '0.00';
   created () {
     const params = {
@@ -46,6 +51,19 @@ export default class Money extends Vue {
     this.getRecords(params).then(msg => {
       if (msg) {
         this.$vux.toast.text(msg, 'middle');
+      }
+    });
+    this.init();
+  }
+  init () {
+    const params = {};
+    this.getInfo(params).then(msg => {
+      console.log(msg);
+      if (msg) {
+        this.$vux.toast.text(msg, 'middle');
+      } else {
+        this.balancePrice = this.userInfo.balance;
+        localStorage.setItem('balancePrice', this.userInfo.balance);
       }
     });
   }

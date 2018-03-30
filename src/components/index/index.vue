@@ -1,11 +1,11 @@
 <template>
   <div class="index-myIndex">
       <flexbox class="top" align="center" v-if="showEdit">
-        <x-button mini link="/intention">意向单</x-button>
-        <x-button mini @click.native="handleClickIsShow">立即推广</x-button>
+        <x-button mini link="/intention" :style="{'background-color':setColor}">意向单</x-button>
+        <x-button mini @click.native="handleClickIsShow" :style="{'background-color':setColor}">立即推广</x-button>
         <div class="info-edit-box">
           <div class="info-left">
-            <span class="img-box2"><avatar :src="shareInfo.head_pic" backgroundColor="#B79E74" color="#ffffff" :size="40" username="Avatar"></avatar></span>
+            <span class="img-box2"><avatar :src="shareInfo.head_pic" :backgroundColor="setColor" color="#ffffff" :size="40" username="Avatar"></avatar></span>
             <span class="info-title my-desc">{{shareInfo.realname}}</span>
           </div>
           <div @click="handleToInfoEdit" class="info-right">
@@ -77,6 +77,8 @@ export default class Index extends Vue {
   showTip=false
   loading=false
   showEdit = false
+  setColor = '';
+
   handleClickImg (item) {
     if (item.jump_type === '1') {
       localStorage.setItem('cardId', item.jump_type_value);
@@ -119,6 +121,7 @@ export default class Index extends Vue {
     }
   }
   mounted () {
+    this.setColor = localStorage.getItem('setColor');
     let element = document.querySelector('#vux_view_box_body');
     isBottom(element,
       () => {

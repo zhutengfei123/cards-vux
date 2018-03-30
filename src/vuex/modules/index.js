@@ -55,6 +55,7 @@ const actions = {
   async getInitTitleInfo ({commit, rootState}, params) {
     const { result, status: {code, msg} } = await axios.get('site/index', {'params': params});
     if (code === '00000') {
+      localStorage.setItem('setColor', result.style_color);
       commit('initData1', result);
     } else {
       return msg;

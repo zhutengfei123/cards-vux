@@ -9,7 +9,7 @@
       </cell>
     </group>
     <group class="my-input"><x-input title="商城名称" v-model="shopName" show-clear></x-input></group>
-    <x-button @click.native="handleSave">保 存</x-button>
+    <x-button @click.native="handleSave" :style="{'background-color':setColor}">保 存</x-button>
   </div>
 </template>
 <script>
@@ -30,6 +30,7 @@ export default class EditInfo extends Vue {
   @IndexState shareInfo
   shopName = ''
   imagesVal = ''
+  setColor = localStorage.getItem('setColor')
   created () {
     this.imagesVal = this.shareInfo.head_pic;
     this.shopName = this.shareInfo.realname;

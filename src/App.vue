@@ -5,8 +5,8 @@
         <router-view></router-view>
         <tabbar slot="bottom" v-show="/main|mine/.test($route.path)">
             <tabbar-item v-for="(item, index) in tabs" :key="index" @click.native="handleClickTabs(index)" :link="item.link">
-              <span slot="icon" :class="isActive===index?'active':''" class="app-icon" v-html="isActive===index?item.icon2:item.icon1"></span>
-              <span slot="label" :class="isActive===index?'active':''" class="tabbar-item">{{item.name}}</span>
+              <span slot="icon" :style="{'color': isActive === index ? setColor :''}"  class="app-icon" v-html="isActive===index?item.icon2:item.icon1"></span>
+              <span slot="label" :style="{'color': isActive === index ? setColor :''}" class="tabbar-item">{{item.name}}</span>
             </tabbar-item>
         </tabbar> 
      </view-box>
@@ -20,6 +20,7 @@ const GlobalState = namespace('global', State);
 const UserState = namespace('user', State);
 const IndexState = namespace('index', State);
 const IndexAction = namespace('index', Action);
+
 @Component({
   components: { ViewBox, XHeader, Tabbar, TabbarItem },
   watch: {
@@ -66,6 +67,7 @@ export default class App extends Vue {
   @IndexAction getInitTitleInfo
   @IndexState getIndexInfo;
   tabs = [];
+  setColor = localStorage.getItem('setColor');
   isActive = 0
   handleClickTabs (index) {
     this.isActive = index;

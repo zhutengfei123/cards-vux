@@ -10,16 +10,16 @@
       </group>
       <div class="r-desc">
         <span class="desc-l">注意：大额支付建议使用转账汇款</span>
-        <span class="desc-r" @click="handleRechargeDetail">充值记录</span>
+        <span class="desc-r" @click="handleRechargeDetail" :style="{'color':setColor}">充值记录</span>
       </div>
       <div class="r-foot">
-        <x-button class="r-foot-btn" @click.native="handleToPayLink">微信支付</x-button>
+        <x-button class="r-foot-btn" @click.native="handleToPayLink" :style="{'background-color':setColor}">微信支付</x-button>
       </div>
     </div>
     <div class="recharge-2" v-show="active===1">
       <div class="r-2-top">
         <span class="r-2-t-l">汇款信息</span>
-        <span class="r-2-t-r" @click="handleRechargeDetail">充值记录</span>
+        <span class="r-2-t-r" @click="handleRechargeDetail" :style="{'color':setColor}">充值记录</span>
       </div>
       <div class="r-2-con">
         <div class="r-2-c-item">
@@ -56,7 +56,7 @@
         </uploader>
       </div>
       <div class="r-foot">
-        <x-button class="r-foot-btn" @click.native="handleSubmit">提交</x-button>
+        <x-button class="r-foot-btn" @click.native="handleSubmit" :style="{'background-color':setColor}">提交</x-button>
       </div>
     </div>
     <transition name="bounce">
@@ -99,6 +99,7 @@ export default class OrderPaySuccess extends Vue {
   imgEnLarge = false
   imgUrl = ''
   tabList = [{ title: '在线支付' }, { title: '转账汇款' }];
+  setColor = localStorage.getItem('setColor')
   created () {
     const params = {};
     this.initGetAccountInfo(params).then(msg => {

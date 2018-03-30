@@ -1,17 +1,20 @@
 <template>
   <div class="classification-index">
     <tab bar-active-color="transparent" class="tab" ref="topBar">
-      <tab-item :selected="index===0?true:false" v-for="(item, index) in tabsList" :key="index" @on-item-click="handleClickTabs(index)"><span class="title-bold">{{item.title}}</span><span :class="{'active':index===isActive&&isShowBox}" class="app-icon">&#xe611;</span></tab-item>
+      <tab-item  :selected="index===0?true:false" v-for="(item, index) in tabsList" :key="index" @on-item-click="handleClickTabs(index)">
+        <span class="title-bold" :style="{'color':index===isActive ? setColor :''}">{{item.title}}</span>
+        <span :class="{'active':index===isActive&&isShowBox}" :style="{'color':index===isActive ? setColor :''}" class="app-icon">&#xe611;</span>
+      </tab-item>
       <div class="drop-down-box" v-show="isShowBox">
         <div v-if="isActive!==3" class="drop-t">
-          <div @click="handleSelectCon(index, item)" :class="item.checked===1?'active1':''" class="con-box" v-for="(item, index) in categoryData[isActive].children" :key="index">{{item.name}}</div>
+          <div @click="handleSelectCon(index, item)" :style="{'color':item.checked===1?setColor:''}"  class="con-box" v-for="(item, index) in categoryData[isActive].children" :key="index">{{item.name}}</div>
         </div>
         <div v-else class="drop-t">
-          <div @click="handleSelectCon(index, item)" :class="index===isActive1?'active1':''" class="order-by" v-for="(item, index) in orderByList" :key="index">{{item.title}}</div>
+          <div @click="handleSelectCon(index, item)" :style="{'color':index===isActive1?setColor:''}"  class="order-by" v-for="(item, index) in orderByList" :key="index">{{item.title}}</div>
         </div>
         <div class="drop-b">
           <span class="drop-b-l" @click="handleReset">重 置</span>
-          <span class="drop-b-r" @click="handleSearch">确 定</span>
+          <span class="drop-b-r" @click="handleSearch" :style="{'background-color':setColor}">确 定</span>
         </div>
       </div>
     </tab>
@@ -22,7 +25,7 @@
             <div class="card-list-img"><img :src="item.pic_url" alt=""></div>
             <div class="card-list-title">{{item.name}}</div>
             <div class="card-list-price">尊享价:￥{{item.price}}</div>
-            <div class="card-list-btn"><x-button mini @click.native.stop="handleAddCart(item)">加入购物车</x-button></div>
+            <div class="card-list-btn"><x-button mini @click.native.stop="handleAddCart(item)"  :style="{'background-color':setColor}">加入购物车</x-button></div>
           </div>
         </div>
         <load-more v-show="onFetching" tip="正在加载中"></load-more>
@@ -56,6 +59,7 @@ export default class Classification extends Vue {
   flag = true
   isLoading = true
   onFetching = false
+  setColor = localStorage.getItem('setColor') + ' !important'
   dataList = []
   tempData = []
   showEdit = false

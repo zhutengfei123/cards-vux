@@ -22,6 +22,7 @@ const OrderDetail = () => import('@/components/order/detail');
 const Delivery = () => import('@/components/order/delivery');
 const Money = () => import('@/components/member/money');
 const Login = () => import('@/components/member/login');
+const Reset = () => import('@/components/member/Reset');
 const Register = () => import('@/components/member/register');
 const Intention = () => import('@/components/intention/index');
 const IntentionDetail = () => import('@/components/intention/detail');
@@ -30,6 +31,7 @@ const Address = () => import('@/components/address/index');
 const AddAddress = () => import('@/components/address/add');
 const CardList = () => import('@/components/cardList/index');
 const EditInfo = () => import('@/components/index/editInfo');
+
 Vue.use(Router);
 const router = new Router({
   routes: [
@@ -76,7 +78,8 @@ const router = new Router({
     {path: '/address/edit', name: '编辑地址', component: AddAddress},
     {path: '/login', name: '登录', component: Login},
     {path: '/register', name: '注册', component: Register},
-    {path: '/editInfo', name: '信息修改', component: EditInfo}
+    {path: '/editInfo', name: '信息修改', component: EditInfo},
+    {path: '/reset', name: '重置密码', component: Reset}
   ],
   mode: 'hash',
   scrollBehavior (to, from, savedPosition) {

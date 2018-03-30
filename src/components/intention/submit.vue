@@ -1,7 +1,7 @@
 <template>
     <div class="submit-index">
         <l-input v-for="(item, index) in list" :key="index" :textarea="item.textarea" :placeholder="item.placeholder" :label="item.label" v-model="item.value"></l-input>
-        <x-button class="submit-btn" @click.native="handleSubmit">提 交</x-button>
+        <x-button class="submit-btn" :style="{'background':setColor}" @click.native="handleSubmit">提 交</x-button>
     </div>
 </template>
 <script>
@@ -17,6 +17,7 @@ const IndexState = namespace('index', State);
 export default class IntentionSubmit extends Vue {
   @ProductsAction submitIntentionList;
   @IndexState shareInfo;
+  setColor = localStorage.getItem('setColor')
   list = [
     {
       label: '姓名',

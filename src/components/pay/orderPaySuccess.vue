@@ -1,12 +1,12 @@
 <template>
   <div class="order-pay-success">
     <div class="con-top">
-      <span class="app-icon">&#xe605;</span>
+      <span class="app-icon" :style="{'color':setColor}">&#xe605;</span>
       <span class="con-top-title">支付成功</span>
     </div>
     <div class="con-bot">
-      <x-button class="btn-l" @click.native="handleCheckOrder">查看订单</x-button>
-      <x-button class="btn-r" link="/main">返回首页</x-button>
+      <x-button class="btn-l" @click.native="handleCheckOrder" :style="{'background-color':setColor}">查看订单</x-button>
+      <x-button class="btn-r" link="/main" :style="{'color':setColor}">返回首页</x-button>
     </div>
   </div>
 </template>
@@ -22,6 +22,7 @@ const ConfirmOderState = namespace('confirmOrder', State);
 })
 export default class OrderPaySuccess extends Vue {
     @ConfirmOderState orderId
+    setColor = localStorage.getItem('setColor')
     handleCheckOrder () {
       this.$router.push({
         path: `/order/detail/${this.orderId}`

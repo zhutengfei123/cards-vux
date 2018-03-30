@@ -2,7 +2,7 @@
     <div class="cart">
         <div class="cart-top">
             <span>共{{intentionList.num||0}}件</span>
-            <span class="cart-edit" @click="handleCartEdit(isEdit)">{{isEdit?'编辑':'完成'}}</span>
+            <span class="cart-edit" @click="handleCartEdit(isEdit)" :style="{'color':setColor}">{{isEdit?'编辑':'完成'}}</span>
         </div>
         <div class="cart-con" v-for="(item, index) in intentionList.list" :key="index">
             <div class="con-top">
@@ -27,7 +27,7 @@
         <div class="cart-foot">
             <check-icon :value.sync="intentionList.is_all_selected===1?true:false" @click.native="handleSelectAll">全选</check-icon>
             <span>合计：<span class="bottom-l">￥{{intentionList.goods_total_price}}</span></span>
-            <span class="settlement" @click="handleClick">{{isEdit?'提交意向单':'删除'}}</span>
+            <span class="settlement" @click="handleClick" :style="{'background-color':setColor}">{{isEdit?'提交意向单':'删除'}}</span>
         </div>
     </div>
 </template>
@@ -48,6 +48,7 @@ export default class Cart extends Vue {
   @ProductsAction initGetIntentionList;
   isEdit = true;
   myTempData = []
+  setColor = localStorage.getItem('setColor')
   computedPrice () {
     let totalPrice = 0;
     this.intentionList.list.forEach(item => {

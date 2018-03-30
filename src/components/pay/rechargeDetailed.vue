@@ -10,7 +10,7 @@
             </p>
             <p class="r-d-con1">
               <span class="con2-time">{{item.pay_time}}</span>
-              <span class="con2-status">{{item.state}}</span>
+              <span class="con2-status" :style="{'color':setColor}">{{item.state}}</span>
             </p>
           </cell>
         </group>
@@ -40,6 +40,7 @@ export default class RechargeDetailed extends Vue {
   @rechargeAction getRechargeRecords
   @rechargeMutation initGetRechargeRecords
   list = []
+  setColor = localStorage.getItem('setColor')
   isLoading = true
   onFetching = false
   currentPage = 1

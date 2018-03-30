@@ -8,15 +8,15 @@
         <group v-for="(order,index) in orders" :key="index" :style="{paddingTop:index===0&&'44px'}" @click.native="$router.push(`/order/detail/${order.order_sn}`)">
             <cell>
                 <p slot="title" class="text">订单编号：{{order.order_sn}}</p>
-                <p class="text brown">{{getStatus(order.order_status)}}</p>
+                <p class="text brown" :style="{'color':setColor}" >{{getStatus(order.order_status)}}</p>
             </cell>
             <div v-for="(goods,index) in order.goods_list" :key="index">
                 <item v-for="(item,index) in goods.list" :key="index" :item="item" v-if="index<2"></item>
                 <item v-for="(item,index) in goods.list" :key="index" :item="item" v-if="index>=2" v-show="order.show"></item>
-                <p class="text gray center" @click.stop="toggleShow(order)">查看全部{{goods.list.length}}件商品</p>
+                <p class="text gray center"  @click.native="$router.push(`/order/detail/${order.order_sn}`)" >查看全部{{goods.list.length}}件商品</p>
                 <cell>
                     <p slot="title" class="text">共{{goods.list.length}}件商品&nbsp;&nbsp;&nbsp;<span class="text gray">({{goods.targer_name}})</span></p>
-                    <p class="text bold">合计：{{totalCount(goods)}}</p>
+                    <p class="text bold">合计：￥{{totalCount(goods)}}</p>
                 </cell>
             </div>
         </group>
@@ -40,6 +40,7 @@ export default class Order extends Vue {
   @OrderState orders;
   @OrderMutation setOrders;
   @OrderAction getOrders;
+  setColor = localStorage.getItem('setColor')
   @Watch('orderStatus')
   onStatusChange (newValue, oldValue) {
     if (newValue !== oldValue) {
@@ -53,8 +54,7 @@ export default class Order extends Vue {
     }
   }
   get totalCount () {
-    return goods =>
-      goods.list.reduce((sum, item) => sum + Number(item.price), 0);
+    return goods => goods.list.reduce((sum, item) => (sum + parseFloat(item.price) * parseInt(item.num)).toFixed(2), 0);
   }
   getStatus (n) {
     switch (n) {
@@ -67,9 +67,11 @@ export default class Order extends Vue {
     }
   }
   toggleShow (order) {
+    console.log(order);
     order.show = !order.show;
   }
   created () {
+    this.setOrders({ orders: [], page: 1 });
     this.getOrders({ orderStatus: this.orderStatus }).then(msg => {
       msg && this.$vux.toast.text(msg);
     });

@@ -2,14 +2,16 @@
     <div class="cart">
         <div class="cart-top">
             <span>共{{initData.num||0}}件</span>
-            <span class="cart-edit" @click="handleCartEdit(isEdit)">{{isEdit?'编辑':'完成'}}</span>
+            <span class="cart-edit" @click="handleCartEdit(isEdit)" :style="{'color':setColor}">{{isEdit?'编辑':'完成'}}</span>
         </div>
         <div class="cart-con" v-for="(item, index) in initData.list" :key="index">
             <div class="con-top">
-                <check-icon :value.sync="item.is_selected===1?true:false" @click.native="handleSelectList(item)">{{item.title}}</check-icon><span class="my-num">（{{item.num}}）</span>
+                <check-icon :value.sync="item.is_selected===1?true:false" @click.native="handleSelectList(item)">{{item.title}}</check-icon> <span class="my-num">（{{item.num}}）</span>
+                <!-- <icon :type="item.is_selected ==='1' ? 'success' : 'circle'"  :style="{'color':setColor}"  @click.native="handleSelectList(item)">{{item.title}}</icon><span class="my-num">（{{item.num}}）</span> -->
             </div>
             <div class="con-mid" v-for="(subItem, i) in item.goods" :key="i">
-                <check-icon :value.sync="subItem.is_selected===1?true:false" @click.native="handleSelect(subItem)"></check-icon>
+               <check-icon :value.sync="subItem.is_selected===1?true:false" @click.native="handleSelect(subItem)"></check-icon>
+                <!-- <icon :type="item.is_selected ==='1' ? 'success' : 'circle'"  :style="{'color':setColor}"  @click.native="handleSelect(subItem)">{{item.title}}</icon> -->
                 <span @click="$router.push(`/detail/${subIem.shop_id}`)" class="my-img"><img class="img" :src="subItem.pic" alt=""></span>
                 <div class="con-r">
                     <div class="con-mid-t">{{subItem.name}}</div>
@@ -27,12 +29,12 @@
         <div class="cart-foot">
             <check-icon :value.sync="initData.is_all_selected===1?true:false" @click.native="handleSelectAll">全选</check-icon>
             <span>合计：<span class="bottom-l">￥{{initData.goods_total_price}}</span></span>
-            <span class="settlement" @click="handleClick(!isEdit)">{{isEdit?'结算':'删除'}}</span>
+            <span class="settlement" @click="handleClick(!isEdit)" :style="{'background-color':setColor}">{{isEdit?'结算':'删除'}}</span>
         </div>
     </div>
 </template>
 <script>
-import { CheckIcon, Toast } from 'vux';
+import { CheckIcon, Toast, Icon } from 'vux';
 import { Component, Vue } from 'vue-property-decorator';
 import {State, Action, namespace} from 'vuex-class';
 const CartState = namespace('cart', State);
@@ -42,7 +44,8 @@ const ConfirmOderAction = namespace('confirmOrder', Action);
 @Component({
   components: {
     CheckIcon,
-    Toast
+    Toast,
+    Icon
   }
 })
 export default class Cart extends Vue {
@@ -55,6 +58,7 @@ export default class Cart extends Vue {
     @ConfirmOderAction isConfirmOrder
     @ConfirmOderState confirmOrderInitData
     isEdit = true
+    setColor = localStorage.getItem('setColor')
     handleInputChange (num, id) {
       const params = {
         'shop_id': id,
@@ -187,24 +191,34 @@ export default class Cart extends Vue {
       }
     }
     handleChange (n, item) {
+      var l = 0;
+      var id = parseInt(item.num);
       if (n === -1) {
-        if (item.num > 0) {
-          item.num--;
+        if (id > 1) {
+          id--;
+          l = 1;
+        } else if (id === 1) {
+          l = 0;
+        } else {
+          l = 1;
         }
       } else {
-        item.num++;
+        id++;
+        l = 1;
       }
-      const params = {
-        'shop_id': item.shop_id,
-        'num': item.num
-      };
-      this.addReduce(params).then(msg => {
-        if (!msg) {
-          this.init();
-        } else {
-          this.$vux.toast.text(msg, 'middle');
-        }
-      }).catch(error => console.log(error));
+      if (l === 1) {
+        const params = {
+          'shop_id': item.shop_id,
+          'num': id
+        };
+        this.addReduce(params).then(msg => {
+          if (!msg) {
+            this.init();
+          } else {
+            this.$vux.toast.text(msg, 'middle');
+          }
+        }).catch(error => console.log(error));
+      }
     }
     handleClick (isEdit) {
       let ids = [];
@@ -215,6 +229,7 @@ export default class Cart extends Vue {
           }
         });
       });
+
       if (isEdit) {
         if (ids.length > 0) {
           const params = {
@@ -237,6 +252,7 @@ export default class Cart extends Vue {
             'ids': ids.join(',')
           };
           this.confirmOrderInit(params).then(msg => {
+            console.log(msg);
             if (!msg) {
               if (parseFloat(this.confirmOrderInitData.balance) >= parseFloat(this.confirmOrderInitData.total_price)) {
                 localStorage.setItem('isCreditEnough', '1');

@@ -1,6 +1,6 @@
 <template>
     <div class="l-input">
-        <div class="block"></div>
+        <div class="block" :style="{'background':setColor}"></div>
         <flexbox orient="vertical" justify="flex-start" class="container">
             <p class="text lg" style="width:100%">{{label}}</p>
             <flexbox class="box lg" v-if="textarea">
@@ -23,7 +23,7 @@ export default class LInput extends Vue {
     @Prop([String]) label
     @Prop([String]) placeholder
     @Prop({ type: String, default: 'text' }) type
-
+    setColor = localStorage.getItem('setColor')
     @Model('input') value
 
     updateValue () {

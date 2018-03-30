@@ -33,12 +33,20 @@
     </div>
     <div class="confirm-foot">
       <span class="pay-price">合计：￥{{confirmOrderInitData.total_price}}</span>
-      <span class="pay-btn" @click="handlePayBtn">{{isCreditEnough==='1'?'去付款':'去充值'}}</span>
+      <span class="pay-btn" @click="handlePayBtn" :style="{'background-color':setColor}">{{isCreditEnough==='1'?'去付款':'去充值'}}</span>
     </div>
-    <div>
-      <confirm v-model="isConfirmPay" title="确认支付" @on-cancel="isConfirmPay===false" @on-confirm="onConfirm">
-        <p style="text-align:center;">本次消费将从账户余额中扣除</p>
-      </confirm>
+   
+     <div class="exitcss" v-show="exitcss == true">
+      <div class="k">
+        <div class="kdiv">
+          <p style="font-size: 0.18rem;font-weight:bold;">确认支付</p>
+          <p style="font-size: 0.14rem;">本次消费将从账户余额中扣除</p>
+        </div>
+         <div class="btn-clss">
+           <a class="extBtn"  @click="exitshow(0)">取消</a>
+           <a class="extOK"  @click="onConfirm" :style="{'background-color':setColor}" >确认</a>
+         </div>
+      </div>
     </div>
   </div>
 </template>
@@ -61,8 +69,9 @@ export default class ConfirmOrder extends Vue {
   @ConfirmOderState isCreditEnough
   @ConfirmOderAction isConfirmOrder
   @ConfirmOderAction confirmOrderInit
-  isConfirmPay = false
+  setColor = localStorage.getItem('setColor')
   ids = localStorage.getItem('ids') || ''
+  exitcss = false
   created () {
     const params = {
       'ids': this.ids
@@ -83,19 +92,27 @@ export default class ConfirmOrder extends Vue {
         this.$router.push({
           path: '/orderPaySuccess'
         });
+        this.exitshow(0);
       } else {
-        this.isConfirmPay = false;
         this.$vux.toast.text(msg, 'middle');
+        this.exitshow(1);
       }
     }).catch(error => console.log(error));
   }
   handlePayBtn () {
     if (this.isCreditEnough === '1') {
-      this.isConfirmPay = true;
+      this.exitshow(1);
     } else {
       this.$router.push({
         path: '/recharge'
       });
+    }
+  }
+  exitshow (id) {
+    if (id === 0) {
+      this.exitcss = false;
+    } else {
+      this.exitcss = true;
     }
   }
 }
@@ -274,5 +291,60 @@ export default class ConfirmOrder extends Vue {
       margin-top: 0.15rem;
     }
   }
+
+.exitcss{
+    width: 100%;
+    height: calc(100vh);
+    position: fixed;
+    top:0px;
+    left: 0px;
+    z-index: 999999;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  .k{
+    width: 80%;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 4px;
+    .kdiv{
+      height:1.56rem;
+      width:100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      p{
+        color: #3c3c3c;
+        text-align: center;
+      }
+    }
+    
+    .btn-clss{
+      width: 100%;
+      display: flex;
+      justify-content:center;
+
+      a{
+        width: 50%;
+        height: 0.44rem;
+        line-height: 0.44rem;
+        text-align: center;
+        font-size: 0.14rem;
+        color: #fff;
+      }
+      .extBtn{
+          background: #d9d9d9;
+      }
+      .extOK{
+         background: #B79E74;
+      }
+    }
+  }
+}
 </style>
 
