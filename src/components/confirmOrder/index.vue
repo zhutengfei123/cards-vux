@@ -298,7 +298,7 @@ export default class ConfirmOrder extends Vue {
     position: fixed;
     top:0px;
     left: 0px;
-    z-index: 999999;
+    z-index: 100;
     background-color: rgba(0,0,0,0.5);
     display: flex;
     justify-content: center;
