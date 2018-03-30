@@ -6,12 +6,10 @@
         </div>
         <div class="cart-con" v-for="(item, index) in initData.list" :key="index">
             <div class="con-top">
-                <check-icon :value.sync="item.is_selected===1?true:false" @click.native="handleSelectList(item)">{{item.title}}</check-icon> <span class="my-num">（{{item.num}}）</span>
-                <!-- <icon :type="item.is_selected ==='1' ? 'success' : 'circle'"  :style="{'color':setColor}"  @click.native="handleSelectList(item)">{{item.title}}</icon><span class="my-num">（{{item.num}}）</span> -->
+                <icon :type="item.is_selected===1?'success':'circle'" :style="{'color':setColor}" @click.native="handleSelectList(item)">{{item.title}}</icon><span class="my-num">（{{item.num}}）</span>
             </div>
             <div class="con-mid" v-for="(subItem, i) in item.goods" :key="i">
-               <check-icon :value.sync="subItem.is_selected===1?true:false" @click.native="handleSelect(subItem)"></check-icon>
-                <!-- <icon :type="item.is_selected ==='1' ? 'success' : 'circle'"  :style="{'color':setColor}"  @click.native="handleSelect(subItem)">{{item.title}}</icon> -->
+                <icon :type="subItem.is_selected===1?'success':'circle'" :style="{'color':setColor}" @click.native="handleSelect(subItem)">{{item.title}}</icon>
                 <span @click="$router.push(`/detail/${subIem.shop_id}`)" class="my-img"><img class="img" :src="subItem.pic" alt=""></span>
                 <div class="con-r">
                     <div class="con-mid-t">{{subItem.name}}</div>
@@ -27,7 +25,7 @@
             </div>
         </div>
         <div class="cart-foot">
-            <check-icon :value.sync="initData.is_all_selected===1?true:false" @click.native="handleSelectAll">全选</check-icon>
+            <icon :type="initData.is_all_selected===1?'success':'circle'" :style="{'color':setColor}" @click.native="handleSelectAll">全选</icon>
             <span>合计：<span class="bottom-l">￥{{initData.goods_total_price}}</span></span>
             <span class="settlement" @click="handleClick(!isEdit)" :style="{'background-color':setColor}">{{isEdit?'结算':'删除'}}</span>
         </div>
