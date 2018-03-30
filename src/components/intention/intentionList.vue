@@ -160,30 +160,34 @@ export default class Cart extends Vue {
   }
   handleClick () {
     if (!this.isEdit) {
-      let arr = this.intentionList.list;
-      let len = this.intentionList.list.length;
-      for (let i = 0; i < len; i++) {
-        let arr2 = arr[i].goods;
-        let len2 = arr[i].goods.length - 1;
-        for (let j = len2; j >= 0; j--) {
-          if (arr2[j].is_selected === 1) {
-            arr2.splice(j, 1);
+      if (this.intentionList.list) {
+        let arr = this.intentionList.list;
+        let len = arr.length;
+        for (let i = 0; i < len; i++) {
+          let arr2 = arr[i].goods;
+          let len2 = arr[i].goods.length - 1;
+          for (let j = len2; j >= 0; j--) {
+            if (arr2[j].is_selected === 1) {
+              arr2.splice(j, 1);
+            }
           }
         }
-      }
-      let tempData = [];
-      this.intentionList.list.forEach(item => {
-        item.goods.forEach(subItem => {
-          tempData.push({
-            'id': subItem.id,
-            'num': subItem.num,
-            'is_selected': subItem.is_selected
+        let tempData = [];
+        this.intentionList.list.forEach(item => {
+          item.goods.forEach(subItem => {
+            tempData.push({
+              'id': subItem.id,
+              'num': subItem.num,
+              'is_selected': subItem.is_selected
+            });
           });
         });
-      });
-      localStorage.setItem('tempData', JSON.stringify(tempData));
-      this.computedPrice();
-      this.initial();
+        localStorage.setItem('tempData', JSON.stringify(tempData));
+        this.computedPrice();
+        this.initial();
+      } else {
+        this.$vux.toast.text('您还没有勾选宝贝哦~', 'middle');
+      }
     } else {
       if (this.intentionList.list) {
         let flag = false;
@@ -205,6 +209,8 @@ export default class Cart extends Vue {
         } else {
           this.$vux.toast.text('您还没有勾选宝贝哦~', 'middle');
         }
+      } else {
+        this.$vux.toast.text('您还没有勾选宝贝哦~', 'middle');
       }
     }
   }

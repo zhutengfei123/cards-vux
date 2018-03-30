@@ -105,8 +105,8 @@ export default class OrderDetail extends Vue {
         this.orderSn = this.detailData.order_sn;
         this.totalPrice = this.detailData.total_price;
         this.preview[0].value = this.detailData.create_time;
-        this.preview[1].value = this.detailData.freight;
-        this.preview[2].value = this.detailData.price;
+        this.preview[1].value = `￥${this.detailData.freight}`;
+        this.preview[2].value = `￥${this.detailData.price}`;
         if (this.orderStatus !== '1') {
           this.expressNo = this.detailData.express.express_no;
           this.expressName = this.detailData.express.express_name;

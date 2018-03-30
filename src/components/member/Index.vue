@@ -88,6 +88,7 @@ export default class Member extends Vue {
         this.$vux.toast.text(msg, 'middle');
       } else {
         localStorage.setItem('balancePrice', this.userInfo.balance);
+        localStorage.setItem('userId', this.userInfo.user_id);
       }
     });
     this.initGetIsRead(params).then(msg => {

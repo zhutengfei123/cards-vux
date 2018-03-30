@@ -14,28 +14,31 @@
           <span class="app-icon info-title">&#xe684;</span>
         </div>
       </div>
-      <l-header></l-header>
-      <div v-show="mainRecommend.is_show==='1'" class="block main-recommend">
-        <p class="recommend-title">{{mainRecommend.block_content.title}}</p>
-        <div @click="handleClickImg(item)" :class="{'img-box1':item.show_type===1}" class="img-box" v-for="(item, index) in mainRecommend.block_content.list" :key="index">
-          <img class="my-img" :src="item.pic_url" alt="">
+      <span :class="{'point':showEdit}">
+        <l-header></l-header>
+        <div v-show="mainRecommend.is_show==='1'" class="block main-recommend">
+          <p class="recommend-title">{{mainRecommend.block_content.title}}</p>
+          <div @click="handleClickImg(item)" :class="{'img-box1':item.show_type===1}" class="img-box" v-for="(item, index) in mainRecommend.block_content.list" :key="index">
+            <img class="my-img" :src="item.pic_url" alt="">
+          </div>
         </div>
-      </div>
-      <l-scroller :style="{'background':`linear-gradient(to right,${scroller.color_start},${scroller.color_end})`}" v-show="scrollers.is_show==='1'" v-for="(scroller, index) in scrollers.block_content" :key="index" :list="scroller" ></l-scroller>
-      <div v-show="recommend.is_show==='1'" class="block">
-        <p class="recommend-title">{{recommend.block_content.title}}</p>
-        <grid :cols="2">
-          <grid-item v-for="(item, index) in recommend.block_content.list" :key="index">
-            <card class="my-card" :item="item" @click.native="$router.push(`/detail/${item.shop_id}`)"></card>
-          </grid-item>
-        </grid>
-      </div>
-      <load-more tip="正在加载" v-show="loading" ref="loadMore"></load-more>
-      <div v-transfer-dom>
-        <x-dialog :dialog-style="{width:'2.56rem',height:'2.08rem',background:'transparent'}" v-model="showTip" hide-on-blur>
-          <img src="../../assets/share.png" style="width:100%;height:100%;"/>
-        </x-dialog>
-      </div>
+        <l-scroller :style="{'background':`linear-gradient(to right,${scroller.color_start},${scroller.color_end})`}" v-show="scrollers.is_show==='1'" v-for="(scroller, index) in scrollers.block_content" :key="index" :list="scroller" ></l-scroller>
+        <div v-show="recommend.is_show==='1'" class="block">
+          <p class="recommend-title">{{recommend.block_content.title}}</p>
+          <grid :cols="2">
+            <grid-item v-for="(item, index) in recommend.block_content.list" :key="index">
+              <card class="my-card" :item="item" @click.native="$router.push(`/detail/${item.shop_id}`)"></card>
+            </grid-item>
+          </grid>
+        </div>
+        <load-more tip="正在加载" v-show="loading&&!showEdit" ref="loadMore"></load-more>
+        <div v-transfer-dom>
+          <x-dialog :dialog-style="{width:'2.56rem',height:'2.08rem',background:'transparent'}" v-model="showTip" hide-on-blur>
+            <img src="../../assets/share.png" style="width:100%;height:100%;"/>
+          </x-dialog>
+        </div>
+        <div v-show="showEdit" class="add-box"></div>
+      </span>
   </div>
 </template>
 <script>
@@ -100,7 +103,8 @@ export default class Index extends Vue {
   created () {
     document.title = localStorage.getItem('storeName');
     if (/main/.test(this.$route.path)) {
-      this.showEdit = localStorage.setItem('showEdit', JSON.stringify(false));
+      localStorage.setItem('showEdit', JSON.stringify(false));
+      this.showEdit = false;
     } else {
       this.showEdit = JSON.parse(localStorage.getItem('showEdit'));
     }
@@ -110,7 +114,7 @@ export default class Index extends Vue {
     }).catch(error => console.log(error));
     if (this.showEdit) {
       const params = {
-        'share_user_id': this.userInfo.user_id,
+        'share_user_id': localStorage.getItem('userId') || '',
         'store_id': localStorage.getItem('store_id') || ''
       };
       this.initGetShareInfo(params).then(msg => {
@@ -186,6 +190,12 @@ export default class Index extends Vue {
 <style lang="less">
 .index-myIndex {
   font-size: 0.14rem;
+  .add-box {
+    height: 0.55rem;
+  }
+  .point {
+    pointer-events: none;
+  }
   .img-box2 {
     margin: 0 0.15rem;
   }

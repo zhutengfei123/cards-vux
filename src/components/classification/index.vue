@@ -287,8 +287,6 @@ export default class Classification extends Vue {
     transform: scaleY(0.5);
   }
   .drop-t {
-    height: 1.35rem;
-    overflow-y: auto;
     overflow-x: hidden;
     box-sizing: border-box;
   }
