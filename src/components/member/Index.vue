@@ -25,11 +25,11 @@
     </group>
     <div class="exit text" @click="exitshow(1)" v-if="token!==''">退出登录</div>  
     <div class="support">飞象企服提供技术支持</div>
-    <div class="exitcss" v-show="exitcss == true">
+     <div class="exitcss" v-show="exitcss == true">
       <div class="k">
         <div class="kdiv">
-          <p style="font-size: 0.18rem;margin:0.25rem 0 0.1rem 0;">提示</p>
-          <p style="font-size: 0.14rem;">是否确认退出</p>
+          <p style="font-size: 0.18rem;font-weight:bold;">提示</p>
+          <p style="font-size: 0.14rem;">是否退出登录？</p>
         </div>
          <div class="btn-clss">
            <a class="extBtn"  @click="exitshow(0)">取消</a>
@@ -84,7 +84,6 @@ export default class Member extends Vue {
   initial () {
     const params = {};
     this.getInfo(params).then(msg => {
-      console.log(msg);
       if (msg) {
         this.$vux.toast.text(msg, 'middle');
       } else {
@@ -181,18 +180,18 @@ export default class Member extends Vue {
   }
 }
 .exitcss{
-  width: 100%;
-  height: calc(100vh);
-  position: fixed;
-  top:0px;
-  left: 0px;
-  z-index: 999999;
-  background-color: rgba(0,0,0,0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    width: 100%;
+    height: calc(100vh);
+    position: fixed;
+    top:0px;
+    left: 0px;
+    z-index: 999999;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
   .k{
-    width: 70%;
+    width: 80%;
     background: #fff;
     display: flex;
     justify-content: center;
@@ -202,6 +201,10 @@ export default class Member extends Vue {
     .kdiv{
       height:1.56rem;
       width:100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
       p{
         color: #3c3c3c;
         text-align: center;
