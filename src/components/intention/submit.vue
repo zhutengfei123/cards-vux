@@ -56,7 +56,7 @@ export default class IntentionSubmit extends Vue {
       }
     }
     if (flag) {
-      let reg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+      let reg = /^(1\d{10})$/;
       if (!reg.test(arr[1].value)) {
         this.$vux.toast.text('请输入有效的手机号码', 'middle');
       } else {
