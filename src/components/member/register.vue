@@ -17,13 +17,13 @@
             </flexbox>
         </flexbox-item>
         <flexbox-item class="phone">
-            <x-button class="button send-code" @click.native="sendCodeClick" v-show="time===0">发送验证码</x-button>
-            <x-button class="button send-code" v-show="time>0">已发送{{time}}s</x-button>
+            <x-button class="button send-code" @click.native="sendCodeClick" v-show="time===0"  :style="{'background-color':setColor}">发送验证码</x-button>
+            <x-button class="button send-code" style="background-color:#d9d9d9" v-show="time>0">已发送{{time}}s</x-button>
         </flexbox-item>
       </flexbox>
       <div class="bottom">
-        <x-button class="button" @click.native="signUp">{{type?'关联账号':'注册'}}</x-button>
-        <span class="text brown" v-if="!type" @click="$router.push('/login')">马上登录</span>
+        <x-button class="button" @click.native="signUp" :style="{'background-color':setColor}">{{type?'关联账号':'注册'}}</x-button>
+        <span class="text brown" v-if="!type" @click="$router.push('/login')" :style="{'color':setColor}">马上登录</span>
       </div>
   </div>
 </template>
@@ -54,6 +54,7 @@ export default class Register extends Vue {
   bgImgUrl = localStorage.getItem('bgImgUrl') || '';
   @UserAction register;
   @UserAction sendCode;
+  setColor = localStorage.getItem('setColor')
   get type () {
     return this.$route.path === '/register/wechat';
   }
@@ -85,23 +86,28 @@ export default class Register extends Vue {
     }
   }
   signUp () {
+    console.log(1);
     let flag = true;
     let reg = /^(((1[0-9]{2}))+\d{8})$/;
-    if (this.code === '') {
-      this.$vux.toast.text('请输入验证码', 'middle');
+    if (this.company === '') {
+      this.$vux.toast.text('请输入企业名称', 'middle');
       flag = false;
-    }
-    if (this.phone === '' || !reg.test(this.phone)) {
-      this.$vux.toast.text('请输入有效的手机号码', 'middle');
-      flag = false;
+      return false;
     }
     if (this.password === '') {
       this.$vux.toast.text('请输入密码', 'middle');
       flag = false;
+      return false;
     }
-    if (this.company === '') {
-      this.$vux.toast.text('请输入企业名称', 'middle');
+    if (this.phone === '' || !reg.test(this.phone)) {
+      this.$vux.toast.text('请输入有效的手机号码', 'middle');
       flag = false;
+      return false;
+    }
+    if (this.code === '') {
+      this.$vux.toast.text('请输入验证码', 'middle');
+      flag = false;
+      return false;
     }
     if (flag && this.bStop) {
       const params = {

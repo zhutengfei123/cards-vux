@@ -35,6 +35,7 @@
 import { CheckIcon, Toast, Icon } from 'vux';
 import { Component, Vue } from 'vue-property-decorator';
 import {State, Action, namespace} from 'vuex-class';
+import { setTimeout } from 'timers';
 const CartState = namespace('cart', State);
 const CartAction = namespace('cart', Action);
 const ConfirmOderState = namespace('confirmOrder', State);
@@ -253,12 +254,18 @@ export default class Cart extends Vue {
             if (!msg) {
               if (parseFloat(this.confirmOrderInitData.balance) >= parseFloat(this.confirmOrderInitData.total_price)) {
                 localStorage.setItem('isCreditEnough', '1');
+                this.$router.push({
+                  path: '/confirmOrder'
+                });
               } else {
                 localStorage.setItem('isCreditEnough', '0');
+                this.$vux.toast.text('账户余额不足,请充值', 'middle');
+                setTimeout(() => {
+                  this.$router.push({
+                    path: '/recharge'
+                  });
+                }, 1000);
               }
-              this.$router.push({
-                path: '/confirmOrder'
-              });
             } else {
               this.$vux.toast.text(msg, 'middle');
             }
