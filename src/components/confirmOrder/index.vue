@@ -66,11 +66,11 @@ const ConfirmOderAction = namespace('confirmOrder', Action);
 })
 export default class ConfirmOrder extends Vue {
   @ConfirmOderState confirmOrderInitData
-  @ConfirmOderState isCreditEnough
   @ConfirmOderAction isConfirmOrder
   @ConfirmOderAction confirmOrderInit
   setColor = localStorage.getItem('setColor')
   ids = localStorage.getItem('ids') || ''
+  isCreditEnough = localStorage.getItem('isCreditEnough')
   exitcss = false
   created () {
     const params = {
