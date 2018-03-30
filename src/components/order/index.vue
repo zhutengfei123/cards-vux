@@ -1,9 +1,7 @@
 <template>
     <div class="order-index">
-        <tab class="tab" ref="topBar" bar-active-color="#B79E74">
-            <tab-item :selected="true" @on-item-click="orderStatus=0">全部</tab-item>
-            <tab-item @on-item-click="orderStatus=1">待发货</tab-item>
-            <tab-item @on-item-click="orderStatus=3">已发货</tab-item>
+        <tab class="tab" ref="topBar" :bar-active-color="setColor">
+            <tab-item :selected="index===0?true:false" :style="{'color':index===active?setColor:''}" :key="index" v-for="(item,index) in titleList" @on-item-click="handleClickTitle(item,index)">{{item.title}}</tab-item>
         </tab>
         <group v-for="(order,index) in orders" :key="index" :style="{paddingTop:index===0&&'44px'}" @click.native="$router.push(`/order/detail/${order.order_sn}`)">
             <cell>
@@ -36,11 +34,17 @@ const OrderState = namespace('order', State);
   components: { Tab, TabItem, Cell, Group, Item }
 })
 export default class Order extends Vue {
-  orderStatus = 0;
   @OrderState orders;
   @OrderMutation setOrders;
   @OrderAction getOrders;
+  orderStatus = 0;
+  active = 0;
   setColor = localStorage.getItem('setColor')
+  titleList = [
+    {title: '全部', orderStatus: 0},
+    {title: '待发货', orderStatus: 1},
+    {title: '已发货', orderStatus: 3}
+  ]
   @Watch('orderStatus')
   onStatusChange (newValue, oldValue) {
     if (newValue !== oldValue) {
@@ -55,6 +59,10 @@ export default class Order extends Vue {
   }
   get totalCount () {
     return goods => goods.list.reduce((sum, item) => sum + parseFloat(item.price) * parseInt(item.num), 0);
+  }
+  handleClickTitle (item, index) {
+    this.active = index;
+    this.orderStatus = item.orderStatus;
   }
   getStatus (n) {
     switch (n) {

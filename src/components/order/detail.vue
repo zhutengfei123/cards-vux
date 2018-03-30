@@ -10,10 +10,10 @@
             </cell>
         </group>
         <group>
-            <flexbox><span class="text label">订单状态</span><span class="text brown" :style="{'color':setColor}" >{{type}}</span></flexbox>
+            <flexbox><span class="text label">订单状态</span><span class="text brown" :style="{'color':setColor}">{{type}}</span></flexbox>
             <flexbox><span class="text label">订单号</span><span class="text">{{orderSn}}</span></flexbox>
-            <flexbox v-if="orderStatus!=='1'"><span class="text label">快递单号</span><span class="text">{{expressNo}}&nbsp;&nbsp;&nbsp;({{expressName}})</span></flexbox>
-            <cell v-if="orderStatus!=='1'" is-link class="link" :link="`/order/delivery/${orderSn}`">
+            <flexbox v-if="orderStatus!=='1'"><span class="text label">快递单号</span><span class="text">{{`${expressNo}（${expressName}）`}}</span></flexbox>
+            <cell v-if="orderStatus!=='1'&&time!==''" is-link class="link" :link="`/order/delivery/${orderSn}`">
                 <p slot="inline-desc" class="text gray">{{time}}</p>
                 <p slot="inline-desc" class="text gray">{{context}}</p>
             </cell>
@@ -34,9 +34,10 @@
 <script>
 import { Component, Vue } from 'vue-property-decorator';
 import { Cell, Group, CellFormPreview, Flexbox, FlexboxItem } from 'vux';
-import { axios } from '../../js';
+import { State, Action, namespace } from 'vuex-class';
 import Item from './item';
-import qs from 'qs';
+const OrderAction = namespace('order', Action);
+const OrderState = namespace('order', State);
 @Component({
   components: {
     Cell,
@@ -48,6 +49,8 @@ import qs from 'qs';
   }
 })
 export default class OrderDetail extends Vue {
+  @OrderState detailData;
+  @OrderAction getDetail;
   name = '';
   phone = '';
   address = '';
@@ -85,30 +88,35 @@ export default class OrderDetail extends Vue {
         return '已完成';
     }
   }
-  async getInfo () {
-    const { result, status: { code, msg } } = await axios.post(
-      '/order/details',
-      qs.stringify({ order_sn: this.$route.params.id })
-    );
-    if (code === '00000') {
-      const {name, phone, address} = result.address_info;
-      this.name = name;
-      this.phone = phone;
-      this.address = address;
-      this.list = result.goods_list[0].list;
-      this.orderStatus = result.order_status;
-      this.orderSn = result.order_sn;
-      this.expressNo = result.express.express_no;
-      this.expressName = result.express.express_name;
-      this.time = result.express.length !== 0 ? result.express.data[0].time : '';
-      this.context = result.express.length !== 0 ? result.express.data[0].context : '';
-      this.totalPrice = result.total_price;
-      this.preview[0].value = result.create_time;
-      this.preview[1].value = result.freight;
-      this.preview[2].value = result.price;
-    } else {
-      this.$vux.toast.text(msg);
-    }
+  getInfo () {
+    const params = {
+      order_sn: this.$route.params.id || ''
+    };
+    this.getDetail(params).then(msg => {
+      if (msg) {
+        this.$vux.toast.text(msg);
+      } else {
+        const {name, phone, address} = this.detailData.address_info;
+        this.name = name;
+        this.phone = phone;
+        this.address = address;
+        this.list = this.detailData.goods_list[0].list;
+        this.orderStatus = this.detailData.order_status;
+        this.orderSn = this.detailData.order_sn;
+        this.totalPrice = this.detailData.total_price;
+        this.preview[0].value = this.detailData.create_time;
+        this.preview[1].value = this.detailData.freight;
+        this.preview[2].value = this.detailData.price;
+        if (this.orderStatus !== '1') {
+          this.expressNo = this.detailData.express.express_no;
+          this.expressName = this.detailData.express.express_name;
+          if (this.detailData.express.data.length > 0) {
+            this.time = this.detailData.express.data[0].time;
+            this.context = this.detailData.express.data[0].context;
+          }
+        }
+      }
+    });
   }
   created () {
     this.getInfo();

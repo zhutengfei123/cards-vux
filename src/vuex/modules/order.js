@@ -2,7 +2,8 @@ import { axios } from '../../js';
 import qs from 'qs';
 const state = {
   orders: [],
-  page: 1
+  page: 1,
+  detailData: {}
 };
 const actions = {
   async getOrders ({ commit, state }, { page, orderStatus }) {
@@ -14,12 +15,23 @@ const actions = {
     } else {
       return status.msg;
     }
+  },
+  async getDetail ({commit, rootState}, params) {
+    const { result, status: {code, msg} } = await axios.post('/order/details', qs.stringify(params));
+    if (code === '00000') {
+      commit('getDetail', result);
+    } else {
+      return msg;
+    }
   }
 };
 const mutations = {
   setOrders (state, data) {
     state.orders = data.orders;
     state.page = data.page;
+  },
+  getDetail (state, data) {
+    state.detailData = data;
   }
 };
 export default {
