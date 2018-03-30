@@ -52,7 +52,7 @@ export default class LHeader extends Vue {
       this.$router.push(`/detail/${item.jump_type_value}`);
     }
     if (item.jump_type === '3') {
-      window.location.href = item.jump_type_value;
+      window.location.href = 'http://' + item.jump_type_value;
     }
   }
   indexChange (index) {

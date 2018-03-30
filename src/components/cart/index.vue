@@ -6,11 +6,12 @@
         </div>
         <div class="cart-con" v-for="(item, index) in initData.list" :key="index">
             <div class="con-top">
-                <!-- <check-icon :value.sync="item.is_selected===1?true:false" @click.native="handleSelectList(item)">{{item.title}}</check-icon> -->
-                <icon :type="item.is_selected ==='1' ? 'success' : 'circle'"  :style="{'color':setColor}"  @click.native="handleSelectList(item)">{{item.title}}</icon><span class="my-num">（{{item.num}}）</span>
+                <check-icon :value.sync="item.is_selected===1?true:false" @click.native="handleSelectList(item)">{{item.title}}</check-icon> <span class="my-num">（{{item.num}}）</span>
+                <!-- <icon :type="item.is_selected ==='1' ? 'success' : 'circle'"  :style="{'color':setColor}"  @click.native="handleSelectList(item)">{{item.title}}</icon><span class="my-num">（{{item.num}}）</span> -->
             </div>
             <div class="con-mid" v-for="(subItem, i) in item.goods" :key="i">
-                <icon :type="item.is_selected ==='1' ? 'success' : 'circle'"  :style="{'color':setColor}"  @click.native="handleSelect(subItem)">{{item.title}}</icon>
+               <check-icon :value.sync="subItem.is_selected===1?true:false" @click.native="handleSelect(subItem)"></check-icon>
+                <!-- <icon :type="item.is_selected ==='1' ? 'success' : 'circle'"  :style="{'color':setColor}"  @click.native="handleSelect(subItem)">{{item.title}}</icon> -->
                 <span @click="$router.push(`/detail/${subIem.shop_id}`)" class="my-img"><img class="img" :src="subItem.pic" alt=""></span>
                 <div class="con-r">
                     <div class="con-mid-t">{{subItem.name}}</div>

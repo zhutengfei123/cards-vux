@@ -73,6 +73,7 @@ export default class ConfirmOrder extends Vue {
         this.$vux.toast.text(msg, 'middle');
       }
     });
+    console.log(this.isCreditEnough);
   }
   onConfirm () {
     const params = {

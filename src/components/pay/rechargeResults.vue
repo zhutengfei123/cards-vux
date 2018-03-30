@@ -5,7 +5,7 @@
       <span class="con-top-title">{{payResults.pay_status===1?'支付成功':'支付失败'}}</span>
     </div>
     <div class="con-bot">
-      <x-button class="btn-l" link="/rechargeDetailed">查看明细</x-button>
+      <x-button class="btn-l" link="/rechargeDetailed" :style="{'background-color':setColor}">查看明细</x-button>
     </div>
   </div>
 </template>
@@ -21,6 +21,7 @@ const rechargeAction = namespace('recharge', Action);
 export default class OrderPayFail extends Vue {
     @rechargeState payResults
     @rechargeAction initGetPayResults
+    setColor = localStorage.getItem('setColor')
     created () {
       let orderId = location.hash.split('order_sn=')[1] || '';
       const params = {

@@ -77,7 +77,8 @@ export default class Index extends Vue {
   showTip=false
   loading=false
   showEdit = false
-  setColor = localStorage.getItem('setColor');
+  setColor = '';
+
   handleClickImg (item) {
     if (item.jump_type === '1') {
       localStorage.setItem('cardId', item.jump_type_value);
@@ -120,6 +121,7 @@ export default class Index extends Vue {
     }
   }
   mounted () {
+    this.setColor = localStorage.getItem('setColor');
     let element = document.querySelector('#vux_view_box_body');
     isBottom(element,
       () => {

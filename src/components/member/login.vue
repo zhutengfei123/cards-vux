@@ -19,6 +19,9 @@
               <x-button class="button send-code" v-show="time>0">已发送{{time}}s</x-button>
           </flexbox-item>
         </flexbox>
+         <flexbox>
+           <p class="resetPwd" :style="{'color':setColor}" @click="resetEvent">重置密码</p>
+         </flexbox>
         <x-button class="button" @click.native="signIn" :style="{'background-color':setColor}">登录</x-button>
         <flexbox justify="space-between" class="line">
             <p class="text brown"><span class="gray">没有账号？</span><span @click="$router.push('/register')" :style="{'color':setColor}">马上注册</span></p>
@@ -29,12 +32,12 @@
 </template>
 <script>
 import { Component, Vue } from 'vue-property-decorator';
-import { Flexbox, FlexboxItem, XButton, Toast } from 'vux';
+import { Flexbox, FlexboxItem, XButton, Toast, Confirm } from 'vux';
 import { Action, namespace } from 'vuex-class';
 const UserAction = namespace('user', Action);
 let timer = null;
 @Component({
-  components: { Flexbox, FlexboxItem, XButton, Toast },
+  components: { Flexbox, FlexboxItem, XButton, Toast, Confirm },
   watch: {
     $route: function (val, oldval) {
       if (timer) {
@@ -83,6 +86,9 @@ export default class Login extends Vue {
         }
       });
     }
+  }
+  resetEvent () {
+    this.$router.push('/reset');
   }
   signIn () {
     let flag = true;
@@ -186,6 +192,12 @@ export default class Login extends Vue {
   }
   .line {
     margin-top: 0.16rem;
+  }
+  .resetPwd{
+    width: 100%;
+    text-align: right;
+    margin-top: 0.1rem;
+    font-size: 0.14rem;
   }
 }
 </style>

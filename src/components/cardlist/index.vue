@@ -126,7 +126,6 @@ export default class CardList extends Vue {
   }
   created () {
     this.initial();
-    console.log(this.setColor);
   }
   initial () {
     if (this.flag) {

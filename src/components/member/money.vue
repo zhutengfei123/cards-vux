@@ -31,14 +31,17 @@ import { Flexbox, FlexboxItem, XButton, Cell, Group, Toast } from 'vux';
 import { State, Action, namespace } from 'vuex-class';
 const BalanceState = namespace('balance', State);
 const BalanceAction = namespace('balance', Action);
+const UserAction = namespace('user', Action);
 @Component({
   components: { Flexbox, FlexboxItem, XButton, Cell, Group, Toast }
 })
 export default class Money extends Vue {
   @BalanceState recordList;
   @BalanceAction getRecords;
+  @UserAction getInfo;
   currentPage = 1;
   setColor = localStorage.getItem('setColor')
+  params = {};
   balancePrice = localStorage.getItem('balancePrice') || '0.00';
   created () {
     const params = {
@@ -47,6 +50,14 @@ export default class Money extends Vue {
     this.getRecords(params).then(msg => {
       if (msg) {
         this.$vux.toast.text(msg, 'middle');
+      }
+    });
+
+    this.getInfo(this.params).then(msg => {
+      if (msg) {
+        this.$vux.toast.text(msg, 'middle');
+      } else {
+        this.balancePrice = this.userInfo.balance;
       }
     });
   }
