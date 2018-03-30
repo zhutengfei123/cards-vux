@@ -34,6 +34,9 @@ export default class OrderPaySuccess extends Vue {
   .order-pay-success {
     font-size: 0.14rem;
     overflow: hidden;
+    .weui-btn:after {
+      content: initial;
+    }
     .app-icon {
       font-size: 0.45rem;
       color: #B79E74;
