@@ -4,7 +4,7 @@
        <!-- <x-header slot="header" :title="title" class="header"></x-header> -->
         <router-view></router-view>
         <tabbar :class="{'point':showEdit}" slot="bottom" v-show="/main|mine/.test($route.path)">
-            <tabbar-item v-for="(item, index) in tabs" :key="index" @click.native="handleClickTabs(index)" :link="item.link">
+            <tabbar-item v-for="(item, index) in tabs" :key="index" @click.native="handleClickTabs(index)" :link="item.link" :badge="item.type == 1 ? badgeNum : '' ">
               <span slot="icon" :style="{'color': isActive === index ? setColor :''}"  class="app-icon" v-html="isActive===index?item.icon2:item.icon1"></span>
               <span slot="label" :style="{'color': isActive === index ? setColor :''}" class="tabbar-item">{{item.name}}</span>
             </tabbar-item>
@@ -48,7 +48,7 @@ const IndexAction = namespace('index', Action);
         this.tabs = [
           { name: '首页', icon1: '&#xe65d;', icon2: '&#xe65b;', link: '/mine' },
           { name: '分类', icon1: '&#58965;', icon2: '&#xe659;', link: '/mine/classification' },
-          { name: '意向单', icon1: '&#xe660;', icon2: '&#xe65f;', link: '/mine/intentionList' }
+          { name: '意向单', icon1: '&#xe660;', icon2: '&#xe65f;', link: '/mine/intentionList', type: '1' }
         ];
       }
       if (/main/.test(str)) {
@@ -56,7 +56,7 @@ const IndexAction = namespace('index', Action);
         this.tabs = [
           { name: '首页', icon1: '&#xe65d;', icon2: '&#xe65b;', link: '/main' },
           { name: '分类', icon1: '&#58965;', icon2: '&#xe659;', link: '/main/classification' },
-          { name: '购物车', icon1: '&#xe65c;', icon2: '&#xe65a;', link: `${this.token === '' ? '/login' : '/main/cart'}` },
+          { name: '购物车', icon1: '&#xe65c;', icon2: '&#xe65a;', link: `${this.token === '' ? '/login' : '/main/cart'}`, type: '1' },
           { name: '会员', icon1: '&#58967;', icon2: '&#xe656;', link: '/main/member' }
         ];
       }
@@ -72,6 +72,7 @@ export default class App extends Vue {
   tabs = [];
   setColor = localStorage.getItem('setColor');
   isActive = 0
+  badgeNum = '9'
   handleClickTabs (index) {
     this.isActive = index;
   }
