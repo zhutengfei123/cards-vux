@@ -84,6 +84,7 @@ export default class Member extends Vue {
   initial () {
     const params = {};
     this.getInfo(params).then(msg => {
+      console.log(msg);
       if (msg) {
         this.$vux.toast.text(msg, 'middle');
       } else {

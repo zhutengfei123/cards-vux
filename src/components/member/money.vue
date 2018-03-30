@@ -31,14 +31,15 @@ import { Flexbox, FlexboxItem, XButton, Cell, Group, Toast } from 'vux';
 import { State, Action, namespace } from 'vuex-class';
 const BalanceState = namespace('balance', State);
 const BalanceAction = namespace('balance', Action);
-const UserAction = namespace('user', Action);
+
 @Component({
   components: { Flexbox, FlexboxItem, XButton, Cell, Group, Toast }
 })
 export default class Money extends Vue {
   @BalanceState recordList;
+  @BalanceState userInfo;
   @BalanceAction getRecords;
-  @UserAction getInfo;
+  @BalanceAction getInfo;
   currentPage = 1;
   setColor = localStorage.getItem('setColor')
   params = {};
@@ -52,12 +53,17 @@ export default class Money extends Vue {
         this.$vux.toast.text(msg, 'middle');
       }
     });
-
-    this.getInfo(this.params).then(msg => {
+    this.init();
+  }
+  init () {
+    const params = {};
+    this.getInfo(params).then(msg => {
+      console.log(msg);
       if (msg) {
         this.$vux.toast.text(msg, 'middle');
       } else {
         this.balancePrice = this.userInfo.balance;
+        localStorage.setItem('balancePrice', this.userInfo.balance);
       }
     });
   }
