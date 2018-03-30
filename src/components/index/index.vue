@@ -4,7 +4,7 @@
         <x-button mini link="/intention" :style="{'background-color':setColor}">意向单</x-button>
         <x-button mini @click.native="handleClickIsShow" :style="{'background-color':setColor}">立即推广</x-button>
       </flexbox>
-      <div class="info-edit-box">
+      <div v-if="showEdit" class="info-edit-box">
         <div class="info-left">
           <span class="img-box2"><avatar :src="shareInfo.head_pic" :backgroundColor="setColor" color="#ffffff" :size="40" username="Avatar"></avatar></span>
           <span class="info-title my-desc">{{shareInfo.realname}}</span>
