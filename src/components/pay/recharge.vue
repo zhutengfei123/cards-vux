@@ -1,7 +1,7 @@
 <template>
   <div class="recharge">
-    <tab>
-      <tab-item v-for="(item, index) in tabList" :key="index" :selected="index===0" @on-item-click="onItemClick(index)">{{item.title}}</tab-item>
+    <tab :bar-active-color="setColor">
+      <tab-item :style="{'color':index===active?setColor:''}" v-for="(item, index) in tabList" :key="index" :selected="index===0" @on-item-click="onItemClick(index)">{{item.title}}</tab-item>
     </tab>
     <div class="recharge-1" v-show="active===0">
       <div class="r-top">充值金额</div>
@@ -71,6 +71,7 @@ import { XButton, Tab, TabItem, XInput, Group, Toast } from 'vux';
 import { Component, Vue } from 'vue-property-decorator';
 import Uploader from 'vux-uploader';
 import {State, Action, namespace} from 'vuex-class';
+import { setTimeout, clearTimeout } from 'timers';
 const rechargeState = namespace('recharge', State);
 const rechargeAction = namespace('recharge', Action);
 @Component({
@@ -93,6 +94,7 @@ export default class OrderPaySuccess extends Vue {
   rechargeVal = '';
   flag = false
   flag1 = false
+  flag3 = true
   remitVal = '';
   active = 0;
   images = [];
@@ -112,26 +114,35 @@ export default class OrderPaySuccess extends Vue {
     this.imgEnLarge = false;
   }
   handleSubmit () {
-    if (this.flag1) {
-      if (this.images.length > 0) {
-        const params = {
-          'balance': this.remitVal,
-          'remit_paper': this.images[0].file_hash || ''
-        };
-        this.initRemit(params).then(msg => {
-          if (!msg) {
-            this.$router.push({
-              path: '/submitSuccess'
-            });
-          } else {
-            this.$vux.toast.text(msg, 'middle');
-          }
-        }).catch(error => console.log(error));
+    if (this.flag3) {
+      this.flag3 = false;
+      let timer = setTimeout(() => {
+        clearTimeout(timer);
+        this.flag3 = true;
+      }, 2000);
+      if (this.flag1) {
+        if (this.images.length > 0) {
+          const params = {
+            'balance': this.remitVal,
+            'remit_paper': this.images[0].file_hash || ''
+          };
+          this.initRemit(params).then(msg => {
+            if (msg) {
+              this.$vux.toast.text(msg, 'middle');
+            } else {
+              this.$router.push({
+                path: '/submitSuccess'
+              });
+            }
+          }).catch(error => console.log(error));
+        } else {
+          this.$vux.toast.text('请上传汇款清单', 'middle');
+        }
       } else {
-        this.$vux.toast.text('请上传汇款清单', 'middle');
+        this.$vux.toast.text('请输入充值金额', 'middle');
       }
     } else {
-      this.$vux.toast.text('请输入充值金额', 'middle');
+      this.$vux.toast.text('请不要重复提交', 'middle');
     }
   }
   handleRechargeDetail () {
@@ -293,6 +304,9 @@ export default class OrderPaySuccess extends Vue {
     width: 3.45rem;
     background: #b79e74;
     font-size: 0.16rem;
+  }
+  .weui-btn:after {
+    content: initial;
   }
   .desc-l {
     color: #a6a6a6;
