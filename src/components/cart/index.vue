@@ -252,7 +252,6 @@ export default class Cart extends Vue {
             'ids': ids.join(',')
           };
           this.confirmOrderInit(params).then(msg => {
-            console.log(msg);
             if (!msg) {
               if (parseFloat(this.confirmOrderInitData.balance) >= parseFloat(this.confirmOrderInitData.total_price)) {
                 localStorage.setItem('isCreditEnough', '1');

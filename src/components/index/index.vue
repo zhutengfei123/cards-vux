@@ -3,17 +3,17 @@
       <flexbox class="top" align="center" v-if="showEdit">
         <x-button mini link="/intention" :style="{'background-color':setColor}">意向单</x-button>
         <x-button mini @click.native="handleClickIsShow" :style="{'background-color':setColor}">立即推广</x-button>
-        <div class="info-edit-box">
-          <div class="info-left">
-            <span class="img-box2"><avatar :src="shareInfo.head_pic" :backgroundColor="setColor" color="#ffffff" :size="40" username="Avatar"></avatar></span>
-            <span class="info-title my-desc">{{shareInfo.realname}}</span>
-          </div>
-          <div @click="handleToInfoEdit" class="info-right">
-            <span class="info-title info-edit">编辑</span>
-            <span class="app-icon info-title">&#xe684;</span>
-          </div>
-        </div>
       </flexbox>
+      <div class="info-edit-box">
+        <div class="info-left">
+          <span class="img-box2"><avatar :src="shareInfo.head_pic" :backgroundColor="setColor" color="#ffffff" :size="40" username="Avatar"></avatar></span>
+          <span class="info-title my-desc">{{shareInfo.realname}}</span>
+        </div>
+        <div @click="handleToInfoEdit" class="info-right">
+          <span class="info-title info-edit">编辑</span>
+          <span class="app-icon info-title">&#xe684;</span>
+        </div>
+      </div>
       <l-header></l-header>
       <div v-show="mainRecommend.is_show==='1'" class="block main-recommend">
         <p class="recommend-title">{{mainRecommend.block_content.title}}</p>
@@ -294,7 +294,7 @@ export default class Index extends Vue {
   }
   .info-title {
     font-size: 0.18rem;
-    color: #FFFFFF;
+    color: #3c3c3c;
   }
   .info-img {
     width: 0.4rem;
@@ -302,15 +302,13 @@ export default class Index extends Vue {
     border: none;
   }
   .info-edit-box {
-    position: absolute;
-    top: 0.44rem;
-    left: 0;
     height: 0.6rem;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    z-index: 1;
+    background: #ffffff;
+    margin-top: 0.15rem;
   }
   .top{
       margin: 0 !important;
@@ -319,7 +317,6 @@ export default class Index extends Vue {
       align-items: center;
       justify-content: space-around;
       height: 0.44rem;
-      position: relative;
   }
   .recommend-title{
       position: absolute;
