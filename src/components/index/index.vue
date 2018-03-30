@@ -31,12 +31,13 @@
             </grid-item>
           </grid>
         </div>
-        <load-more tip="正在加载" v-show="loading" ref="loadMore"></load-more>
+        <load-more tip="正在加载" v-show="loading&&!showEdit" ref="loadMore"></load-more>
         <div v-transfer-dom>
           <x-dialog :dialog-style="{width:'2.56rem',height:'2.08rem',background:'transparent'}" v-model="showTip" hide-on-blur>
             <img src="../../assets/share.png" style="width:100%;height:100%;"/>
           </x-dialog>
         </div>
+        <div v-show="showEdit" class="add-box"></div>
       </span>
   </div>
 </template>
@@ -189,6 +190,9 @@ export default class Index extends Vue {
 <style lang="less">
 .index-myIndex {
   font-size: 0.14rem;
+  .add-box {
+    height: 0.55rem;
+  }
   .point {
     pointer-events: none;
   }
