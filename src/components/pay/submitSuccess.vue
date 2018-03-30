@@ -1,5 +1,5 @@
 <template>
-  <div class="submit-success">
+  <div class="submit-success-index">
     <div class="con-top">
       <span class="app-icon"  :style="{'color':setColor}">&#xe605;</span>
       <span class="con-top-title">提交成功</span>
@@ -24,10 +24,13 @@ import { Component, Vue } from 'vue-property-decorator';
     }
   }
 </script>
-<style lang="less" scoped>
-  .submit-success {
+<style lang="less">
+  .submit-success-index {
     font-size: 0.14rem;
     overflow: hidden;
+    .weui-btn:after {
+      content: initial;
+    }
     .app-icon {
       font-size: 0.45rem;
       color: #B79E74;
