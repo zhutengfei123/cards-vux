@@ -72,7 +72,7 @@ export default class Member extends Vue {
     if (this.token === '') {
       this.$router.push('/login');
     } else {
-      localStorage.setItem('showEdit', JSON.stringify(true));
+      localStorage.setItem('showEdit', '');
       this.$router.push('/mine');
     }
   }

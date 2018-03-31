@@ -57,6 +57,9 @@ const actions = {
     const { result, status: {code, msg} } = await axios.get('site/index', {'params': params});
     if (code === '00000') {
       commit('initData1', result);
+      if (result.style_color) {
+        localStorage.setItem('setColor', result.style_color);
+      }
     } else {
       return msg;
     }

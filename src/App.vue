@@ -41,7 +41,7 @@ const IndexAction = namespace('index', Action);
       }
       let str = this.$route.path;
       if (/mine/.test(str)) {
-        this.showEdit = JSON.parse(localStorage.getItem('showEdit')) || false;
+        this.showEdit = '';
         if (window.location.hash.split('#')[1] === '/mine') {
           this.isActive = 0;
         }
@@ -52,7 +52,8 @@ const IndexAction = namespace('index', Action);
         ];
       }
       if (/main/.test(str)) {
-        this.showEdit = false;
+        localStorage.setItem('showEdit', '0');
+        this.showEdit = '0';
         this.tabs = [
           { name: '首页', icon1: '&#xe65d;', icon2: '&#xe65b;', link: '/main' },
           { name: '分类', icon1: '&#58965;', icon2: '&#xe659;', link: '/main/classification' },
@@ -69,8 +70,8 @@ export default class App extends Vue {
   @IndexAction getInitTitleInfo
   @IndexAction cartNums
   @IndexState getIndexInfo;
+  showEdit = localStorage.getItem('showEdit')
   @IndexState cartNum;
-  showEdit = JSON.parse(localStorage.getItem('showEdit')) || false
   tabs = [];
   setColor = localStorage.getItem('setColor');
   isActive = 0
@@ -82,6 +83,8 @@ export default class App extends Vue {
     if (!/share_user_id/.test(location.hash) && /store_id/.test(location.hash)) {
       const storeId = location.hash.split('store_id=')[1];
       localStorage.setItem('store_id', storeId);
+      localStorage.setItem('showEdit', '0');
+      this.showEdit = '0';
     }
     if (/share_user_id/.test(location.hash) && /store_id/.test(location.hash)) {
       let str = location.hash.split('main')[1] || '&';
@@ -90,7 +93,8 @@ export default class App extends Vue {
       const shareId = arr[1].split('share_user_id=')[1] || '';
       localStorage.setItem('store_id', storeId);
       localStorage.setItem('shareId', shareId);
-      localStorage.setItem('showEdit', false);
+      localStorage.setItem('showEdit', '1');
+      this.showEdit = '1';
       this.$router.push({
         path: '/mine'
       });

@@ -61,8 +61,8 @@ export default class Classification extends Vue {
   onFetching = false
   setColor = localStorage.getItem('setColor') + ' !important'
   dataList = []
-  tempData = []
-  showEdit = false
+  tempData = JSON.parse(localStorage.getItem('tempData') || '[]')
+  showEdit = localStorage.getItem('showEdit')
   idList = []
   orderByList = [
     {title: '默认排序', orderType: '1'},
@@ -88,7 +88,7 @@ export default class Classification extends Vue {
     }
   }
   handleAddCart (item) {
-    if (this.showEdit) {
+    if (this.showEdit === '1') {
       let bStop = true;
       this.tempData.forEach(project => {
         if (project.id === item.id) {
@@ -169,8 +169,6 @@ export default class Classification extends Vue {
     this.isShowBox = !this.isShowBox;
   }
   created () {
-    this.showEdit = JSON.parse(localStorage.getItem('showEdit') || 'false');
-    this.tempData = JSON.parse(localStorage.getItem('tempData') || '[]');
     this.initial();
     const params = {
       'store_id': localStorage.getItem('store_id') || ''
@@ -312,6 +310,7 @@ export default class Classification extends Vue {
     top: 0.4rem;
     left: 0;
     box-sizing: border-box;
+    z-index: 992;
   }
   .vux-tab-selected .title-bold {
     color: #B79E74 !important;

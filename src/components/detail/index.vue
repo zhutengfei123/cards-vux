@@ -2,7 +2,7 @@
   <div class="detail-index">
     <div class="image">
       <span class="left" @click="$router.go(-1)"><img src="../../assets/back.png" alt=""></span>
-      <span class="right" @click="showEdit?$router.push('/mine/intentionList'):$router.push('/main/cart')"><img src="../../assets/cart.png" alt=""></span>
+      <span class="right" @click="showEdit==='1'?$router.push('/mine/intentionList'):$router.push('/main/cart')"><img src="../../assets/cart.png" alt=""></span>
       <img class="my-img" :src="shopDetails.pic_url" alt="">
     </div>
     <div class="shop-title">{{shopDetails.name}}</div>
@@ -47,12 +47,10 @@ export default class Detail extends Vue {
   @ProductsAction initGetShopDetails
   imgWidth = parseInt(screen.width)
   count = 1
-  showEdit = false
-  tempData = []
+  showEdit = localStorage.getItem('showEdit')
+  tempData = JSON.parse(localStorage.getItem('tempData') || '[]')
   setColor = localStorage.getItem('setColor')
   created () {
-    this.showEdit = JSON.parse(localStorage.getItem('showEdit') || 'false');
-    this.tempData = JSON.parse(localStorage.getItem('tempData') || '[]');
     const params = {
       'store_id': localStorage.getItem('store_id') || '',
       'id': this.$route.params.id
@@ -64,7 +62,7 @@ export default class Detail extends Vue {
     });
   }
   addCart () {
-    if (this.showEdit) {
+    if (this.showEdit === '1') {
       let flag = true;
       this.tempData.forEach(item => {
         if (item.id === this.shopDetails.id) {

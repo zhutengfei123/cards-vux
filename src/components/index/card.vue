@@ -19,15 +19,11 @@ export default class Card extends Vue {
   imgWidth= parseInt(screen.width / 2)
   @CartAction addReduce
   flag = true
-  showEdit = false
-  tempData = []
+  showEdit = localStorage.getItem('showEdit')
+  tempData = JSON.parse(localStorage.getItem('tempData') || '[]')
   setColor = localStorage.getItem('setColor')
-  created () {
-    this.showEdit = JSON.parse(localStorage.getItem('showEdit') || 'false');
-    this.tempData = JSON.parse(localStorage.getItem('tempData') || '[]');
-  }
   handleAddCart (item) {
-    if (this.showEdit) {
+    if (this.showEdit === '1') {
       let bStop = true;
       this.tempData.forEach(project => {
         if (project.id === item.id) {
