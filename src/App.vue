@@ -4,7 +4,7 @@
        <!-- <x-header slot="header" :title="title" class="header"></x-header> -->
         <router-view></router-view>
         <tabbar :class="{'point':showEdit===''}" slot="bottom" v-show="/main|mine/.test($route.path)">
-            <tabbar-item v-for="(item, index) in tabs" :key="index" @click.native="handleClickTabs(index)" :link="item.link">
+            <tabbar-item :badge="item.type===1?badgeNum:''" v-for="(item, index) in tabs" :key="index" @click.native="handleClickTabs(index)" :link="item.link">
               <span slot="icon" :style="{'color': isActive === index ? setColor :''}"  class="app-icon" v-html="isActive===index?item.icon2:item.icon1"></span>
               <span slot="label" :style="{'color': isActive === index ? setColor :''}" class="tabbar-item">{{item.name}}</span>
             </tabbar-item>
@@ -57,7 +57,7 @@ const IndexAction = namespace('index', Action);
         this.tabs = [
           { name: '首页', icon1: '&#xe65d;', icon2: '&#xe65b;', link: '/main' },
           { name: '分类', icon1: '&#58965;', icon2: '&#xe659;', link: '/main/classification' },
-          { name: '购物车', icon1: '&#xe65c;', icon2: '&#xe65a;', link: `${this.token === '' ? '/login' : '/main/cart'}` },
+          { name: '购物车', type: 1, icon1: '&#xe65c;', icon2: '&#xe65a;', link: `${this.token === '' ? '/login' : '/main/cart'}` },
           { name: '会员', icon1: '&#58967;', icon2: '&#xe656;', link: '/main/member' }
         ];
       }
@@ -67,12 +67,15 @@ const IndexAction = namespace('index', Action);
 export default class App extends Vue {
   @GlobalState title;
   @UserState token;
+  @IndexState cartNum;
   @IndexAction getInitTitleInfo
   @IndexState getIndexInfo;
+  @IndexAction cartNums;
   showEdit = localStorage.getItem('showEdit')
   tabs = [];
   setColor = localStorage.getItem('setColor');
   isActive = 0
+  badgeNum = ''
   handleClickTabs (index) {
     this.isActive = index;
   }
@@ -106,6 +109,15 @@ export default class App extends Vue {
         localStorage.setItem('storeName', this.getIndexInfo.store_name);
         localStorage.setItem('bgImgUrl', this.getIndexInfo.store_logo_url);
         document.title = localStorage.getItem('storeName');
+      }
+    });
+    this.cartNums({}).then(code => {
+      if (code === '00000') {
+        if (this.cartNum > 99) {
+          this.badgeNum = '99+';
+        } else {
+          this.badgeNum = this.cartNum + '';
+        }
       }
     });
   }
