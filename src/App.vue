@@ -136,6 +136,7 @@ export default class App extends Vue {
     pointer-events: none;
   }
   .weui-tabbar {
+    z-index: 990;
     background: #ffffff !important;
   }
   .weui-tabbar:before {
