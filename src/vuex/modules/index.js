@@ -40,7 +40,8 @@ const state = {
   uploadRes: {},
   shareInfo: {},
   WxShare: {},
-  getIndexInfo: {}
+  getIndexInfo: {},
+  cartNum: ''
 };
 
 const actions = {
@@ -55,8 +56,6 @@ const actions = {
   async getInitTitleInfo ({commit, rootState}, params) {
     const { result, status: {code, msg} } = await axios.get('site/index', {'params': params});
     if (code === '00000') {
-      localStorage.setItem('setColor', result.style_color);
-      console.log(localStorage.getItem('setColor'));
       commit('initData1', result);
     } else {
       return msg;
@@ -115,6 +114,13 @@ const actions = {
     } else {
       return msg;
     }
+  },
+  async cartNums ({commit, rootState}, params) {
+    const { result, status: {code} } = await axios.get('/cart/count', {'params': params});
+    if (code === '00000') {
+      commit('getCartNum', result);
+    }
+    return code;
   }
 };
 
@@ -164,6 +170,9 @@ const mutations = {
   },
   getWxShare (state, data) {
     state.WxShare = data;
+  },
+  getCartNum (state, data) {
+    state.cartNum = data.count;
   }
 };
 

@@ -67,12 +67,14 @@ export default class App extends Vue {
   @GlobalState title;
   @UserState token;
   @IndexAction getInitTitleInfo
+  @IndexAction cartNums
   @IndexState getIndexInfo;
+  @IndexState cartNum;
   showEdit = JSON.parse(localStorage.getItem('showEdit')) || false
   tabs = [];
   setColor = localStorage.getItem('setColor');
   isActive = 0
-  badgeNum = '9'
+  badgeNum = ''
   handleClickTabs (index) {
     this.isActive = index;
   }
@@ -93,7 +95,7 @@ export default class App extends Vue {
         path: '/mine'
       });
     }
-    const params = {
+    let params = {
       'store_id': localStorage.getItem('store_id') || ''
     };
     this.getInitTitleInfo(params).then(msg => {
@@ -103,6 +105,22 @@ export default class App extends Vue {
         localStorage.setItem('storeName', this.getIndexInfo.store_name);
         localStorage.setItem('bgImgUrl', this.getIndexInfo.store_logo_url);
         document.title = localStorage.getItem('storeName');
+        this.setColor = this.getIndexInfo.style_color;
+        localStorage.setItem('setColor', this.setColor);
+      }
+    });
+    this.gitCartNum();
+  }
+  gitCartNum () {
+    // 获取购物车数量
+    let params = {};
+    this.cartNums(params).then(code => {
+      if (code === '00000') {
+        if (this.cartNum > 99) {
+          this.badgeNum = '99+';
+        } else {
+          this.badgeNum = this.cartNum + '';
+        }
       }
     });
   }
