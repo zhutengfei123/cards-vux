@@ -97,6 +97,13 @@ const actions = {
       return msg;
     }
   },
+  async cartNums ({commit, rootState}, params) {
+    const { result, status: {code} } = await axios.get('/cart/count', {'params': params});
+    if (code === '00000') {
+      commit('getCartNum', result);
+    }
+    return code;
+  },
   async initWxshare ({commit, rootState, state}, params) {
     const {result, status: {code, msg}} = await axios.post('/site/wx-jsconfig', qs.stringify(params));
     if (code === '00000') {
@@ -117,13 +124,6 @@ const actions = {
     } else {
       return msg;
     }
-  },
-  async cartNums ({commit, rootState}, params) {
-    const { result, status: {code} } = await axios.get('/cart/count', {'params': params});
-    if (code === '00000') {
-      commit('getCartNum', result);
-    }
-    return code;
   }
 };
 
