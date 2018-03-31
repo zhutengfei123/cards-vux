@@ -1,7 +1,7 @@
 <template>
   <div class="submit-success-index">
     <div class="con-top">
-      <span class="app-icon"  :style="{'color':setColor}">&#xe605;</span>
+      <span class="app-icon" :style="{'color':setColor}">&#xe605;</span>
       <span class="con-top-title">提交成功</span>
     </div>
     <div class="con-bot">

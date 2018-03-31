@@ -310,6 +310,7 @@ export default class Classification extends Vue {
     top: 0.4rem;
     left: 0;
     box-sizing: border-box;
+    z-index: 992;
   }
   .vux-tab-selected .title-bold {
     color: #B79E74 !important;

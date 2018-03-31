@@ -83,20 +83,24 @@ export default class ConfirmOrder extends Vue {
     });
   }
   onConfirm () {
-    const params = {
-      'ids': this.ids,
-      'address_id': this.confirmOrderInitData.address.id
-    };
-    this.isConfirmOrder(params).then(msg => {
-      if (!msg) {
-        this.$router.push({
-          path: '/orderPaySuccess'
-        });
-      } else {
-        this.$vux.toast.text(msg, 'middle');
-      }
-      this.exitshow(0);
-    }).catch(error => console.log(error));
+    if (this.confirmOrderInitData.address.phone) {
+      const params = {
+        'ids': this.ids,
+        'address_id': this.confirmOrderInitData.address.id
+      };
+      this.isConfirmOrder(params).then(msg => {
+        if (!msg) {
+          this.$router.push({
+            path: '/orderPaySuccess'
+          });
+        } else {
+          this.$vux.toast.text(msg, 'middle');
+        }
+        this.exitshow(0);
+      }).catch(error => console.log(error));
+    } else {
+      this.$vux.toast.text('请选择收货地址', 'middle');
+    }
   }
   handlePayBtn () {
     if (this.isCreditEnough === '1') {

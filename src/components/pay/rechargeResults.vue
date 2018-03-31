@@ -1,7 +1,7 @@
 <template>
-  <div class="order-pay-index">
+  <div class="order-pay-index" v-show="payResults.pay_status">
     <div class="con-top">
-      <span class="app-icon">{{payResults.pay_status===1?'&#xe605;':'&#xe658;'}}</span>
+      <span :style="{'color': setColor}" class="app-icon">{{payResults.pay_status===1?'&#xe605;':'&#xe658;'}}</span>
       <span class="con-top-title">{{payResults.pay_status===1?'支付成功':'支付失败'}}</span>
     </div>
     <div class="con-bot">
