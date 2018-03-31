@@ -3,7 +3,7 @@
      <view-box ref="viewBox" body-padding-top="46px" :body-padding-bottom="/main/.test($route.path)?'55px':'0'">
        <!-- <x-header slot="header" :title="title" class="header"></x-header> -->
         <router-view></router-view>
-        <tabbar :class="{'point':showEdit}" slot="bottom" v-show="/main|mine/.test($route.path)">
+        <tabbar :class="{'point':showEdit===''}" slot="bottom" v-show="/main|mine/.test($route.path)">
             <tabbar-item v-for="(item, index) in tabs" :key="index" @click.native="handleClickTabs(index)" :link="item.link">
               <span slot="icon" :style="{'color': isActive === index ? setColor :''}"  class="app-icon" v-html="isActive===index?item.icon2:item.icon1"></span>
               <span slot="label" :style="{'color': isActive === index ? setColor :''}" class="tabbar-item">{{item.name}}</span>
@@ -41,7 +41,7 @@ const IndexAction = namespace('index', Action);
       }
       let str = this.$route.path;
       if (/mine/.test(str)) {
-        this.showEdit = JSON.parse(localStorage.getItem('showEdit')) || false;
+        this.showEdit = '';
         if (window.location.hash.split('#')[1] === '/mine') {
           this.isActive = 0;
         }
@@ -52,7 +52,8 @@ const IndexAction = namespace('index', Action);
         ];
       }
       if (/main/.test(str)) {
-        this.showEdit = false;
+        localStorage.setItem('showEdit', '0');
+        this.showEdit = '0';
         this.tabs = [
           { name: '首页', icon1: '&#xe65d;', icon2: '&#xe65b;', link: '/main' },
           { name: '分类', icon1: '&#58965;', icon2: '&#xe659;', link: '/main/classification' },
@@ -68,7 +69,7 @@ export default class App extends Vue {
   @UserState token;
   @IndexAction getInitTitleInfo
   @IndexState getIndexInfo;
-  showEdit = JSON.parse(localStorage.getItem('showEdit')) || false
+  showEdit = localStorage.getItem('showEdit')
   tabs = [];
   setColor = localStorage.getItem('setColor');
   isActive = 0
@@ -79,6 +80,8 @@ export default class App extends Vue {
     if (!/share_user_id/.test(location.hash) && /store_id/.test(location.hash)) {
       const storeId = location.hash.split('store_id=')[1];
       localStorage.setItem('store_id', storeId);
+      localStorage.setItem('showEdit', '0');
+      this.showEdit = '0';
     }
     if (/share_user_id/.test(location.hash) && /store_id/.test(location.hash)) {
       let str = location.hash.split('main')[1] || '&';
@@ -87,7 +90,8 @@ export default class App extends Vue {
       const shareId = arr[1].split('share_user_id=')[1] || '';
       localStorage.setItem('store_id', storeId);
       localStorage.setItem('shareId', shareId);
-      localStorage.setItem('showEdit', false);
+      localStorage.setItem('showEdit', '1');
+      this.showEdit = '1';
       this.$router.push({
         path: '/mine'
       });

@@ -1,10 +1,10 @@
 <template>
   <div class="index-myIndex">
-      <flexbox class="top" align="center" v-if="showEdit">
+      <flexbox class="top" align="center" v-if="showEdit===''">
         <x-button mini link="/intention" :style="{'background-color':setColor}">意向单</x-button>
         <x-button mini @click.native="handleClickIsShow" :style="{'background-color':setColor}">立即推广</x-button>
       </flexbox>
-      <div v-if="showEdit" class="info-edit-box">
+      <div v-if="showEdit===''" class="info-edit-box">
         <div class="info-left">
           <span class="img-box2"><avatar :src="shareInfo.head_pic" :backgroundColor="setColor" color="#ffffff" :size="40" username="Avatar"></avatar></span>
           <span class="info-title my-desc">{{shareInfo.realname}}</span>
@@ -14,7 +14,7 @@
           <span class="app-icon info-title">&#xe684;</span>
         </div>
       </div>
-      <span :class="{'point':showEdit}">
+      <span :class="{'point':showEdit===''}">
         <l-header></l-header>
         <div v-show="mainRecommend.is_show==='1'" class="block main-recommend">
           <p class="recommend-title">{{mainRecommend.block_content.title}}</p>
@@ -31,13 +31,13 @@
             </grid-item>
           </grid>
         </div>
-        <load-more tip="正在加载" v-show="loading&&!showEdit" ref="loadMore"></load-more>
+        <load-more tip="正在加载" v-show="loading&&showEdit!==''" ref="loadMore"></load-more>
         <div v-transfer-dom>
           <x-dialog :dialog-style="{width:'2.56rem',height:'2.08rem',background:'transparent'}" v-model="showTip" hide-on-blur>
             <img src="../../assets/share.png" style="width:100%;height:100%;"/>
           </x-dialog>
         </div>
-        <div v-show="showEdit" class="add-box"></div>
+        <div v-show="showEdit===''" class="add-box"></div>
       </span>
   </div>
 </template>
@@ -79,7 +79,7 @@ export default class Index extends Vue {
   imgWidth= screen.width
   showTip=false
   loading=false
-  showEdit = false
+  showEdit = localStorage.getItem('showEdit')
   setColor = '';
 
   handleClickImg (item) {
@@ -102,17 +102,11 @@ export default class Index extends Vue {
   }
   created () {
     document.title = localStorage.getItem('storeName');
-    if (/main/.test(this.$route.path)) {
-      localStorage.setItem('showEdit', JSON.stringify(false));
-      this.showEdit = false;
-    } else {
-      this.showEdit = JSON.parse(localStorage.getItem('showEdit'));
-    }
     this.init().then(msg => {
       msg && this.$vux.toast.text(msg);
       this.setPage(this.page + 1);
     }).catch(error => console.log(error));
-    if (this.showEdit) {
+    if (this.showEdit === '') {
       const params = {
         'share_user_id': localStorage.getItem('userId') || '',
         'store_id': localStorage.getItem('store_id') || ''
@@ -139,7 +133,7 @@ export default class Index extends Vue {
         })();
       }
     );
-    if (this.showEdit) {
+    if (this.showEdit === '') {
       const params = {
         'share_url': location.href.split('#')[0]
       };
