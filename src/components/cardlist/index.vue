@@ -21,7 +21,7 @@
               <div class="card-list-title">{{item.name}}</div>
               <div class="card-list-price">尊享价:￥ {{item.price}}</div>
               <div class="card-list-btn">
-                <x-button mini @click.native.stop="handleAddCart(item.shop_id)"  :style="{'background-color':setColor}">加入购物车sss</x-button>
+                <x-button mini @click.native.stop="handleAddCart(item.shop_id)"  :style="{'background-color':setColor}">加入购物车</x-button>
               </div>
             </div>
           </div>
