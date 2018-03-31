@@ -37,7 +37,7 @@
             <img src="../../assets/share.png" style="width:100%;height:100%;"/>
           </x-dialog>
         </div>
-        <div v-show="showEdit===''" class="add-box"></div>
+        <div v-show="showEdit===''||showEdit==='1'" class="add-box"></div>
       </span>
   </div>
 </template>
