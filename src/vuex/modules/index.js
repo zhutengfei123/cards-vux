@@ -40,7 +40,8 @@ const state = {
   uploadRes: {},
   shareInfo: {},
   WxShare: {},
-  getIndexInfo: {}
+  getIndexInfo: {},
+  cartNum: ''
 };
 
 const actions = {
@@ -116,6 +117,13 @@ const actions = {
     } else {
       return msg;
     }
+  },
+  async cartNums ({commit, rootState}, params) {
+    const { result, status: {code} } = await axios.get('/cart/count', {'params': params});
+    if (code === '00000') {
+      commit('getCartNum', result);
+    }
+    return code;
   }
 };
 
@@ -165,6 +173,9 @@ const mutations = {
   },
   getWxShare (state, data) {
     state.WxShare = data;
+  },
+  getCartNum (state, data) {
+    state.cartNum = data.count;
   }
 };
 
