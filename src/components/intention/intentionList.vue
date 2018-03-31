@@ -47,6 +47,7 @@ export default class Cart extends Vue {
   @ProductsState intentionList;
   @ProductsAction initGetIntentionList;
   isEdit = true;
+  initFlag = true
   myTempData = []
   setColor = localStorage.getItem('setColor')
   computedPrice () {
@@ -219,6 +220,22 @@ export default class Cart extends Vue {
   }
   initial () {
     let tempData = localStorage.getItem('tempData') || '[]';
+    if (this.initFlag) {
+      this.initFlag = false;
+      let isSubmitSuccess = localStorage.getItem('submitSuccess') || '';
+      let arr = JSON.parse(tempData);
+      if (isSubmitSuccess === '1') {
+        let arr2 = JSON.parse(localStorage.getItem('myTempData'));
+        arr2.forEach(item => {
+          arr.forEach((subItem, i) => {
+            if (item.id === subItem.id) {
+              arr.splice(i, 1);
+            }
+          });
+        });
+        tempData = JSON.stringify(arr);
+      }
+    }
     const params = {
       'store_id': localStorage.getItem('store_id') || '',
       'shop_ids': tempData
