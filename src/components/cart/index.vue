@@ -27,7 +27,8 @@
         <div class="cart-foot">
             <icon :type="initData.is_all_selected===1?'success':'circle'" :style="{'color':setColor}" @click.native="handleSelectAll">全选</icon>
             <span>合计：<span class="bottom-l">￥{{initData.goods_total_price}}</span></span>
-            <span class="settlement" @click="handleClick(!isEdit)" :style="{'background-color':setColor}">{{isEdit?'结算':'删除'}}</span>
+            <span v-if="isShowPayBtn" class="settlement" @click="$router.push('/recharge')" :style="{'background-color':setColor}">去充值</span>
+            <span v-else class="settlement" @click="handleClick(!isEdit)" :style="{'background-color':setColor}">{{isEdit?'结算':'删除'}}</span>
         </div>
     </div>
 </template>
@@ -35,7 +36,6 @@
 import { CheckIcon, Toast, Icon } from 'vux';
 import { Component, Vue } from 'vue-property-decorator';
 import {State, Action, namespace} from 'vuex-class';
-import { setTimeout } from 'timers';
 const CartState = namespace('cart', State);
 const CartAction = namespace('cart', Action);
 const ConfirmOderState = namespace('confirmOrder', State);
@@ -57,6 +57,7 @@ export default class Cart extends Vue {
     @ConfirmOderAction isConfirmOrder
     @ConfirmOderState confirmOrderInitData
     isEdit = true
+    isShowPayBtn = false
     setColor = localStorage.getItem('setColor')
     handleInputChange (num, id) {
       const params = {
@@ -260,11 +261,7 @@ export default class Cart extends Vue {
               } else {
                 localStorage.setItem('isCreditEnough', '0');
                 this.$vux.toast.text('账户余额不足,请充值', 'middle');
-                setTimeout(() => {
-                  this.$router.push({
-                    path: '/recharge'
-                  });
-                }, 1000);
+                this.isShowPayBtn = true;
               }
             } else {
               this.$vux.toast.text(msg, 'middle');
