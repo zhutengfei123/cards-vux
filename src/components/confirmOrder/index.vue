@@ -92,11 +92,10 @@ export default class ConfirmOrder extends Vue {
         this.$router.push({
           path: '/orderPaySuccess'
         });
-        this.exitshow(0);
       } else {
         this.$vux.toast.text(msg, 'middle');
-        this.exitshow(1);
       }
+      this.exitshow(0);
     }).catch(error => console.log(error));
   }
   handlePayBtn () {
