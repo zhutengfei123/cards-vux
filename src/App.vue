@@ -41,7 +41,11 @@ const IndexAction = namespace('index', Action);
       }
       let str = this.$route.path;
       if (/mine/.test(str)) {
-        this.showEdit = '';
+        if (localStorage.getItem('showEdit') === '') {
+          this.showEdit = '';
+        } else {
+          this.showEdit = '1';
+        }
         if (window.location.hash.split('#')[1] === '/mine') {
           this.isActive = 0;
         }
