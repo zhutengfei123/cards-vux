@@ -21,7 +21,7 @@
     <scroller lock-x @on-scroll-bottom="onScrollBottom" ref="scrollerBottom" :scroll-bottom-offst="200" style="overflow:initial">
       <div class="my-scorller">
         <div class="card-list-wrap">
-          <div @click="$router.push(`/detail/${item.id}`)" class="card-list" v-for="(item, index) in dataList" :key="index">
+          <div @click="$router.push('/detail/' + item.id)" class="card-list" v-for="(item, index) in dataList" :key="index">
             <div class="card-list-img"><img :src="item.pic_url" alt=""></div>
             <div class="card-list-title">{{item.name}}</div>
             <div class="card-list-price">尊享价:￥{{item.price}}</div>
