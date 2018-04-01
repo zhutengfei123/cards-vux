@@ -5,7 +5,7 @@
         <span class="title-bold" :style="{'color':index===isActive ? setColor :''}">{{item.title}}</span>
         <span :class="{'active':index===isActive&&isShowBox}" :style="{'color':index===isActive ? setColor :''}" class="app-icon">&#xe611;</span>
       </tab-item>
-      <div class="drop-down-box" v-show="isShowBox">
+      <div class="drop-down-box" v-show="isShowBox" v-tap.prevent="{ methods : scroll }">
         <div v-if="isActive!==3" class="drop-t">
           <div @click="handleSelectCon(index, item)" :style="{'color':item.checked===1?setColor:''}"  class="con-box" v-for="(item, index) in categoryData[isActive].children" :key="index">{{item.name}}</div>
         </div>

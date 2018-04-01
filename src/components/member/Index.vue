@@ -46,6 +46,7 @@ import { State, Action, namespace } from 'vuex-class';
 import Avatar from 'vue-avatar';
 const UserState = namespace('user', State);
 const UserAction = namespace('user', Action);
+const IndexState = namespace('index', State);
 @Component({
   components: {
     Cell,
@@ -62,6 +63,7 @@ export default class Member extends Vue {
   @UserState isRead;
   @UserAction initGetIsRead;
   @UserAction getInfos;
+  @IndexState getIndexInfo;
   setColor = localStorage.getItem('setColor')
   exitcss = false
   kname =''
@@ -80,6 +82,7 @@ export default class Member extends Vue {
     if (this.token !== '') {
       this.initial();
     }
+    console.log(this.getIndexInfo);
   }
   initial () {
     const params = {};
