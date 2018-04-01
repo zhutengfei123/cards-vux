@@ -3,6 +3,7 @@ import App from './App';
 import router from './router';
 import Vuex from 'vuex';
 import store from './vuex/store';
+import VueBus from 'vue-bus';
 import { sync } from 'vuex-router-sync';
 import vueTap from 'v-tap';
 import { WechatPlugin, BusPlugin, DevicePlugin, ToastPlugin, ConfigPlugin } from 'vux';
@@ -20,6 +21,7 @@ Vue.use(WechatPlugin);
 Vue.use(BusPlugin);
 Vue.use(DevicePlugin);
 Vue.use(ToastPlugin);
+Vue.use(VueBus);
 Vue.use(ConfigPlugin, {
   $layout: 'VIEW_BOX'
 });

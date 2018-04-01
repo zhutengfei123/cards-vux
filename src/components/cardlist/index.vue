@@ -32,7 +32,7 @@
                 <div class="card-list1-right-top">{{item.name}}</div>
                 <div class="card-list1-right-bot">
                   <span class="card-list-price">尊享价:￥ {{item.price}}</span>
-                  <span><x-button mini @click.native.stop="handleAddCart(item.shop_id)"  :style="{'background-color':setColor}">加入购物车</x-button></span>
+                  <span><x-button mini @click.native.stop="handleAddCart(item)"  :style="{'background-color':setColor}">加入购物车</x-button></span>
                 </div>
               </div>
             </div>
@@ -75,9 +75,10 @@ export default class CardList extends Vue {
   flag = true
   flag1 = true
   dataList = []
+  tempData = JSON.parse(localStorage.getItem('tempData') || '[]')
+  showEdit = localStorage.getItem('showEdit')
   hideBox = false
   setColor = localStorage.getItem('setColor')
-
   onScrollBottom () {
     if (!this.onFetching && this.isLoading) {
       this.onFetching = true;
@@ -88,25 +89,48 @@ export default class CardList extends Vue {
       }, 2000);
     }
   }
-  handleAddCart (id) {
-    if (this.flag1) {
-      const params = {
-        'shop_id': id
-      };
-      this.addReduce(params).then(msg => {
-        if (msg) {
-          this.$vux.toast.text(msg, 'middle');
-        } else {
-          this.$vux.toast.text('加入购物车成功', 'middle');
+  handleAddCart (item) {
+    if (this.showEdit === '1') {
+      let bStop = true;
+      this.tempData.forEach(project => {
+        if (project.id === item.shop_id) {
+          bStop = false;
         }
       });
-      this.flag1 = false;
-      let timer = setTimeout(() => {
-        this.flag1 = true;
-        clearTimeout(timer);
-      }, 500);
+      if (bStop) {
+        this.tempData.push({
+          'id': item.shop_id,
+          'num': 1,
+          'is_selected': 1
+        });
+        localStorage.setItem('tempData', JSON.stringify(this.tempData));
+      }
+      this.$vux.toast.text('加入购物车成功', 'middle');
+      let arr = JSON.parse(localStorage.getItem('tempData'));
+      if (arr && arr.length > 0) {
+        this.$store.commit('index/cartNum', arr.length + '');
+      }
     } else {
-      this.$vux.toast.text('您的操作过于频繁', 'middle');
+      if (this.flag1) {
+        const params = {
+          'shop_id': item.shop_id
+        };
+        this.addReduce(params).then(msg => {
+          if (msg) {
+            this.$vux.toast.text(msg, 'middle');
+          } else {
+            this.$vux.toast.text('加入购物车成功', 'middle');
+            this.$bus.emit('once');
+          }
+        });
+        this.flag1 = false;
+        let timer = setTimeout(() => {
+          this.flag1 = true;
+          clearTimeout(timer);
+        }, 500);
+      } else {
+        this.$vux.toast.text('您的操作过于频繁', 'middle');
+      }
     }
   }
   handleClickTab (n) {

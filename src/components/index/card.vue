@@ -26,13 +26,13 @@ export default class Card extends Vue {
     if (this.showEdit === '1') {
       let bStop = true;
       this.tempData.forEach(project => {
-        if (project.id === item.id) {
+        if (project.id === item.shop_id) {
           bStop = false;
         }
       });
       if (bStop) {
         this.tempData.push({
-          'id': item.id,
+          'id': item.shop_id,
           'num': 1,
           'is_selected': 1
         });
@@ -52,6 +52,7 @@ export default class Card extends Vue {
               this.$vux.toast.text(msg, 'middle');
             } else {
               this.$vux.toast.text('加入购物车成功', 'middle');
+              this.$bus.emit('once');
             }
           });
           this.flag = false;

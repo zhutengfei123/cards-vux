@@ -291,10 +291,11 @@ export default class Cart extends Vue {
 </script>
 <style lang="less" scoped>
     .cart {
-        height: 100%;
+        min-height: 5rem;
         padding: 0.6rem 0;
         overflow: hidden;
         font-size: 0.14rem;
+        position: relative;
         .con-mid-t {
           line-height: 0.24rem;
           height: 0.75rem;
@@ -348,9 +349,9 @@ export default class Cart extends Vue {
             height: 0.44rem;
             width: 100%;
             background: #ffffff;
-            position: fixed;
+            position: absolute;
             left: 0;
-            bottom: 0.48rem;
+            bottom: 0;
         }
         .settlement {
             height: 100%;

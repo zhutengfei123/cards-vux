@@ -77,6 +77,9 @@ export default class Detail extends Vue {
           'is_selected': 1
         });
       }
+      if (this.tempData.length > 0) {
+        this.$store.commit('index/cartNum', this.tempData.length + '');
+      }
       localStorage.setItem('tempData', JSON.stringify(this.tempData));
       this.$vux.toast.text('加入购物车成功', 'middle');
     } else {
@@ -93,6 +96,7 @@ export default class Detail extends Vue {
             this.$vux.toast.text(msg, 'middle');
           } else {
             this.$vux.toast.text('加入购物车成功', 'middle');
+            this.$bus.emit('once');
           }
         });
       }

@@ -6,10 +6,10 @@
         </div>
         <div class="cart-con" v-for="(item, index) in intentionList.list" :key="index">
             <div class="con-top">
-                <check-icon :value.sync="item.is_selected===1?true:false" @click.native="handleSelectList(item)">{{item.title}}</check-icon><span class="my-num">（{{item.goods.length}}）</span>
+                <icon :style="{'color':setColor}" :type="item.is_selected===1?'success':'circle'" @click.native="handleSelectList(item)">{{item.title}}</icon><span class="my-num">（{{item.goods.length}}）</span>
             </div>
             <div class="con-mid" v-for="(subItem, i) in item.goods" :key="i">
-                <check-icon :value.sync="subItem.is_selected===1?true:false" @click.native="handleSelect(subItem)"></check-icon>
+                <icon :style="{'color':setColor}" :type="subItem.is_selected===1?'success':'circle'" @click.native="handleSelect(subItem)"></icon>
                 <span @click="$router.push(`/detail/${subIem.shop_id}`)" class="my-img"><img class="img" :src="subItem.pic" alt=""></span>
                 <div class="con-r">
                     <div class="con-mid-t">{{subItem.name}}</div>
@@ -25,22 +25,22 @@
             </div>
         </div>
         <div class="cart-foot">
-            <check-icon :value.sync="intentionList.is_all_selected===1?true:false" @click.native="handleSelectAll">全选</check-icon>
+            <icon :style="{'color':setColor}" :type="intentionList.is_all_selected===1?'success':'circle'" @click.native="handleSelectAll">全选</icon>
             <span>合计：<span class="bottom-l">￥{{intentionList.goods_total_price}}</span></span>
             <span class="settlement" @click="handleClick" :style="{'background-color':setColor}">{{isEdit?'提交意向单':'删除'}}</span>
         </div>
     </div>
 </template>
 <script>
-import { CheckIcon, Toast } from 'vux';
+import { Toast, Icon } from 'vux';
 import { Component, Vue } from 'vue-property-decorator';
 import { State, namespace, Action } from 'vuex-class';
 const ProductsState = namespace('products', State);
 const ProductsAction = namespace('products', Action);
 @Component({
   components: {
-    CheckIcon,
-    Toast
+    Toast,
+    Icon
   }
 })
 export default class Cart extends Vue {
@@ -234,6 +234,12 @@ export default class Cart extends Vue {
           });
         });
         tempData = JSON.stringify(arr);
+        localStorage.setItem('tempData', tempData);
+        if (arr.length > 0) {
+          this.$store.commit('index/cartNum', arr.length + '');
+        } else {
+          this.$store.commit('index/cartNum', '');
+        }
       }
     }
     const params = {
@@ -250,7 +256,8 @@ export default class Cart extends Vue {
 </script>
 <style lang="less" scoped>
 .cart {
-  height: 100%;
+  min-height: 5rem;
+  position: relative;
   padding-top: 0.6rem;
   padding-bottom: 1rem;
   overflow: hidden;
@@ -309,9 +316,9 @@ export default class Cart extends Vue {
     height: 0.44rem;
     width: 100%;
     background: #ffffff;
-    position: fixed;
+    position: absolute;
     left: 0;
-    bottom: 0.48rem;
+    bottom: 0;
   }
   .settlement {
     height: 100%;
