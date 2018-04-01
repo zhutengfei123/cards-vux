@@ -183,6 +183,11 @@ export default class Cart extends Vue {
             });
           });
         });
+        if (tempData.length > 0) {
+          this.$store.commit('index/cartNum', tempData.length + '');
+        } else {
+          this.$store.commit('index/cartNum', '');
+        }
         localStorage.setItem('tempData', JSON.stringify(tempData));
         this.computedPrice();
         this.initial();

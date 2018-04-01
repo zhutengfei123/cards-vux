@@ -221,7 +221,6 @@ export default class Cart extends Vue {
       }
     }
     handleClick (isEdit) {
-      console.log(1);
       let ids = [];
       this.initData.list.forEach(item => {
         item.goods.forEach(subItem => {
@@ -230,7 +229,6 @@ export default class Cart extends Vue {
           }
         });
       });
-
       if (isEdit) {
         if (ids.length > 0) {
           const params = {
@@ -239,6 +237,7 @@ export default class Cart extends Vue {
           this.deleteList(params).then(msg => {
             if (!msg) {
               this.init();
+              this.$bus.emit('addToCart', 'ok');
             } else {
               this.$vux.toast.text(msg, 'middle');
             }
