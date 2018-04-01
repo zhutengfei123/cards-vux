@@ -28,10 +28,13 @@ const actions = {
       return status.msg;
     }
   },
-  async getInfo ({commit, rootState}, params) {
+  async getInfos ({commit, rootState}, params) {
     const {result, status: {code, msg}} = await axios.get('/site/user-info', {'params': params});
+    let list = await axios.get('/site/user-info', {'params': params});
+    console.log(list);
     if (code === '00000') {
       commit('setInfo', result);
+      return list;
     } else {
       return msg;
     }

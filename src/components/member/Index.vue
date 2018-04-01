@@ -5,8 +5,8 @@
        <p v-if="token===''" class="logintxt" :style="{'color':setColor}" @click="toLogin">请登录</p>
        <ul class="merinfo" v-else>
          <li>
-           <label class="lableft labcom">{{userInfo.realname}}</label>
-           <label class="labright labcom">{{userInfo.lever_name}}</label>
+           <label class="lableft labcom">{{userInfo.mobile}}</label>
+           <label class="labright labcom">{{kname}}</label>
          </li>
          <li class="text gray">{{userInfo.company}}</li>
        </ul>
@@ -61,9 +61,10 @@ export default class Member extends Vue {
   @UserState userInfo;
   @UserState isRead;
   @UserAction initGetIsRead;
-  @UserAction getInfo;
+  @UserAction getInfos;
   setColor = localStorage.getItem('setColor')
   exitcss = false
+  kname =''
   handleClickTel () {
     window.location.href = 'wtai://wp//mc;0571-12345678';
   }
@@ -82,10 +83,11 @@ export default class Member extends Vue {
   }
   initial () {
     const params = {};
-    this.getInfo(params).then(msg => {
-      if (msg) {
-        this.$vux.toast.text(msg, 'middle');
+    this.getInfos(params).then(res => {
+      if (res.status === '00000') {
+        this.$vux.toast.text(res.status.msg, 'middle');
       } else {
+        this.kname = res.result.level_name;
         localStorage.setItem('balancePrice', this.userInfo.balance);
         localStorage.setItem('userId', this.userInfo.user_id);
       }
