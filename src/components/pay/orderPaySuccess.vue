@@ -28,6 +28,9 @@ export default class OrderPaySuccess extends Vue {
         path: `/order/detail/${this.orderId}`
       });
     }
+    created () {
+      this.$bus.emit('addToCart', 'ok');
+    }
 }
 </script>
 <style lang="less">
