@@ -4,6 +4,7 @@ import router from './router';
 import Vuex from 'vuex';
 import FastClick from 'fastclick';
 import store from './vuex/store';
+import VueBus from 'vue-bus';
 import { sync } from 'vuex-router-sync';
 import { WechatPlugin, BusPlugin, DevicePlugin, ToastPlugin, ConfigPlugin } from 'vux';
 import './js/rem.js';
@@ -20,6 +21,7 @@ Vue.use(WechatPlugin);
 Vue.use(BusPlugin);
 Vue.use(DevicePlugin);
 Vue.use(ToastPlugin);
+Vue.use(VueBus);
 Vue.use(ConfigPlugin, {
   $layout: 'VIEW_BOX'
 });

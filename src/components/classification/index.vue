@@ -121,6 +121,7 @@ export default class Classification extends Vue {
               this.$vux.toast.text(msg, 'middle');
             } else {
               this.$vux.toast.text('加入购物车成功', 'middle');
+              this.$bus.emit('once');
             }
           });
           this.flag = false;

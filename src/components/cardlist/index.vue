@@ -120,6 +120,7 @@ export default class CardList extends Vue {
             this.$vux.toast.text(msg, 'middle');
           } else {
             this.$vux.toast.text('加入购物车成功', 'middle');
+            this.$bus.emit('once');
           }
         });
         this.flag1 = false;

@@ -83,7 +83,7 @@ export default class App extends Vue {
   handleClickTabs (index) {
     this.isActive = index;
   }
-  created () {
+  handleAddToCart () {
     this.cartNums({}).then(code => {
       if (code === '00000') {
         if (this.cartNum > 99) {
@@ -93,6 +93,9 @@ export default class App extends Vue {
         }
       }
     });
+  }
+  created () {
+    this.$bus.once('once', this.handleAddToCart);
     if (!/share_user_id/.test(location.hash) && /store_id/.test(location.hash)) {
       const storeId = location.hash.split('store_id=')[1];
       localStorage.setItem('store_id', storeId);
