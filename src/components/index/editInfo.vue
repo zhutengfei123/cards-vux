@@ -30,9 +30,11 @@ export default class EditInfo extends Vue {
   @IndexState shareInfo
   shopName = ''
   imagesVal = ''
+  fileHash = ''
   setColor = localStorage.getItem('setColor')
   created () {
     this.imagesVal = this.shareInfo.head_pic;
+    this.fileHash = this.shareInfo.head_pic_hash;
     this.shopName = this.shareInfo.realname;
   }
   handleUpload (e) {
@@ -58,7 +60,7 @@ export default class EditInfo extends Vue {
     } else {
       let params = {
         'realname': this.shopName,
-        'head_pic': this.uploadRes.file_hash
+        'head_pic': this.uploadRes.file_hash || this.fileHash
       };
       this.saveEditInfo(params).then(msg => {
         if (msg) {
