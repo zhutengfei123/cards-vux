@@ -3,7 +3,8 @@ import qs from 'qs';
 const state = {
   token: localStorage.getItem('token') || '',
   isRead: {},
-  userInfo: {}
+  userInfo: {},
+  phone: ''
 };
 const actions = {
   async login ({commit, rootState}, params) {
@@ -54,6 +55,14 @@ const actions = {
       code
     }));
     return status;
+  },
+  async getKPhone ({commit, rootState}, params) {
+    const { result, status: {code, msg} } = await axios.get('site/index', {'params': params});
+    if (code === '00000') {
+      commit('getPhoneV', result.kf_phone);
+    } else {
+      return msg;
+    }
   }
 };
 const mutations = {
@@ -65,6 +74,9 @@ const mutations = {
   },
   getIsRead (state, data) {
     state.isRead = data;
+  },
+  getPhoneV (state, data) {
+    state.phone = data;
   }
 };
 export default {
