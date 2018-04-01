@@ -104,6 +104,10 @@ export default class Classification extends Vue {
         localStorage.setItem('tempData', JSON.stringify(this.tempData));
       }
       this.$vux.toast.text('加入购物车成功', 'middle');
+      let arr = JSON.parse(localStorage.getItem('tempData'));
+      if (arr && arr.length > 0) {
+        this.$store.commit('index/cartNum', arr.length + '');
+      }
     } else {
       if (localStorage.getItem('token') === '') {
         this.$router.push('/login');

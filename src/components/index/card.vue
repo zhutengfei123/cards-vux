@@ -26,13 +26,13 @@ export default class Card extends Vue {
     if (this.showEdit === '1') {
       let bStop = true;
       this.tempData.forEach(project => {
-        if (project.id === item.id) {
+        if (project.id === item.shop_id) {
           bStop = false;
         }
       });
       if (bStop) {
         this.tempData.push({
-          'id': item.id,
+          'id': item.shop_id,
           'num': 1,
           'is_selected': 1
         });

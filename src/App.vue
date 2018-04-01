@@ -4,7 +4,7 @@
        <!-- <x-header slot="header" :title="title" class="header"></x-header> -->
         <router-view></router-view>
         <tabbar :class="{'point':showEdit===''}" slot="bottom" v-show="/main|mine/.test($route.path)">
-            <tabbar-item :badge="item.type===1?badgeNum:''" v-for="(item, index) in tabs" :key="index" @click.native="handleClickTabs(index)" :link="item.link">
+            <tabbar-item :badge="showEdit!==''&&item.type===1?badgeNum:''" v-for="(item, index) in tabs" :key="index" @click.native="handleClickTabs(index)" :link="item.link">
               <span slot="icon" :style="{'color': isActive === index ? setColor :''}"  class="app-icon" v-html="isActive===index?item.icon2:item.icon1"></span>
               <span slot="label" :style="{'color': isActive === index ? setColor :''}" class="tabbar-item">{{item.name}}</span>
             </tabbar-item>
@@ -52,7 +52,7 @@ const IndexAction = namespace('index', Action);
         this.tabs = [
           { name: '首页', icon1: '&#xe65d;', icon2: '&#xe65b;', link: '/mine' },
           { name: '分类', icon1: '&#58965;', icon2: '&#xe659;', link: '/mine/classification' },
-          { name: '意向单', icon1: '&#xe660;', icon2: '&#xe65f;', link: '/mine/intentionList' }
+          { name: '意向单', type: 1, icon1: '&#xe660;', icon2: '&#xe65f;', link: '/mine/intentionList' }
         ];
       }
       if (/main/.test(str)) {
@@ -84,6 +84,15 @@ export default class App extends Vue {
     this.isActive = index;
   }
   created () {
+    this.cartNums({}).then(code => {
+      if (code === '00000') {
+        if (this.cartNum > 99) {
+          this.badgeNum = '99+';
+        } else {
+          this.badgeNum = this.cartNum + '';
+        }
+      }
+    });
     if (!/share_user_id/.test(location.hash) && /store_id/.test(location.hash)) {
       const storeId = location.hash.split('store_id=')[1];
       localStorage.setItem('store_id', storeId);
@@ -102,6 +111,12 @@ export default class App extends Vue {
       this.$router.push({
         path: '/mine'
       });
+      let tempData = JSON.parse(localStorage.getItem('tempData'));
+      if (tempData && tempData.length > 0) {
+        this.$store.commit('index/cartNum', tempData.length + '');
+      } else {
+        this.$store.commit('index/cartNum', '');
+      }
     }
     const params = {
       'store_id': localStorage.getItem('store_id') || ''
@@ -113,15 +128,6 @@ export default class App extends Vue {
         localStorage.setItem('storeName', this.getIndexInfo.store_name);
         localStorage.setItem('bgImgUrl', this.getIndexInfo.store_logo_url);
         document.title = localStorage.getItem('storeName');
-      }
-    });
-    this.cartNums({}).then(code => {
-      if (code === '00000') {
-        if (this.cartNum > 99) {
-          this.badgeNum = '99+';
-        } else {
-          this.badgeNum = this.cartNum + '';
-        }
       }
     });
   }
