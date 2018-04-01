@@ -95,6 +95,7 @@ export default class App extends Vue {
     });
   }
   created () {
+    this.handleAddToCart();
     this.$bus.on('addToCart', this.handleAddToCart);
     if (!/share_user_id/.test(location.hash) && /store_id/.test(location.hash)) {
       const storeId = location.hash.split('store_id=')[1];
