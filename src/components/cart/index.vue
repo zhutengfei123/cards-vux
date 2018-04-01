@@ -10,7 +10,7 @@
             </div>
             <div class="con-mid" v-for="(subItem, i) in item.goods" :key="i">
                 <icon :type="subItem.is_selected===1?'success':'circle'" :style="{'color':setColor}" @click.native="handleSelect(subItem)">{{item.title}}</icon>
-                <span @click="$router.push(`/detail/${subIem.shop_id}`)" class="my-img"><img class="img" :src="subItem.pic" alt=""></span>
+                <span @click="$router.push('/detail/'+ subItem.shop_id )" class="my-img"><img class="img" :src="subItem.pic" alt=""></span>
                 <div class="con-r">
                     <div class="con-mid-t">{{subItem.name}}</div>
                     <div class="con-mid-b">
@@ -221,6 +221,7 @@ export default class Cart extends Vue {
       }
     }
     handleClick (isEdit) {
+      console.log(1);
       let ids = [];
       this.initData.list.forEach(item => {
         item.goods.forEach(subItem => {
