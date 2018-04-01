@@ -49,7 +49,7 @@
           :images="images"
           :show-header="false"
           :readonly="false"
-          upload-url="https://cardmallfrontend.fxqifu.com/site/upload"
+          upload-url="http://cardshopapi.koudaiqifu.cn/site/upload"
           size="small"
           :handleClick="false"
           @preview="previewMethod($event)">
