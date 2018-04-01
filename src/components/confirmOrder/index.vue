@@ -70,7 +70,7 @@ export default class ConfirmOrder extends Vue {
   @ConfirmOderAction confirmOrderInit
   setColor = localStorage.getItem('setColor')
   ids = localStorage.getItem('ids') || ''
-  isCreditEnough = localStorage.getItem('isCreditEnough')
+  isCreditEnough = localStorage.getItem('isCreditEnough') || ''
   exitcss = false
   created () {
     const params = {

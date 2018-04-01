@@ -26,7 +26,7 @@ const state = {
     total_price: ''
   },
   orderId: '',
-  isCreditEnough: localStorage.getItem('isCreditEnough') || '0'
+  isCreditEnough: localStorage.getItem('isCreditEnough') || ''
 };
 const actions = {
   async confirmOrderInit ({commit, rootState}, params) {
