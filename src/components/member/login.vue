@@ -16,7 +16,7 @@
           </flexbox-item>
           <flexbox-item>
               <x-button class="button send-code" @click.native="sendCodeClick" :style="{'background-color':setColor}" v-show="time===0">发送验证码</x-button>
-              <x-button class="button send-code" v-show="time>0">已发送{{time}}s</x-button>
+              <x-button class="button send-code" v-show="time>0"  :style="{'background-color':setColor}" >已发送{{time}}s</x-button>
           </flexbox-item>
         </flexbox>
          <flexbox>
