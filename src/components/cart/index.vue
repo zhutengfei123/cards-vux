@@ -347,7 +347,7 @@ export default class Cart extends Vue {
             height: 0.44rem;
             width: 100%;
             background: #ffffff;
-            position: absolute;
+            position: fixed;
             left: 0;
             bottom: 0.48rem;
         }
