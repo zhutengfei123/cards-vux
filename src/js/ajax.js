@@ -5,7 +5,7 @@ const axios = AjaxPlugin.$http;
 const axiosObejct = axios.create({
   timeout: 30000,
   responseType: 'json',
-  baseURL: 'http://cardshopapi.koudaiqifu.cn'
+  baseURL: 'http://cardshopapi.koudaiqifu.cn' // 前台接口域名正式环境：https://cardmallfrontend.fxqifu.com/ 测试环境 http://cardshopapi.koudaiqifu.cn
 });
 axiosObejct.interceptors.request.use(
   config => {

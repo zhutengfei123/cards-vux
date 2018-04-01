@@ -20,7 +20,7 @@
       <cell title="我的卡券商城" @click.native="handleSetShowEdit" is-link>{{isRead.is_read==='0'?'':'有新的订单'}}</cell>
     </group>
     <group v-once>
-      <cell title="客户服务" @click.native="handleClickTel" is-link>0571-12345678</cell>
+      <cell title="客户服务" @click.native="handleClickTel" is-link>{{phone}}</cell>
       <cell title="帮助中心" is-link link="/help"></cell>
     </group>
     <div class="exit text" @click="exitshow(1)" v-if="token!==''">退出登录</div>  
@@ -65,8 +65,9 @@ export default class Member extends Vue {
   setColor = localStorage.getItem('setColor')
   exitcss = false
   kname =''
+
   handleClickTel () {
-    window.location.href = 'wtai://wp//mc;0571-12345678';
+    window.location.href = 'wtai://wp//mc;';
   }
   handleSetShowEdit () {
     if (this.token === '') {
@@ -97,6 +98,9 @@ export default class Member extends Vue {
         this.$vux.toast.text(msg, 'middle');
       }
     });
+  }
+  mounted () {
+    this.getPhone();
   }
   toLogin () {
     this.$router.push('/login');
