@@ -56,7 +56,6 @@ const UserAction = namespace('user', Action);
     Confirm
   }
 })
-
 export default class Member extends Vue {
   @UserState token;
   @UserState userInfo;
