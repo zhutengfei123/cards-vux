@@ -75,7 +75,10 @@ export default class IntentionSubmit extends Vue {
             this.$vux.toast.text(msg, 'middle');
           } else {
             localStorage.setItem('submitSuccess', '1');
-            this.$bus.emit('once');
+            let arr = JSON.parse(localStorage.getItem('tempData'));
+            if (arr && arr.length > 0) {
+              this.$store.commit('index/cartNum', arr.length + '');
+            }
             this.$router.push('/submitSuccess');
           }
         });

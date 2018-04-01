@@ -21,7 +21,7 @@
               <div class="card-list-title">{{item.name}}</div>
               <div class="card-list-price">尊享价:￥ {{item.price}}</div>
               <div class="card-list-btn">
-                <x-button mini @click.native.stop="handleAddCart(item.shop_id)"  :style="{'background-color':setColor}">加入购物车</x-button>
+                <x-button mini @click.native.stop="handleAddCart(item)"  :style="{'background-color':setColor}">加入购物车</x-button>
               </div>
             </div>
           </div>
@@ -120,7 +120,7 @@ export default class CardList extends Vue {
             this.$vux.toast.text(msg, 'middle');
           } else {
             this.$vux.toast.text('加入购物车成功', 'middle');
-            this.$bus.emit('once');
+            this.$bus.emit('addToCart', 'ok');
           }
         });
         this.flag1 = false;
