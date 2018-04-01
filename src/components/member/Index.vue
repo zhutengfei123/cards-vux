@@ -67,7 +67,7 @@ export default class Member extends Vue {
   kfPhone = localStorage.getItem('kfPhone') || ''
   kname =''
   handleClickTel () {
-    window.location.href = 'wtai://wp//mc;0571-12345678';
+    window.location.href = `wtai://wp//mc;${this.kfPhone}`;
   }
   handleSetShowEdit () {
     if (this.token === '') {

@@ -5,7 +5,7 @@
         <span class="title-bold" :style="{'color':index===isActive ? setColor :''}">{{item.title}}</span>
         <span :class="{'active':index===isActive&&isShowBox}" :style="{'color':index===isActive ? setColor :''}" class="app-icon">&#xe611;</span>
       </tab-item>
-      <div class="drop-down-box" v-show="isShowBox">
+      <div class="drop-down-box" v-show="isShowBox" >
         <div v-if="isActive!==3" class="drop-t">
           <div @click="handleSelectCon(index, item)" :style="{'color':item.checked===1?setColor:''}"  class="con-box" v-for="(item, index) in categoryData[isActive].children" :key="index">{{item.name}}</div>
         </div>
@@ -31,7 +31,7 @@
         <load-more v-show="onFetching" tip="正在加载中"></load-more>
       </div>
     </scroller>
-    <div @click="isShowBox=!isShowBox" v-show="isShowBox" class="msk-box"></div>
+    <div @click="isShowBox=!isShowBox" v-show="isShowBox" class="msk-box" v-tap.prevent="scroll"></div>
   </div>
 </template>
 <script>
