@@ -130,7 +130,7 @@ export default class App extends Vue {
         this.$vux.toast.text(msg, 'middle');
       } else {
         localStorage.setItem('storeName', this.getIndexInfo.store_name);
-        localStorage.setItem('bgImgUrl', this.getIndexInfo.store_logo_url);
+        localStorage.setItem('bgImgUrl', this.getIndexInfo.store_login_logo);
         localStorage.setItem('kfPhone', this.getIndexInfo.kf_phone);
         document.title = localStorage.getItem('storeName');
         this.setColor = this.getIndexInfo.style_color;

@@ -26,7 +26,7 @@
         <div v-show="recommend.is_show==='1'" class="block">
           <p class="recommend-title">{{recommend.block_content.title}}</p>
           <grid :cols="2">
-            <grid-item v-for="(item, index) in recommend.block_content.list" :key="index">
+            <grid-item v-for="(item, index) in recommendList" :key="index">
               <card class="my-card" :item="item" @click.native="$router.push(`/detail/${item.shop_id}`)"></card>
             </grid-item>
           </grid>
@@ -70,6 +70,7 @@ export default class Index extends Vue {
   @IndexState scrollers
   @IndexState page
   @IndexState isEnd
+  @IndexState dataList
   @IndexState getIndexInfo
   @IndexAction init
   @IndexAction loadMore
@@ -79,8 +80,9 @@ export default class Index extends Vue {
   imgWidth= screen.width
   showTip=false
   loading=false
+  recommendList = []
   showEdit = localStorage.getItem('showEdit')
-  setColor = '';
+  setColor = localStorage.getItem('setColor');
 
   handleClickImg (item) {
     if (item.jump_type === '1') {
@@ -91,7 +93,11 @@ export default class Index extends Vue {
       this.$router.push(`/detail/${item.jump_type_value}`);
     }
     if (item.jump_type === '3') {
-      window.location.href = item.jump_type_value;
+      let url = item.jump_type_value;
+      if (!/http/.test(url)) {
+        url = `http://${url}`;
+      }
+      window.location.href = url;
     }
   }
   handleToInfoEdit () {
@@ -103,8 +109,9 @@ export default class Index extends Vue {
   created () {
     document.title = localStorage.getItem('storeName');
     this.init().then(msg => {
-      msg && this.$vux.toast.text(msg);
-      this.setPage(this.page + 1);
+      if (msg) {
+        this.$vux.toast.text(msg, 'middle');
+      }
     }).catch(error => console.log(error));
     if (this.showEdit === '') {
       const params = {
@@ -119,20 +126,6 @@ export default class Index extends Vue {
     }
   }
   mounted () {
-    this.setColor = localStorage.getItem('setColor');
-    let element = document.querySelector('#vux_view_box_body');
-    isBottom(element,
-      () => {
-        !this.isEnd && !this.loading && (() => {
-          this.loading = true;
-          this.loadMore().then(() => {
-            this.loading = false;
-            this.setPage(this.page + 1);
-            element.scrollTop -= (this.$refs.loadMore.$el.getBoundingClientRect().height + 10);
-          }).catch(error => console.log(error));
-        })();
-      }
-    );
     if (this.showEdit === '') {
       const params = {
         'share_url': location.href.split('#')[0]
@@ -176,6 +169,30 @@ export default class Index extends Vue {
           });
         }
       });
+    } else {
+      let element = document.querySelector('#vux_view_box_body');
+      isBottom(element,
+        () => {
+          !this.isEnd && !this.loading && (() => {
+            this.loading = true;
+            this.loadMore().then(msg => {
+              if (msg) {
+                this.$vux.toast.text(msg, 'middle');
+              } else {
+                if (this.dataList.length > 0) {
+                  this.recommendList = this.recommendList.concat(this.dataList);
+                  this.loading = false;
+                  this.setPage(this.page + 1);
+                  element.scrollTop -= (this.$refs.loadMore.$el.getBoundingClientRect().height + 10);
+                } else {
+                  this.loading = false;
+                  this.$vux.toast.text('暂无更多数据', 'middle');
+                }
+              }
+            }).catch(error => console.log(error));
+          })();
+        }
+      );
     }
   }
 }

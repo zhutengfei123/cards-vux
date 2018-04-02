@@ -41,7 +41,8 @@ const state = {
   shareInfo: {},
   WxShare: {},
   getIndexInfo: {},
-  cartNum: ''
+  cartNum: '',
+  dataList: []
 };
 
 const actions = {
@@ -147,7 +148,9 @@ const mutations = {
   },
   pushRecommend (state, data) {
     if (data.length > 0) {
-      state.recommend.list.push(...data);
+      state.dataList = data;
+    } else {
+      state.dataList = [];
     }
   },
   setInit (state, data) {
