@@ -1,16 +1,16 @@
 <template>
   <div class="classification-index1">
-    <tab bar-active-color="transparent" class="tab" ref="topBar">
+    <tab custom-bar-width="50px" default-color="#a6a6a6" :active-color="setColor" bar-active-color="transparent" class="tab" ref="topBar">
       <tab-item :selected="true" @on-item-click="handleClickTab(1)"><span class="title-bold">全部</span></tab-item>
       <tab-item @on-item-click="handleClickTab(2)"><span class="title-bold">销量</span></tab-item>
       <tab-item @on-item-click="handleClickTab(3)">
         <span class="title-bold">价格</span>
         <span class="order-by">
-          <span :class="active?'':'active'" class="app-icon" style="font-size:0.18rem;">&#xe627;</span>
-          <span :class="active?'active':''" class="app-icon" style="font-size:0.14rem;">&#xe611;</span>
+          <span :style="{'color':active?'':setColor}" class="app-icon" style="font-size:0.18rem;">&#xe627;</span>
+          <span :style="{'color':active?setColor:''}" class="app-icon" style="font-size:0.14rem;">&#xe611;</span>
         </span>
       </tab-item>
-      <tab-item @on-item-click="layoutType=!layoutType"><span class="app-icon">{{layoutType?'&#xe62c;':'&#xe7e7;'}}</span></tab-item>
+      <tab-item @on-item-click="layoutType=!layoutType"><span :style="{'color':setColor}" class="app-icon">{{layoutType?'&#xe62c;':'&#xe7e7;'}}</span></tab-item>
     </tab>
     <scroller lock-x @on-scroll-bottom="onScrollBottom" ref="scrollerBottom" :scroll-bottom-offst="200" style="overflow:initial">
       <div>
@@ -19,7 +19,7 @@
             <div @click="$router.push(`/detail/${item.shop_id}`)" class="card-list" v-for="(item, index) in dataList" :key="index">
               <div class="card-list-img"><img :src="item.pic_url" alt=""></div>
               <div class="card-list-title">{{item.name}}</div>
-              <div class="card-list-price">尊享价:￥ {{item.price}}</div>
+              <div class="card-list-price">尊享价:￥{{item.price}}</div>
               <div class="card-list-btn">
                 <x-button mini @click.native.stop="handleAddCart(item)"  :style="{'background-color':setColor}">加入购物车</x-button>
               </div>
@@ -31,7 +31,7 @@
               <div class="card-list1-right">
                 <div class="card-list1-right-top">{{item.name}}</div>
                 <div class="card-list1-right-bot">
-                  <span class="card-list-price">尊享价:￥ {{item.price}}</span>
+                  <span class="card-list-price price-2">尊享价:￥{{item.price}}</span>
                   <span><x-button mini @click.native.stop="handleAddCart(item)"  :style="{'background-color':setColor}">加入购物车</x-button></span>
                 </div>
               </div>
@@ -75,10 +75,10 @@ export default class CardList extends Vue {
   flag = true
   flag1 = true
   dataList = []
+  setColor = localStorage.getItem('setColor')
   tempData = JSON.parse(localStorage.getItem('tempData') || '[]')
   showEdit = localStorage.getItem('showEdit')
   hideBox = false
-  setColor = localStorage.getItem('setColor')
   onScrollBottom () {
     if (!this.onFetching && this.isLoading) {
       this.onFetching = true;
@@ -189,15 +189,11 @@ export default class CardList extends Vue {
 .classification-index1 {
   font-size: 0.14rem;
   width: 100%;
-  .vux-tab-selected .title-bold {
-    color: #B79E74 !important;
-  }
   .weui-btn:after {
     content: initial;
   }
   .title-bold {
     font-weight: bold;
-    color: #a6a6a6;
   }
   .hidebox {
     height: 0.44rem;
@@ -224,9 +220,6 @@ export default class CardList extends Vue {
   .vux-tab {
     z-index: 9999;
   }
-  .active {
-    color: #B79E74 !important;
-  }
   .vux-tab .vux-tab-item {
     display: flex;
     display: flex;
@@ -237,13 +230,13 @@ export default class CardList extends Vue {
     height: 0.3rem;
     margin-left: 0.054rem;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
     flex-direction: column;
     padding-left: 0 !important;
-    display: block;
+    display: flex;
   }
   .order-by span {
-    height: 0.15rem;
+    height: 0.1rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -292,7 +285,6 @@ export default class CardList extends Vue {
   }
   .app-icon {
     font-size: 0.2rem;
-    color: #B79E74;
   }
   .tab{
     position: fixed;
@@ -340,6 +332,11 @@ export default class CardList extends Vue {
     font-size: 0.14rem;
     font-weight: bolder;
     color: #C61A2A;
+  }
+  .price-2 {
+    overflow: hidden;
+    width: 1.16rem;
+    white-space: nowrap;
   }
   .card-list-btn {
     height: 0.5rem;
