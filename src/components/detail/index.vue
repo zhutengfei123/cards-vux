@@ -50,7 +50,6 @@ export default class Detail extends Vue {
   imgWidth = parseInt(screen.width)
   count = 1
   showEdit = localStorage.getItem('showEdit')
-  tempData = JSON.parse(localStorage.getItem('tempData') || '[]')
   created () {
     const params = {
       'store_id': localStorage.getItem('store_id') || '',
@@ -64,24 +63,25 @@ export default class Detail extends Vue {
   }
   addCart () {
     if (this.showEdit === '1') {
+      let tempData = JSON.parse(localStorage.getItem('tempData') || '[]');
       let flag = true;
-      this.tempData.forEach(item => {
+      tempData.forEach(item => {
         if (item.id === this.shopDetails.id) {
           item.num = this.count;
           flag = false;
         }
       });
       if (flag) {
-        this.tempData.push({
+        tempData.push({
           'id': this.shopDetails.id,
           'num': this.count,
           'is_selected': 1
         });
       }
-      if (this.tempData.length > 0) {
-        this.$store.commit('index/getCartNum', this.tempData.length + '');
+      if (tempData.length > 0) {
+        this.$store.commit('index/getCartNum', tempData.length + '');
       }
-      localStorage.setItem('tempData', JSON.stringify(this.tempData));
+      localStorage.setItem('tempData', JSON.stringify(tempData));
       this.$vux.toast.text('加入购物车成功', 'middle');
     } else {
       if (localStorage.getItem('token') === '') {

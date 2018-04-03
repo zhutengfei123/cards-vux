@@ -62,7 +62,6 @@ export default class Classification extends Vue {
   isLoading = true
   onFetching = false
   dataList = []
-  tempData = JSON.parse(localStorage.getItem('tempData') || '[]')
   showEdit = localStorage.getItem('showEdit')
   idList = []
   orderByList = [
@@ -94,19 +93,20 @@ export default class Classification extends Vue {
   }
   handleAddCart (item) {
     if (this.showEdit === '1') {
+      let tempData = JSON.parse(localStorage.getItem('tempData') || '[]');
       let bStop = true;
-      this.tempData.forEach(project => {
+      tempData.forEach(project => {
         if (project.id === item.id) {
           bStop = false;
         }
       });
       if (bStop) {
-        this.tempData.push({
+        tempData.push({
           'id': item.id,
           'num': 1,
           'is_selected': 1
         });
-        localStorage.setItem('tempData', JSON.stringify(this.tempData));
+        localStorage.setItem('tempData', JSON.stringify(tempData));
       }
       this.$vux.toast.text('加入购物车成功', 'middle');
       let arr = JSON.parse(localStorage.getItem('tempData'));

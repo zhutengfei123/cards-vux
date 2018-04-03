@@ -4,7 +4,7 @@
        <!-- <x-header slot="header" :title="title" class="header"></x-header> -->
         <router-view></router-view>
         <tabbar :class="{'point':showEdit===''}" slot="bottom" v-show="/main|mine/.test($route.path)">
-            <tabbar-item :badge="showEdit!==''&&item.type===1?badgeNum:''" v-for="(item, index) in tabs" :key="index" @click.native="handleClickTabs(index)" :link="item.link">
+            <tabbar-item :badge="showEdit!==''&&item.type===1?cartNum:''" v-for="(item, index) in tabs" :key="index" @click.native="handleClickTabs(index)" :link="item.link">
               <span slot="icon" :style="{'color': isActive === index ? setColor :''}"  class="app-icon" v-html="isActive===index?item.icon2:item.icon1"></span>
               <span slot="label" :style="{'color': isActive === index ? setColor :''}" class="tabbar-item">{{item.name}}</span>
             </tabbar-item>
@@ -78,24 +78,19 @@ export default class App extends Vue {
   showEdit = localStorage.getItem('showEdit')
   tabs = [];
   isActive = 0
-  badgeNum = ''
   handleClickTabs (index) {
     this.isActive = index;
   }
   handleAddToCart () {
     this.cartNums({}).then(code => {
       if (code === '00000') {
-        if (this.cartNum > 99) {
-          this.badgeNum = '99+';
-        } else {
-          this.badgeNum = this.cartNum + '';
+        if (parseInt(this.cartNum) > 99) {
+          this.cartNum = '99+';
         }
       }
     });
   }
   created () {
-    this.handleAddToCart();
-    this.$bus.on('addToCart', this.handleAddToCart);
     if (!/share_user_id/.test(location.hash) && /store_id/.test(location.hash)) {
       const storeId = location.hash.split('store_id=')[1];
       localStorage.setItem('store_id', storeId);
@@ -114,6 +109,11 @@ export default class App extends Vue {
       this.$router.push({
         path: '/mine'
       });
+    }
+    if (this.showEdit === '0') {
+      this.handleAddToCart();
+    }
+    if (this.showEdit === '1') {
       let tempData = JSON.parse(localStorage.getItem('tempData'));
       if (tempData && tempData.length > 0) {
         this.$store.commit('index/getCartNum', tempData.length + '');
@@ -121,6 +121,7 @@ export default class App extends Vue {
         this.$store.commit('index/getCartNum', '');
       }
     }
+    this.$bus.on('addToCart', this.handleAddToCart);
     const params = {
       'store_id': localStorage.getItem('store_id') || ''
     };

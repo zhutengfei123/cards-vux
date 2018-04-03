@@ -293,7 +293,6 @@ export default class Cart extends Vue {
     .cart {
         min-height: 5rem;
         padding: 0.6rem 0;
-        overflow: hidden;
         font-size: 0.14rem;
         position: relative;
         .con-mid-t {
@@ -351,7 +350,7 @@ export default class Cart extends Vue {
             background: #ffffff;
             position: absolute;
             left: 0;
-            bottom: 0;
+            bottom: -0.08rem;
         }
         .settlement {
             height: 100%;

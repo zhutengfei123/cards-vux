@@ -21,22 +21,23 @@ export default class Card extends Vue {
   @IndexState setColor
   flag = true
   showEdit = localStorage.getItem('showEdit')
-  tempData = JSON.parse(localStorage.getItem('tempData') || '[]')
   handleAddCart (item) {
     if (this.showEdit === '1') {
+      let tempData = JSON.parse(localStorage.getItem('tempData') || '[]');
       let bStop = true;
-      this.tempData.forEach(project => {
+      tempData.forEach(project => {
         if (project.id === item.shop_id) {
           bStop = false;
         }
       });
       if (bStop) {
-        this.tempData.push({
+        tempData.push({
           'id': item.shop_id,
           'num': 1,
           'is_selected': 1
         });
-        localStorage.setItem('tempData', JSON.stringify(this.tempData));
+        localStorage.setItem('tempData', JSON.stringify(tempData));
+        this.$store.commit('index/getCartNum', tempData.length + '');
       }
       this.$vux.toast.text('加入购物车成功', 'middle');
     } else {

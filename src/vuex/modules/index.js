@@ -101,7 +101,7 @@ const actions = {
   async cartNums ({commit, rootState}, params) {
     const { result, status: {code} } = await axios.get('/cart/count', {'params': params});
     if (code === '00000') {
-      commit('getCartNum', result);
+      commit('getCartNum', result.count + '');
     }
     return code;
   },
@@ -178,7 +178,7 @@ const mutations = {
     state.WxShare = data;
   },
   getCartNum (state, data) {
-    state.cartNum = data.count;
+    state.cartNum = data;
   },
   getImgUrl (state, data) {
     state.bgImgUrl = data;
