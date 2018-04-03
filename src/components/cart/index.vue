@@ -27,8 +27,8 @@
         <div class="cart-foot">
             <icon :type="initData.is_all_selected===1?'success':'circle'" :style="{'color':setColor}" @click.native="handleSelectAll">全选</icon>
             <span>合计：<span class="bottom-l">￥{{initData.goods_total_price}}</span></span>
-            <span v-if="isShowPayBtn" class="settlement" @click="$router.push('/recharge')" :style="{'background-color':setColor}">去充值</span>
-            <span v-else class="settlement" @click="handleClick(!isEdit)" :style="{'background-color':setColor}">{{isEdit?'结算':'删除'}}</span>
+            <span v-show="isShowPayBtn" class="settlement" @click="$router.push('/recharge')" :style="{'background-color':setColor}">去充值</span>
+            <span v-show="!isShowPayBtn" class="settlement" @click="handleClick(!isEdit)" :style="{'background-color':setColor}">{{isEdit?'结算':'删除'}}</span>
         </div>
     </div>
 </template>
@@ -46,6 +46,13 @@ const IndexState = namespace('index', State);
     CheckIcon,
     Toast,
     Icon
+  },
+  watch: {
+    'initData.goods_total_price': function (a, b) {
+      if (parseFloat(a) < parseFloat(this.confirmOrderInitData.balance)) {
+        this.isShowPayBtn = false;
+      }
+    }
   }
 })
 export default class Cart extends Vue {
