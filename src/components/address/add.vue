@@ -13,19 +13,20 @@
 import addressData from '../../js/addressData.json';
 import { Component, Vue } from 'vue-property-decorator';
 import { Group, XInput, Cell, XTextarea, XAddress, XButton, Toast } from 'vux';
-import { Action, namespace } from 'vuex-class';
+import { Action, namespace, State } from 'vuex-class';
 const AddressAction = namespace('address', Action);
+const IndexState = namespace('index', State);
 @Component({
   components: { Group, XInput, Cell, XTextarea, XAddress, XButton, Toast }
 })
 export default class AddAddress extends Vue {
   @AddressAction editAddress
   @AddressAction addAddress
+  @IndexState setColor
   addressDataList = addressData
   addressInfo = {}
   flag = true
   isEditAddress = true
-  setColor = localStorage.getItem('setColor')
   addressForm = {
     'name': '',
     'phone': '',

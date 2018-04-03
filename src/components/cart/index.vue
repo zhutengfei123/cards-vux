@@ -40,6 +40,7 @@ const CartState = namespace('cart', State);
 const CartAction = namespace('cart', Action);
 const ConfirmOderState = namespace('confirmOrder', State);
 const ConfirmOderAction = namespace('confirmOrder', Action);
+const IndexState = namespace('index', State);
 @Component({
   components: {
     CheckIcon,
@@ -56,9 +57,9 @@ export default class Cart extends Vue {
     @ConfirmOderAction confirmOrderInit
     @ConfirmOderAction isConfirmOrder
     @ConfirmOderState confirmOrderInitData
+    @IndexState setColor
     isEdit = true
     isShowPayBtn = false
-    setColor = localStorage.getItem('setColor')
     handleInputChange (num, id) {
       const params = {
         'shop_id': id,

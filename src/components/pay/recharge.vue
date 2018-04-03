@@ -74,6 +74,7 @@ import {State, Action, namespace} from 'vuex-class';
 import { setTimeout, clearTimeout } from 'timers';
 const rechargeState = namespace('recharge', State);
 const rechargeAction = namespace('recharge', Action);
+const IndexState = namespace('user', State);
 @Component({
   components: {
     XButton,
@@ -91,6 +92,7 @@ export default class OrderPaySuccess extends Vue {
   @rechargeAction init
   @rechargeAction initGetAccountInfo
   @rechargeAction initRemit
+  @IndexState setColor
   rechargeVal = '';
   flag = false
   flag1 = false
@@ -101,7 +103,6 @@ export default class OrderPaySuccess extends Vue {
   imgEnLarge = false
   imgUrl = ''
   tabList = [{ title: '在线支付' }, { title: '转账汇款' }];
-  setColor = localStorage.getItem('setColor')
   created () {
     const params = {};
     this.initGetAccountInfo(params).then(msg => {

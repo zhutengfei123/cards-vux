@@ -34,6 +34,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import { State, Action, namespace } from 'vuex-class';
 const AddressState = namespace('address', State);
 const AddressAction = namespace('address', Action);
+const IndexState = namespace('index', State);
 @Component({
   directives: {
     TransferDom
@@ -45,10 +46,10 @@ export default class Address extends Vue {
   @AddressAction remove;
   @AddressAction getData;
   @AddressAction setDefaultAdress;
+  @IndexState setColor
   isShow = false;
   clickId = '';
   flag = true
-  setColor = localStorage.getItem('setColor')
   handleEditAddress (item) {
     localStorage.setItem('addressInfo', JSON.stringify(item));
     this.$router.push('/address/edit');

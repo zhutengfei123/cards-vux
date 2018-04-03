@@ -65,6 +65,7 @@ export default class Index extends Vue {
   @IndexState recommend
   @IndexState shareInfo
   @IndexState WxShare
+  @IndexState setColor
   @UserState userInfo
   @IndexState mainRecommend
   @IndexState scrollers
@@ -83,8 +84,6 @@ export default class Index extends Vue {
   loading=false
   recommendList = []
   showEdit = localStorage.getItem('showEdit')
-  setColor = localStorage.getItem('setColor');
-
   handleClickImg (item) {
     if (item.jump_type === '1') {
       localStorage.setItem('cardId', item.jump_type_value);

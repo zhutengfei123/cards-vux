@@ -17,7 +17,7 @@ const IndexState = namespace('index', State);
 export default class IntentionSubmit extends Vue {
   @ProductsAction submitIntentionList;
   @IndexState shareInfo;
-  setColor = localStorage.getItem('setColor')
+  @IndexState setColor
   list = [
     {
       label: '姓名',

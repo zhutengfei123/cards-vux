@@ -38,6 +38,7 @@ import { State, Action, namespace } from 'vuex-class';
 import Item from './item';
 const OrderAction = namespace('order', Action);
 const OrderState = namespace('order', State);
+const IndexState = namespace('user', State);
 @Component({
   components: {
     Cell,
@@ -51,6 +52,7 @@ const OrderState = namespace('order', State);
 export default class OrderDetail extends Vue {
   @OrderState detailData;
   @OrderAction getDetail;
+  @IndexState setColor
   name = '';
   phone = '';
   address = '';
@@ -63,7 +65,6 @@ export default class OrderDetail extends Vue {
   time = '';
   context = '';
   totalPrice = 0;
-  setColor = localStorage.getItem('setColor')
   preview = [
     {
       label: '下单时间',

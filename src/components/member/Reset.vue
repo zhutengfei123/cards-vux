@@ -1,5 +1,6 @@
 <template>
   <div class="reset">
+      <div class="top-image"><img :src="bgImgUrl" alt=""></div>
       <flexbox class="box">
         <input placeholder="请输入手机号" v-model="phone" type="tel"/>
       </flexbox>
@@ -25,8 +26,9 @@
 <script>
 import { Component, Vue } from 'vue-property-decorator';
 import { Flexbox, FlexboxItem, XButton } from 'vux';
-import { Action, namespace } from 'vuex-class';
+import { Action, namespace, State } from 'vuex-class';
 const UserAction = namespace('user', Action);
+const IndexState = namespace('index', State);
 let timer = null;
 @Component({
   components: { Flexbox, FlexboxItem, XButton },
@@ -40,15 +42,15 @@ let timer = null;
   }
 })
 export default class Reset extends Vue {
+  @UserAction resetPwd;
+  @UserAction sendCode;
+  @IndexState bgImgUrl
+  @IndexState setColor
   password = '';
   phone = '';
   code = '';
   time = 0;
   bStop = false;
-  bgImgUrl = localStorage.getItem('bgImgUrl') || '';
-  @UserAction resetPwd;
-  @UserAction sendCode;
-  setColor = localStorage.getItem('setColor')
   get type () {
     return this.$route.path === '/register/wechat';
   }
@@ -125,6 +127,15 @@ export default class Reset extends Vue {
   display: flex;
   align-items: center;
   flex-direction: column;
+  .top-image {
+    width: 100%;
+    height: 1.25rem;
+  }
+  .top-image img {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
   .weui-btn:after {
     content: initial;
   }

@@ -29,6 +29,7 @@ import { page } from '../../mixin/page';
 const OrderAction = namespace('order', Action);
 const OrderMutation = namespace('order', Mutation);
 const OrderState = namespace('order', State);
+const IndexState = namespace('user', State);
 @Component({
   mixins: [page],
   components: { Tab, TabItem, Cell, Group, Item }
@@ -37,9 +38,9 @@ export default class Order extends Vue {
   @OrderState orders;
   @OrderMutation setOrders;
   @OrderAction getOrders;
+  @IndexState setColor
   orderStatus = 0;
   active = 0;
-  setColor = localStorage.getItem('setColor')
   titleList = [
     {title: '全部', orderStatus: 0},
     {title: '待发货', orderStatus: 1},

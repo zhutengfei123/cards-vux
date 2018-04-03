@@ -20,7 +20,6 @@ const GlobalState = namespace('global', State);
 const UserState = namespace('user', State);
 const IndexState = namespace('index', State);
 const IndexAction = namespace('index', Action);
-
 @Component({
   components: { ViewBox, XHeader, Tabbar, TabbarItem },
   watch: {
@@ -74,10 +73,10 @@ export default class App extends Vue {
   @IndexState cartNum;
   @IndexAction getInitTitleInfo
   @IndexState getIndexInfo;
+  @IndexState setColor;
   @IndexAction cartNums;
   showEdit = localStorage.getItem('showEdit')
   tabs = [];
-  setColor = localStorage.getItem('setColor');
   isActive = 0
   badgeNum = ''
   handleClickTabs (index) {
@@ -130,11 +129,10 @@ export default class App extends Vue {
         this.$vux.toast.text(msg, 'middle');
       } else {
         localStorage.setItem('storeName', this.getIndexInfo.store_name);
-        localStorage.setItem('bgImgUrl', this.getIndexInfo.store_login_logo);
-        localStorage.setItem('kfPhone', this.getIndexInfo.kf_phone);
+        this.$store.commit('index/getImgUrl', this.getIndexInfo.store_login_logo);
+        this.$store.commit('index/getkfPhone', this.getIndexInfo.kf_phone);
+        this.$store.commit('index/getSetColor', this.getIndexInfo.style_color);
         document.title = localStorage.getItem('storeName');
-        this.setColor = this.getIndexInfo.style_color;
-        localStorage.setItem('setColor', this.setColor);
       }
     });
   }

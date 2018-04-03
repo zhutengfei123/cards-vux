@@ -8,19 +8,20 @@
 </template>
 <script>
 import {XButton} from 'vux';
-import {Action, namespace} from 'vuex-class';
+import {Action, namespace, State} from 'vuex-class';
 import { Component, Vue, Prop } from 'vue-property-decorator';
 const CartAction = namespace('cart', Action);
+const IndexState = namespace('index', State);
 @Component({
   components: {XButton}
 })
 export default class Card extends Vue {
   @Prop([Object]) item
   @CartAction addReduce
+  @IndexState setColor
   flag = true
   showEdit = localStorage.getItem('showEdit')
   tempData = JSON.parse(localStorage.getItem('tempData') || '[]')
-  setColor = localStorage.getItem('setColor')
   handleAddCart (item) {
     if (this.showEdit === '1') {
       let bStop = true;

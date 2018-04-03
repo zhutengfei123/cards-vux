@@ -26,6 +26,7 @@ import {State, Action, Mutation, namespace} from 'vuex-class';
 const rechargeState = namespace('recharge', State);
 const rechargeAction = namespace('recharge', Action);
 const rechargeMutation = namespace('recharge', Mutation);
+const IndexState = namespace('user', State);
 @Component({
   components: {
     Group,
@@ -39,8 +40,8 @@ export default class RechargeDetailed extends Vue {
   @rechargeState rechargeRecords
   @rechargeAction getRechargeRecords
   @rechargeMutation initGetRechargeRecords
+  @IndexState setColor
   list = []
-  setColor = localStorage.getItem('setColor')
   isLoading = true
   onFetching = false
   currentPage = 1

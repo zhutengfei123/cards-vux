@@ -51,6 +51,7 @@ import {Component, Vue} from 'vue-property-decorator';
 const ProductsState = namespace('products', State);
 const ProductsAction = namespace('products', Action);
 const CartAction = namespace('cart', Action);
+const IndexState = namespace('index', State);
 @Component({
   components: {
     Tab,
@@ -65,6 +66,7 @@ export default class CardList extends Vue {
   @ProductsState initData1
   @ProductsAction init1
   @CartAction addReduce
+  @IndexState setColor
   layoutType = true
   orderBy = 2
   type = 1
@@ -75,7 +77,6 @@ export default class CardList extends Vue {
   flag = true
   flag1 = true
   dataList = []
-  setColor = localStorage.getItem('setColor')
   tempData = JSON.parse(localStorage.getItem('tempData') || '[]')
   showEdit = localStorage.getItem('showEdit')
   hideBox = false

@@ -46,6 +46,7 @@ import { State, Action, namespace } from 'vuex-class';
 import Avatar from 'vue-avatar';
 const UserState = namespace('user', State);
 const UserAction = namespace('user', Action);
+const IndexState = namespace('index', State);
 @Component({
   components: {
     Cell,
@@ -62,9 +63,9 @@ export default class Member extends Vue {
   @UserState isRead;
   @UserAction initGetIsRead;
   @UserAction getInfos;
-  setColor = localStorage.getItem('setColor')
+  @IndexState kfPhone
+  @IndexState setColor
   exitcss = false
-  kfPhone = localStorage.getItem('kfPhone') || ''
   kname =''
   handleClickTel () {
     window.location.href = `wtai://wp//mc;${this.kfPhone}`;

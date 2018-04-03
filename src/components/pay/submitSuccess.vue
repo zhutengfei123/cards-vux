@@ -12,13 +12,15 @@
 <script>
   import { XButton } from 'vux';
 import { Component, Vue } from 'vue-property-decorator';
+import {State, namespace} from 'vuex-class';
+const IndexState = namespace('user', State);
 @Component({
     components: {
       XButton
     }
   })
   export default class submitSuccess extends Vue {
-    setColor = localStorage.getItem('setColor')
+    @IndexState setColor
     handleBack () {
       this.$router.go(-1);
     }

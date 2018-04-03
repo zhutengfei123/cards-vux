@@ -23,12 +23,14 @@
 <script>
 import { XButton } from 'vux';
 import { Component, Vue } from 'vue-property-decorator';
+import {State, namespace} from 'vuex-class';
+const IndexState = namespace('user', State);
 @Component({
   components: {XButton}
 })
 export default class RechargeDetails extends Vue {
+  @IndexState setColor
   rechargeItem = {}
-  setColor = localStorage.getItem('setColor')
   created () {
     this.rechargeItem = JSON.parse(localStorage.getItem('rechargeItem'));
   }

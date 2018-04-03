@@ -15,6 +15,7 @@ import { XButton } from 'vux';
 import { Component, Vue } from 'vue-property-decorator';
 import {State, namespace} from 'vuex-class';
 const ConfirmOderState = namespace('confirmOrder', State);
+const IndexState = namespace('user', State);
 @Component({
   components: {
     XButton
@@ -22,7 +23,7 @@ const ConfirmOderState = namespace('confirmOrder', State);
 })
 export default class OrderPaySuccess extends Vue {
     @ConfirmOderState orderId
-    setColor = localStorage.getItem('setColor')
+    @IndexState setColor
     handleCheckOrder () {
       this.$router.push({
         path: `/order/detail/${this.orderId}`

@@ -1,9 +1,9 @@
 <template>
   <div class="classification-index">
-    <tab bar-active-color="transparent" class="tab" ref="topBar">
+    <tab bar-active-color="transparent" default-color="#a6a6a6" class="tab" ref="topBar">
       <tab-item  :selected="index===0?true:false" v-for="(item, index) in tabsList" :key="index" @on-item-click="handleClickTabs(index)">
         <span class="title-bold" :style="{'color':index===isActive ? setColor :''}">{{item.title}}</span>
-        <span :class="{'active':index===isActive&&isShowBox}" :style="{'color':index===isActive ? setColor :''}" class="app-icon">&#xe611;</span>
+        <span :class="{'active':index===isActive&&isShowBox}" :style="{'color':index===isActive ? `${setColor} !important` :''}" class="app-icon">&#xe611;</span>
       </tab-item>
       <div class="drop-down-box" v-show="isShowBox">
         <div v-if="isActive!==3" class="drop-t">
@@ -41,6 +41,7 @@ import {Component, Vue} from 'vue-property-decorator';
 const ProductsState = namespace('products', State);
 const ProductsAction = namespace('products', Action);
 const CartAction = namespace('cart', Action);
+const IndexState = namespace('index', State);
 @Component({
   components: {Tab, TabItem, XButton, Toast, Scroller, LoadMore}
 })
@@ -50,6 +51,7 @@ export default class Classification extends Vue {
   @ProductsAction init
   @ProductsAction initCategoryData
   @CartAction addReduce
+  @IndexState setColor
   currentPage = 1
   isShowBox = false
   isActive = 0
@@ -59,7 +61,6 @@ export default class Classification extends Vue {
   flag = true
   isLoading = true
   onFetching = false
-  setColor = localStorage.getItem('setColor') + ' !important'
   dataList = []
   tempData = JSON.parse(localStorage.getItem('tempData') || '[]')
   showEdit = localStorage.getItem('showEdit')
@@ -309,7 +310,6 @@ export default class Classification extends Vue {
     align-items: center;
   }
   .drop-b-r {
-    background: #B79E74;
     color: #ffffff;
   }
   .drop-down-box {
@@ -321,14 +321,7 @@ export default class Classification extends Vue {
     box-sizing: border-box;
     z-index: 992;
   }
-  .vux-tab-selected .title-bold {
-    color: #B79E74 !important;
-  }
-  .vux-tab-selected .app-icon {
-    color: #B79E74 !important;
-  }
   .active {
-    color: #B79E74 !important;
     transform: rotate(180deg) !important;
     -ms-transform:rotate(180deg) !important;
     -webkit-transform:rotate(180deg) !important;
@@ -337,7 +330,6 @@ export default class Classification extends Vue {
   }
   .active1 {
     position: relative;
-    color: #B79E74;
   }
   .app-icon {
     display: inline-block;

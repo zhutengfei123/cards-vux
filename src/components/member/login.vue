@@ -33,8 +33,9 @@
 <script>
 import { Component, Vue } from 'vue-property-decorator';
 import { Flexbox, FlexboxItem, XButton, Toast, Confirm } from 'vux';
-import { Action, namespace } from 'vuex-class';
+import { Action, namespace, State } from 'vuex-class';
 const UserAction = namespace('user', Action);
+const IndexState = namespace('index', State);
 let timer = null;
 @Component({
   components: { Flexbox, FlexboxItem, XButton, Toast, Confirm },
@@ -50,6 +51,8 @@ let timer = null;
 export default class Login extends Vue {
   @UserAction login;
   @UserAction sendCode;
+  @IndexState bgImgUrl
+  @IndexState setColor
   type = false;
   phone = '';
   password = '';
@@ -57,8 +60,6 @@ export default class Login extends Vue {
   time = 0;
   isType = 0;
   bStop = false;
-  bgImgUrl = localStorage.getItem('bgImgUrl') || '';
-  setColor = localStorage.getItem('setColor')
   sendCodeClick () {
     let reg = /^(((1[0-9]{2}))+\d{8})$/;
     if (!reg.test(this.phone)) {

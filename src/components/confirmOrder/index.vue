@@ -56,6 +56,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import {State, Action, namespace} from 'vuex-class';
 const ConfirmOderState = namespace('confirmOrder', State);
 const ConfirmOderAction = namespace('confirmOrder', Action);
+const IndexState = namespace('index', State);
 @Component({
   components: {
     Cell,
@@ -68,7 +69,7 @@ export default class ConfirmOrder extends Vue {
   @ConfirmOderState confirmOrderInitData
   @ConfirmOderAction isConfirmOrder
   @ConfirmOderAction confirmOrderInit
-  setColor = localStorage.getItem('setColor')
+  @IndexState setColor
   ids = localStorage.getItem('ids') || ''
   isCreditEnough = localStorage.getItem('isCreditEnough') || ''
   exitcss = false

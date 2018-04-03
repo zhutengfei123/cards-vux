@@ -28,10 +28,10 @@ export default class EditInfo extends Vue {
   @IndexAction initUploadImg
   @IndexState uploadRes
   @IndexState shareInfo
+  @IndexState setColor
   shopName = ''
   imagesVal = ''
   fileHash = ''
-  setColor = localStorage.getItem('setColor')
   created () {
     this.imagesVal = this.shareInfo.head_pic;
     this.fileHash = this.shareInfo.head_pic_hash;

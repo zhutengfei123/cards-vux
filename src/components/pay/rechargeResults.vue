@@ -15,13 +15,14 @@ import { Component, Vue } from 'vue-property-decorator';
 import {State, Action, namespace} from 'vuex-class';
 const rechargeState = namespace('recharge', State);
 const rechargeAction = namespace('recharge', Action);
+const IndexState = namespace('user', State);
 @Component({
   components: {XButton, Toast}
 })
 export default class OrderPayFail extends Vue {
     @rechargeState payResults
     @rechargeAction initGetPayResults
-    setColor = localStorage.getItem('setColor')
+    @IndexState setColor
     created () {
       let orderId = location.hash.split('order_sn=')[1] || '';
       const params = {

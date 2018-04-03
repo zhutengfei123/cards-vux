@@ -30,8 +30,9 @@
 <script>
 import { Component, Vue } from 'vue-property-decorator';
 import { Flexbox, FlexboxItem, XButton } from 'vux';
-import { Action, namespace } from 'vuex-class';
+import { Action, namespace, State } from 'vuex-class';
 const UserAction = namespace('user', Action);
+const IndexState = namespace('user', State);
 let timer = null;
 @Component({
   components: { Flexbox, FlexboxItem, XButton },
@@ -45,16 +46,16 @@ let timer = null;
   }
 })
 export default class Register extends Vue {
+  @UserAction register;
+  @UserAction sendCode;
+  @IndexState bgImgUrl
+  @IndexState setColor
   company = '';
   password = '';
   phone = '';
   code = '';
   time = 0;
   bStop = false;
-  bgImgUrl = localStorage.getItem('bgImgUrl') || '';
-  @UserAction register;
-  @UserAction sendCode;
-  setColor = localStorage.getItem('setColor')
   get type () {
     return this.$route.path === '/register/wechat';
   }
@@ -86,7 +87,6 @@ export default class Register extends Vue {
     }
   }
   signUp () {
-    console.log(1);
     let flag = true;
     let reg = /^(((1[0-9]{2}))+\d{8})$/;
     if (this.company === '') {

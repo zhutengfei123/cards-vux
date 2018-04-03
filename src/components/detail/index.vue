@@ -38,6 +38,7 @@ import { Component, Vue } from 'vue-property-decorator';
 const ProductsState = namespace('products', State);
 const ProductsAction = namespace('products', Action);
 const CartAction = namespace('cart', Action);
+const IndexState = namespace('index', State);
 @Component({
   components: { Group, InlineXNumber, XButton, Cell }
 })
@@ -45,11 +46,11 @@ export default class Detail extends Vue {
   @CartAction addReduce
   @ProductsState shopDetails
   @ProductsAction initGetShopDetails
+  @IndexState setColor
   imgWidth = parseInt(screen.width)
   count = 1
   showEdit = localStorage.getItem('showEdit')
   tempData = JSON.parse(localStorage.getItem('tempData') || '[]')
-  setColor = localStorage.getItem('setColor')
   created () {
     const params = {
       'store_id': localStorage.getItem('store_id') || '',

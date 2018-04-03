@@ -31,7 +31,7 @@ import { Flexbox, FlexboxItem, XButton, Cell, Group, Toast } from 'vux';
 import { State, Action, namespace } from 'vuex-class';
 const BalanceState = namespace('balance', State);
 const BalanceAction = namespace('balance', Action);
-
+const IndexState = namespace('user', State);
 @Component({
   components: { Flexbox, FlexboxItem, XButton, Cell, Group, Toast }
 })
@@ -40,8 +40,8 @@ export default class Money extends Vue {
   @BalanceState userInfo;
   @BalanceAction getRecords;
   @BalanceAction getInfo;
+  @IndexState setColor
   currentPage = 1;
-  setColor = localStorage.getItem('setColor')
   params = {};
   balancePrice = localStorage.getItem('balancePrice') || '0.00';
   created () {

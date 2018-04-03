@@ -15,6 +15,8 @@
 <script>
 import { Component, Vue, Prop, Model } from 'vue-property-decorator';
 import { Flexbox } from 'vux';
+import {State, namespace} from 'vuex-class';
+const IndexState = namespace('index', State);
 @Component({
   components: {Flexbox}
 })
@@ -23,9 +25,8 @@ export default class LInput extends Vue {
     @Prop([String]) label
     @Prop([String]) placeholder
     @Prop({ type: String, default: 'text' }) type
-    setColor = localStorage.getItem('setColor')
     @Model('input') value
-
+    @IndexState setColor
     updateValue () {
       this.$emit('input', event.currentTarget.value);
     }

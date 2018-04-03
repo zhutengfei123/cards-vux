@@ -37,6 +37,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import { State, namespace, Action } from 'vuex-class';
 const ProductsState = namespace('products', State);
 const ProductsAction = namespace('products', Action);
+const IndexState = namespace('index', State);
 @Component({
   components: {
     Toast,
@@ -46,10 +47,10 @@ const ProductsAction = namespace('products', Action);
 export default class Cart extends Vue {
   @ProductsState intentionList;
   @ProductsAction initGetIntentionList;
+  @IndexState setColor
   isEdit = true;
   initFlag = true
   myTempData = []
-  setColor = localStorage.getItem('setColor')
   computedPrice () {
     let totalPrice = 0;
     this.intentionList.list.forEach(item => {
