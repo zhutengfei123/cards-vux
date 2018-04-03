@@ -31,7 +31,7 @@
             </grid-item>
           </grid>
         </div>
-        <load-more tip="正在加载" v-show="loading&&showEdit!==''" ref="loadMore"></load-more>
+        <load-more tip="正在加载" v-show="loading" ref="loadMore"></load-more>
         <div v-transfer-dom>
           <x-dialog :dialog-style="{width:'2.56rem',height:'2.08rem',background:'transparent'}" v-model="showTip" hide-on-blur>
             <img src="../../assets/share.png" style="width:100%;height:100%;"/>
@@ -169,33 +169,32 @@ export default class Index extends Vue {
           });
         }
       });
-    } else {
-      this.setIsEnd(false);
-      this.setPage(1);
-      let element = document.querySelector('#vux_view_box_body');
-      isBottom(element,
-        () => {
-          !this.isEnd && !this.loading && (() => {
-            this.loading = true;
-            this.loadMore().then(msg => {
-              if (msg) {
-                this.$vux.toast.text(msg, 'middle');
-              } else {
-                if (this.dataList.length > 0) {
-                  this.recommendList = this.recommendList.concat(this.dataList);
-                  this.loading = false;
-                  this.setPage(this.page + 1);
-                  element.scrollTop -= (this.$refs.loadMore.$el.getBoundingClientRect().height + 10);
-                } else {
-                  this.loading = false;
-                  this.$vux.toast.text('暂无更多数据', 'middle');
-                }
-              }
-            }).catch(error => console.log(error));
-          })();
-        }
-      );
     }
+    this.setIsEnd(false);
+    this.setPage(1);
+    let element = document.querySelector('#vux_view_box_body');
+    isBottom(element,
+      () => {
+        !this.isEnd && !this.loading && (() => {
+          this.loading = true;
+          this.loadMore().then(msg => {
+            if (msg) {
+              this.$vux.toast.text(msg, 'middle');
+            } else {
+              if (this.dataList.length > 0) {
+                this.recommendList = this.recommendList.concat(this.dataList);
+                this.loading = false;
+                this.setPage(this.page + 1);
+                element.scrollTop -= (this.$refs.loadMore.$el.getBoundingClientRect().height + 10);
+              } else {
+                this.loading = false;
+                this.$vux.toast.text('暂无更多数据', 'middle');
+              }
+            }
+          }).catch(error => console.log(error));
+        })();
+      }
+    );
   }
 }
 </script>
