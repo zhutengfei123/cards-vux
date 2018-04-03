@@ -116,9 +116,9 @@ export default class App extends Vue {
       });
       let tempData = JSON.parse(localStorage.getItem('tempData'));
       if (tempData && tempData.length > 0) {
-        this.$store.commit('index/cartNum', tempData.length + '');
+        this.$store.commit('index/getCartNum', tempData.length + '');
       } else {
-        this.$store.commit('index/cartNum', '');
+        this.$store.commit('index/getCartNum', '');
       }
     }
     const params = {

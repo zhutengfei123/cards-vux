@@ -109,7 +109,7 @@ export default class CardList extends Vue {
       this.$vux.toast.text('加入购物车成功', 'middle');
       let arr = JSON.parse(localStorage.getItem('tempData'));
       if (arr && arr.length > 0) {
-        this.$store.commit('index/cartNum', arr.length + '');
+        this.$store.commit('index/getCartNum', arr.length + '');
       }
     } else {
       if (this.flag1) {

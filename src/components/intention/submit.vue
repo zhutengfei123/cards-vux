@@ -77,7 +77,7 @@ export default class IntentionSubmit extends Vue {
             localStorage.setItem('submitSuccess', '1');
             let arr = JSON.parse(localStorage.getItem('tempData'));
             if (arr && arr.length > 0) {
-              this.$store.commit('index/cartNum', arr.length + '');
+              this.$store.commit('index/getCartNum', arr.length + '');
             }
             this.$router.push('/submitSuccess');
           }

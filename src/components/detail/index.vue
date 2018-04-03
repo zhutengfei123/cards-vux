@@ -79,7 +79,7 @@ export default class Detail extends Vue {
         });
       }
       if (this.tempData.length > 0) {
-        this.$store.commit('index/cartNum', this.tempData.length + '');
+        this.$store.commit('index/getCartNum', this.tempData.length + '');
       }
       localStorage.setItem('tempData', JSON.stringify(this.tempData));
       this.$vux.toast.text('加入购物车成功', 'middle');

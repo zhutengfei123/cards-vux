@@ -185,9 +185,9 @@ export default class Cart extends Vue {
           });
         });
         if (tempData.length > 0) {
-          this.$store.commit('index/cartNum', tempData.length + '');
+          this.$store.commit('index/getCartNum', tempData.length + '');
         } else {
-          this.$store.commit('index/cartNum', '');
+          this.$store.commit('index/getCartNum', '');
         }
         localStorage.setItem('tempData', JSON.stringify(tempData));
         this.computedPrice();
@@ -242,9 +242,9 @@ export default class Cart extends Vue {
         tempData = JSON.stringify(arr);
         localStorage.setItem('tempData', tempData);
         if (arr.length > 0) {
-          this.$store.commit('index/cartNum', arr.length + '');
+          this.$store.commit('index/getCartNum', arr.length + '');
         } else {
-          this.$store.commit('index/cartNum', '');
+          this.$store.commit('index/getCartNum', '');
         }
       }
     }
