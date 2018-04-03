@@ -77,6 +77,7 @@ export default class Index extends Vue {
   @IndexAction initGetShareInfo
   @IndexAction initWxshare
   @IndexMutation setPage
+  @IndexMutation setIsEnd
   imgWidth= screen.width
   showTip=false
   loading=false
@@ -170,6 +171,8 @@ export default class Index extends Vue {
         }
       });
     } else {
+      this.setIsEnd(false);
+      this.setPage(1);
       let element = document.querySelector('#vux_view_box_body');
       isBottom(element,
         () => {
